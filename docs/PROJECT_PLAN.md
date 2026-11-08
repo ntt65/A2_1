@@ -9,7 +9,7 @@
 
 | 단계 | 이슈 | 산출물 | 선행 단계 | 현재 상태 |
 |---|---|---|---|---|
-| 0 환경·운영 준비 | [#3](https://github.com/ntt65/A2_1/issues/3) | 환경, AGENTS, 계획, 템플릿, CI | 없음 | 로컬 검증 완료, PR 준비 |
+| 0 환경·운영 준비 | [#3](https://github.com/ntt65/A2_1/issues/3) | 환경, AGENTS, 계획, 템플릿, CI | 없음 | 로컬 검증 완료, [PR #11](https://github.com/ntt65/A2_1/pull/11) 검토 대기 |
 | 1 공통 기반 | [#4](https://github.com/ntt65/A2_1/issues/4) | utils, cache, registry | 0 | 계획됨 |
 | 2 선형대수 | [#5](https://github.com/ntt65/A2_1/issues/5) | linear_algebra.py, 검증, PNG | 1 | 계획됨 |
 | 3 미적분 | [#6](https://github.com/ntt65/A2_1/issues/6) | calculus.py, 검증, PNG | 2 | 계획됨 |
@@ -77,8 +77,8 @@ A2_1/
 - [x] 가상환경 설치 및 의존성 고정
 - [x] 환경 테스트·노트북 도구·PNG 렌더링·pip check 실행
 - [x] 검토에서 발견한 문제 보완 및 재검증
-- [ ] commit/push 및 환경 PR 생성
-- [ ] 이슈에 결과·실패/보완·커밋·PR 기록
+- [x] 커밋·원격 브랜치 게시 및 환경 PR #11 생성(로컬 Git 인증 입력 대기로 연결된 GitHub 앱 사용)
+- [x] 이슈에 결과·실패/보완·커밋·PR 기록
 - [ ] 사용자 검토 및 병합
 
 ## 전체 완료 체크리스트

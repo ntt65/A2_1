@@ -3,6 +3,7 @@
 작업일: 2026-11-08 (Asia/Seoul).
 전체 계획: [#2](https://github.com/ntt65/A2_1/issues/2). 현재 작업: [#3](https://github.com/ntt65/A2_1/issues/3).
 브랜치: `codex/3-project-foundation`.
+검토 요청: [PR #11](https://github.com/ntt65/A2_1/pull/11). 사용자 검토·병합 대기.
 
 ## 기초계획
 
@@ -39,7 +40,7 @@
 | 노트북 도구 | nbformat 5.10.4, nbclient 0.10.2, ipykernel 6.29.5 |
 | 의존성 일관성 | pip check 통과, 잠금 파일 기준 --no-index 재설치 확인 |
 | 문서 링크·변경 내용 검토 | 문서 7개, 로컬 링크 20개 유효; 독립 운영 규칙 검토 및 보완 완료 |
-| 원격 CI | PR push 후 확인 예정 |
+| 원격 CI | 최초 게시 커밋의 Windows/Linux 검사 모두 통과([실행 기록](https://github.com/ntt65/A2_1/actions/runs/42430541456)); 최종 커밋 상태는 이슈 #3과 PR #11의 Checks에 기록 |
 
 실행 명령:
 
@@ -56,6 +57,20 @@ git diff --check
 - 동일 이슈 재개 시 기존 브랜치·PR을 재사용하도록 규칙과 프롬프트를 보완했다.
 - 원문의 수학적 충돌은 `docs/DECISIONS.md`에 D07~D13으로 설명했다.
 - 첫 노트북 검사는 제한된 실행 환경에서 커널 시작이 지연되어 중단했다. 승인된 일반 실행 환경에서 같은 명령을 재실행하여 3개 테스트 모두 통과했다. 테스트를 생략하거나 약화하지 않았다.
+- 새로 추가한 설정 파일의 마지막 빈 줄 7곳을 staged diff 검사에서 발견해 정리하고 재검사했다.
+
+## 커밋·원격 게시·upstream
+
+- 로컬 커밋 `cf988c2`를 만든 뒤 Git push를 시도했으나 인증 입력을 요청하며 지연되었다.
+  비대화형 연결 검사에서 원격 읽기는 성공했고 push는 `unable to get password from user`로 실패했다.
+- 연결된 GitHub 앱의 Git 데이터 API로 같은 파일을 게시했다. 최초 원격 커밋은 `c7bae819d94e074feb61727aba78b08f8430f025`다.
+- 로컬/최초 원격의 tree SHA는 모두 `3a06d34d4389d5d5498b88a5b2ff3ccd0af3812b`로 같았다.
+  원문 Markdown/PDF를 포함해 파일 내용 전체가 일치하며 커밋 메타데이터·이력만 다르다.
+- 원래 로컬 작업 이력은 `codex/3-project-foundation-local-preserved`에 보존했다. 사용자의 `main`과 원문 커밋 `b1d2a32`도 유지했다.
+- 현재 작업 브랜치를 원격에서 다시 연결하여 upstream을 `origin/codex/3-project-foundation`으로 설정했다.
+- 이 기록을 반영하는 후속 문서 커밋 역시 GitHub 앱으로 게시하며, 최종 커밋·CI 결과는 이슈 #3에 기록한다.
+- upstream 연결과 Git push 인증은 별개다. 로컬 Git 인증은 이번 작업에서 계정 설정을 변경하지 않았으며, 후속 원격 게시에도 연결된 GitHub 앱을 사용할 수 있다.
+- Git Credential Manager가 이미 시스템/사용자 Git 설정에 등록되어 있음을 확인했다. 따라서 인증 도구 미설치로 단정하지 않으며, 이번 에이전트 실행에서 대화형 인증을 완료하지 못한 것으로 기록한다. 토큰을 채팅이나 프로젝트 파일로 전달받지 않는다. 기존 브라우저 로그인과 운영체제 자격 증명 저장을 사용한다([GitHub 안내](https://docs.github.com/en/get-started/git-basics/caching-your-github-credentials-in-git)).
 
 ## 인덱스와 전달 상태
 
