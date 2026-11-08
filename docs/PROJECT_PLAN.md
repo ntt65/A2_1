@@ -16,7 +16,7 @@
 | 4 최적화 | [#7](https://github.com/ntt65/A2_1/issues/7) | optimizer.py, 검증, PNG | 3 | 구현·125개 검사·CI 완료, [PR #15](https://github.com/ntt65/A2_1/pull/15) 검토 대기 |
 | 5 역전파 | [#8](https://github.com/ntt65/A2_1/issues/8) | backprop_derivation.ipynb | 4 | 구현·128개 검사·CI 완료, [PR #16](https://github.com/ntt65/A2_1/pull/16) 검토 대기 |
 | 6 확률·손실 | [#9](https://github.com/ntt65/A2_1/issues/9) | probability_loss.ipynb | 5 | 구현·129개 검사·CI 완료, [PR #17](https://github.com/ntt65/A2_1/pull/17) 검토 대기 |
-| 7 통합·제출 | [#10](https://github.com/ntt65/A2_1/issues/10) | 전체 검증, 결과, README | 1~6 | 새 환경 129개 검사·전체 산출물 재현 완료, 최종 README 점검 중 |
+| 7 통합·제출 | [#10](https://github.com/ntt65/A2_1/issues/10) | 전체 검증, 결과, README | 1~6 | 새 환경 129개 검사·산출물 재현·README 완료, [PR #18](https://github.com/ntt65/A2_1/pull/18) 검토 대기(최종 CI는 이슈 #10) |
 
 후속 이슈는 미리 발행하되 브랜치는 시작할 때 최신 기준 브랜치에서 만든다. 현재 작업 브랜치는 `codex/10-integration-delivery`이다.
 2026-11-08 사용자 지시에 따라 Step 4~7은 단계별 종료 보고 후 자동으로 다음 이슈를 진행한다. 이슈·브랜치·계획·검증·PR·작업 기록은 계속 단계별로 유지한다.
@@ -96,7 +96,9 @@ A2_1/
 - [x] Step 5 역전파 손계산·NumPy·수치 미분
 - [x] Step 6 분포·MLE·노트북
 - [x] Step 7 새 환경 전체 검사·산출물 재생성
-- [ ] Step 7 최종 README·PR·CI·기록
+- [x] Step 7 최종 README·PR #18 게시
+
+Step 7 최종 커밋의 CI·종료 기록은 이 문서의 커밋 이후에 확정되므로 [이슈 #10](https://github.com/ntt65/A2_1/issues/10)에서 최신 결과를 확인한다.
 
 ## 검토·병합 체크리스트
 
@@ -186,5 +188,6 @@ A2_1/
 - [x] 미션 필수항목·수학 조건·정책·원문 보존 감사
 - [x] 최종 문서 링크 감사(20개 문서의 130개 로컬 참조)
 - [x] README 실제 명령·콘솔·결과표·그림·제출 URL 완성
-- [ ] 최종 커밋·원격 게시·PR·CI·이슈 기록·단계 보고
+- [x] 최종 문서·원격 게시·PR #18
+- 최종 커밋 CI·이슈 기록·단계 보고의 실시간 결과: [이슈 #10](https://github.com/ntt65/A2_1/issues/10)
 - [ ] 사용자 검토·병합

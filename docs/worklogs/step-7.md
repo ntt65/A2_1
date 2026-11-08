@@ -73,6 +73,6 @@ Executed probability_loss.ipynb: 9 code cells passed; source unchanged
 
 ## 전달 상태
 
-최종 PR·커밋·원격 CI·문서 링크 검사 결과는 이슈 #10과 전체 추적 #2에 누적 기록한다.
+[최종 PR #18](https://github.com/ntt65/A2_1/pull/18)을 게시했다. 최종 커밋의 원격 CI·로컬 동기화·종료 보고는 이슈 #10과 전체 추적 #2에서 확인한다. 이 문서 자체의 커밋 이후에 실행되는 검사이므로 최종 결과를 이슈에 누적한다.
 구현 결과 전체는 [최종 누적 브랜치](https://github.com/ntt65/A2_1/tree/codex/10-integration-delivery)에 있다.
 기존 초안 PR #1은 닫힌 미병합 상태이며, 단계별 검증 PR로 대체했다. PR #11부터 순서대로 검토·병합해야 기본 브랜치에 전체 결과가 반영된다.

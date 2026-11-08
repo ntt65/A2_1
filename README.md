@@ -4,7 +4,7 @@
 
 **제출할 누적 구현:** [codex/10-integration-delivery 브랜치](https://github.com/ntt65/A2_1/tree/codex/10-integration-delivery). 단계별 변경은 아직 `main`에 병합되지 않았으므로 평가·재현 시 이 브랜치를 사용합니다. 구현 완료와 PR 검토·병합 상태를 구분합니다.
 
-**최종 검증 상태:** 2026-11-08 새 Python 3.11.4 가상환경에서 잠금 의존성 설치, `pip check`, 전체 **129개 테스트(20.417초)**, 레지스트리 검사를 통과했습니다. 세 실험과 두 노트북을 재실행해 생성한 **PNG 10개·JSON 5개는 제출 산출물과 바이트 단위로 일치**했고 노트북 원본은 변경되지 않았습니다. 최종 PR 게시·검토는 남아 있습니다. 명령·환경·감사 결과는 [최종 재현 기록](docs/worklogs/step-7.md)에 있습니다.
+**최종 검증 상태:** 2026-11-08 새 Python 3.11.4 가상환경에서 잠금 의존성 설치, `pip check`, 전체 **129개 테스트(20.417초)**, 레지스트리 검사를 통과했습니다. 세 실험과 두 노트북을 재실행해 생성한 **PNG 10개·JSON 5개는 제출 산출물과 바이트 단위로 일치**했고 노트북 원본은 변경되지 않았습니다. [최종 PR #18](https://github.com/ntt65/A2_1/pull/18)을 게시했으며 검토·병합은 대기 중입니다. 최신 원격 검사 결과는 [이슈 #10](https://github.com/ntt65/A2_1/issues/10)에 기록합니다. 명령·환경·감사 결과는 [최종 재현 기록](docs/worklogs/step-7.md)에 있습니다.
 
 ## 1. 설치와 재현
 
@@ -163,6 +163,6 @@ Registry check passed.
 | 4 최적화 | [#7](https://github.com/ntt65/A2_1/issues/7) | [#15](https://github.com/ntt65/A2_1/pull/15) | [Step 4](docs/worklogs/step-4.md) |
 | 5 역전파 | [#8](https://github.com/ntt65/A2_1/issues/8) | [#16](https://github.com/ntt65/A2_1/pull/16) | [Step 5](docs/worklogs/step-5.md) |
 | 6 확률·손실 | [#9](https://github.com/ntt65/A2_1/issues/9) | [#17](https://github.com/ntt65/A2_1/pull/17) | [Step 6](docs/worklogs/step-6.md) |
-| 7 통합·최종 제출 | [#10](https://github.com/ntt65/A2_1/issues/10) | 최종 검증 후 게시 예정 | [Step 7](docs/worklogs/step-7.md) |
+| 7 통합·최종 제출 | [#10](https://github.com/ntt65/A2_1/issues/10) | [#18](https://github.com/ntt65/A2_1/pull/18) | [Step 7](docs/worklogs/step-7.md) |
 
 [전체 추적 이슈 #2](https://github.com/ntt65/A2_1/issues/2) · [전체 계획·체크리스트](docs/PROJECT_PLAN.md) · [수용 기준](docs/ACCEPTANCE.md) · [결정 기록](docs/DECISIONS.md) · [운영 규칙](AGENTS.md) · [원문 PDF](docs/A2_1_mission.pdf)
