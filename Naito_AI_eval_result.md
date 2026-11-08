@@ -1,9 +1,239 @@
-# Naito_AI 사전평가 결과와 보완 계획
+# Naito_AI 사전평가 결과와 하락 원인 분석
 
-평가 원문은 사용자가 제공한 내용이다. 아래 원문은 오류로 의심되는 표현도 그대로 보존한다. 이 문서의 분석·보완 기록은 원문과 구분한다.
-작업 추적: [평가 보완 1 — 이슈 #23](https://github.com/ntt65/A2_1/issues/23).
+**최신 외부 평가: 2026-11-08 12:58:12(KST), 60%(9/15).** 이전 11:52:57의 93%(14/15)와 구분한다. 두 원문을 이 문서 하단에 그대로 보존한다. [작업 이슈 #29](https://github.com/ntt65/A2_1/issues/29), [15항목 실행 증거 요약](MISSION_EVIDENCE.md), [검증 기록](docs/worklogs/issue-29.md).
 
-## 사용자 제공 평가 원문
+## 왜 PASS가 FAIL로 바뀌었는가
+
+**직접적인 점수 하락 이유는 기존 PASS 6개를 이번에 ‘제출 증거 없음’으로 판정했기 때문이다.** 수치 오답·실행 예외·알고리즘 퇴행을 근거로 실패시킨 내용은 이 6개 지적에 없다. 기존 FAIL #3은 새 eig 비교 증거가 인정되어 PASS가 됐다. 따라서 14−6+1=9개 통과이며, 통과 수가 5개 줄었다. 표시 점수는 93→60으로 33%p 하락했고, 정확한 비율 차이는 5/15=33.333…%p다.
+
+**지적된 핵심 노트북·그림·측정값은 이전 main에도 있었고 현재 main에도 있다.** 두 노트북과 관련 기존 PNG·역전파/최적화/확률 JSON의 Git blob이 이전 main 3f03488과 감사 기준 main d43b076에서 동일하다. 선형대수 JSON은 eig 결과가 추가됐지만 SVD/변환 측정값은 동일하다. 현재 원격 main의 Git tree에서도 해당 파일을 확인했다. 따라서 해당 파일의 삭제나 변경으로 이번 ‘없음’ 판정이 발생했다는 설명은 확인 사실과 맞지 않는다.
+
+다만 **GitHub에 파일이 있다는 사실과 평가기가 그 파일을 입력으로 받았다는 사실은 다르다.** 평가 대상 SHA·수집 파일 목록·추출 오류는 제공받지 못했다. 기존 PASS 역시 평가기가 당시 모든 증거를 정확히 읽었다는 보장은 없다. 원인 후보는 아래처럼 구분하며 ‘평가기 버그 확정’, ‘구현이 모두 외부 평가를 통과함’으로 결론 내리지 않는다.
+
+## 항목별 판정 변화와 실물 대조
+
+| 항목 | 11:52 → 12:58 | 이번 판정의 이유 또는 유지 근거 | 현재 main에서 확인한 증거 |
+|---|---|---|---|
+| #1 변환 | PASS → PASS | 변환 함수 인정, 저장 그림은 못 봄 | outputs/linear_transforms.png 존재 |
+| #2 행렬식·면적 | PASS → PASS | 비교 구현 인정 | JSON의 회전·스케일·전단·반사·특이 사례 존재 |
+| #3 Power Iteration | FAIL → PASS | 새 eig 비교 JSON 직접 인용 | λ=4.618033988749896, 상대오차1.923282552410481e-16 |
+| #4 SVD | **PASS → FAIL** | k=10/50/100 실행 결과·이미지 없음 | outputs/svd_128.png와 k별 상대오차 .12751847/.05938687/.01218301 존재 |
+| #5 수치 미분 | PASS → PASS | 중심차분 구현 인정 | 고정 h=1e-5의 오차3.930633596382904e-11 존재 |
+| #6 Gradient | PASS → PASS | quiver 인정, 저장 그림은 못 봄 | outputs/gradient_geometry.png 존재 |
+| #7 역전파 유도* | **PASS → FAIL** | 노트북/손계산 예제 없음 | notebooks/backprop_derivation.ipynb, 실행 코드8셀과 단계별 유도 존재 |
+| #8 손계산 비교 | **PASS → FAIL** | NumPy와 네 자리 비교 증거 없음 | 저장 출력13항목 비교, JSON four_decimal_match=true, 최대오차2.220446049250313e-16 |
+| #9 GD 수렴 | PASS → PASS | 최종 norm 인용 | 최종반경1.4404019523870759e-9, 원문 .1 기준 충족 |
+| #10 학습률 | **PASS → FAIL** | 실행 수렴/발산 그래프 없음 | outputs/optimizer_learning_rates.png와 lr=.5/1/1.1 최종반경0/7.0711/271.0878 존재 |
+| #11 Momentum | PASS → PASS | JSON 인정, 비교 그림은 못 봄 | outputs/optimizer_circle.png 존재 |
+| #12 타원형 | PASS → PASS | JSON 인정, 경로 그림은 못 봄 | outputs/optimizer_ellipse.png 존재 |
+| #13 분포 | **PASS → FAIL** | 정규·Bernoulli 노트북/그림 없음 | notebooks/probability_loss.ipynb, 실행 코드9셀과 PNG2개 존재 |
+| #14 Softmax | PASS → PASS | 구현 인정, 수치 검증은 못 봄 | 확률 JSON의 row/column 합오차1.1102230246251565e-16 존재 |
+| #15 MLE | **PASS → FAIL** | MSE/CE↔MLE 유도 없음 | 확률 노트북의 Gaussian/Bernoulli/categorical 유도 셀과 docs/MATH_DERIVATIONS.md 존재 |
+
+* 새 원문은 해당 항목을 실제로 ‘평가 항목 #’라고만 적었다. 위치·내용상 #7로 대응했으며 원문 번호를 고치지 않았다. 위 대조는 저장소 감사 결과이며 외부 FAIL을 임의로 PASS로 수정한 표가 아니다.
+
+## 확인 사실과 원인 가설
+
+### 두 평가가 직접 충돌하는 지점
+
+| 항목 | 11:52 평가가 인정한 증거 | 12:58 평가의 주장 | 해석 |
+|---|---|---|---|
+| #4 | linear_algebra_metrics.json의 ‘128x128 supplemental experiment permits required ranks 10,50,100.’를 인용하고 실행·저장을 인정 | 같은 rank의 실행 결과·이미지가 없음 | 같은 SVD 데이터가 유지됐으므로 파일 변경으로 설명되지 않음 |
+| #8 | backprop_metrics.json의 ‘four_decimal_match: true’를 직접 인정 | 네 자리 비교 증거가 없음 | 이전에 인정했던 동일 JSON의 증거를 이번에 놓쳤거나 다르게 처리함 |
+| #13 | probability_metrics.json의 두 그림 파일명과 생성·포함을 인정 | 분포 그림·노트북이 없음 | 실제 PNG·JSON이 동일하므로 증거 인식의 차이를 조사해야 함 |
+| #7·#15 | 유도 과정이 부족하다고 쓰면서 PASS | 유도 과정이 없다는 이유로 FAIL | 처음부터 PASS/FAIL 적용 기준이 일관되지 않았을 가능성. 첫 PASS를 완전한 검증으로 해석할 수 없음 |
+
+따라서 **‘첫 평가보다 구현이 나빠졌다’는 결론은 두 보고서와 Git 비교에서 나오지 않는다.** 보고서가 보여주는 것은 증거 인식 또는 판정 기준의 변화다. 그 변화가 수집 단계에서 생겼는지 모델 판단에서 생겼는지는 별도 확인이 필요하다.
+
+감사 기준은 [main d43b076](https://github.com/ntt65/A2_1/tree/d43b076319ac7fcf1bde5f1fecf48188bd00727a)이다. 이 커밋의 병합 시각은 12:53:54 KST로 새 평가 시각보다 앞선다. 그러나 평가 시작/수집 시점과 대상 SHA는 원문에 없으므로 ‘이 커밋 전체가 평가됐다’고 단정하지 않는다.
+
+| 구분 | 판단 | 근거 및 확인 방법 |
+|---|---|---|
+| 확인됨 | 기존 핵심 제출물이 삭제되거나 퇴행한 것은 아님 | 이전/현재 Git blob 동일, 원격 Git tree 존재 확인 |
+| 확인됨 | 업데이트 일부는 평가 근거에 나타남 | #3이 새 outputs/power_iteration_eig_comparison.json과 실제 고유값을 인용함 |
+| 확인됨 | 지정된 그림 폴더를 준수함 | 미션 원문은 outputs/에 PNG 저장을 명시하며 현재 PNG15개가 존재함 |
+| 확인됨 | 기존 노트북의 그림은 상대경로 연결 방식 | 코드 실행/stream 출력은 저장됐지만 image/png 출력은0개; 확률 그림은 Markdown에서 ../outputs/를 참조함 |
+| 우선 조사 | 파일 수집 범위 또는 노트북·그림 추출 누락 | 코드·일부 JSON은 인용하면서 노트북·PNG를 반복해서 없다고 함. 실제 수집 목록·지원 확장자·추출 오류를 확인해야 함 |
+| 가능성 | 평가 판단의 변동 또는 증거 선택의 비일관성 | 같은 산출물에 대한 PASS/FAIL이 달라짐. 동일한 입력·평가기 설정을 고정한 비교 없이는 변동 원인을 확정할 수 없음 |
+| 미확인 | 일부 파일만 읽음, 길이 제한, 캐시, 브랜치/수집 시점 차이 | 직접 확인할 입력 목록·로그가 없음. 보너스 추가가 분량을 늘렸다는 사실만으로 길이 제한 탓이라고 결론 내리지 않음 |
+| 설명력 낮음 | 완전히 예전 입력만 재사용함 | 새 eig JSON이 인용돼 전부 구버전이라는 설명만으로는 충분하지 않음. 부분 캐시는 미확인 |
+
+기존 README에 파일 링크와 유도가 있었지만 핵심 결과표는 뒤쪽에 분산돼 있었고 그림은 링크로 제공했다. 이는 개선 가능한 전달 구조다. 이전 완료 검증은 코드·산출물의 계산/존재 검증이었으며, 평가기가 읽은 입력의 완전성까지 확인한 것은 아니었다. 저장소 감사만으로 외부 평가 점수나 입력 전달 완료를 보장하지 않는다.
+
+## 대책과 완료 기준
+
+| 우선순위 | 조치 | 상태·완료 기준 |
+|---|---|---|
+| P0 최신 기록 정정 | 이 문서와 README를60%로 갱신,93% 원문·이력 유지 | 이번 문서 작업에 반영. 점수 하락을 숨기거나 자체 검사로 대체하지 않음 |
+| P0 평가 입력 확인 | 제출 URL·main/커밋·평가 실행ID·실제 포함 파일/추출 실패 목록 확보 | 미확인. 사용자 제공 원문에는 해당 정보가 없음. 확보 시 GitHub 실물과1:1 대조 |
+| P1 증거 접근 단순화 | 루트 MISSION_EVIDENCE.md에15항목별 실제값·원본경로·고정커밋·핵심유도·그림 연결, README 앞부분에서 안내 | 이번 문서 작업에 반영. 예전 평가 원문과 제출 증거를 별도 문서로 분리 |
+| P1 누락 파일의 직접 재제출 | 평가 서비스가 파일 선택을 지원한다면 두 노트북·기본 PNG10개·JSON5개·수식 문서·eig 보고서를 실제 포함 목록에서 확인 | 다음 평가 준비 절차. 저장소URL만 제출한다면 수집 범위/지원형식 확인이 우선 |
+| P2 형식 호환 보완 | 상대이미지 참조를 못 읽는 것이 확인되면 실행 결과 image/png를 내장한 제출 노트북 또는 HTML 보조본 생성 | 아직 구현하지 않음. 기존 outputs/PNG는 유지. 내장은 원문 필수가 아닌 조건부 보조책 |
+| P2 재평가 검증 | 입력 SHA·파일 목록을 기록한 동일 제출본으로 재평가하고6개FAIL 각각의 인용 근거 확인 | 미실행. 목표15/15이며 결과를 받기 전에 점수 회복/100%를 주장하지 않음 |
+
+추가 구현이 필요하면 입력 처리 문제를 확인한 뒤 별도 작업으로 진행한다. 파일을 다른 폴더로 옮기거나 기존 알고리즘을 다시 만드는 것은 현재 증거가 지지하는 해결책이 아니다.
+
+## 평가 문구에 맞춰 바꾸면 안 되는 조건
+
+- **그림 폴더:** [미션 원문](A2_1_mission.md)은 outputs/PNG를 지정한다. 현재 저장 방식은 요구에 맞다. 노트북 내장 그림이 없다는 이유로 폴더 규격을 위반했다고 해석하지 않는다.
+- **SVD:** 64×64 입력에 rank100을 강제할 수 없다. 64×64 본 실험과128×128의 k10/50/100 보충 실험을 유지한다([D09](docs/DECISIONS.md#d09--svd-이미지-크기와-rank-충돌을-두-실험으로-해결한다)).
+- **학습률:** 원형 GD는 theta_next=(1−2lr)theta다. lr=.5는 한 번에 수렴, lr=1은 진동, lr>1은 발산한다. ‘lr>=.5 전부 발산’이라는 권고를 그대로 따르지 않는다([D10](docs/DECISIONS.md#d10--원형-함수의-학습률-발산-조건을-정정한다)).
+- **반경·해상도:** 원문의 수렴 반경은.1이다. 평가의 반경1로 느슨하게 바꾸지 않는다. 64px는 SVD 입력 가이드이며 전체 결과 그래프를 읽을 수 없게 축소하지 않는다.
+- **미분 오차:** 고정 h=1e-5 검증과61개 h 탐색은 구분한다. 탐색 전체 최대오차는 약.670929로 모두1e-4 이내라고 주장할 수 없다. 통과한 h 표본은46/61이다.
+
+## 검증 상태
+
+현재 수학 구현은 직전 main CI에서 Ubuntu/Windows 각각186개 검사를 통과했다. 그 기록과 최신 외부60% 판정은 별개다. 이번 변경은 평가·증거·계획 문서이며 알고리즘, 노트북, PNG, JSON, 의존성을 변경하지 않는다. 레지스트리 대상 소스도 변경하지 않는다. 이번 문서 검사·게시·CI·main 반영 결과는 [이슈 #29](https://github.com/ntt65/A2_1/issues/29)와 [작업 기록](docs/worklogs/issue-29.md)에 기록한다.
+
+## 최신 사용자 제공 원문 — 2026-11-08 12:58:12
+
+아래는 사용자 첨부 텍스트다. 번호 누락·영문 표현·수학적으로 부정확한 권고까지 수정하지 않고 보존한다.
+
+```text
+AI 사전평가 결과
+평가 시각: 2026-11-08 12:58:12
+
+60%
+(9 / 15 항목 통과)
+종합 평가
+Codebase implements many numerical algorithms and visualizations (linear transforms, power iteration, SVD utilities, numerical differentiation, optimizers) and provides executed verification for power iteration and optimizer experiments; missing submitted notebooks and explicit artifacts for backprop hand-derivation, SVD k=10/50/100 runs, distribution plots, and MLE derivations.
+
+항목별 평가 (15개)
+PASS
+평가 항목 #1
+근거
+src/linear_algebra.py > "('Rotation: 45 degrees', rotation_matrix(np.pi / 4))"
+잘한 점
+Three-panel transformation_figure includes rotation, scaling, and shear examples.
+부족한 점
+Figure is returned but notebook/image export for submission not shown.
+보완
+Include saved/embedded figures or thumbnails in the notebook for submission.
+PASS
+평가 항목 #2
+근거
+src/linear_algebra.py > "\"determinant\": determinant"
+잘한 점
+determinant_area_check computes independent determinant and area ratio.
+부족한 점
+No explicit additional examples of extreme dynamic-range cases in deliverables.
+보완
+Add a concise notebook cell that prints determinant vs area_ratio for representative transforms.
+PASS
+평가 항목 #3
+근거
+outputs/power_iteration_eig_comparison.json > "eigenvalue": 4.618033988749896
+잘한 점
+Power iteration implemented and numerically compared to numpy.linalg.eig with recorded residuals.
+부족한 점
+Tolerance/seed usage is present but broader matrix-case tests not shown in outputs.
+보완
+Record a short table of tests with different matrices and relative errors in the notebook.
+FAIL
+평가 항목 #4
+잘한 점
+The svd_comparison_figure supports arbitrary ranks.
+부족한 점
+SVD comparison runs for k=10,50,100 are not present: executed outputs/images missing.
+보완
+Run svd_comparison_figure for ranks (10,50,100) and include the resulting images or numeric errors in the notebook.
+PASS
+평가 항목 #5
+근거
+src/calculus.py > "\"quadratic_error\": np.abs(quadratic_estimates - 6.0)"
+잘한 점
+derivative_error_study computes central differences and absolute errors against analytic derivatives.
+부족한 점
+No explicit single-line report of max error vs tolerance in submitted outputs.
+보완
+Summarize the max absolute errors and confirm they meet the 1e-4 tolerance in a notebook cell.
+PASS
+평가 항목 #6
+근거
+src/calculus.py > "axes.quiver("
+잘한 점
+gradient_figure overlays contour and normalized gradient/tangent arrows using quiver.
+부족한 점
+Figure is returned but a saved image or notebook display for review is not present in files list.
+보완
+Embed the returned figure in backprop_derivation.ipynb or save a thumbnail within outputs.
+FAIL
+평가 항목 #
+부족한 점
+backprop_derivation.ipynb or an explicit hand-derived backprop worked example is not included in the submission.
+보완
+Add backprop_derivation.ipynb containing the fixed example and step-by-step handwritten derivation (scans or markdown cells).
+FAIL
+평가 항목 #8
+부족한 점
+No artifacts showing numeric hand-calculation compared to NumPy to 4 decimal places are present.
+보완
+Include a reproducible notebook cell that shows hand-derived scalar/vector values and compares them to NumPy to 4 decimal places.
+PASS
+평가 항목 #9
+근거
+outputs/optimizer_metrics.json > "final_norm": 1.4404019523870759e-09
+잘한 점
+Optimizer run for vanilla GD lr=0.1 with 100 steps is recorded and reaches a very small final norm.
+부족한 점
+Radius-1 membership is implied by norms but a one-line boolean check against radius=1 is not explicit.
+보완
+Add an explicit assertion or printed check in the notebook verifying radius<1 by a named variable.
+FAIL
+평가 항목 #10
+잘한 점
+learning_rate_figure implements panels for rates 0.5,1.0,1.1.
+부족한 점
+No executed divergence/convergence graphs for lr>=0.5 are present in submitted outputs.
+보완
+Run learning_rate_figure with recorded runs and include the generated images (or numeric final norms) showing divergence for lr>=0.5.
+PASS
+평가 항목 #11
+근거
+outputs/optimizer_metrics.json > "Momentum": {
+잘한 점
+The outputs include both GD and Momentum experiment records allowing side-by-side comparison.
+부족한 점
+Comparison visuals (figure image files) are not attached; numeric summaries exist but a concise comparative plot may be missing.
+보완
+Embed the optimizer_comparison_figure output or add a summarized plot in the notebook comparing paths/losses.
+PASS
+평가 항목 #12
+근거
+outputs/optimizer_metrics.json > "objective": "ellipse"
+잘한 점
+Elliptic objective (x²+10y²) experiments and trajectories for GD/Momentum are recorded in outputs.
+부족한 점
+Convergence-path figures are provided by functions but exported figure assets for the experiment are not included in the repository outputs list.
+보완
+Include the produced path figure or a compact image (<=64px thumbnail) in the notebook outputs.
+FAIL
+평가 항목 #13
+부족한 점
+No distribution-visualization outputs or notebooks showing two normal PDFs and two Bernoulli PMFs are present.
+보완
+Add probability_loss.ipynb or cells that plot the two normal PDFs and two Bernoulli PMFs and save the images.
+PASS
+평가 항목 #14
+근거
+src/utils/math.py > "return weights / np.sum(weights, axis=axis, keepdims=True)"
+잘한 점
+softmax implementation subtracts max and normalizes by sum, enforcing probability normalization.
+부족한 점
+No explicit numeric unit-test or printed verification that sums equal 1 within 1e-6 appears in outputs.
+보완
+Add a unit test or notebook cell that computes softmax on sample inputs and checks sum-1 within 1e-6.
+FAIL
+평가 항목 #15
+부족한 점
+Derivations linking MSE/CE to MLE (probability_loss.ipynb) are not included in the submitted files.
+보완
+Provide probability_loss.ipynb with stepwise symbolic/markdown derivations for MSE↔MLE and CE↔MLE and minimal numeric checks.
+```
+
+## 이전 사용자 제공 원문 — 2026-11-08 11:52:57
+
+이하93%는 과거 평가 이력이다. 당시 보완은 이슈 #23·#25, 보너스는 #27에서 진행했다. 과거 분석 전체는 [d43b076의 문서](https://github.com/ntt65/A2_1/blob/d43b076319ac7fcf1bde5f1fecf48188bd00727a/Naito_AI_eval_result.md)에 보존돼 있다.
 
 ```text
 AI 사전평가 결과
@@ -162,50 +392,3 @@ Gaussian NLL↔MSE 및 CE↔MLE 관계를 결과와 노트로 해석·검증함.
 보완
 유도 과정(수식 전개)을 담은 노트북이나 텍스트 파일을 명시적으로 첨부하라.
 ```
-
-## 분석과 처리 원칙
-
-기준은 평가 시점의 제출 구현과 [미션 원문](A2_1_mission.md)이다. PASS 항목의 추가 권고와 실제 필수 누락을 구분하고, 사용자 지시에 따라 보너스보다 평가 보완을 먼저 순차 진행한다.
-
-1. **#3은 제출 증거를 보강해야 한다.** 기존 [비교 테스트](tests/test_power_iteration.py)의 `test_mission_matrix_matches_analytic_value_and_eig`에 `np.linalg.eig` 호출이 있었지만, 기본 실험 JSON·콘솔에는 닫힌 해 기준만 기록했다. 따라서 “호출이 전혀 없다”는 판단과 달리 구현은 존재했고, 평가자가 바로 볼 수 있는 실행 결과가 부족했다.
-2. **#7·#15의 수식 유도는 이미 존재한다.** [역전파 노트북](notebooks/backprop_derivation.ipynb)의 `backprop-forward-derivation`, `backprop-chain-rule` 셀과 [확률 노트북](notebooks/probability_loss.ipynb)의 `gaussian-mle-derivation`, `bernoulli-mle-derivation`, `categorical-mle-derivation` 셀에 전개가 있다. 후속 보완은 유도 접근 경로와 일반 텍스트 증거를 강화한다.
-3. **64×64는 SVD 입력 grayscale 이미지 가이드다.** 원문은 모든 Figure의 출력이나 각 그래프 패널을 64픽셀 이하로 제한하지 않는다. 축·수식을 읽을 수 없게 전체 그래프를 축소하지 않는다. 입력 배열 크기, Figure 픽셀 크기, DPI를 구분해 기록한다. rank 100과 입력 크기의 충돌은 [D09](docs/DECISIONS.md#d09--svd-이미지-크기와-rank-충돌을-두-실험으로-해결한다)의 두 실험 방식을 유지한다.
-4. **반경 기준은 0.1이다.** #9의 “반경1” 표현은 원문의 0.1을 대체하지 않는다. #10도 lr=0.5는 즉시 수렴, lr=1은 진동, lr>1은 발산이라는 직접 유도를 유지한다.
-5. 동일 초기점의 결정론적 GD를 반복 실행해 평균·분산을 만드는 것은 새로운 정보를 주지 않는다. #11·#12를 보완할 때는 명시한 여러 초기점의 민감도 실험으로 설계하고, 미수렴 표본을 성공으로 간주하거나 임의 반복수로 대체하지 않는다.
-6. 수치 미분의 권장 h는 함수·점·dtype·오차 정의에 종속된다. x²의 중심차분 절단오차는 이론상 0이므로 특정 격자의 우연한 최소오차를 보편적인 최적 h라고 주장하지 않는다.
-
-## 항목별 대책과 우선순위
-
-| 항목 | 기존 상태 대조 | 대책 | 순서/상태 |
-|---|---|---|---|
-| #1 | 변환 Figure는 존재, 64px 전체 출력 제한은 원문에 없음 | 저장 크기·DPI와 입력 이미지 제한의 적용 범위 설명 | 완료: 이슈 #25 |
-| #2 | 면적비·행렬식 비교 및 경계 검증 존재 | 실패를 재현하는 입력·오차·진단 예시를 결과에 연결 | 완료: 이슈 #25 |
-| #3 | eig 비교 테스트 존재, 기본 실행 출력은 닫힌 해만 제시 | 검증 전용 eig 비교를 실행하고 두 고유값·벡터·오차·판정을 JSON/텍스트/README에 공개 | 완료: 이슈 #23 |
-| #4 | 64/128 입력 배열과 rank 비교 존재 | 입력 배열 shape와 실제 저장 패널/캔버스 픽셀·PNG 형식을 구분 | 완료: 이슈 #25 |
-| #5 | 61개 h 오차 배열과 설명 존재 | 해당 함수·점의 경험적 허용 h 구간/최소오차를 한계와 함께 표로 제시 | 완료: 이슈 #25 |
-| #6 | Gradient·접선 Figure 존재 | 권장 inches/DPI 및 실제 PNG 크기 노출 | 완료: 이슈 #25 |
-| #7 | 노트북의 단계별 손계산 유도 존재 | 명시적 셀 위치와 일반 Markdown 유도본 연결 | 완료: 이슈 #25 |
-| #8 | 기준값·계산값·절대오차·수치 gradient 존재 | 불일치 시 부호 있는 차분과 재현 입력을 보여주는 진단 추가 | 완료: 이슈 #25 |
-| #9 | steps=100·반경0.1 도달/유지 지표 존재 | lr·steps·최종반경·유지시작을 한 표에 집계 | 완료: 이슈 #25 |
-| #10 | 원형 GD 닫힌 반복식과 증가하는 loss 검증 존재 | `(1-2lr)` 배율과 이론적 분류/유한 관측 근거 명시 | 완료: 이슈 #25 |
-| #11 | 고정 예제의 결정론적 비교 존재 | 여러 초기점에서 도달/유지·최종오차 통계, 집계 모집단과 미수렴 처리 명시 | 완료: 이슈 #25 |
-| #12 | 타원형 고정 초기점 비교 존재 | #11과 같은 명시적 초기점 집합의 경로 비교 | 완료: 이슈 #25 |
-| #13 | PDF·PMF PNG 존재 | PNG의 실제 크기·DPI 기록 | 완료: 이슈 #25 |
-| #14 | 노트북 axis=-1/0 검증과 column_sum_error 존재 | 축별 shape·최대/평균 합 오차와 허용치 요약 | 완료: 이슈 #25 |
-| #15 | Gaussian/Bernoulli/categorical 유도 셀 존재 | 일반 Markdown 전개본과 README의 직접 링크 강화 | 완료: 이슈 #25 |
-
-## 진행·재평가 상태
-
-- [x] 사용자 제공 평가 원문 저장
-- [x] 15개 항목의 기존 증거·권고·수학적 해석 분류
-- [x] 1차: #3 eig 비교 실행·출력·독립 검증(전체 132개 테스트 통과)
-- [x] 후속: 나머지 권고의 수치·유도·시각화 증거 보완(이슈 #25)
-- [ ] 변경이 반영된 제출본으로 Naito_AI 재평가
-
-**현재 외부 평가 결과는 93%(14/15) 그대로다.** 자체 테스트 통과를 Naito_AI의 재평가 통과 또는 100% 점수로 표현하지 않는다. 보너스 Adam·Newton·정보 이론 구현도 사용자 추가 지시에 따라 [이슈 #27](https://github.com/ntt65/A2_1/issues/27)에서 완료했다. [보너스 수식·검증·결과](docs/BONUS.md)와 [작업 기록](docs/worklogs/issue-27.md)에 근거를 남겼다.
-
-1차 보완의 재개·검증 증거는 [작업 기록](docs/worklogs/issue-23.md)에 정리했다. 이 문서 커밋 이후의 게시 커밋·PR·자동 검사·검토 및 병합 상태는 [이슈 #23](https://github.com/ntt65/A2_1/issues/23)에서 확인한다. 구현·검증 완료와 main 반영·외부 재평가를 구분한다.
-
-2차 증거: [수치·PNG 메타데이터·의도적 실패 진단](outputs/evaluation_evidence.md), [고정 초기점 최적화 민감도](outputs/optimizer_sensitivity.md), [역전파·MLE 전체 수식 유도](docs/MATH_DERIVATIONS.md). 실제 구현과 추가 권고의 해석을 구분한 근거는 [D15](docs/DECISIONS.md#d15--평가-권고는-실측-증거와-적용-범위를-구분한다)에 있다.
-
-최종 전달은 사용자 승인에 따른 관련 PR의 순차 main 병합과 README 정리를 포함한다. 현재 자체 전체 검증은 186개 통과이며, 최종 main CI·병합 커밋·동기화 상태는 이슈 #27을 따른다. 외부 평가 점수는 실제 재평가 결과를 받을 때만 갱신한다.
