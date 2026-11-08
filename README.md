@@ -865,6 +865,19 @@ Softmax가 클래스 축을 제대로 정규화하는지 1·2·3차원 입력에
 | bonus_newton_ellipse.png | GD·Newton의 이차함수 비교 | 2100×644 |
 | information_theory.png | Bernoulli 엔트로피·CE·KL 곡선 | 1792×686 |
 
+## 발표자료 — 미션 설명·구현과 평가 Q&A
+
+발표자료도 기본 미션의 수식·입력·실측·해석을 먼저 설명하고 보너스를 뒤에 배치했습니다. **미션 설명·구현 자료**는 선형변환과 SVD, 수치미분, 고정 예제의 순전파·역전파, GD·Momentum, 확률모형에서 손실을 유도하는 순서로 구성합니다. 예를 들어 SVD는 실제 rank별 복원 오차와 저장비율을 함께 보여 주고, 역전파는 `p≈0.64729157`, `L≈0.43495844`에서 출발하여 여섯 필수 미분의 식·shape·계산 결과를 설명합니다. Adam·Newton·정보 이론은 별도 보너스 장에서 비교 조건과 한계를 다룹니다.
+
+**평가 Q&A 자료**는 기본 15항목을 질문 번호로 찾아가 답할 수 있게 만들었습니다. 각 답에는 핵심 수식과 실제 수치가 있으며, SVD의 rank 제약, `h`를 작게 할 때의 반올림 오차, Momentum의 최초 진입과 유지 시점 차이, MSE와 Gaussian NLL의 동일 최적해 조건처럼 꼬리 질문이 나올 부분을 설명합니다. 자세한 유도·추가 질문·시연 명령·원본 파일은 발표자 노트와 [Q&A 사전](docs/EVALUATION_QA.md)에 있습니다.
+
+| 용도 | 편집 가능한 발표자료 | 같은 슬라이드의 PDF |
+|---|---|---|
+| 미션 설명·구현 | [PPTX](docs/presentation/a2_1_mission_implementation.pptx) | [PDF](docs/presentation/a2_1_mission_implementation.pdf) |
+| 평가 Q&A | [PPTX](docs/presentation/a2_1_evaluation_qa.pptx) | [PDF](docs/presentation/a2_1_evaluation_qa.pdf) |
+
+평가 시연은 위 **iMac의 VS Code에서 평가 시연하기** 절의 `.venv/bin/python` 명령을 사용합니다. PDF에는 발표자 노트가 들어가지 않지만 핵심 답·수식·실측표는 슬라이드 본문에서 읽을 수 있습니다. PPTX는 한글 글꼴 설치 상태에 따라 배치가 달라질 수 있으므로 고정된 열람 배치가 필요하면 PDF를 사용합니다. 슬라이드별 목차와 질문 매핑, 재생성 절차는 [발표자료 안내](docs/presentation/README.md)에 정리했습니다. 외부 사전평가의 마지막 결과는 여전히 **40%(6/15)**이며 이 발표자료 작성으로 재평가한 것은 아닙니다.
+
 <a id="bonus-missions"></a>
 
 ## 보너스 미션 — 기본 미션 이후의 추가 구현
