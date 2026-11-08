@@ -1,5 +1,7 @@
 # Step 4 최적화: GD와 Momentum
 
+후속 보너스의 Adam·Newton API와 비교 실험은 [BONUS.md](BONUS.md)에 있다. 아래 Step 4의 고정 조건과 역사적 실측은 유지하며, 공통 runner는 보너스에서 상태 복원 규약을 추가해 확장했다.
+
 작업 [이슈 #7](https://github.com/ntt65/A2_1/issues/7), 구현 [optimizer.py](../src/optimizer.py).
 GD/Momentum 비교는 동일한 초기점 `(5,5)`와100회 업데이트, 학습률 안정성 비교는20회를 사용한다. 아래 값과 비교는 지정 조건에 한정한다.
 

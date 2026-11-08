@@ -1,4 +1,4 @@
-"""NumPy gradient descent and momentum with finite, aligned trajectory records."""
+"""NumPy optimizers and a shared runner with finite, aligned trajectory records."""
 
 from collections.abc import Callable
 from dataclasses import dataclass
@@ -13,6 +13,8 @@ __concepts__ = {
     "Vanilla_GD": ["VanillaGD"],
     "Momentum_Update": ["Momentum"],
     "Optimization_Trajectory": ["OptimizationResult", "run_optimization"],
+    "Optimizer_State_Rollback": ["VanillaGD._snapshot_state", "VanillaGD._restore_state",
+                                 "Momentum._snapshot_state", "Momentum._restore_state"],
     "Elliptic_Objective": ["elliptic", "elliptic_gradient"],
     "Optimizer_Comparison_Visualization": ["optimizer_comparison_figure"],
     "Learning_Rate_Stability_Visualization": ["learning_rate_figure"],
@@ -64,6 +66,13 @@ class VanillaGD:
     def reset(self) -> None:
         """Reset this stateless method; accept no state and return None."""
 
+    def _snapshot_state(self) -> None:
+        """Return the stateless snapshot used before a runner's candidate update."""
+        return None
+
+    def _restore_state(self, state: None) -> None:
+        """Restore a snapshot from this stateless method; no mutable state exists."""
+
     def step(self, theta: ArrayLike, gradient: ArrayLike) -> NDArray[np.float64]:
         """Return theta-lr*gradient with shape (n,), without mutating either input."""
         point, derivative = _step_inputs(theta, gradient)
@@ -97,6 +106,14 @@ class Momentum(VanillaGD):
     def reset(self) -> None:
         """Clear velocity so the next step starts with a matching zero vector."""
         self._velocity = None
+
+    def _snapshot_state(self) -> NDArray[np.float64] | None:
+        """Return an isolated velocity (n,) snapshot, or None before initialization."""
+        return self.velocity
+
+    def _restore_state(self, state: NDArray[np.float64] | None) -> None:
+        """Restore a snapshot created by this method, keeping an isolated copy."""
+        self._velocity = None if state is None else state.copy()
 
     def step(self, theta: ArrayLike, gradient: ArrayLike) -> NDArray[np.float64]:
         """Return a finite momentum update and atomically commit finite velocity."""
@@ -177,14 +194,16 @@ def run_optimization(
     initial point. objective returns a scalar and gradient returns (n,).
     Each callback receives an isolated copy. Initial nonfinite metrics raise
     ValueError; later nonfinite outputs or this module's arithmetic stop with
-    status nonfinite and restore the last accepted momentum state. Wrong
-    types/shapes and exceptions raised by user callbacks propagate unchanged.
-    Optimizer must be VanillaGD or Momentum; input initial is preserved.
+    status nonfinite and restore the last accepted optimizer state. Wrong
+    types/shapes and exceptions raised by user callbacks also restore that
+    state before propagating unchanged. Optimizer must be VanillaGD or a
+    subclass implementing its snapshot/restore contract (Momentum, Adam,
+    Newton); input initial is preserved.
     """
     if not callable(objective) or not callable(gradient):
         raise TypeError("objective and gradient must be callable")
     if not isinstance(optimizer, VanillaGD):
-        raise TypeError("optimizer must be VanillaGD or Momentum")
+        raise TypeError("optimizer must be VanillaGD or a compatible subclass")
     if isinstance(steps, (bool, np.bool_)) or not isinstance(steps, (int, np.integer)):
         raise TypeError("steps must be an integer")
     if steps < 0:
@@ -204,15 +223,17 @@ def run_optimization(
         if tolerance is not None and norm <= tolerance:
             status = "gradient_tolerance"
             break
-        previous_velocity = optimizer.velocity if isinstance(optimizer, Momentum) else None
+        previous_state = optimizer._snapshot_state()
         try:
             candidate = optimizer.step(point, derivative)
             next_loss, next_derivative, next_norm = _evaluate(objective, gradient, candidate)
         except _NonfiniteResult:
-            if isinstance(optimizer, Momentum):
-                optimizer._velocity = previous_velocity
+            optimizer._restore_state(previous_state)
             status = "nonfinite"
             break
+        except Exception:
+            optimizer._restore_state(previous_state)
+            raise
         point, loss, derivative, norm = candidate, next_loss, next_derivative, next_norm
         path.append(point.copy())
         losses.append(loss)
