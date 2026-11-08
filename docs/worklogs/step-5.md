@@ -40,3 +40,11 @@
 ```
 
 환경 Python3.11.4/NumPy2.2.6. [수식·실행 안내](../BACKPROP.md), [실행 노트북](../../notebooks/backprop_derivation.ipynb), [원시 측정값](../../outputs/backprop_metrics.json).
+
+## 원격 Windows 검사 보완
+
+최초 커밋 `7d7e4b9`의 Ubuntu 검사는 성공했으나 Windows push/PR 검사에서 실행 도구의 출력 폴더 검사1개가 실패했다.
+GitHub Windows의 `RUNNER~1` 축약 경로가 `resolve()`에서 긴 경로로 바뀌면서, 같은 폴더를 문자열 비교한 assertion이 실패했다. 수학 노트북 검사는 통과했다.
+로컬에서도 `alias/../artifacts` 경로를 통해 동일한 문자열 비교 실패를 재현한 후 `Path.samefile()`로 실제 폴더 동일성을 검사하도록 고쳤다.
+해당 별칭 경로를 두 번의 새 커널 실행에 사용하는 회귀 사례를 유지했고, 실행 도구 본체는 변경하지 않았다. 수정 후 전체128개 검사·색인 검사를 다시 통과했다.
+최종 수정 커밋과 Windows/Linux CI 결과는 이슈 #8 및 PR #16에 기록한다.

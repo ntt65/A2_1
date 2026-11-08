@@ -1381,11 +1381,11 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "f2379120910db45d4a5bc9628bd563076f20ee904f3c46d61fbe6a1fa7e96bc3",
+      "sha256": "f44c3e2dfda23766a5a639e527e6aab406cdf9785492d7ac4f818a515f3f353f",
       "symbols": [
         {
           "concepts": [],
-          "end_line": 85,
+          "end_line": 89,
           "kind": "class",
           "line": 19,
           "name": "BackpropNotebookTests"
@@ -1399,16 +1399,16 @@
         },
         {
           "concepts": [],
-          "end_line": 73,
+          "end_line": 77,
           "kind": "method",
           "line": 42,
           "name": "BackpropNotebookTests.test_runner_clears_stale_state_and_saves_only_on_request"
         },
         {
           "concepts": [],
-          "end_line": 85,
+          "end_line": 89,
           "kind": "method",
-          "line": 75,
+          "line": 79,
           "name": "BackpropNotebookTests.test_failed_cell_never_overwrites_notebook"
         }
       ],

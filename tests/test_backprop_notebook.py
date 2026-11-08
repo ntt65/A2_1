@@ -44,13 +44,17 @@ class BackpropNotebookTests(unittest.TestCase):
         previous_override = os.environ.get("A2_1_OUTPUT_DIR")
         with tempfile.TemporaryDirectory() as directory:
             temporary = Path(directory)
+            # Exercise a path alias on every platform; Windows CI also uses
+            # 8.3 names such as RUNNER~1 that resolve to a different spelling.
+            (temporary / "alias").mkdir()
+            requested_output = temporary / "alias" / ".." / "artifacts"
             path = temporary / "runner_check.ipynb"
             code = (
                 "import os, sys\nfrom pathlib import Path\n"
                 "assert 'prior_run_variable' not in globals()\nprior_run_variable = 1\n"
                 f"assert sys.executable == {sys.executable!r}\n"
                 f"assert Path.cwd() == Path({str(ROOT)!r})\n"
-                f"assert Path(os.environ['A2_1_OUTPUT_DIR']) == Path({str(temporary / 'artifacts')!r})\n"
+                f"assert Path(os.environ['A2_1_OUTPUT_DIR']).samefile(Path({str(requested_output)!r}))\n"
                 "print('fresh current interpreter')"
             )
             cell = nbformat.v4.new_code_cell(code, id="runner-check")
@@ -59,13 +63,13 @@ class BackpropNotebookTests(unittest.TestCase):
             cell.metadata["execution"] = {"iopub.status.busy": "old timestamp"}
             nbformat.write(nbformat.v4.new_notebook(cells=[cell]), path)
             original = path.read_bytes()
-            first = execute_notebook(path, temporary / "artifacts")
+            first = execute_notebook(path, requested_output)
             assert path.read_bytes() == original
             assert first.cells[0].execution_count == 1
             assert first.cells[0].id == "runner-check"
             assert "execution" not in first.cells[0].metadata
             assert first.cells[0].outputs[0].text == "fresh current interpreter\n"
-            second = execute_notebook(path, temporary / "artifacts", write=True)
+            second = execute_notebook(path, requested_output, write=True)
             assert path.read_bytes() != original
             stored = nbformat.read(path, as_version=4)
             assert stored == second
