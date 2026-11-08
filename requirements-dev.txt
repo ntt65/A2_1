@@ -1,0 +1,5 @@
+-r requirements.txt
+# Notebook authoring/execution; tests use Python's standard-library unittest.
+nbformat==5.10.4
+nbclient==0.10.2
+ipykernel==6.29.5
