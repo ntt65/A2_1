@@ -1,57 +1,38 @@
 # A2_1 — AI가 어떻게 학습하는지 수학으로 직접 풀어보기
 
-선형대수·미적분·역전파·최적화·확률의 수식을 직접 유도하고 NumPy로 구현·검증한 프로젝트입니다. [미션 원문](A2_1_mission.md) 2절·4절의 필수 요구와 사용자 추가 요청에 따른 5절 Adam·Newton·정보 이론 보너스를 구현하고, 코드·실행된 노트북·PNG·측정 JSON을 함께 제공합니다.
+선형대수·미적분·역전파·최적화·확률의 수식을 직접 유도하고 NumPy로 구현·검증한 프로젝트입니다. 본문은 [미션 원문](A2_1_mission.md) 2절·4절의 기본 미션과 코드·실행된 노트북·PNG·측정 JSON을 설명합니다. 5절의 Adam·Newton·정보 이론 보너스는 문서 맨 아래에 별도로 정리했습니다.
 
 **최종 제출·평가 주소:** [https://github.com/ntt65/A2_1/tree/main](https://github.com/ntt65/A2_1/tree/main). 기본 미션, 평가 권고 보완, 보너스 세 항목의 코드는 아래 명령으로 재현합니다. 사용자의 main 제출 지시에 따른 순차 병합·최종 main 검사 기록은 [이슈 #27](https://github.com/ntt65/A2_1/issues/27)에서 확인합니다.
 
-**보너스 포함 로컬 검증:** Python 3.11.4/NumPy 2.2.6에서 전체 **186개 테스트(32.927초)**, 환경·레지스트리 검사 및 새 PNG 4개의 시각 검토를 통과했습니다. Adam/Newton의 극소값 반례를 보완했고, 캐시를 끈 재실행의 최적화 PNG 3개·JSON·Markdown이 저장된 산출물과 바이트 단위로 일치했습니다. [보너스 검증 기록](docs/worklogs/issue-27.md)에 명령·환경·수식·실패 보완을 기록했습니다.
+## 기본 미션 — 필수 15항목과 실행 증거
+
+미션에서 지정한 outputs/ 폴더에 기본 PNG10개를 저장했고, 두 노트북의 실행 출력과 JSON을 함께 제공합니다. 평가 이력과 보너스 설명에 앞서 필수 결과를 배치했습니다. [수식·shape·그림을 모은 증거 본문](MISSION_EVIDENCE.md)에는 아래 숫자의 원본과 핵심 유도를 함께 제공합니다.
+
+| 항목 | 실행 결과·검증 조건 | 원본 파일 |
+|---|---|---|
+| #1 변환 | 회전45도·스케일(2,.5)·전단의 세 패널 | [PNG](outputs/linear_transforms.png), [구현](src/linear_algebra.py) |
+| #2 면적 | 스케일 det=1/면적비1; 반사 det=−6/면적비5.999999999999997, 상대오차4.44e-16≤.01 | [JSON: transforms](outputs/linear_algebra_metrics.json) |
+| #3 고유값 | Power Iteration4.618033988749896, eig4.618033988749895, 상대오차1.923282552410481e-16≤.05 | [비교 보고서](outputs/power_iteration_eig_comparison.md), [JSON](outputs/power_iteration_eig_comparison.json), [검증](tests/test_power_iteration_verification.py) |
+| #4 SVD | 128×128의 k=10/50/100 상대 Frobenius 오차 .1275184713562091/.05938687046053636/.01218300917179587; 64/128 완전 rank 오차2.36e-15/1.10e-15≤1e-10 | [k10/50/100 PNG](outputs/svd_128.png), [JSON: svd](outputs/linear_algebra_metrics.json), [64×64 본실험](outputs/svd_64.png) |
+| #5 중심차분 | f=x²,x=3,h=1e-5:6.000000000039306, 해석값6, 오차3.930633596382904e-11≤1e-4 | [JSON](outputs/calculus_metrics.json), [h 탐색 그림](outputs/derivative_error.png) |
+| #6 Gradient | ∇f=(2x,2y), 중심차분 최대오차3.29634097795406e-11≤1e-8, 접선과 정규화 내적 최대0≤1e-12 | [PNG](outputs/gradient_geometry.png), [JSON: gradient](outputs/calculus_metrics.json) |
+| #7 역전파 유도 | 입력2→은닉2→출력1, BCE·연쇄법칙6개 미분, 아래 고정 예제 | [실행 노트북](notebooks/backprop_derivation.ipynb), [수식 전개](docs/MATH_DERIVATIONS.md) |
+| #8 손계산 비교 | 13개 값의 네 자리 표시 일치, 최대 손계산 오차2.220446049250313e-16, 9개 매개변수 중심차분 오차7.842670957103337e-12 | [JSON: hand_reference/four_decimal_match](outputs/backprop_metrics.json), 노트북 셀 backprop-compare |
+| #9 GD 수렴 | 시작(5,5),lr=.1,100회, 최종반경1.4404019523870759e-9<.1; .1 최초 진입/유지 시작20회 | [JSON: comparisons.circle](outputs/optimizer_metrics.json) |
+| #10 학습률 | 20회 후 lr=.5/1/1.1 최종반경0/7.0710678118654755/271.0877688101304 | [실행 PNG](outputs/optimizer_learning_rates.png), [JSON: learning_rates](outputs/optimizer_metrics.json) |
+| #11 Momentum | 원형 GD/Momentum의 같은 시작점·lr=.1·100회 경로/손실/반경 비교 | [비교 PNG](outputs/optimizer_circle.png), [JSON](outputs/optimizer_metrics.json), [여러 초기점 보고서](outputs/optimizer_sensitivity.md) |
+| #12 타원형 | f=x²+10y², 시작(5,5),lr=.05·100회 GD/Momentum 비교 | [경로 PNG](outputs/optimizer_ellipse.png), [JSON: comparisons.ellipse](outputs/optimizer_metrics.json) |
+| #13 분포 | N(0,1)/N(2,.5)의 PDF 적분오차1.11e-15/9.99e-16≤1e-4; Bernoulli(.3)/(.7) PMF 질량오차0; 정규분포는 분산 표기 | [정규 PNG](outputs/probability_normal.png), [Bernoulli PNG](outputs/probability_bernoulli.png), [실행 노트북](notebooks/probability_loss.ipynb) |
+| #14 Softmax | 행 합 .9999999999999999/1, 행·열 합 최대오차1.1102230246251565e-16≤1e-6 | [JSON: softmax](outputs/probability_metrics.json), [확장 축 검증](outputs/evaluation_evidence.md), [공통 구현](src/utils/math.py) |
+| #15 MLE | 고정 분산 Gaussian NLL와 MSE의 같은 최소점(항등식오차4.44e-16); Bernoulli BCE합 .7133498878774649/categorical CE .6931471805599453 및 유도 | [전체 유도6~8절](docs/MATH_DERIVATIONS.md), [노트북](notebooks/probability_loss.ipynb), [JSON](outputs/probability_metrics.json) |
+
+## 검증 현황
+
+최신 외부 평가와 내부 검증은 구분합니다. Naito_AI는 2026-11-08 12:58:12에 **60%(9/15)**를 보고했습니다. 기존 증거가 유지된 상태에서 판정이 달라진 근거와 대책은 [평가 분석](Naito_AI_eval_result.md)에 기록했습니다. 외부 재평가 후의 새 점수는 아직 없습니다.
 
 **기본 미션 통합 검증:** 2026-11-08 새 Python 3.11.4 가상환경에서 잠금 의존성 설치, `pip check`, 전체 **129개 테스트(20.417초)**, 레지스트리 검사를 통과했습니다. 세 실험과 두 노트북을 재실행해 생성한 **PNG 10개·JSON 5개는 제출 산출물과 바이트 단위로 일치**했고 노트북 원본은 변경되지 않았습니다. [최종 구현 PR #18](https://github.com/ntt65/A2_1/pull/18)까지 병합했으며, 병합 전 최종 커밋의 Windows·Linux 검사도 통과했습니다. 병합 후 기본 브랜치 검사와 제출 마무리 기록은 [이슈 #19](https://github.com/ntt65/A2_1/issues/19)에서 확인할 수 있습니다. 명령·환경·감사 결과는 [최종 재현 기록](docs/worklogs/step-7.md)에 있습니다.
 
-## Naito_AI 평가 보완: 고유값 비교 증거
-
-사용자가 제공한 **2026-11-08 11:52:57 평가 결과는 93%(14/15 통과)**입니다. [평가 원문·15개 항목 분석·보완 계획](Naito_AI_eval_result.md)을 보존했습니다. 유일한 FAIL #3은 기존 테스트의 `np.linalg.eig` 비교가 제출용 실행 출력에 명확히 드러나지 않은 문제였습니다. [이슈 #23](https://github.com/ntt65/A2_1/issues/23)에서 전용 실행 보고서와 기본 실험 출력을 보완했습니다. **외부 재평가는 아직 실행하지 않았습니다.**
-
-아래 설치를 마친 프로젝트 환경에서 `.\.venv\Scripts\python.exe -m scripts.verify_power_iteration`을 실행합니다(Linux: `.venv/bin/python -m scripts.verify_power_iteration`). 선형대수 기본 실행 명령도 같은 비교 증거를 생성합니다.
-
-| 비교 항목 | 실제 실행 결과 |
-|---|---:|
-| 직접 구현한 Power Iteration λ | 4.618033988749896 |
-| `np.linalg.eig` 기준 λ | 4.618033988749895 |
-| 상대오차 `abs(λ_manual−λ_numpy)/abs(λ_numpy)` | 1.923282552410481e-16 ≤ 0.05(5%): PASS |
-| 업데이트 횟수 / 상대 잔차 | 32 / 6.399563856969149e-11 |
-
-입력 행렬은 `[[4,1],[1,3]]`, 초기 벡터는 `[1,1]`, dtype은 float64입니다. 두 고유벡터·부호 정렬·독립 닫힌 해 교차 검증은 [실행 보고서](outputs/power_iteration_eig_comparison.md)와 [전체 JSON](outputs/power_iteration_eig_comparison.json)에 있습니다. 검증 코드는 [scripts/verify_power_iteration.py](scripts/verify_power_iteration.py)에 있으며 알고리즘 본체는 그대로입니다. 1차 보완 후 **132개 테스트(26.959초)**를 통과했습니다. [작업 기록](docs/worklogs/issue-23.md)에 명령·보완 과정을 기록합니다.
-
-기존 유도 증거도 함께 안내합니다. [역전파 노트북](notebooks/backprop_derivation.ipynb)의 `backprop-forward-derivation`, `backprop-chain-rule` 셀과 [확률 노트북](notebooks/probability_loss.ipynb)의 `gaussian-mle-derivation`, `bernoulli-mle-derivation`, `categorical-mle-derivation` 셀에 단계별 수식 전개가 있습니다. 같은 유도를 [일반 Markdown 수식 문서](docs/MATH_DERIVATIONS.md)에서도 읽을 수 있습니다.
-
-### 나머지 평가 권고 재현
-
-[이슈 #25](https://github.com/ntt65/A2_1/issues/25)는 출력 이미지의 실제 크기·DPI, 수치 미분 h와 Softmax 축별 오차, 의도적 불일치 진단 및 여러 초기점의 최적화 결과를 추가합니다.
-
-```powershell
-.\.venv\Scripts\python.exe -m scripts.run_evaluation_evidence
-.\.venv\Scripts\python.exe -m scripts.run_optimizer_sensitivity --no-cache
-```
-
-Linux에서는 실행 파일을 `.venv/bin/python`으로 바꿉니다. 기본 실험 산출물이 있는 저장소 루트에서 실행합니다. [수치·이미지 증거 보고서](outputs/evaluation_evidence.md)와 [최적화 민감도 보고서](outputs/optimizer_sensitivity.md)에 재현 조건·실패 진단·집계 모집단을 기록합니다. PNG 캔버스 크기는 SVD 입력의 64×64 조건과 구분하고, 여러 초기점의 결과는 동일 입력 반복실행의 평균으로 해석하지 않습니다. 이 단계에서 **144개 테스트(24.250초)**와 환경·색인 검사를 통과했으며 [검증 기록](docs/worklogs/issue-25.md)에 결과를 남겼습니다.
-
-## 보너스 미션 세 항목
-
-| 요구 | 구현·검증·결과 |
-|---|---|
-| Adam + GD/Momentum 비교 | [편향 보정 Adam](src/adam.py), [200회 비교 보고서](outputs/bonus_optimizer_report.md) |
-| Hessian Newton + GD 비교 | [NewtonMethod](src/newton.py), [Newton/GD 비교 그림](outputs/bonus_newton_ellipse.png) |
-| 엔트로피·KL·Cross-Entropy 직접 구현 | [정보 이론 API](src/information_theory.py), [수치·경계·항등식 보고서](outputs/information_theory.md) |
-
-```powershell
-.\.venv\Scripts\python.exe -m scripts.run_bonus_optimizers --no-cache
-.\.venv\Scripts\python.exe -m scripts.run_information_theory
-```
-
-[보너스 수식·API·shape·비교 조건](docs/BONUS.md)과 [작업 기록](docs/worklogs/issue-27.md)에 독립 검증과 한계를 설명합니다. 같은 타원형 조건에서 Adam은 200회 후 반경 `0.1101141`로 .1 기준 미도달이며, 결과를 성공으로 바꾸지 않았습니다. Newton은 이차함수의 동일 기울기 종료 기준에서 **1회**, GD는 **197회**였으며 Hessian 계산 비용은 별도입니다. 정보 이론의 `CE=H+KL` 최대 오차는 **6.661338e-16**이며, 양의 target에 모델 확률 0을 주면 +infinity를 보존합니다.
-
-## 1. 설치와 재현
+## 설치와 재현
 
 Python **3.11**과 Git이 필요합니다. 아래 명령은 새 작업 폴더에서 기본 브랜치의 완성본을 내려받고, 저장소 루트에서 실행합니다. 전체 의존성은 [requirements-lock.txt](requirements-lock.txt)로 고정했습니다. 구현·시각화 직접 의존성은 [requirements.txt](requirements.txt), 노트북 실행 도구는 [requirements-dev.txt](requirements-dev.txt)에 구분합니다.
 
@@ -89,7 +70,7 @@ python3.11 -m venv .venv
 .venv/bin/python scripts/update_registry.py --check
 ```
 
-가상환경 활성화는 필요하지 않습니다. `python -O`는 assert를 제거하므로 사용하지 않습니다. 기본 실험 세 개와 노트북 두 개가 기본 PNG·JSON과 eig 비교 보고서를 재생성합니다. 위의 평가 보완·보너스 명령까지 실행하면 전체 제출 산출물은 PNG 15개·JSON 10개·보고서 Markdown 5개입니다. 선형대수·최적화의 `--no-cache`는 캐시 읽기와 쓰기를 모두 생략합니다. 미적분 CLI에는 이 옵션이 없습니다. 외부 데이터 다운로드 없이 seed 42의 합성 grayscale 이미지를 사용합니다.
+가상환경 활성화는 필요하지 않습니다. `python -O`는 assert를 제거하므로 사용하지 않습니다. 기본 실험 세 개와 노트북 두 개가 기본 PNG·JSON과 eig 비교 보고서를 재생성합니다. 뒤쪽의 평가 보완·보너스 명령까지 실행하면 전체 제출 산출물은 PNG 15개·JSON 10개·보고서 Markdown 5개입니다. 선형대수·최적화의 `--no-cache`는 캐시 읽기와 쓰기를 모두 생략합니다. 미적분 CLI에는 이 옵션이 없습니다. 외부 데이터 다운로드 없이 seed 42의 합성 grayscale 이미지를 사용합니다.
 
 `run_notebooks`에 경로를 생략하면 두 노트북을 각각 **현재 가상환경의 새 커널**에서 처음부터 실행합니다. 기본 실행은 `.ipynb` 원본을 변경하지 않으며, 기존 셀 출력의 성공 여부에 의존하지 않습니다. 재현 명령에는 `--write`를 사용하지 않습니다. 개발자가 실행 결과를 노트북에 다시 저장하려면 `--write` 후 `scripts/update_registry.py --update`로 파일 해시를 갱신해야 합니다.
 
@@ -120,28 +101,7 @@ Executed probability_loss.ipynb: 9 code cells passed; source unchanged
 Registry check passed.
 ```
 
-## 2. 요구 사항별 결과와 증거
-
-측정 환경은 Python 3.11.4 / NumPy 2.2.6 / Matplotlib 3.10.3, 수치 계산은 `float64`입니다. 아래는 반올림한 값이며, 전체 자릿수·입력·경로는 연결된 JSON에 있습니다. 허용오차는 [수용 기준](docs/ACCEPTANCE.md)을 따릅니다. 원문의 잘못된 참고 수치·상충 조건은 [결정 기록](docs/DECISIONS.md)에 근거를 남겼습니다.
-
-| 원문 요구 | 실험 조건 | 실측 결과 | 허용오차·판정 기준 | 증거 |
-|---|---|---|---|---|
-| 4.1 회전·스케일·전단과 면적비 | 단위 원, 회전 π/4, 스케일 (2,0.5), 전단 k=1 | 면적비와 `abs(det(A))`의 최대 상대오차 5.55e-16 | ≤1% | [모듈](src/linear_algebra.py), [변환 PNG](outputs/linear_transforms.png), [JSON](outputs/linear_algebra_metrics.json) |
-| 4.1 직접 구현한 Power Iteration | A=[[4,1],[1,3]], 초기 벡터 [1,1] | λ_manual=4.618033988749896, λ_numpy=4.618033988749895, v≈[0.850651,0.525731], 32회, 상대오차 1.92e-16, 상대잔차 6.40e-11 | 고유값 상대오차 ≤5%; 잔차 ≤1e-6 | [eig 비교 실행 보고서](outputs/power_iteration_eig_comparison.md), [두 계산 비교 JSON](outputs/power_iteration_eig_comparison.json), [비교 테스트](tests/test_power_iteration_verification.py) |
-| 4.1 SVD 이미지 복원 | 64×64: k=10,50,64; 보충 128×128: k=10,50,100 | 완전 rank 복원 상대오차 2.36e-15 / 1.10e-15; rank 증가 시 오차 감소 | 완전 rank ≤1e-10, 유효 rank·비증가 오차 확인 | [64 PNG](outputs/svd_64.png), [128 PNG](outputs/svd_128.png), [JSON](outputs/linear_algebra_metrics.json) |
-| 4.2 중심차분 | f(x)=x², x=3, h=1e-5 | 6.000000000039306, 절대오차 3.93e-11 | ≤1e-4 | [모듈](src/calculus.py), [오차 PNG](outputs/derivative_error.png), [JSON](outputs/calculus_metrics.json) |
-| 4.2 등고선과 Gradient | f=x²+y², 반경 2의 8개 점과 원점, gradient shape (9,2) | 수치 gradient 최대오차 3.30e-11; 비원점 gradient·접선 정규화 내적 0 | gradient ≤1e-8; 수직성 ≤1e-12; 원점은 방향 없는 영벡터 | [Gradient PNG](outputs/gradient_geometry.png), [JSON](outputs/calculus_metrics.json) |
-| 4.3 순전파·역전파 손계산 | 원문 고정 예제, 단일 표본 Sigmoid+BCE | 13개 체크포인트 네 자리 표시 일치; 최대 절대오차 2.22e-16 | ≤5e-5 및 네 자리 표시 일치 | [역전파 노트북](notebooks/backprop_derivation.ipynb), [JSON](outputs/backprop_metrics.json) |
-| 4.3 역전파 추가 독립 검증 | 총 9개 매개변수, 중심차분 h=1e-5 | 해석·수치 gradient 최대오차 7.84e-12 | ≤1e-6 | [역전파 노트북](notebooks/backprop_derivation.ipynb), [JSON](outputs/backprop_metrics.json) |
-| 4.4 Vanilla GD 수렴 | f=x²+y², 초기 (5,5), lr=0.1, 100회 | 최종 [1.0185e-9,1.0185e-9], 반경 1.44e-9 | 반경 ≤0.1 | [모듈](src/optimizer.py), [원형 PNG](outputs/optimizer_circle.png), [JSON](outputs/optimizer_metrics.json) |
-| 4.4 학습률별 경로 | 원형, 초기 (5,5), lr=0.5 / 1.0 / 1.1, 20회 | 최종 반경 0 / 7.0711 / 271.0878 | 즉시 수렴 / 진동 / 발산, 닫힌 반복식과 비교 | [학습률 PNG](outputs/optimizer_learning_rates.png), [D10](docs/DECISIONS.md#d10--원형-함수의-학습률-발산-조건을-정정한다) |
-| 4.4 GD와 Momentum 비교 | β=0.9, 초기 (5,5), 100회; 원형 lr=0.1, 타원형 x²+10y² lr=0.05 | 최종 loss: 원형 GD 2.07e-18 / Momentum 4.07e-4; 타원형 GD 1.76e-8 / Momentum 8.05e-4 | 동일 조건·예산으로 비교; Momentum 우월을 가정하지 않음 | [원형 PNG](outputs/optimizer_circle.png), [타원형 PNG](outputs/optimizer_ellipse.png), [JSON](outputs/optimizer_metrics.json) |
-| 4.5 정규분포 PDF 2종 | N(0,1), N(2,0.5); 두 번째 인자는 분산; 각 μ±8σ에서 10,001점 적분 | 적분 오차 1.11e-15 / 9.99e-16, PDF 비음수 | 각각 ≤1e-4 | [정규분포 PNG](outputs/probability_normal.png), [JSON](outputs/probability_metrics.json) |
-| 4.5 Bernoulli PMF 2종 | p=0.3 / 0.7, support [0,1] | PMF [0.7,0.3] / [0.3,0.7], 합 오차 0 | 합 오차 ≤1e-12, 확률 [0,1] | [Bernoulli PNG](outputs/probability_bernoulli.png), [JSON](outputs/probability_metrics.json) |
-| 4.5 Softmax | shape (2,3), axis=-1; 큰 logit ±1000, axis=0도 검증 | 확률 합 최대오차 1.11e-16, 유한 출력 | ≤1e-6 | [공통 구현](src/utils/math.py), [확률 노트북](notebooks/probability_loss.ipynb), [JSON](outputs/probability_metrics.json) |
-| 4.5 MLE와 손실 연결 | iid Gaussian 오차·고정 양의 공통 분산, Bernoulli, one-hot categorical을 각각 유도 | n=3, 분산 0.5, SSE=1.5에서 NLL=3.217094828774, MSE=0.5; BCE합=0.713349887877, CE=0.693147180560 | 독립 상수 오차 Gaussian ≤1e-14, BCE·CE ≤1e-15; BCE gradient 오차 8.63e-12 ≤1e-8 | [확률 노트북](notebooks/probability_loss.ipynb), [JSON](outputs/probability_metrics.json) |
-
-## 3. 역전파 고정 예제
+## 역전파 고정 예제
 
 단일 표본을 사용하며 `z1=W1@x+b1`, `a1=sigmoid(z1)`, `z2=W2@a1+b2`, `p=sigmoid(z2)`입니다. 손실은 자연로그의 BCE `L=−y log(p)−(1−y)log(1−p)`입니다. 중간값은 반올림하지 않고 계산하고, 아래 표만 소수점 네 자리로 표시합니다.
 
@@ -170,7 +130,7 @@ Registry check passed.
 
 곱 `·`는 해당 벡터식의 원소별 곱입니다. 두 번째 입력이 0이므로 `dL/dW1`의 두 번째 열은 0입니다. 수식별 손계산 과정과 독립 기준값, 9개 매개변수의 중심차분 비교는 [실행된 역전파 노트북](notebooks/backprop_derivation.ipynb)과 [상세 설명](docs/BACKPROP.md)에 있습니다.
 
-## 4. 원문과의 차이 및 결과 해석
+## 원문과의 차이 및 결과 해석
 
 **SVD 크기와 rank:** 64×64 이하 이미지에서는 k=100을 유효한 rank로 지정할 수 없습니다. 본 실험은 64×64의 k=10,50,64, 보충 실험은 128×128의 k=10,50,100으로 분리했습니다. 두 조건을 하나의 실험으로 동시에 만족한다고 해석하지 않습니다. 저장 원소 수는 `k(m+n+1)`이므로 원본 `mn`보다 커질 수 있습니다. 128×128의 k=100은 복원 오차가 약 1.22%지만 저장 원소 비율은 약 1.5686배여서 저장 공간 절감이 아닙니다. PNG 파일 크기와 SVD 인자 원소 수를 혼동하지 않습니다. [D09](docs/DECISIONS.md#d09--svd-이미지-크기와-rank-충돌을-두-실험으로-해결한다)
 
@@ -182,7 +142,7 @@ Registry check passed.
 
 **확률과 MLE:** N(μ,σ²)의 두 번째 인자는 분산입니다. iid Gaussian 오차와 고정 양의 공통 분산이면 `NLL=n/2·log(2πσ²)+SSE/(2σ²)`이므로 MSE와 최적해가 같습니다. 두 손실의 수치가 같은 것은 아니며 연속분포의 NLL은 음수일 수도 있습니다. Bernoulli BCE와 categorical CE는 각각 유도하고 합 손실과 평균 손실을 구분합니다. 확률 경계는 `0 log 0=0`, 불가능 사건은 `+∞`로 다루며 임의 clipping을 하지 않습니다. 큰 logit은 안정적 식을 쓰고, BCE의 큰 양수 logit에서 생길 수 있는 뺄셈 상쇄도 검증합니다. [D13](docs/DECISIONS.md#d13--확률-표기와-mle의-가정을-고정한다)
 
-## 5. 파일과 실행 규칙
+## 파일과 실행 규칙
 
 | 필수 산출물 | 구현·본문 | 결과·상세 문서 |
 |---|---|---|
@@ -196,7 +156,7 @@ Registry check passed.
 
 각 독립 실험·노트북 시작점에서 공통 `set_seed(42)`로 `np.random.seed(42)`를 한 번 설정합니다. import나 수학 함수 호출마다 seed를 초기화하지 않습니다. 공통 함수와 캐시는 [src/utils/](src/utils/)에 있고, 캐시는 Redis 서버 없이 `.cache/`에 저장합니다. [레지스트리](.agent/registry.json)는 파일·심볼·개념·의존성·해시와 노트북 셀 ID를 연결합니다. 상세 사용법은 [공통 기반 문서](docs/UTILITIES.md)에 있습니다.
 
-## 6. 단계별 이슈·PR·검증 기록
+## 단계별 이슈·PR·검증 기록
 
 작업은 **이슈 → 전용 브랜치 → 기초·상세·실행계획 → 구현 → 점검·보완 → 검증 → push·PR → 이슈 기록** 순서로 진행했습니다. 아래 PR #11~#18은 사용자의 병합 지시에 따라 선행 단계부터 순서대로 `main`에 병합했습니다. 각 이슈와 작업 기록에 계획·검증·보완·병합 이력을 남겼습니다. 제출 안내의 최종 정리는 [이슈 #19](https://github.com/ntt65/A2_1/issues/19)에서 추적합니다.
 
@@ -212,3 +172,52 @@ Registry check passed.
 | 7 통합·최종 제출 | [#10](https://github.com/ntt65/A2_1/issues/10) | [#18](https://github.com/ntt65/A2_1/pull/18) | [Step 7](docs/worklogs/step-7.md) |
 
 [전체 추적 이슈 #2](https://github.com/ntt65/A2_1/issues/2) · [전체 계획·체크리스트](docs/PROJECT_PLAN.md) · [수용 기준](docs/ACCEPTANCE.md) · [결정 기록](docs/DECISIONS.md) · [운영 규칙](AGENTS.md) · [원문 PDF](docs/A2_1_mission.pdf)
+
+## 최신 Naito_AI 평가와 고유값 비교 증거
+
+**최신 외부 평가는 2026-11-08 12:58:12의60%(9/15)**이며, 이전11:52:57의93%(14/15)에서 하락했습니다. 기존 FAIL #3은 PASS가 됐지만 #4·#7(원문 번호 누락)·#8·#10·#13·#15가 ‘제출 증거 없음’으로 FAIL이 됐습니다. 해당 핵심 노트북·PNG·기존 측정값은 이전 main과 현재 main에서 보존돼 있어 실제 제출·추출 범위와 평가 판단을 확인해야 합니다. [두 평가 원문·변화표·원인 분석·대책](Naito_AI_eval_result.md)과 [15항목 실행 증거](MISSION_EVIDENCE.md)를 제공합니다. 분석 작업은 [이슈 #29](https://github.com/ntt65/A2_1/issues/29)에서 추적하며, 이후 재평가 점수는 아직 없습니다.
+
+아래는 [이슈 #23](https://github.com/ntt65/A2_1/issues/23)에서 보완해 이번 평가에 인정된 Power Iteration 비교입니다.
+
+앞의 설치를 마친 프로젝트 환경에서 `.\.venv\Scripts\python.exe -m scripts.verify_power_iteration`을 실행합니다(Linux: `.venv/bin/python -m scripts.verify_power_iteration`). 선형대수 기본 실행 명령도 같은 비교 증거를 생성합니다.
+
+| 비교 항목 | 실제 실행 결과 |
+|---|---:|
+| 직접 구현한 Power Iteration λ | 4.618033988749896 |
+| `np.linalg.eig` 기준 λ | 4.618033988749895 |
+| 상대오차 `abs(λ_manual−λ_numpy)/abs(λ_numpy)` | 1.923282552410481e-16 ≤ 0.05(5%): PASS |
+| 업데이트 횟수 / 상대 잔차 | 32 / 6.399563856969149e-11 |
+
+입력 행렬은 `[[4,1],[1,3]]`, 초기 벡터는 `[1,1]`, dtype은 float64입니다. 두 고유벡터·부호 정렬·독립 닫힌 해 교차 검증은 [실행 보고서](outputs/power_iteration_eig_comparison.md)와 [전체 JSON](outputs/power_iteration_eig_comparison.json)에 있습니다. 검증 코드는 [scripts/verify_power_iteration.py](scripts/verify_power_iteration.py)에 있으며 알고리즘 본체는 그대로입니다. 1차 보완 후 **132개 테스트(26.959초)**를 통과했습니다. [작업 기록](docs/worklogs/issue-23.md)에 명령·보완 과정을 기록합니다.
+
+기존 유도 증거도 함께 안내합니다. [역전파 노트북](notebooks/backprop_derivation.ipynb)의 `backprop-forward-derivation`, `backprop-chain-rule` 셀과 [확률 노트북](notebooks/probability_loss.ipynb)의 `gaussian-mle-derivation`, `bernoulli-mle-derivation`, `categorical-mle-derivation` 셀에 단계별 수식 전개가 있습니다. 같은 유도를 [일반 Markdown 수식 문서](docs/MATH_DERIVATIONS.md)에서도 읽을 수 있습니다.
+
+### 나머지 평가 권고 재현
+
+[이슈 #25](https://github.com/ntt65/A2_1/issues/25)는 출력 이미지의 실제 크기·DPI, 수치 미분 h와 Softmax 축별 오차, 의도적 불일치 진단 및 여러 초기점의 최적화 결과를 추가합니다.
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.run_evaluation_evidence
+.\.venv\Scripts\python.exe -m scripts.run_optimizer_sensitivity --no-cache
+```
+
+Linux에서는 실행 파일을 `.venv/bin/python`으로 바꿉니다. 기본 실험 산출물이 있는 저장소 루트에서 실행합니다. [수치·이미지 증거 보고서](outputs/evaluation_evidence.md)와 [최적화 민감도 보고서](outputs/optimizer_sensitivity.md)에 재현 조건·실패 진단·집계 모집단을 기록합니다. PNG 캔버스 크기는 SVD 입력의 64×64 조건과 구분하고, 여러 초기점의 결과는 동일 입력 반복실행의 평균으로 해석하지 않습니다. 이 단계에서 **144개 테스트(24.250초)**와 환경·색인 검사를 통과했으며 [검증 기록](docs/worklogs/issue-25.md)에 결과를 남겼습니다.
+
+## 보너스 미션 — 기본 미션 이후의 추가 구현
+
+이 절은 원문 5절의 선택 과제를 별도로 정리합니다. 앞의 기본 15항목과 구분하며 동일한 환경에서 실행합니다.
+
+**보너스 포함 로컬 검증:** Python 3.11.4/NumPy 2.2.6에서 전체 **186개 테스트(32.927초)**, 환경·레지스트리 검사 및 새 PNG 4개의 시각 검토를 통과했습니다. Adam/Newton의 극소값 반례를 보완했고, 캐시를 끈 재실행의 최적화 PNG 3개·JSON·Markdown이 저장된 산출물과 바이트 단위로 일치했습니다. [보너스 검증 기록](docs/worklogs/issue-27.md)에 명령·환경·수식·실패 보완을 기록했습니다.
+
+| 요구 | 구현·검증·결과 |
+|---|---|
+| Adam + GD/Momentum 비교 | [편향 보정 Adam](src/adam.py), [200회 비교 보고서](outputs/bonus_optimizer_report.md) |
+| Hessian Newton + GD 비교 | [NewtonMethod](src/newton.py), [Newton/GD 비교 그림](outputs/bonus_newton_ellipse.png) |
+| 엔트로피·KL·Cross-Entropy 직접 구현 | [정보 이론 API](src/information_theory.py), [수치·경계·항등식 보고서](outputs/information_theory.md) |
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.run_bonus_optimizers --no-cache
+.\.venv\Scripts\python.exe -m scripts.run_information_theory
+```
+
+[보너스 수식·API·shape·비교 조건](docs/BONUS.md)과 [작업 기록](docs/worklogs/issue-27.md)에 독립 검증과 한계를 설명합니다. 같은 타원형 조건에서 Adam은 200회 후 반경 `0.1101141`로 .1 기준 미도달이며, 결과를 성공으로 바꾸지 않았습니다. Newton은 이차함수의 동일 기울기 종료 기준에서 **1회**, GD는 **197회**였으며 Hessian 계산 비용은 별도입니다. 정보 이론의 `CE=H+KL` 최대 오차는 **6.661338e-16**이며, 양의 target에 모델 확률 0을 주면 +infinity를 보존합니다.
