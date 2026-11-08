@@ -1,0 +1,863 @@
+{
+  "seed": 42,
+  "dtype": "float64",
+  "numpy_version": "2.2.6",
+  "matplotlib_version": "3.10.3",
+  "figure_metadata": [
+    {
+      "filename": "linear_transforms.png",
+      "format": "PNG",
+      "width_px": 1890,
+      "height_px": 616,
+      "dpi_xy": [
+        140.0048,
+        140.0048
+      ],
+      "measurement": "stored PNG canvas; not the input array or one panel"
+    },
+    {
+      "filename": "svd_64.png",
+      "format": "PNG",
+      "width_px": 1904,
+      "height_px": 588,
+      "dpi_xy": [
+        140.0048,
+        140.0048
+      ],
+      "measurement": "stored PNG canvas; not the input array or one panel"
+    },
+    {
+      "filename": "svd_128.png",
+      "format": "PNG",
+      "width_px": 1904,
+      "height_px": 588,
+      "dpi_xy": [
+        140.0048,
+        140.0048
+      ],
+      "measurement": "stored PNG canvas; not the input array or one panel"
+    },
+    {
+      "filename": "gradient_geometry.png",
+      "format": "PNG",
+      "width_px": 1176,
+      "height_px": 1008,
+      "dpi_xy": [
+        140.0048,
+        140.0048
+      ],
+      "measurement": "stored PNG canvas; not the input array or one panel"
+    },
+    {
+      "filename": "derivative_error.png",
+      "format": "PNG",
+      "width_px": 1260,
+      "height_px": 770,
+      "dpi_xy": [
+        140.0048,
+        140.0048
+      ],
+      "measurement": "stored PNG canvas; not the input array or one panel"
+    },
+    {
+      "filename": "optimizer_circle.png",
+      "format": "PNG",
+      "width_px": 2100,
+      "height_px": 644,
+      "dpi_xy": [
+        140.0048,
+        140.0048
+      ],
+      "measurement": "stored PNG canvas; not the input array or one panel"
+    },
+    {
+      "filename": "optimizer_ellipse.png",
+      "format": "PNG",
+      "width_px": 2100,
+      "height_px": 644,
+      "dpi_xy": [
+        140.0048,
+        140.0048
+      ],
+      "measurement": "stored PNG canvas; not the input array or one panel"
+    },
+    {
+      "filename": "optimizer_learning_rates.png",
+      "format": "PNG",
+      "width_px": 2016,
+      "height_px": 672,
+      "dpi_xy": [
+        140.0048,
+        140.0048
+      ],
+      "measurement": "stored PNG canvas; not the input array or one panel"
+    },
+    {
+      "filename": "probability_normal.png",
+      "format": "PNG",
+      "width_px": 1148,
+      "height_px": 672,
+      "dpi_xy": [
+        140.0048,
+        140.0048
+      ],
+      "measurement": "stored PNG canvas; not the input array or one panel"
+    },
+    {
+      "filename": "probability_bernoulli.png",
+      "format": "PNG",
+      "width_px": 1008,
+      "height_px": 644,
+      "dpi_xy": [
+        140.0048,
+        140.0048
+      ],
+      "measurement": "stored PNG canvas; not the input array or one panel"
+    }
+  ],
+  "svd_panel_metadata": [
+    {
+      "filename": "svd_64.png",
+      "input_shape": [
+        64,
+        64
+      ],
+      "role": "main",
+      "figure_inches": [
+        13.6,
+        4.2
+      ],
+      "render_dpi": 140,
+      "panels": [
+        {
+          "label": "original",
+          "input_shape": [
+            64,
+            64
+          ],
+          "bbox_xywh_px": [
+            5.833800000000001,
+            61.700466666666685,
+            464.3323999999997,
+            464.33239999999967
+          ]
+        },
+        {
+          "label": "rank 10",
+          "input_shape": [
+            64,
+            64
+          ],
+          "bbox_xywh_px": [
+            481.8337999999997,
+            61.70046666666636,
+            464.3324000000004,
+            464.33240000000046
+          ]
+        },
+        {
+          "label": "rank 50",
+          "input_shape": [
+            64,
+            64
+          ],
+          "bbox_xywh_px": [
+            957.8338000000001,
+            61.70046666666672,
+            464.3323999999998,
+            464.3323999999996
+          ]
+        },
+        {
+          "label": "rank 64",
+          "input_shape": [
+            64,
+            64
+          ],
+          "bbox_xywh_px": [
+            1433.8337999999994,
+            61.700466666666294,
+            464.3324000000007,
+            464.3324000000005
+          ]
+        }
+      ],
+      "measurement": "recreated current-renderer image Axes; titles excluded"
+    },
+    {
+      "filename": "svd_128.png",
+      "input_shape": [
+        128,
+        128
+      ],
+      "role": "rank-100 supplement",
+      "figure_inches": [
+        13.6,
+        4.2
+      ],
+      "render_dpi": 140,
+      "panels": [
+        {
+          "label": "original",
+          "input_shape": [
+            128,
+            128
+          ],
+          "bbox_xywh_px": [
+            5.833800000000001,
+            61.700466666666685,
+            464.3323999999997,
+            464.33239999999967
+          ]
+        },
+        {
+          "label": "rank 10",
+          "input_shape": [
+            128,
+            128
+          ],
+          "bbox_xywh_px": [
+            481.8337999999997,
+            61.70046666666636,
+            464.3324000000004,
+            464.33240000000046
+          ]
+        },
+        {
+          "label": "rank 50",
+          "input_shape": [
+            128,
+            128
+          ],
+          "bbox_xywh_px": [
+            957.8338000000001,
+            61.70046666666672,
+            464.3323999999998,
+            464.3323999999996
+          ]
+        },
+        {
+          "label": "rank 100",
+          "input_shape": [
+            128,
+            128
+          ],
+          "bbox_xywh_px": [
+            1433.8337999999994,
+            61.700466666666294,
+            464.3324000000007,
+            464.3324000000005
+          ]
+        }
+      ],
+      "measurement": "recreated current-renderer image Axes; titles excluded"
+    }
+  ],
+  "step_size": {
+    "function": "x**2",
+    "x": 3.0,
+    "analytic_derivative": 6.0,
+    "h": [
+      1e-15,
+      1.7782794100389227e-15,
+      3.1622776601683794e-15,
+      5.623413251903491e-15,
+      1e-14,
+      1.7782794100389227e-14,
+      3.1622776601683796e-14,
+      5.6234132519034906e-14,
+      1e-13,
+      1.7782794100389227e-13,
+      3.162277660168379e-13,
+      5.62341325190349e-13,
+      1e-12,
+      1.7782794100389228e-12,
+      3.1622776601683794e-12,
+      5.6234132519034904e-12,
+      1e-11,
+      1.7782794100389227e-11,
+      3.1622776601683794e-11,
+      5.6234132519034906e-11,
+      1e-10,
+      1.778279410038923e-10,
+      3.1622776601683795e-10,
+      5.623413251903491e-10,
+      1e-09,
+      1.7782794100389228e-09,
+      3.1622776601683795e-09,
+      5.623413251903491e-09,
+      1e-08,
+      1.7782794100389228e-08,
+      3.162277660168379e-08,
+      5.6234132519034905e-08,
+      1e-07,
+      1.7782794100389227e-07,
+      3.162277660168379e-07,
+      5.62341325190349e-07,
+      1e-06,
+      1.778279410038923e-06,
+      3.162277660168379e-06,
+      5.623413251903491e-06,
+      1e-05,
+      1.778279410038923e-05,
+      3.1622776601683795e-05,
+      5.623413251903491e-05,
+      0.0001,
+      0.00017782794100389227,
+      0.00031622776601683794,
+      0.0005623413251903491,
+      0.001,
+      0.0017782794100389228,
+      0.0031622776601683794,
+      0.005623413251903491,
+      0.01,
+      0.01778279410038923,
+      0.03162277660168379,
+      0.05623413251903491,
+      0.1,
+      0.1778279410038923,
+      0.31622776601683794,
+      0.5623413251903491,
+      1.0
+    ],
+    "absolute_errors": [
+      0.6709294817992486,
+      0.006486845524338314,
+      0.10179977279114283,
+      0.1597746451552009,
+      0.1284310959308641,
+      0.006486845524338314,
+      0.01753976954530234,
+      0.017625999497774103,
+      0.004795667024154682,
+      0.006486845524338314,
+      0.0006877688961326456,
+      0.0013271532565495292,
+      0.0005334034940460697,
+      0.00049333236986282,
+      0.00015483113632530632,
+      9.433320002472101e-05,
+      4.964422259945422e-07,
+      4.381888327653627e-05,
+      1.3688870166284062e-05,
+      4.325637465996124e-07,
+      4.964422259945422e-07,
+      1.132465381026293e-06,
+      3.163130481986798e-06,
+      4.325637474877908e-07,
+      4.964422259945422e-07,
+      3.6591290708543056e-07,
+      2.072696476673741e-07,
+      4.1265071359930516e-08,
+      3.64648258255329e-08,
+      6.623724946308585e-08,
+      3.874964082939414e-08,
+      6.11780937020967e-09,
+      9.819473234529141e-09,
+      6.302117050438483e-09,
+      3.3803608801008522e-09,
+      1.3795213860134936e-09,
+      8.386678018723615e-10,
+      3.086046973521661e-10,
+      9.960920976936904e-12,
+      4.196376579557182e-11,
+      3.930633596382904e-11,
+      8.929745831665059e-12,
+      9.960032798517204e-12,
+      5.417888360170764e-12,
+      1.2661871551244985e-11,
+      6.054712287095754e-12,
+      1.5347723092418164e-12,
+      6.803446694902959e-13,
+      6.608047442568932e-13,
+      6.128431095930864e-14,
+      1.509903313490213e-13,
+      2.0605739337042905e-13,
+      1.2789769243681803e-13,
+      6.128431095930864e-14,
+      1.865174681370263e-14,
+      1.687538997430238e-14,
+      5.329070518200751e-15,
+      1.7763568394002505e-15,
+      8.881784197001252e-16,
+      3.552713678800501e-15,
+      0.0
+    ],
+    "sample_count": 61,
+    "tolerance": 0.0001,
+    "passing_count": 46,
+    "passing_h": [
+      5.6234132519034904e-12,
+      1e-11,
+      1.7782794100389227e-11,
+      3.1622776601683794e-11,
+      5.6234132519034906e-11,
+      1e-10,
+      1.778279410038923e-10,
+      3.1622776601683795e-10,
+      5.623413251903491e-10,
+      1e-09,
+      1.7782794100389228e-09,
+      3.1622776601683795e-09,
+      5.623413251903491e-09,
+      1e-08,
+      1.7782794100389228e-08,
+      3.162277660168379e-08,
+      5.6234132519034905e-08,
+      1e-07,
+      1.7782794100389227e-07,
+      3.162277660168379e-07,
+      5.62341325190349e-07,
+      1e-06,
+      1.778279410038923e-06,
+      3.162277660168379e-06,
+      5.623413251903491e-06,
+      1e-05,
+      1.778279410038923e-05,
+      3.1622776601683795e-05,
+      5.623413251903491e-05,
+      0.0001,
+      0.00017782794100389227,
+      0.00031622776601683794,
+      0.0005623413251903491,
+      0.001,
+      0.0017782794100389228,
+      0.0031622776601683794,
+      0.005623413251903491,
+      0.01,
+      0.01778279410038923,
+      0.03162277660168379,
+      0.05623413251903491,
+      0.1,
+      0.1778279410038923,
+      0.31622776601683794,
+      0.5623413251903491,
+      1.0
+    ],
+    "contiguous_sample_groups": [
+      {
+        "first_h": 5.6234132519034904e-12,
+        "last_h": 1.0,
+        "sample_count": 46
+      }
+    ],
+    "minimum_observed_error": 0.0,
+    "minimizing_sampled_h": [
+      1.0
+    ],
+    "scope": "only tested h values; gaps and intervening real h are not certified",
+    "interpretation": "central differences are exact for x**2 in exact arithmetic; sampled roundoff minima are not universal optimal h"
+  },
+  "softmax": [
+    {
+      "shape": [
+        3
+      ],
+      "axis": -1,
+      "input": [
+        1000.0,
+        1001.0,
+        1002.0
+      ],
+      "sum_shape": [],
+      "sum_error_max": 1.1102230246251565e-16,
+      "sum_error_mean": 1.1102230246251565e-16,
+      "tolerance": 1e-06,
+      "passed": true
+    },
+    {
+      "shape": [
+        2,
+        3
+      ],
+      "axis": 0,
+      "input": [
+        [
+          0.0,
+          1.0,
+          2.0
+        ],
+        [
+          3.0,
+          4.0,
+          5.0
+        ]
+      ],
+      "sum_shape": [
+        3
+      ],
+      "sum_error_max": 2.220446049250313e-16,
+      "sum_error_mean": 2.220446049250313e-16,
+      "tolerance": 1e-06,
+      "passed": true
+    },
+    {
+      "shape": [
+        2,
+        3
+      ],
+      "axis": 1,
+      "input": [
+        [
+          0.0,
+          1.0,
+          2.0
+        ],
+        [
+          3.0,
+          4.0,
+          5.0
+        ]
+      ],
+      "sum_shape": [
+        2
+      ],
+      "sum_error_max": 1.1102230246251565e-16,
+      "sum_error_mean": 1.1102230246251565e-16,
+      "tolerance": 1e-06,
+      "passed": true
+    },
+    {
+      "shape": [
+        2,
+        3,
+        4
+      ],
+      "axis": -1,
+      "input": [
+        [
+          [
+            -1000.0,
+            -999.0,
+            -998.0,
+            -997.0
+          ],
+          [
+            -996.0,
+            -995.0,
+            -994.0,
+            -993.0
+          ],
+          [
+            -992.0,
+            -991.0,
+            -990.0,
+            -989.0
+          ]
+        ],
+        [
+          [
+            -988.0,
+            -987.0,
+            -986.0,
+            -985.0
+          ],
+          [
+            -984.0,
+            -983.0,
+            -982.0,
+            -981.0
+          ],
+          [
+            -980.0,
+            -979.0,
+            -978.0,
+            -977.0
+          ]
+        ]
+      ],
+      "sum_shape": [
+        2,
+        3
+      ],
+      "sum_error_max": 0.0,
+      "sum_error_mean": 0.0,
+      "tolerance": 1e-06,
+      "passed": true
+    },
+    {
+      "shape": [
+        2,
+        3,
+        4
+      ],
+      "axis": 0,
+      "input": [
+        [
+          [
+            -1000.0,
+            -999.0,
+            -998.0,
+            -997.0
+          ],
+          [
+            -996.0,
+            -995.0,
+            -994.0,
+            -993.0
+          ],
+          [
+            -992.0,
+            -991.0,
+            -990.0,
+            -989.0
+          ]
+        ],
+        [
+          [
+            -988.0,
+            -987.0,
+            -986.0,
+            -985.0
+          ],
+          [
+            -984.0,
+            -983.0,
+            -982.0,
+            -981.0
+          ],
+          [
+            -980.0,
+            -979.0,
+            -978.0,
+            -977.0
+          ]
+        ]
+      ],
+      "sum_shape": [
+        3,
+        4
+      ],
+      "sum_error_max": 0.0,
+      "sum_error_mean": 0.0,
+      "tolerance": 1e-06,
+      "passed": true
+    },
+    {
+      "shape": [
+        2,
+        3,
+        4
+      ],
+      "axis": 1,
+      "input": [
+        [
+          [
+            -1000.0,
+            -999.0,
+            -998.0,
+            -997.0
+          ],
+          [
+            -996.0,
+            -995.0,
+            -994.0,
+            -993.0
+          ],
+          [
+            -992.0,
+            -991.0,
+            -990.0,
+            -989.0
+          ]
+        ],
+        [
+          [
+            -988.0,
+            -987.0,
+            -986.0,
+            -985.0
+          ],
+          [
+            -984.0,
+            -983.0,
+            -982.0,
+            -981.0
+          ],
+          [
+            -980.0,
+            -979.0,
+            -978.0,
+            -977.0
+          ]
+        ]
+      ],
+      "sum_shape": [
+        2,
+        4
+      ],
+      "sum_error_max": 0.0,
+      "sum_error_mean": 0.0,
+      "tolerance": 1e-06,
+      "passed": true
+    }
+  ],
+  "diagnostics": {
+    "area": {
+      "matrix": [
+        [
+          2.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.5
+        ]
+      ],
+      "points": [
+        [
+          0.0,
+          1.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ]
+      ],
+      "genuine": {
+        "determinant": 1.0,
+        "area_before": 1.0,
+        "area_after": 1.0,
+        "area_ratio": 1.0,
+        "expected_ratio": 1.0,
+        "error": 0.0,
+        "error_kind": "relative",
+        "tolerance": 0.01,
+        "passed": true
+      },
+      "injected_observation": {
+        "expected": 1.0,
+        "observed": 1.02,
+        "shape": [],
+        "signed_difference": 0.020000000000000018,
+        "max_absolute_error": 0.020000000000000018,
+        "atol": 0.01,
+        "rtol": 0.0,
+        "passed": false
+      },
+      "injection": "add 0.02 to area ratio; expected ratio=1 so abs error equals relative error",
+      "diagnostic": "REJECTED: measured ratio differs by 2%, exceeding 1% tolerance"
+    },
+    "backprop": {
+      "x": [
+        1.0,
+        0.0
+      ],
+      "W1": [
+        [
+          0.1,
+          0.2
+        ],
+        [
+          0.3,
+          0.4
+        ]
+      ],
+      "b1": [
+        0.0,
+        0.0
+      ],
+      "W2": [
+        0.5,
+        0.6
+      ],
+      "b2": 0.0,
+      "y_true": 1.0,
+      "gradient_name": "dL/dW1",
+      "genuine": {
+        "expected": [
+          [
+            -0.043978515808697015,
+            0.0
+          ],
+          [
+            -0.05173350439092561,
+            0.0
+          ]
+        ],
+        "observed": [
+          [
+            -0.04397851580869701,
+            -0.0
+          ],
+          [
+            -0.051733504390925604,
+            -0.0
+          ]
+        ],
+        "shape": [
+          2,
+          2
+        ],
+        "signed_difference": [
+          [
+            6.938893903907228e-18,
+            -0.0
+          ],
+          [
+            6.938893903907228e-18,
+            -0.0
+          ]
+        ],
+        "max_absolute_error": 6.938893903907228e-18,
+        "atol": 5e-05,
+        "rtol": 0.0,
+        "passed": true
+      },
+      "injected_observation": {
+        "expected": [
+          [
+            -0.043978515808697015,
+            0.0
+          ],
+          [
+            -0.05173350439092561,
+            0.0
+          ]
+        ],
+        "observed": [
+          [
+            -0.04297851580869701,
+            -0.0
+          ],
+          [
+            -0.051733504390925604,
+            -0.0
+          ]
+        ],
+        "shape": [
+          2,
+          2
+        ],
+        "signed_difference": [
+          [
+            0.0010000000000000078,
+            -0.0
+          ],
+          [
+            6.938893903907228e-18,
+            -0.0
+          ]
+        ],
+        "max_absolute_error": 0.0010000000000000078,
+        "atol": 5e-05,
+        "rtol": 0.0,
+        "passed": false
+      },
+      "injection": "add 0.001 to dL/dW1[0,0]",
+      "diagnostic": "REJECTED: absolute error exceeds 5e-5; signed difference identifies component"
+    },
+    "scope": "injected incorrect observations demonstrate diagnostics; genuine computations pass"
+  },
+  "notes": [
+    "64x64 limits the main SVD input, not the entire Figure or rendered panels.",
+    "128x128 is the documented separate supplement required for rank 100.",
+    "Existing plots use nominal 140 DPI; preserve readable axes rather than shrinking every plot to 64px.",
+    "PNG pHYs stores integer pixels/metre, so recovered DPI can differ slightly from nominal 140.",
+    "Rendered panel geometry depends on renderer/fonts; it excludes titles and is not embedded PNG metadata."
+  ]
+}
