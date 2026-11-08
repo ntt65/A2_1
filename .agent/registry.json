@@ -150,7 +150,7 @@
         "sys"
       ],
       "language": "notebook",
-      "sha256": "b2dcc6fb6a33b78af513b7fba8c5d98918e5247656ae573eba6580203eb3b171",
+      "sha256": "cf6308a645956c8c1791f0f03a0513d8c1e8b58ea59af0a1afae4c62c337f691",
       "symbols": [
         {
           "cell_id": "backprop-compare",
