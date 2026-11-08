@@ -87,6 +87,10 @@ class SubmissionReportTests(unittest.TestCase):
             invalid["step_size_study"][key][40] += .001
             with self.assertRaisesRegex(AssertionError, "finite-difference identity"):
                 _check_approximation_accuracy("calculus", invalid)
+        invalid = copy.deepcopy(actual)
+        invalid["step_size_study"]["h"][0] *= 1.5
+        with self.assertRaises(ValueError):
+            check_reproduction(invalid, reference, "calculus", FINITE_DIFFERENCE_PATHS)
 
     def test_malformed_readme_fails_before_execution(self):
         """An ambiguous insertion point cannot trigger executions or writes."""

@@ -73,6 +73,8 @@ python -m scripts.run_notebooks --output-dir .cache/issue31-cli-results
 
 관측된 Linux 차이를 그대로 넣은 재현 사례, gradient에1e-6 주입, h 탐색에.001 주입, 요약·h·해석gradient 변조, NaN·shape 오류 검출을 추가했다. Windows 결과의 숫자 문자열을 요구하던 통합 검사는 해당 실측표의 존재와 독립 수치 기준 검사로 바꿨다. README·보고서 헤더도 실제 검증 범위를 정확히 설명하도록 수정했다.
 
+추가 독립 검토에서 h=1e-15를1.5e-15로 바꾸면 일반 절대허용치1e-12 아래에 숨는 입력 검증 빈틈을 찾았다. h 입력만 atol=0, rtol=1e-12로 강화하고 이 반례를 추가했다. 정상 플랫폼의 마지막 비트 차이는 허용하지만 간격50% 변경은 거부한다. 알고리즘 정확도 기준을 완화한 변경은 없다.
+
 ```text
 python -m unittest discover -s tests -v
 Ran 210 tests in 30.826s

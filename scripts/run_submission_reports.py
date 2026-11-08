@@ -56,8 +56,9 @@ def check_reproduction(actual: object, reference: object, location: str = "metri
     measurements already checked against independent analytic values by the
     fresh experiment and renderer. Their shape/finiteness is still required,
     but platform-dependent cancellation is not compared to Windows last bits.
-    Every other value retains atol=rtol=1e-12; inputs, h and analytic values
-    cannot be skipped. An empty tuple requests strict comparison everywhere.
+    Other values retain atol=rtol=1e-12; tiny h inputs use atol=0 so changing
+    1e-15 by 50% cannot hide beneath the generic absolute tolerance. Inputs,
+    h and analytic values cannot be skipped. An empty tuple is strict everywhere.
     Raise ValueError at the first mismatch, never accept NaN/inf as evidence.
     """
     if isinstance(reference, dict):
@@ -81,7 +82,8 @@ def check_reproduction(actual: object, reference: object, location: str = "metri
             raise ValueError(f"{location}: nonfinite measurement")
         if any(location == path or location.startswith(path + "[") for path in approximation_paths):
             return
-        if not math.isclose(actual, reference, rel_tol=1e-12, abs_tol=1e-12):
+        is_step = location in ("calculus.derivative.h", "backprop.derivative_h") or location.startswith("calculus.step_size_study.h[")
+        if not math.isclose(actual, reference, rel_tol=1e-12, abs_tol=0. if is_step else 1e-12):
             raise ValueError(f"{location}: reproduced value {actual} differs from {reference}")
     else:
         raise ValueError(f"{location}: unsupported metric type")
