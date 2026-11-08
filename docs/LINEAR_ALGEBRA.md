@@ -10,6 +10,7 @@
 ```powershell
 .\.venv\Scripts\python.exe -m scripts.run_linear_algebra
 .\.venv\Scripts\python.exe -m scripts.run_linear_algebra --no-cache
+.\.venv\Scripts\python.exe -m scripts.verify_power_iteration
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 .\.venv\Scripts\python.exe scripts/update_registry.py --check
 ```
@@ -53,7 +54,7 @@ relative_residual = ||A @ v - lambda*v||₂ / (||A||F * ||v||₂)
 ```
 
 `A: (n,n)`, 초기/결과 벡터 `(n,)`, 고유값과 잔차는 스칼라다. 입력은 유한한 실수이며 초기 벡터는 영벡터가 아니어야 한다.
-행렬과 norm을 스케일링하여 overflow/underflow를 줄인다. `np.linalg.eig`는 비교 테스트에만 있다.
+행렬과 norm을 스케일링하여 overflow/underflow를 줄인다. `np.linalg.eig`는 비교 테스트와 [전용 검증 스크립트](../scripts/verify_power_iteration.py)에서만 호출하며 알고리즘 본체에는 없다.
 초기 벡터를 생략하면 외부 seed로 제어되는 NumPy 난수를 사용하며 함수 내부에서 다시 seed를 설정하지 않는다.
 
 결과 `PowerIterationResult`에는 `eigenvalue`, `eigenvector`, `iterations`, `residual`, `converged`, `reason`이 있다.
@@ -74,11 +75,16 @@ iterations는 실제 정규화 업데이트 횟수이며 초기 벡터가 이미
 
 | 항목 | 로컬 측정값 |
 |---|---:|
-| 고유값 | 4.618033988749896 |
+| 수동 Power Iteration 고유값 | 4.618033988749896 |
+| `np.linalg.eig` 기준 고유값 | 4.618033988749895 |
 | 고유벡터 | [0.8506508083, 0.5257311122] |
 | 업데이트 횟수 | 32 |
 | 상대 고유값 오차 | 1.9233e-16 ≤ 0.05 |
 | 상대 잔차 | 6.3996e-11 ≤ 1e-6 |
+
+[실행된 eig 비교 보고서](../outputs/power_iteration_eig_comparison.md)와 [전체 비교 JSON](../outputs/power_iteration_eig_comparison.json)에 두 방법의 고유값·고유벡터·허용오차·판정을 함께 기록한다. 상대오차는 `abs(lambda_manual-lambda_numpy)/abs(lambda_numpy)`다. NumPy 기준값은 절댓값이 가장 큰 고유값을 선택하고, 고유벡터는 부호를 정렬한 뒤 비교한다. 부호 정렬 후 벡터 L2 오차는 `1.4871e-10 ≤ 1e-8`이며, NumPy 결과도 독립 닫힌 해와 절대오차 `0 ≤ 1e-14`로 교차 검증했다.
+
+`python -m scripts.verify_power_iteration`은 비교만 실행한다. 기본 실험 `python -m scripts.run_linear_algebra --no-cache`도 같은 검증을 수행하고 콘솔·통합 JSON·전용 JSON/Markdown을 생성한다. 검증이 실패하면 성공 보고서를 생성하지 않는다. [평가 보완 이슈 #23](https://github.com/ntt65/A2_1/issues/23)에서 기존 테스트의 비교 결과가 제출 출력에 드러나지 않았던 문제를 추적한다.
 
 ## SVD 근사와 저장량
 

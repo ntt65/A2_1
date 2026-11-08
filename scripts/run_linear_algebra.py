@@ -11,12 +11,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from src.linear_algebra import (
-    determinant_area_check, power_iteration, reconstruct_svd, rotation_matrix,
+    determinant_area_check, reconstruct_svd, rotation_matrix,
     scaling_matrix, shear_matrix, svd_comparison_figure, svd_decompose,
     transformation_figure,
 )
 from src.utils.cache_manager import CacheManager
 from src.utils.random import set_seed
+from scripts.verify_power_iteration import verify_mission_eigenpair, write_report
 
 __concepts__ = {
     "Synthetic_Grayscale": ["generate_grayscale_image"],
@@ -48,7 +49,7 @@ def generate_grayscale_image(size: int) -> np.ndarray:
 
 
 def run_experiment(output_dir: Path, use_cache: bool = True) -> dict:
-    """Write three PNGs and a JSON result report; return the measured report.
+    """Write three PNGs, measured JSON, and explicit eig comparison JSON/Markdown.
 
     Uses seed 42, fixed transform cases, and the specified symmetric matrix.
     SVD compares a 64x64 main experiment and a separate 128x128 supplement.
@@ -76,18 +77,9 @@ def run_experiment(output_dir: Path, use_cache: bool = True) -> dict:
     finally:
         plt.close(figure)
 
-    matrix = np.array([[4.0, 1.0], [1.0, 3.0]])
-    result = power_iteration(matrix, initial=[1.0, 1.0])
-    reference = float((7.0 + np.sqrt(5.0)) / 2.0)
-    relative_error = abs(result.eigenvalue-reference) / reference
-    assert result.converged and relative_error <= 0.05 and result.residual <= 1e-6
-    eigenpair = {
-        "matrix": matrix.tolist(), "initial": [1.0, 1.0],
-        "eigenvalue": result.eigenvalue, "eigenvector": result.eigenvector.tolist(),
-        "reference_formula": "(7 + sqrt(5)) / 2", "reference": reference,
-        "relative_error": relative_error, "relative_residual": result.residual,
-        "iterations": result.iterations, "converged": result.converged, "reason": result.reason,
-    }
+    verification = verify_mission_eigenpair()
+    eigenpair = verification["power_iteration"]
+    write_report(verification, output_dir)
 
     images = []
     for size, ranks, filename in (
@@ -120,6 +112,7 @@ def run_experiment(output_dir: Path, use_cache: bool = True) -> dict:
     report = {
         "seed": 42, "numpy_version": np.__version__, "dtype": "float64",
         "transforms": transforms, "power_iteration": eigenpair, "svd": images,
+        "eig_comparison_artifacts": ["power_iteration_eig_comparison.json", "power_iteration_eig_comparison.md"],
         "notes": [
             "64x64 main experiment uses valid ranks 10,50,64.",
             "128x128 supplemental experiment permits required ranks 10,50,100.",
@@ -145,6 +138,9 @@ def main(argv: list[str] | None = None) -> int:
     eigenpair = report["power_iteration"]
     print(f"Power Iteration: lambda={eigenpair['eigenvalue']:.12f}, "
           f"relative error={eigenpair['relative_error']:.3e}, residual={eigenpair['relative_residual']:.3e}")
+    comparison = eigenpair["numpy_eig_comparison"]
+    print(f"np.linalg.eig: lambda={comparison['numpy_eigenvalue']:.15f}; "
+          f"relative error={comparison['relative_eigenvalue_error']:.6e} <= 0.05 (5%): PASS")
     print(f"Figures and metrics saved in {arguments.output_dir}")
     return 0
 

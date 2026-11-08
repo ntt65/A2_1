@@ -85,7 +85,21 @@
     "relative_residual": 6.399563856969149e-11,
     "iterations": 32,
     "converged": true,
-    "reason": "residual_tolerance"
+    "reason": "residual_tolerance",
+    "numpy_eig_comparison": {
+      "reference_method": "numpy.linalg.eig",
+      "numpy_eigenvalue": 4.618033988749895,
+      "absolute_eigenvalue_error": 8.881784197001252e-16,
+      "relative_eigenvalue_error": 1.923282552410481e-16,
+      "relative_eigenvalue_tolerance": 0.05,
+      "relative_eigenvalue_error_percent": 1.923282552410481e-14,
+      "aligned_eigenvector_l2_error": 1.4871237088596054e-10,
+      "eigenvector_tolerance": 1e-08,
+      "independent_relative_residual": 6.399563856969149e-11,
+      "relative_residual_tolerance": 1e-06,
+      "numpy_vs_analytic_absolute_error": 0.0,
+      "passed": true
+    }
   },
   "svd": [
     {
@@ -140,6 +154,10 @@
         }
       ]
     }
+  ],
+  "eig_comparison_artifacts": [
+    "power_iteration_eig_comparison.json",
+    "power_iteration_eig_comparison.md"
   ],
   "notes": [
     "64x64 main experiment uses valid ranks 10,50,64.",
