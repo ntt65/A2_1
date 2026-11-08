@@ -1,7 +1,7 @@
 # A2_1 — AI가 어떻게 학습하는지 수학으로 직접 풀어보기
 
 NumPy로 선형대수·미적분·역전파·최적화·확률을 직접 구현하고 수식과 수치 검증을 연결하는 프로젝트입니다.
-현재는 **Step 3: 미적분 구현·검증 완료, [PR #14](https://github.com/ntt65/A2_1/pull/14) 검토 대기** 상태입니다. 공통 기반·선형대수·미적분 모듈을 제공하며 이후 최적화·노트북을 추가합니다.
+현재는 **Step 4 최적화 구현·검증 완료** 상태입니다. 사용자 지시에 따라 단계별 보고 후 Step5~7을 순차 진행합니다.
 
 ## 계획과 작업 규칙
 
@@ -47,7 +47,7 @@ python3.11 -m venv .venv
 ## 검증 상태와 산출물
 
 환경 준비의 실행 결과는 [Step 0 작업 기록](docs/worklogs/step-0.md), 공통 기반 검증은 [Step 1 작업 기록](docs/worklogs/step-1.md), 선형대수는 [Step 2 작업 기록](docs/worklogs/step-2.md)에 기록합니다.
-미적분 검증은 [Step 3 작업 기록](docs/worklogs/step-3.md)에 기록합니다. 수학 검증 기준은 [ACCEPTANCE.md](docs/ACCEPTANCE.md)에 정의되어 있습니다. 공통 유틸·레지스트리·선형대수·미적분은 구현했으며 Step 4~6은 미구현·미검증입니다.
+미적분 검증은 [Step 3 작업 기록](docs/worklogs/step-3.md)에 기록합니다. 수학 검증 기준은 [ACCEPTANCE.md](docs/ACCEPTANCE.md)에 정의되어 있습니다. 공통 유틸·레지스트리·선형대수·미적분은 구현했으며 Step 5~6은 미구현·미검증입니다.
 `src/utils/`와 `.agent/registry.json`을 제공하며, `notebooks/`는 해당 구현 단계에서 생성합니다.
 결과 PNG는 `outputs/`, 재계산 가능한 캐시는 `.cache/`에 저장합니다.
 
@@ -57,7 +57,7 @@ python3.11 -m venv .venv
 | 공통 유틸·캐시·레지스트리 | Step 1 구현·보완 완료, 로컬 전체 검사 48개 통과 |
 | 선형대수 | Step 2 구현·보완 완료, 로컬 전체 검사 87개 통과 |
 | 미적분 | Step 3 구현·검증 완료, 로컬 전체 검사 105개 통과 |
-| 최적화 | Step 4 예정 |
+| 최적화 | Step4 구현·검증 완료, 전체125개 테스트 통과 |
 | 역전파·확률/손실 노트북 | Step 5~6 예정 |
 | 전체 재현 및 최종 결과 요약 | Step 7 예정 |
 
@@ -92,3 +92,9 @@ python3.11 -m venv .venv
 - [상세 수식·오차 그림](docs/CALCULUS.md) / [측정 JSON](outputs/calculus_metrics.json).
 
 ![등고선과 Gradient·접선](outputs/gradient_geometry.png)
+
+## 최적화 결과
+
+`python -m scripts.run_optimizer`로 PNG3개와 JSON을 재생성합니다. 원형 GD lr=.1,100회 후 norm **1.44e-9 ≤.1**입니다.
+지정 조건에서는 GD의 최종 오차가 Momentum보다 작습니다. lr=.5는 즉시수렴,1은진동,1.1은발산으로 구분했습니다.
+[수식·API·비교 그림](docs/OPTIMIZATION.md) / [작업 기록](docs/worklogs/step-4.md) / [이슈 #7](https://github.com/ntt65/A2_1/issues/7).

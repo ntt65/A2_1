@@ -13,12 +13,13 @@
 | 1 공통 기반 | [#4](https://github.com/ntt65/A2_1/issues/4) | utils, cache, registry | 0 | 구현·로컬 48개 검증 완료, [PR #12](https://github.com/ntt65/A2_1/pull/12) 검토 대기(선행 #11) |
 | 2 선형대수 | [#5](https://github.com/ntt65/A2_1/issues/5) | linear_algebra.py, 검증, PNG | 1 | 구현·로컬 87개 검사 완료, [PR #13](https://github.com/ntt65/A2_1/pull/13) 검토 대기(선행 #12) |
 | 3 미적분 | [#6](https://github.com/ntt65/A2_1/issues/6) | calculus.py, 검증, PNG | 2 | 구현·로컬105개 검사 완료, [PR #14](https://github.com/ntt65/A2_1/pull/14) 검토 대기(선행 #13) |
-| 4 최적화 | [#7](https://github.com/ntt65/A2_1/issues/7) | optimizer.py, 검증, PNG | 3 | 계획됨 |
+| 4 최적화 | [#7](https://github.com/ntt65/A2_1/issues/7) | optimizer.py, 검증, PNG | 3 | 구현·로컬125개 검사 완료; PR/CI는 이슈 #7 참조 |
 | 5 역전파 | [#8](https://github.com/ntt65/A2_1/issues/8) | backprop_derivation.ipynb | 4 | 계획됨 |
 | 6 확률·손실 | [#9](https://github.com/ntt65/A2_1/issues/9) | probability_loss.ipynb | 5 | 계획됨 |
 | 7 통합·제출 | [#10](https://github.com/ntt65/A2_1/issues/10) | 전체 검증, 결과, README | 1~6 | 계획됨 |
 
-후속 이슈는 미리 발행하되 브랜치는 시작할 때 최신 기준 브랜치에서 만든다. 현재 작업 브랜치는 `codex/6-calculus`이다.
+후속 이슈는 미리 발행하되 브랜치는 시작할 때 최신 기준 브랜치에서 만든다. 현재 작업 브랜치는 `codex/7-optimizers`이다.
+2026-11-08 사용자 지시에 따라 Step 4~7은 단계별 종료 보고 후 자동으로 다음 이슈를 진행한다. 이슈·브랜치·계획·검증·PR·작업 기록은 계속 단계별로 유지한다.
 중단된 동일 이슈를 재개할 때는 기존 브랜치·PR과 기록을 재사용한다.
 사용자의 순차 진행 지시에 따라 Step 1을 시작했다. 선행 환경 PR #11은 검증 완료·검토 대기이므로,
 해당 브랜치의 완료된 변경 위에서 Step 1을 구현한다. 단계별 변경을 분리한 PR로 검토하고 #11 병합 후 Step 1의 기준 브랜치를 main으로 전환한다.
@@ -132,3 +133,14 @@ A2_1/
 - [x] 문서·수용 기준·색인·실측 작업 기록 갱신
 - [x] 원격 게시·PR #14·구현/검증 이슈 기록(최종 CI 결과는 이슈 #6 참조)
 - [ ] 선행 PR 및 Step 3 검토·병합
+
+## 실행계획: Step 4
+
+- [x] 이슈 #7의 3단계 계획·D10/D11·선행 PR #14 확인
+- [x] `codex/7-optimizers` 원격/로컬 브랜치와 upstream 생성
+- [x] GD·Momentum·종료 상태·독립 수치 테스트 구현
+- [x] 같은 예산의 실험·캐시·비교 PNG·원시 JSON 생성
+- [x] 코드·수학·시각 리뷰와 보완, 전체 회귀 검사
+- [x] 문서·수용 기준·레지스트리 갱신
+- [ ] 원격 게시·PR·CI·이슈 기록
+- [ ] 사용자 검토·병합

@@ -95,6 +95,74 @@
         "tests/test_linear_algebra_experiment.py"
       ]
     },
+    "scripts/run_optimizer.py": {
+      "concepts": [
+        "Optimizer_Experiment",
+        "Optimizer_Trajectory_Cache"
+      ],
+      "covers": [],
+      "dependencies": [
+        "argparse",
+        "json",
+        "matplotlib",
+        "matplotlib.pyplot",
+        "numpy",
+        "pathlib",
+        "src.calculus",
+        "src.optimizer",
+        "src.utils.cache_manager",
+        "src.utils.random",
+        "sys"
+      ],
+      "language": "python",
+      "sha256": "4b309b3725f34d7224e1c9a987bdb1324ddc97ae04ff29006d1b15a8e441c311",
+      "symbols": [
+        {
+          "concepts": [
+            "Optimizer_Trajectory_Cache"
+          ],
+          "end_line": 77,
+          "kind": "function",
+          "line": 27,
+          "name": "cached_trajectory"
+        },
+        {
+          "concepts": [],
+          "end_line": 72,
+          "kind": "function",
+          "line": 58,
+          "name": "cached_trajectory.compute"
+        },
+        {
+          "concepts": [],
+          "end_line": 82,
+          "kind": "function",
+          "line": 80,
+          "name": "_json_record"
+        },
+        {
+          "concepts": [
+            "Optimizer_Experiment"
+          ],
+          "end_line": 147,
+          "kind": "function",
+          "line": 85,
+          "name": "run_experiment"
+        },
+        {
+          "concepts": [
+            "Optimizer_Experiment"
+          ],
+          "end_line": 161,
+          "kind": "function",
+          "line": 150,
+          "name": "main"
+        }
+      ],
+      "tests": [
+        "tests/test_optimizer_experiment.py"
+      ]
+    },
     "scripts/update_registry.py": {
       "concepts": [
         "Registry"
@@ -592,6 +660,206 @@
         "tests/test_linear_transforms.py",
         "tests/test_power_iteration.py",
         "tests/test_svd.py"
+      ]
+    },
+    "src/optimizer.py": {
+      "concepts": [
+        "Elliptic_Objective",
+        "Learning_Rate_Stability_Visualization",
+        "Momentum_Update",
+        "Optimization_Trajectory",
+        "Optimizer_Comparison_Visualization",
+        "Vanilla_GD"
+      ],
+      "covers": [],
+      "dependencies": [
+        "collections.abc",
+        "dataclasses",
+        "matplotlib.pyplot",
+        "numpy",
+        "numpy.typing",
+        "src.calculus",
+        "src.utils.math",
+        "src.utils.numerical",
+        "src.utils.plotting"
+      ],
+      "language": "python",
+      "sha256": "afb65b77a5fcef4c0429216cbf597fbd201c959a85a5a0a6a5d570f1ee6f2ff2",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 23,
+          "kind": "class",
+          "line": 22,
+          "name": "_NonfiniteResult"
+        },
+        {
+          "concepts": [],
+          "end_line": 31,
+          "kind": "function",
+          "line": 26,
+          "name": "_vector"
+        },
+        {
+          "concepts": [],
+          "end_line": 40,
+          "kind": "function",
+          "line": 34,
+          "name": "_step_inputs"
+        },
+        {
+          "concepts": [],
+          "end_line": 47,
+          "kind": "function",
+          "line": 43,
+          "name": "_finite_result"
+        },
+        {
+          "concepts": [
+            "Vanilla_GD"
+          ],
+          "end_line": 72,
+          "kind": "class",
+          "line": 50,
+          "name": "VanillaGD"
+        },
+        {
+          "concepts": [],
+          "end_line": 62,
+          "kind": "method",
+          "line": 58,
+          "name": "VanillaGD.__init__"
+        },
+        {
+          "concepts": [],
+          "end_line": 65,
+          "kind": "method",
+          "line": 64,
+          "name": "VanillaGD.reset"
+        },
+        {
+          "concepts": [],
+          "end_line": 72,
+          "kind": "method",
+          "line": 67,
+          "name": "VanillaGD.step"
+        },
+        {
+          "concepts": [
+            "Momentum_Update"
+          ],
+          "end_line": 113,
+          "kind": "class",
+          "line": 75,
+          "name": "Momentum"
+        },
+        {
+          "concepts": [],
+          "end_line": 90,
+          "kind": "method",
+          "line": 84,
+          "name": "Momentum.__init__"
+        },
+        {
+          "concepts": [],
+          "end_line": 95,
+          "kind": "method",
+          "line": 93,
+          "name": "Momentum.velocity"
+        },
+        {
+          "concepts": [],
+          "end_line": 99,
+          "kind": "method",
+          "line": 97,
+          "name": "Momentum.reset"
+        },
+        {
+          "concepts": [],
+          "end_line": 113,
+          "kind": "method",
+          "line": 101,
+          "name": "Momentum.step"
+        },
+        {
+          "concepts": [
+            "Optimization_Trajectory"
+          ],
+          "end_line": 130,
+          "kind": "class",
+          "line": 117,
+          "name": "OptimizationResult"
+        },
+        {
+          "concepts": [],
+          "end_line": 142,
+          "kind": "function",
+          "line": 133,
+          "name": "_output_array"
+        },
+        {
+          "concepts": [],
+          "end_line": 154,
+          "kind": "function",
+          "line": 145,
+          "name": "_stable_norm"
+        },
+        {
+          "concepts": [],
+          "end_line": 161,
+          "kind": "function",
+          "line": 157,
+          "name": "_evaluate"
+        },
+        {
+          "concepts": [
+            "Optimization_Trajectory"
+          ],
+          "end_line": 222,
+          "kind": "function",
+          "line": 164,
+          "name": "run_optimization"
+        },
+        {
+          "concepts": [
+            "Elliptic_Objective"
+          ],
+          "end_line": 232,
+          "kind": "function",
+          "line": 225,
+          "name": "elliptic"
+        },
+        {
+          "concepts": [
+            "Elliptic_Objective"
+          ],
+          "end_line": 242,
+          "kind": "function",
+          "line": 235,
+          "name": "elliptic_gradient"
+        },
+        {
+          "concepts": [
+            "Optimizer_Comparison_Visualization"
+          ],
+          "end_line": 289,
+          "kind": "function",
+          "line": 246,
+          "name": "optimizer_comparison_figure"
+        },
+        {
+          "concepts": [
+            "Learning_Rate_Stability_Visualization"
+          ],
+          "end_line": 326,
+          "kind": "function",
+          "line": 292,
+          "name": "learning_rate_figure"
+        }
+      ],
+      "tests": [
+        "tests/test_optimizer.py",
+        "tests/test_optimizer_experiment.py"
       ]
     },
     "src/utils/__init__.py": {
@@ -1650,6 +1918,252 @@
       ],
       "tests": []
     },
+    "tests/test_optimizer.py": {
+      "concepts": [],
+      "covers": [
+        "src/optimizer.py"
+      ],
+      "dependencies": [
+        "numpy",
+        "src.calculus",
+        "src.optimizer",
+        "unittest"
+      ],
+      "language": "python",
+      "sha256": "6391792f100a5c8360361b1303180946377b0f332167a23c8c18a13258debf54",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 15,
+          "kind": "function",
+          "line": 13,
+          "name": "circle"
+        },
+        {
+          "concepts": [],
+          "end_line": 78,
+          "kind": "class",
+          "line": 18,
+          "name": "OptimizerStepTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 28,
+          "kind": "method",
+          "line": 21,
+          "name": "OptimizerStepTests.test_gd_step_preserves_inputs"
+        },
+        {
+          "concepts": [],
+          "end_line": 43,
+          "kind": "method",
+          "line": 30,
+          "name": "OptimizerStepTests.test_momentum_first_two_updates_and_state_copy"
+        },
+        {
+          "concepts": [],
+          "end_line": 52,
+          "kind": "method",
+          "line": 45,
+          "name": "OptimizerStepTests.test_zero_beta_matches_gd"
+        },
+        {
+          "concepts": [],
+          "end_line": 69,
+          "kind": "method",
+          "line": 54,
+          "name": "OptimizerStepTests.test_hyperparameter_and_shape_contracts"
+        },
+        {
+          "concepts": [],
+          "end_line": 78,
+          "kind": "method",
+          "line": 71,
+          "name": "OptimizerStepTests.test_overflow_does_not_commit_momentum_velocity"
+        },
+        {
+          "concepts": [],
+          "end_line": 194,
+          "kind": "class",
+          "line": 81,
+          "name": "TrajectoryTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 95,
+          "kind": "method",
+          "line": 84,
+          "name": "TrajectoryTests.test_circle_closed_form_and_required_accuracy"
+        },
+        {
+          "concepts": [],
+          "end_line": 103,
+          "kind": "method",
+          "line": 97,
+          "name": "TrajectoryTests.test_circle_immediate_oscillation_and_divergence"
+        },
+        {
+          "concepts": [],
+          "end_line": 111,
+          "kind": "method",
+          "line": 105,
+          "name": "TrajectoryTests.test_momentum_runner_resets_between_runs"
+        },
+        {
+          "concepts": [],
+          "end_line": 121,
+          "kind": "method",
+          "line": 113,
+          "name": "TrajectoryTests.test_elliptic_gd_reference_and_equal_budgets"
+        },
+        {
+          "concepts": [],
+          "end_line": 130,
+          "kind": "method",
+          "line": 123,
+          "name": "TrajectoryTests.test_tolerance_and_zero_budget"
+        },
+        {
+          "concepts": [],
+          "end_line": 141,
+          "kind": "method",
+          "line": 132,
+          "name": "TrajectoryTests.test_nonfinite_objective_and_gradient_keep_last_finite_rows"
+        },
+        {
+          "concepts": [],
+          "end_line": 148,
+          "kind": "method",
+          "line": 143,
+          "name": "TrajectoryTests.test_rejected_momentum_candidate_restores_accepted_state"
+        },
+        {
+          "concepts": [],
+          "end_line": 155,
+          "kind": "method",
+          "line": 150,
+          "name": "TrajectoryTests.test_step_overflow_and_stable_small_norm"
+        },
+        {
+          "concepts": [],
+          "end_line": 175,
+          "kind": "method",
+          "line": 157,
+          "name": "TrajectoryTests.test_input_and_callback_contracts"
+        },
+        {
+          "concepts": [],
+          "end_line": 172,
+          "kind": "function",
+          "line": 170,
+          "name": "TrajectoryTests.test_input_and_callback_contracts.broken"
+        },
+        {
+          "concepts": [],
+          "end_line": 194,
+          "kind": "method",
+          "line": 177,
+          "name": "TrajectoryTests.test_callback_copies_preserve_point_and_each_other"
+        },
+        {
+          "concepts": [],
+          "end_line": 183,
+          "kind": "function",
+          "line": 179,
+          "name": "TrajectoryTests.test_callback_copies_preserve_point_and_each_other.objective"
+        },
+        {
+          "concepts": [],
+          "end_line": 189,
+          "kind": "function",
+          "line": 185,
+          "name": "TrajectoryTests.test_callback_copies_preserve_point_and_each_other.gradient"
+        },
+        {
+          "concepts": [],
+          "end_line": 206,
+          "kind": "class",
+          "line": 197,
+          "name": "EllipticTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 206,
+          "kind": "method",
+          "line": 200,
+          "name": "EllipticTests.test_known_values_and_failures"
+        }
+      ],
+      "tests": []
+    },
+    "tests/test_optimizer_experiment.py": {
+      "concepts": [],
+      "covers": [
+        "scripts/run_optimizer.py",
+        "src/optimizer.py"
+      ],
+      "dependencies": [
+        "json",
+        "matplotlib",
+        "matplotlib.pyplot",
+        "numpy",
+        "pathlib",
+        "scripts.run_optimizer",
+        "src.calculus",
+        "src.optimizer",
+        "src.utils.cache_manager",
+        "tempfile",
+        "unittest",
+        "unittest.mock"
+      ],
+      "language": "python",
+      "sha256": "7a7120d96e3264b261dd9b31efe6b074bb12ad42cab00d3122d12ea6757e5cfb",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 94,
+          "kind": "class",
+          "line": 22,
+          "name": "OptimizerExperimentTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 27,
+          "kind": "method",
+          "line": 25,
+          "name": "OptimizerExperimentTests.tearDown"
+        },
+        {
+          "concepts": [],
+          "end_line": 49,
+          "kind": "method",
+          "line": 29,
+          "name": "OptimizerExperimentTests.test_cache_matches_uncached_and_separates_parameters"
+        },
+        {
+          "concepts": [],
+          "end_line": 63,
+          "kind": "method",
+          "line": 51,
+          "name": "OptimizerExperimentTests.test_comparison_figure_retains_history_and_zero"
+        },
+        {
+          "concepts": [],
+          "end_line": 77,
+          "kind": "method",
+          "line": 65,
+          "name": "OptimizerExperimentTests.test_cached_input_contract_matches_core"
+        },
+        {
+          "concepts": [],
+          "end_line": 94,
+          "kind": "method",
+          "line": 79,
+          "name": "OptimizerExperimentTests.test_cli_outputs_and_stability_cases"
+        }
+      ],
+      "tests": []
+    },
     "tests/test_plotting.py": {
       "concepts": [],
       "covers": [
@@ -2315,6 +2829,48 @@
         ]
       }
     ],
+    "Elliptic_Objective": [
+      {
+        "dependencies": [
+          "collections.abc",
+          "dataclasses",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting"
+        ],
+        "line": 225,
+        "path": "src/optimizer.py",
+        "symbol": "elliptic",
+        "tests": [
+          "tests/test_optimizer.py",
+          "tests/test_optimizer_experiment.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "collections.abc",
+          "dataclasses",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting"
+        ],
+        "line": 235,
+        "path": "src/optimizer.py",
+        "symbol": "elliptic_gradient",
+        "tests": [
+          "tests/test_optimizer.py",
+          "tests/test_optimizer_experiment.py"
+        ]
+      }
+    ],
     "Gradient_Visualization": [
       {
         "dependencies": [
@@ -2333,6 +2889,28 @@
           "tests/test_calculus.py",
           "tests/test_calculus_experiment.py",
           "tests/test_calculus_figures.py"
+        ]
+      }
+    ],
+    "Learning_Rate_Stability_Visualization": [
+      {
+        "dependencies": [
+          "collections.abc",
+          "dataclasses",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting"
+        ],
+        "line": 292,
+        "path": "src/optimizer.py",
+        "symbol": "learning_rate_figure",
+        "tests": [
+          "tests/test_optimizer.py",
+          "tests/test_optimizer_experiment.py"
         ]
       }
     ],
@@ -2446,6 +3024,28 @@
         ]
       }
     ],
+    "Momentum_Update": [
+      {
+        "dependencies": [
+          "collections.abc",
+          "dataclasses",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting"
+        ],
+        "line": 75,
+        "path": "src/optimizer.py",
+        "symbol": "Momentum",
+        "tests": [
+          "tests/test_optimizer.py",
+          "tests/test_optimizer_experiment.py"
+        ]
+      }
+    ],
     "Numerical_Derivative": [
       {
         "dependencies": [
@@ -2485,6 +3085,137 @@
           "tests/test_calculus.py",
           "tests/test_calculus_experiment.py",
           "tests/test_calculus_figures.py"
+        ]
+      }
+    ],
+    "Optimization_Trajectory": [
+      {
+        "dependencies": [
+          "collections.abc",
+          "dataclasses",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting"
+        ],
+        "line": 117,
+        "path": "src/optimizer.py",
+        "symbol": "OptimizationResult",
+        "tests": [
+          "tests/test_optimizer.py",
+          "tests/test_optimizer_experiment.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "collections.abc",
+          "dataclasses",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting"
+        ],
+        "line": 164,
+        "path": "src/optimizer.py",
+        "symbol": "run_optimization",
+        "tests": [
+          "tests/test_optimizer.py",
+          "tests/test_optimizer_experiment.py"
+        ]
+      }
+    ],
+    "Optimizer_Comparison_Visualization": [
+      {
+        "dependencies": [
+          "collections.abc",
+          "dataclasses",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting"
+        ],
+        "line": 246,
+        "path": "src/optimizer.py",
+        "symbol": "optimizer_comparison_figure",
+        "tests": [
+          "tests/test_optimizer.py",
+          "tests/test_optimizer_experiment.py"
+        ]
+      }
+    ],
+    "Optimizer_Experiment": [
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "src.calculus",
+          "src.optimizer",
+          "src.utils.cache_manager",
+          "src.utils.random",
+          "sys"
+        ],
+        "line": 85,
+        "path": "scripts/run_optimizer.py",
+        "symbol": "run_experiment",
+        "tests": [
+          "tests/test_optimizer_experiment.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "src.calculus",
+          "src.optimizer",
+          "src.utils.cache_manager",
+          "src.utils.random",
+          "sys"
+        ],
+        "line": 150,
+        "path": "scripts/run_optimizer.py",
+        "symbol": "main",
+        "tests": [
+          "tests/test_optimizer_experiment.py"
+        ]
+      }
+    ],
+    "Optimizer_Trajectory_Cache": [
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "src.calculus",
+          "src.optimizer",
+          "src.utils.cache_manager",
+          "src.utils.random",
+          "sys"
+        ],
+        "line": 27,
+        "path": "scripts/run_optimizer.py",
+        "symbol": "cached_trajectory",
+        "tests": [
+          "tests/test_optimizer_experiment.py"
         ]
       }
     ],
@@ -2869,6 +3600,28 @@
         "symbol": "generate_grayscale_image",
         "tests": [
           "tests/test_linear_algebra_experiment.py"
+        ]
+      }
+    ],
+    "Vanilla_GD": [
+      {
+        "dependencies": [
+          "collections.abc",
+          "dataclasses",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting"
+        ],
+        "line": 50,
+        "path": "src/optimizer.py",
+        "symbol": "VanillaGD",
+        "tests": [
+          "tests/test_optimizer.py",
+          "tests/test_optimizer_experiment.py"
         ]
       }
     ]
