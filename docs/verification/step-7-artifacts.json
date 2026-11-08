@@ -1,0 +1,129 @@
+{
+  "python": "3.11.4",
+  "packages": {
+    "numpy": "2.2.6",
+    "matplotlib": "3.10.3",
+    "seaborn": "0.13.2",
+    "nbformat": "5.10.4",
+    "nbclient": "0.10.2",
+    "ipykernel": "6.29.5"
+  },
+  "artifact_count": 15,
+  "artifacts": [
+    {
+      "file": "backprop_metrics.json",
+      "bytes_equal": true,
+      "sha256": "111accc7b6e77f4d795323df5789a9cc08d4640b2e5b00d79aa08a474e25aec1"
+    },
+    {
+      "file": "calculus_metrics.json",
+      "bytes_equal": true,
+      "sha256": "3c1da3ca1abe047c8bc2b39c3776cfe91829e4c4fd680382fa4ed354761d2fa2"
+    },
+    {
+      "file": "derivative_error.png",
+      "bytes_equal": true,
+      "sha256": "48684ed898a51f4b460acaa7cf58f43e1c0052748c999750f1342e67f9d9bdff",
+      "size": [
+        1260,
+        770
+      ]
+    },
+    {
+      "file": "gradient_geometry.png",
+      "bytes_equal": true,
+      "sha256": "3c37c4745b05e3fabe76ea837c785591252895b681a761b69ed12ce1f4221072",
+      "size": [
+        1176,
+        1008
+      ]
+    },
+    {
+      "file": "linear_algebra_metrics.json",
+      "bytes_equal": true,
+      "sha256": "1f3cff2e36a6608b43e40e9e380648403d014d37e16d592dc766e4f95ca1df47"
+    },
+    {
+      "file": "linear_transforms.png",
+      "bytes_equal": true,
+      "sha256": "5df3f8bcb1bd8511d0846716d92086c60b773dbf50bc8018d2d1717ab0f61f55",
+      "size": [
+        1890,
+        616
+      ]
+    },
+    {
+      "file": "optimizer_circle.png",
+      "bytes_equal": true,
+      "sha256": "d99eda32e4b355f59634e3ddadfe5f25d1ca3d745766d2a23ef3b3a5524846e3",
+      "size": [
+        2100,
+        644
+      ]
+    },
+    {
+      "file": "optimizer_ellipse.png",
+      "bytes_equal": true,
+      "sha256": "ced719a50c09dcd721cd179f4d0d28e4efa022e5c66055b8bbdf1a67e2a9ad78",
+      "size": [
+        2100,
+        644
+      ]
+    },
+    {
+      "file": "optimizer_learning_rates.png",
+      "bytes_equal": true,
+      "sha256": "8ab1a6c9e54246c9b05275cd43b2217c4623fb6368a97e370c36c572a7ca3da7",
+      "size": [
+        2016,
+        672
+      ]
+    },
+    {
+      "file": "optimizer_metrics.json",
+      "bytes_equal": true,
+      "sha256": "aadc65a63689cfaaec4f5d829e8f3f5ad84ee7e373ec087519fe8d35e6b83562"
+    },
+    {
+      "file": "probability_bernoulli.png",
+      "bytes_equal": true,
+      "sha256": "f7b5a240381608716aa13fafa852e753c6b8228a6f9a0bcc6d8bd65927d72ae6",
+      "size": [
+        1008,
+        644
+      ]
+    },
+    {
+      "file": "probability_metrics.json",
+      "bytes_equal": true,
+      "sha256": "d37506805875734180601ff6522d417e42e233589c182c5628161b125d012f5b"
+    },
+    {
+      "file": "probability_normal.png",
+      "bytes_equal": true,
+      "sha256": "eee65f994920a1bb33866881ef83fab0de1409036875a7f4d805aa29400032b0",
+      "size": [
+        1148,
+        672
+      ]
+    },
+    {
+      "file": "svd_128.png",
+      "bytes_equal": true,
+      "sha256": "c150a386a66107ea74cfcd6d568ae0436612919144a66b5a8da4c1861ff16d99",
+      "size": [
+        1904,
+        588
+      ]
+    },
+    {
+      "file": "svd_64.png",
+      "bytes_equal": true,
+      "sha256": "a2fecce6ad06d43f6d3a6876bfe0445d1df5f5a1ab55d1cf163d57b6bb6b6fb8",
+      "size": [
+        1904,
+        588
+      ]
+    }
+  ]
+}
