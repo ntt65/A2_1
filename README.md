@@ -4,7 +4,24 @@
 
 **제출 저장소:** [https://github.com/ntt65/A2_1](https://github.com/ntt65/A2_1). PR #11~#18을 기본 브랜치 `main`에 병합했습니다. 평가·재현은 `main`의 코드와 아래 실행 방법을 기준으로 합니다.
 
-**최종 검증 상태:** 2026-11-08 새 Python 3.11.4 가상환경에서 잠금 의존성 설치, `pip check`, 전체 **129개 테스트(20.417초)**, 레지스트리 검사를 통과했습니다. 세 실험과 두 노트북을 재실행해 생성한 **PNG 10개·JSON 5개는 제출 산출물과 바이트 단위로 일치**했고 노트북 원본은 변경되지 않았습니다. [최종 구현 PR #18](https://github.com/ntt65/A2_1/pull/18)까지 병합했으며, 병합 전 최종 커밋의 Windows·Linux 검사도 통과했습니다. 병합 후 기본 브랜치 검사와 제출 마무리 기록은 [이슈 #19](https://github.com/ntt65/A2_1/issues/19)에서 확인할 수 있습니다. 명령·환경·감사 결과는 [최종 재현 기록](docs/worklogs/step-7.md)에 있습니다.
+**기본 미션 통합 검증:** 2026-11-08 새 Python 3.11.4 가상환경에서 잠금 의존성 설치, `pip check`, 전체 **129개 테스트(20.417초)**, 레지스트리 검사를 통과했습니다. 세 실험과 두 노트북을 재실행해 생성한 **PNG 10개·JSON 5개는 제출 산출물과 바이트 단위로 일치**했고 노트북 원본은 변경되지 않았습니다. [최종 구현 PR #18](https://github.com/ntt65/A2_1/pull/18)까지 병합했으며, 병합 전 최종 커밋의 Windows·Linux 검사도 통과했습니다. 병합 후 기본 브랜치 검사와 제출 마무리 기록은 [이슈 #19](https://github.com/ntt65/A2_1/issues/19)에서 확인할 수 있습니다. 명령·환경·감사 결과는 [최종 재현 기록](docs/worklogs/step-7.md)에 있습니다.
+
+## Naito_AI 평가 보완: 고유값 비교 증거
+
+사용자가 제공한 **2026-11-08 11:52:57 평가 결과는 93%(14/15 통과)**입니다. [평가 원문·15개 항목 분석·보완 계획](Naito_AI_eval_result.md)을 보존했습니다. 유일한 FAIL #3은 기존 테스트의 `np.linalg.eig` 비교가 제출용 실행 출력에 명확히 드러나지 않은 문제였습니다. [이슈 #23](https://github.com/ntt65/A2_1/issues/23)에서 전용 실행 보고서와 기본 실험 출력을 보완했습니다. **외부 재평가는 아직 실행하지 않았습니다.**
+
+아래 설치를 마친 프로젝트 환경에서 `.\.venv\Scripts\python.exe -m scripts.verify_power_iteration`을 실행합니다(Linux: `.venv/bin/python -m scripts.verify_power_iteration`). 선형대수 기본 실행 명령도 같은 비교 증거를 생성합니다.
+
+| 비교 항목 | 실제 실행 결과 |
+|---|---:|
+| 직접 구현한 Power Iteration λ | 4.618033988749896 |
+| `np.linalg.eig` 기준 λ | 4.618033988749895 |
+| 상대오차 `abs(λ_manual−λ_numpy)/abs(λ_numpy)` | 1.923282552410481e-16 ≤ 0.05(5%): PASS |
+| 업데이트 횟수 / 상대 잔차 | 32 / 6.399563856969149e-11 |
+
+입력 행렬은 `[[4,1],[1,3]]`, 초기 벡터는 `[1,1]`, dtype은 float64입니다. 두 고유벡터·부호 정렬·독립 닫힌 해 교차 검증은 [실행 보고서](outputs/power_iteration_eig_comparison.md)와 [전체 JSON](outputs/power_iteration_eig_comparison.json)에 있습니다. 검증 코드는 [scripts/verify_power_iteration.py](scripts/verify_power_iteration.py)에 있으며 알고리즘 본체는 그대로입니다. 1차 보완 후 **132개 테스트(26.959초)**를 통과했습니다. [작업 기록](docs/worklogs/issue-23.md)에 명령·보완 과정을 기록합니다.
+
+기존 유도 증거도 함께 안내합니다. [역전파 노트북](notebooks/backprop_derivation.ipynb)의 `backprop-forward-derivation`, `backprop-chain-rule` 셀과 [확률 노트북](notebooks/probability_loss.ipynb)의 `gaussian-mle-derivation`, `bernoulli-mle-derivation`, `categorical-mle-derivation` 셀에 단계별 수식 전개가 있습니다. 나머지 PASS 권고와 Adam·Newton·정보이론 보너스의 추가 구현은 후속 작업입니다.
 
 ## 1. 설치와 재현
 
@@ -44,7 +61,7 @@ python3.11 -m venv .venv
 .venv/bin/python scripts/update_registry.py --check
 ```
 
-가상환경 활성화는 필요하지 않습니다. `python -O`는 assert를 제거하므로 사용하지 않습니다. 실험 세 개와 노트북 두 개가 `outputs/`의 PNG·JSON을 다시 생성합니다. 선형대수·최적화의 `--no-cache`는 캐시 읽기와 쓰기를 모두 생략합니다. 미적분 CLI에는 이 옵션이 없습니다. 외부 데이터 다운로드 없이 seed 42의 합성 grayscale 이미지를 사용합니다.
+가상환경 활성화는 필요하지 않습니다. `python -O`는 assert를 제거하므로 사용하지 않습니다. 실험 세 개와 노트북 두 개가 `outputs/`의 PNG·JSON을 다시 생성합니다. 이슈 #23에서 선형대수 실험에 eig 비교 JSON·Markdown 각 1개가 추가되어 현재 산출물은 PNG 10개·JSON 6개·비교 Markdown 1개입니다. 선형대수·최적화의 `--no-cache`는 캐시 읽기와 쓰기를 모두 생략합니다. 미적분 CLI에는 이 옵션이 없습니다. 외부 데이터 다운로드 없이 seed 42의 합성 grayscale 이미지를 사용합니다.
 
 `run_notebooks`에 경로를 생략하면 두 노트북을 각각 **현재 가상환경의 새 커널**에서 처음부터 실행합니다. 기본 실행은 `.ipynb` 원본을 변경하지 않으며, 기존 셀 출력의 성공 여부에 의존하지 않습니다. 재현 명령에는 `--write`를 사용하지 않습니다. 개발자가 실행 결과를 노트북에 다시 저장하려면 `--write` 후 `scripts/update_registry.py --update`로 파일 해시를 갱신해야 합니다.
 
@@ -59,10 +76,11 @@ python3.11 -m venv .venv
 
 ### 콘솔 결과 예시
 
-새 환경에서 실행한 실제 콘솔 결과입니다. 아래 저장 경로는 기본 명령의 `outputs`로 표기했으며, 최종 재현 검증은 별도 폴더 `.cache/integration-artifacts-20261108`에 생성해 기존 산출물과 비교했습니다. 저장 경로는 실행 위치와 `--output-dir`에 따라 달라집니다.
+기본 미션의 새 환경 실행 결과에 이슈 #23에서 실제 실행한 eig 비교 출력을 반영했습니다. 아래 저장 경로는 기본 명령의 `outputs`로 표기했으며, 최종 재현 검증은 별도 폴더 `.cache/integration-artifacts-20261108`에 생성해 기존 산출물과 비교했습니다. 저장 경로는 실행 위치와 `--output-dir`에 따라 달라집니다.
 
 ```text
 Power Iteration: lambda=4.618033988750, relative error=1.923e-16, residual=6.400e-11
+np.linalg.eig: lambda=4.618033988749895; relative error=1.923283e-16 <= 0.05 (5%): PASS
 Figures and metrics saved in outputs
 Derivative error: 3.931e-11; gradient error: 3.296e-11; orthogonality: 0.000e+00
 Figures and metrics saved in outputs
@@ -81,7 +99,7 @@ Registry check passed.
 | 원문 요구 | 실험 조건 | 실측 결과 | 허용오차·판정 기준 | 증거 |
 |---|---|---|---|---|
 | 4.1 회전·스케일·전단과 면적비 | 단위 원, 회전 π/4, 스케일 (2,0.5), 전단 k=1 | 면적비와 `abs(det(A))`의 최대 상대오차 5.55e-16 | ≤1% | [모듈](src/linear_algebra.py), [변환 PNG](outputs/linear_transforms.png), [JSON](outputs/linear_algebra_metrics.json) |
-| 4.1 직접 구현한 Power Iteration | A=[[4,1],[1,3]], 초기 벡터 [1,1] | λ=4.618033988750, v≈[0.850651,0.525731], 32회, 상대오차 1.92e-16, 상대잔차 6.40e-11 | 고유값 상대오차 ≤5%; 잔차 ≤1e-6 | [eig 비교 테스트](tests/test_power_iteration.py), [닫힌 해 비교 JSON](outputs/linear_algebra_metrics.json) |
+| 4.1 직접 구현한 Power Iteration | A=[[4,1],[1,3]], 초기 벡터 [1,1] | λ_manual=4.618033988749896, λ_numpy=4.618033988749895, v≈[0.850651,0.525731], 32회, 상대오차 1.92e-16, 상대잔차 6.40e-11 | 고유값 상대오차 ≤5%; 잔차 ≤1e-6 | [eig 비교 실행 보고서](outputs/power_iteration_eig_comparison.md), [두 계산 비교 JSON](outputs/power_iteration_eig_comparison.json), [비교 테스트](tests/test_power_iteration_verification.py) |
 | 4.1 SVD 이미지 복원 | 64×64: k=10,50,64; 보충 128×128: k=10,50,100 | 완전 rank 복원 상대오차 2.36e-15 / 1.10e-15; rank 증가 시 오차 감소 | 완전 rank ≤1e-10, 유효 rank·비증가 오차 확인 | [64 PNG](outputs/svd_64.png), [128 PNG](outputs/svd_128.png), [JSON](outputs/linear_algebra_metrics.json) |
 | 4.2 중심차분 | f(x)=x², x=3, h=1e-5 | 6.000000000039306, 절대오차 3.93e-11 | ≤1e-4 | [모듈](src/calculus.py), [오차 PNG](outputs/derivative_error.png), [JSON](outputs/calculus_metrics.json) |
 | 4.2 등고선과 Gradient | f=x²+y², 반경 2의 8개 점과 원점, gradient shape (9,2) | 수치 gradient 최대오차 3.30e-11; 비원점 gradient·접선 정규화 내적 0 | gradient ≤1e-8; 수직성 ≤1e-12; 원점은 방향 없는 영벡터 | [Gradient PNG](outputs/gradient_geometry.png), [JSON](outputs/calculus_metrics.json) |
@@ -146,7 +164,7 @@ Registry check passed.
 | GD·Momentum | [src/optimizer.py](src/optimizer.py) | [최적화 설명](docs/OPTIMIZATION.md), [측정 JSON](outputs/optimizer_metrics.json) |
 | 확률·MLE 유도 | [notebooks/probability_loss.ipynb](notebooks/probability_loss.ipynb) | [확률·손실 설명](docs/PROBABILITY_LOSS.md), [측정 JSON](outputs/probability_metrics.json) |
 
-알고리즘과 수학 계산은 **NumPy만** 사용합니다. Matplotlib·Seaborn은 시각화용이며 PyTorch·TensorFlow·JAX·scikit-learn·SciPy 알고리즘은 사용하지 않습니다. `np.linalg.svd`는 SVD 복원에 사용하고, `np.linalg.eig`는 Power Iteration 비교 테스트에서만 사용합니다. 파일·JSON·해시·테스트에는 Python 표준 라이브러리를 사용하며 노트북 실행 도구는 개발 의존성입니다.
+알고리즘과 수학 계산은 **NumPy만** 사용합니다. Matplotlib·Seaborn은 시각화용이며 PyTorch·TensorFlow·JAX·scikit-learn·SciPy 알고리즘은 사용하지 않습니다. `np.linalg.svd`는 SVD 복원에 사용하고, `np.linalg.eig`는 Power Iteration 비교 검증 코드(테스트와 전용 검증 스크립트)에서만 사용합니다. 파일·JSON·해시·테스트에는 Python 표준 라이브러리를 사용하며 노트북 실행 도구는 개발 의존성입니다.
 
 각 독립 실험·노트북 시작점에서 공통 `set_seed(42)`로 `np.random.seed(42)`를 한 번 설정합니다. import나 수학 함수 호출마다 seed를 초기화하지 않습니다. 공통 함수와 캐시는 [src/utils/](src/utils/)에 있고, 캐시는 Redis 서버 없이 `.cache/`에 저장합니다. [레지스트리](.agent/registry.json)는 파일·심볼·개념·의존성·해시와 노트북 셀 ID를 연결합니다. 상세 사용법은 [공통 기반 문서](docs/UTILITIES.md)에 있습니다.
 

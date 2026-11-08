@@ -42,7 +42,7 @@
 
 - 알고리즘·수학 계산은 NumPy만 사용한다. PyTorch, TensorFlow, JAX, scikit-learn, SciPy의 알고리즘 사용은 금지한다.
 - Matplotlib/Seaborn은 시각화에만 사용한다. Python 표준 라이브러리는 파일·JSON·해시·경로·테스트 등에 사용 가능하다.
-- `np.linalg.svd`는 SVD 압축에 허용한다. `np.linalg.eig`는 Power Iteration 비교 테스트에만 허용하며 알고리즘 본체에서 호출하지 않는다.
+- `np.linalg.svd`는 SVD 압축에 허용한다. `np.linalg.eig`는 Power Iteration 비교 검증 코드(테스트 및 전용 검증 스크립트)에만 허용하며 알고리즘 본체에서 호출하지 않는다.
 - 노트북·테스트 실행 도구는 개발용 의존성이다. 간접 설치된 라이브러리가 알고리즘 구현에 자동 허용되는 것은 아니다.
 - 기준 환경은 Python 3.11 및 검증한 `requirements-lock.txt`다. 변경 시 별도 이슈에 이유·설치·검증 결과를 기록한다.
 - 각 독립 실험·스크립트·난수 테스트의 시작점에서 공통 함수로 `np.random.seed(42)`를 한 번 호출한다.

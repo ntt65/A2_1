@@ -499,44 +499,46 @@
         "matplotlib.pyplot",
         "numpy",
         "pathlib",
+        "scripts.verify_power_iteration",
         "src.linear_algebra",
         "src.utils.cache_manager",
         "src.utils.random",
         "sys"
       ],
       "language": "python",
-      "sha256": "fcd5b5ad072a4975361bcc21a5314f1a152995c2851cb2fb3ff3577a192c8506",
+      "sha256": "4579ecaafbd471fc0830cc2d989341922e75739db17c999aa702bbc501f11f62",
       "symbols": [
         {
           "concepts": [
             "Synthetic_Grayscale"
           ],
-          "end_line": 47,
+          "end_line": 48,
           "kind": "function",
-          "line": 27,
+          "line": 28,
           "name": "generate_grayscale_image"
         },
         {
           "concepts": [
             "Linear_Algebra_Experiment"
           ],
-          "end_line": 135,
+          "end_line": 128,
           "kind": "function",
-          "line": 50,
+          "line": 51,
           "name": "run_experiment"
         },
         {
           "concepts": [
             "Linear_Algebra_Experiment"
           ],
-          "end_line": 149,
+          "end_line": 145,
           "kind": "function",
-          "line": 138,
+          "line": 131,
           "name": "main"
         }
       ],
       "tests": [
-        "tests/test_linear_algebra_experiment.py"
+        "tests/test_linear_algebra_experiment.py",
+        "tests/test_power_iteration_verification.py"
       ]
     },
     "scripts/run_notebooks.py": {
@@ -800,6 +802,62 @@
       ],
       "tests": [
         "tests/test_registry.py"
+      ]
+    },
+    "scripts/verify_power_iteration.py": {
+      "concepts": [
+        "Power_Iteration_Eig_Verification"
+      ],
+      "covers": [],
+      "dependencies": [
+        "argparse",
+        "json",
+        "numpy",
+        "pathlib",
+        "src.linear_algebra",
+        "src.utils.random",
+        "sys"
+      ],
+      "language": "python",
+      "sha256": "bf14e6477448e6e7b7fd73d34366128adadbb77221860e5be5bf509ce1031f60",
+      "symbols": [
+        {
+          "concepts": [
+            "Power_Iteration_Eig_Verification"
+          ],
+          "end_line": 86,
+          "kind": "function",
+          "line": 22,
+          "name": "verify_mission_eigenpair"
+        },
+        {
+          "concepts": [],
+          "end_line": 100,
+          "kind": "function",
+          "line": 89,
+          "name": "comparison_summary"
+        },
+        {
+          "concepts": [
+            "Power_Iteration_Eig_Verification"
+          ],
+          "end_line": 134,
+          "kind": "function",
+          "line": 103,
+          "name": "write_report"
+        },
+        {
+          "concepts": [
+            "Power_Iteration_Eig_Verification"
+          ],
+          "end_line": 147,
+          "kind": "function",
+          "line": 137,
+          "name": "main"
+        }
+      ],
+      "tests": [
+        "tests/test_power_iteration_verification.py"
       ]
     },
     "src/__init__.py": {
@@ -2209,11 +2267,11 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "acbd39897f5e325f827f1fb40c325ce5abc687f4749d88e8591fea8b034e5612",
+      "sha256": "bb47b8283517836eee65c5e82ee099f453584d7185f77372bdfc1eb06d8fb889",
       "symbols": [
         {
           "concepts": [],
-          "end_line": 47,
+          "end_line": 56,
           "kind": "class",
           "line": 16,
           "name": "ExperimentTests"
@@ -2227,7 +2285,7 @@
         },
         {
           "concepts": [],
-          "end_line": 47,
+          "end_line": 56,
           "kind": "method",
           "line": 33,
           "name": "ExperimentTests.test_delivery_command_outputs_and_assertions"
@@ -2886,6 +2944,57 @@
           "kind": "method",
           "line": 150,
           "name": "PowerIterationTests.test_inputs_are_preserved_and_eigensolvers_are_not_used"
+        }
+      ],
+      "tests": []
+    },
+    "tests/test_power_iteration_verification.py": {
+      "concepts": [],
+      "covers": [
+        "scripts/run_linear_algebra.py",
+        "scripts/verify_power_iteration.py"
+      ],
+      "dependencies": [
+        "contextlib",
+        "io",
+        "json",
+        "numpy",
+        "pathlib",
+        "scripts.verify_power_iteration",
+        "tempfile",
+        "unittest",
+        "unittest.mock"
+      ],
+      "language": "python",
+      "sha256": "119a52f01f7c126ada5d6c1ce5b1160014e4cc13c9e97dc6a41d8e88743b0ded",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 60,
+          "kind": "class",
+          "line": 18,
+          "name": "EigenpairEvidenceTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 32,
+          "kind": "method",
+          "line": 21,
+          "name": "EigenpairEvidenceTests.test_reference_matches_independent_closed_form_and_vector"
+        },
+        {
+          "concepts": [],
+          "end_line": 46,
+          "kind": "method",
+          "line": 34,
+          "name": "EigenpairEvidenceTests.test_reference_sign_is_irrelevant_and_wrong_value_is_rejected"
+        },
+        {
+          "concepts": [],
+          "end_line": 60,
+          "kind": "method",
+          "line": 48,
+          "name": "EigenpairEvidenceTests.test_cli_writes_readable_and_machine_readable_evidence"
         }
       ],
       "tests": []
@@ -4159,16 +4268,18 @@
           "matplotlib.pyplot",
           "numpy",
           "pathlib",
+          "scripts.verify_power_iteration",
           "src.linear_algebra",
           "src.utils.cache_manager",
           "src.utils.random",
           "sys"
         ],
-        "line": 50,
+        "line": 51,
         "path": "scripts/run_linear_algebra.py",
         "symbol": "run_experiment",
         "tests": [
-          "tests/test_linear_algebra_experiment.py"
+          "tests/test_linear_algebra_experiment.py",
+          "tests/test_power_iteration_verification.py"
         ]
       },
       {
@@ -4179,16 +4290,18 @@
           "matplotlib.pyplot",
           "numpy",
           "pathlib",
+          "scripts.verify_power_iteration",
           "src.linear_algebra",
           "src.utils.cache_manager",
           "src.utils.random",
           "sys"
         ],
-        "line": 138,
+        "line": 131,
         "path": "scripts/run_linear_algebra.py",
         "symbol": "main",
         "tests": [
-          "tests/test_linear_algebra_experiment.py"
+          "tests/test_linear_algebra_experiment.py",
+          "tests/test_power_iteration_verification.py"
         ]
       }
     ],
@@ -4656,6 +4769,59 @@
           "tests/test_linear_transforms.py",
           "tests/test_power_iteration.py",
           "tests/test_svd.py"
+        ]
+      }
+    ],
+    "Power_Iteration_Eig_Verification": [
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "numpy",
+          "pathlib",
+          "src.linear_algebra",
+          "src.utils.random",
+          "sys"
+        ],
+        "line": 22,
+        "path": "scripts/verify_power_iteration.py",
+        "symbol": "verify_mission_eigenpair",
+        "tests": [
+          "tests/test_power_iteration_verification.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "numpy",
+          "pathlib",
+          "src.linear_algebra",
+          "src.utils.random",
+          "sys"
+        ],
+        "line": 103,
+        "path": "scripts/verify_power_iteration.py",
+        "symbol": "write_report",
+        "tests": [
+          "tests/test_power_iteration_verification.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "numpy",
+          "pathlib",
+          "src.linear_algebra",
+          "src.utils.random",
+          "sys"
+        ],
+        "line": 137,
+        "path": "scripts/verify_power_iteration.py",
+        "symbol": "main",
+        "tests": [
+          "tests/test_power_iteration_verification.py"
         ]
       }
     ],
@@ -5183,16 +5349,18 @@
           "matplotlib.pyplot",
           "numpy",
           "pathlib",
+          "scripts.verify_power_iteration",
           "src.linear_algebra",
           "src.utils.cache_manager",
           "src.utils.random",
           "sys"
         ],
-        "line": 27,
+        "line": 28,
         "path": "scripts/run_linear_algebra.py",
         "symbol": "generate_grayscale_image",
         "tests": [
-          "tests/test_linear_algebra_experiment.py"
+          "tests/test_linear_algebra_experiment.py",
+          "tests/test_power_iteration_verification.py"
         ]
       }
     ],

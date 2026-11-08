@@ -41,6 +41,15 @@ class ExperimentTests(unittest.TestCase):
             assert report["seed"] == 42
             assert report["power_iteration"]["relative_error"] <= 0.05
             assert report["power_iteration"]["relative_residual"] <= 1e-6
+            comparison = report["power_iteration"]["numpy_eig_comparison"]
+            assert comparison["reference_method"] == "numpy.linalg.eig"
+            assert comparison["relative_eigenvalue_error"] <= 0.05
+            assert comparison["passed"] is True
+            reference = (7.0 + np.sqrt(5.0)) / 2.0
+            assert abs(comparison["numpy_eigenvalue"] - reference) <= 1e-14
+            assert (output / "power_iteration_eig_comparison.json").is_file()
+            evidence = (output / "power_iteration_eig_comparison.md").read_text(encoding="utf-8")
+            assert "np.linalg.eig" in evidence and "PASS" in evidence
             assert all(value["passed"] for value in report["transforms"].values())
             assert [[r["k"] for r in image["comparisons"]] for image in report["svd"]] == [[10, 50, 64], [10, 50, 100]]
             assert all(image["full_rank_relative_error"] <= 1e-10 for image in report["svd"])

@@ -1,0 +1,67 @@
+{
+  "seed": 42,
+  "dtype": "float64",
+  "numpy_version": "2.2.6",
+  "purpose": "verification only; np.linalg.eig is not used by the manual algorithm",
+  "initialization": "explicit vector [1,1]; no random draw",
+  "power_iteration": {
+    "matrix": [
+      [
+        4.0,
+        1.0
+      ],
+      [
+        1.0,
+        3.0
+      ]
+    ],
+    "initial": [
+      1.0,
+      1.0
+    ],
+    "eigenvalue": 4.618033988749896,
+    "eigenvector": [
+      0.8506508082738572,
+      0.5257311122456358
+    ],
+    "reference_formula": "(7 + sqrt(5)) / 2",
+    "reference": 4.618033988749895,
+    "relative_error": 1.923282552410481e-16,
+    "relative_residual": 6.399563856969149e-11,
+    "iterations": 32,
+    "converged": true,
+    "reason": "residual_tolerance",
+    "numpy_eig_comparison": {
+      "reference_method": "numpy.linalg.eig",
+      "numpy_eigenvalue": 4.618033988749895,
+      "absolute_eigenvalue_error": 8.881784197001252e-16,
+      "relative_eigenvalue_error": 1.923282552410481e-16,
+      "relative_eigenvalue_tolerance": 0.05,
+      "relative_eigenvalue_error_percent": 1.923282552410481e-14,
+      "aligned_eigenvector_l2_error": 1.4871237088596054e-10,
+      "eigenvector_tolerance": 1e-08,
+      "independent_relative_residual": 6.399563856969149e-11,
+      "relative_residual_tolerance": 1e-06,
+      "numpy_vs_analytic_absolute_error": 0.0,
+      "passed": true
+    }
+  },
+  "numpy_eig": {
+    "eigenvalues": [
+      4.618033988749895,
+      2.381966011250105
+    ],
+    "selected_index": 0,
+    "selection": "argmax(abs(eigenvalues))",
+    "eigenvalue": 4.618033988749895,
+    "eigenvector_raw": [
+      0.85065080835204,
+      0.5257311121191336
+    ],
+    "eigenvector_sign_aligned": [
+      0.85065080835204,
+      0.5257311121191336
+    ]
+  },
+  "passed": true
+}
