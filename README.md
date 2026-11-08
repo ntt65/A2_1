@@ -1,7 +1,7 @@
 # A2_1 — AI가 어떻게 학습하는지 수학으로 직접 풀어보기
 
 NumPy로 선형대수·미적분·역전파·최적화·확률을 직접 구현하고 수식과 수치 검증을 연결하는 프로젝트입니다.
-현재는 **Step 4 최적화 구현·검증 완료** 상태입니다. 사용자 지시에 따라 단계별 보고 후 Step5~7을 순차 진행합니다.
+현재는 **Step 5 역전파 구현·검증 완료** 상태입니다. 단계별 보고 후 Step6~7을 순차 진행합니다.
 
 ## 계획과 작업 규칙
 
@@ -47,8 +47,8 @@ python3.11 -m venv .venv
 ## 검증 상태와 산출물
 
 환경 준비의 실행 결과는 [Step 0 작업 기록](docs/worklogs/step-0.md), 공통 기반 검증은 [Step 1 작업 기록](docs/worklogs/step-1.md), 선형대수는 [Step 2 작업 기록](docs/worklogs/step-2.md)에 기록합니다.
-미적분 검증은 [Step 3 작업 기록](docs/worklogs/step-3.md)에 기록합니다. 수학 검증 기준은 [ACCEPTANCE.md](docs/ACCEPTANCE.md)에 정의되어 있습니다. 공통 유틸·레지스트리·선형대수·미적분은 구현했으며 Step 5~6은 미구현·미검증입니다.
-`src/utils/`와 `.agent/registry.json`을 제공하며, `notebooks/`는 해당 구현 단계에서 생성합니다.
+미적분 검증은 [Step 3 작업 기록](docs/worklogs/step-3.md)에 기록합니다. 수학 검증 기준은 [ACCEPTANCE.md](docs/ACCEPTANCE.md)에 정의되어 있습니다. 공통 유틸·레지스트리·선형대수·미적분은 구현했으며 확률/손실 Step6은 미구현·미검증입니다.
+`src/utils/`와 `.agent/registry.json`을 제공하며, `notebooks/`에 실행된 역전파 노트북을 제공합니다.
 결과 PNG는 `outputs/`, 재계산 가능한 캐시는 `.cache/`에 저장합니다.
 
 | 영역 | 현재 상태 |
@@ -58,7 +58,8 @@ python3.11 -m venv .venv
 | 선형대수 | Step 2 구현·보완 완료, 로컬 전체 검사 87개 통과 |
 | 미적분 | Step 3 구현·검증 완료, 로컬 전체 검사 105개 통과 |
 | 최적화 | Step4 구현·검증 완료, 전체125개 테스트 통과 |
-| 역전파·확률/손실 노트북 | Step 5~6 예정 |
+| 역전파 노트북 | Step5 구현·새커널 검증 완료, 전체128개 테스트 통과 |
+| 확률/손실 노트북 | Step6 예정 |
 | 전체 재현 및 최종 결과 요약 | Step 7 예정 |
 
 기존 [초안 PR #1](https://github.com/ntt65/A2_1/pull/1)은 후속 단계에서 재사용 여부를 검토합니다.
@@ -98,3 +99,9 @@ python3.11 -m venv .venv
 `python -m scripts.run_optimizer`로 PNG3개와 JSON을 재생성합니다. 원형 GD lr=.1,100회 후 norm **1.44e-9 ≤.1**입니다.
 지정 조건에서는 GD의 최종 오차가 Momentum보다 작습니다. lr=.5는 즉시수렴,1은진동,1.1은발산으로 구분했습니다.
 [수식·API·비교 그림](docs/OPTIMIZATION.md) / [작업 기록](docs/worklogs/step-4.md) / [이슈 #7](https://github.com/ntt65/A2_1/issues/7).
+
+## 역전파 결과
+
+[실행된 노트북](notebooks/backprop_derivation.ipynb)에서 손계산13개 체크포인트와 네자리표시가 일치했습니다. 최대오차 **2.22e-16**,9개 매개변수 중심차분 오차 **7.84e-12 ≤1e-6**입니다.
+`python -m scripts.run_notebooks notebooks/backprop_derivation.ipynb`로 새커널에서 재현합니다.
+[수식·실행 안내](docs/BACKPROP.md) / [작업 기록](docs/worklogs/step-5.md) / [이슈 #8](https://github.com/ntt65/A2_1/issues/8).

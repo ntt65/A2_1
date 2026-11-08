@@ -1,5 +1,180 @@
 {
   "forward": {
+    "notebooks/backprop_derivation.ipynb": {
+      "cells": [
+        {
+          "cell_type": "markdown",
+          "concepts": [
+            "Backpropagation_Derivation"
+          ],
+          "id": "backprop-introduction",
+          "title": "고정 예제와 검증 목표"
+        },
+        {
+          "cell_type": "code",
+          "concepts": [
+            "Reproducible_Seed"
+          ],
+          "id": "backprop-environment",
+          "title": "환경과 재현성"
+        },
+        {
+          "cell_type": "markdown",
+          "concepts": [
+            "Backpropagation_Shapes"
+          ],
+          "id": "backprop-fixed-shapes",
+          "title": "고정 입력과 shape"
+        },
+        {
+          "cell_type": "code",
+          "concepts": [
+            "Backpropagation_Shapes"
+          ],
+          "id": "backprop-fixed-input",
+          "title": "고정 입력 생성"
+        },
+        {
+          "cell_type": "markdown",
+          "concepts": [
+            "BCE_Loss",
+            "Forward_Propagation"
+          ],
+          "id": "backprop-forward-derivation",
+          "title": "순전파 손계산"
+        },
+        {
+          "cell_type": "code",
+          "concepts": [
+            "Backpropagation_Hand_Reference"
+          ],
+          "id": "backprop-hand-reference",
+          "title": "독립 손계산 기준 상수"
+        },
+        {
+          "cell_type": "code",
+          "concepts": [
+            "BCE_Loss",
+            "Forward_Propagation"
+          ],
+          "id": "backprop-forward-numpy",
+          "title": "NumPy 순전파"
+        },
+        {
+          "cell_type": "markdown",
+          "concepts": [
+            "Backpropagation_Derivation",
+            "Chain_Rule"
+          ],
+          "id": "backprop-chain-rule",
+          "title": "필수 6개 미분과 편향 기울기"
+        },
+        {
+          "cell_type": "code",
+          "concepts": [
+            "Backpropagation_Derivation",
+            "Chain_Rule"
+          ],
+          "id": "backprop-backward-numpy",
+          "title": "NumPy 역전파"
+        },
+        {
+          "cell_type": "markdown",
+          "concepts": [
+            "Backpropagation_Hand_Reference"
+          ],
+          "id": "backprop-comparison-policy",
+          "title": "비교 허용오차와 표시 정책"
+        },
+        {
+          "cell_type": "code",
+          "concepts": [
+            "Backpropagation_Hand_Reference"
+          ],
+          "id": "backprop-compare",
+          "title": "기준 상수 및 네 자리 검증"
+        },
+        {
+          "cell_type": "markdown",
+          "concepts": [
+            "Backpropagation_Gradient_Check"
+          ],
+          "id": "backprop-gradient-check-plan",
+          "title": "9개 매개변수 중심차분"
+        },
+        {
+          "cell_type": "code",
+          "concepts": [
+            "Backpropagation_Gradient_Check"
+          ],
+          "id": "backprop-gradient-check",
+          "title": "전체 매개변수 수치 교차 검증"
+        },
+        {
+          "cell_type": "markdown",
+          "concepts": [
+            "Backpropagation_Derivation"
+          ],
+          "id": "backprop-summary",
+          "title": "결론과 범위"
+        },
+        {
+          "cell_type": "code",
+          "concepts": [
+            "Backpropagation_Experiment"
+          ],
+          "id": "backprop-export",
+          "title": "측정 결과 저장"
+        }
+      ],
+      "concepts": [
+        "BCE_Loss",
+        "Backpropagation_Derivation",
+        "Backpropagation_Experiment",
+        "Backpropagation_Gradient_Check",
+        "Backpropagation_Hand_Reference",
+        "Backpropagation_Shapes",
+        "Chain_Rule",
+        "Forward_Propagation",
+        "Reproducible_Seed"
+      ],
+      "covers": [],
+      "dependencies": [
+        "json",
+        "numpy",
+        "os",
+        "pathlib",
+        "src.calculus",
+        "src.utils.math",
+        "src.utils.random",
+        "sys"
+      ],
+      "language": "notebook",
+      "sha256": "825291975d55d618f3e8a91f64161f8d676b7b6c82ebe629c9b49ac24d97277d",
+      "symbols": [
+        {
+          "cell_id": "backprop-compare",
+          "cell_title": "기준 상수 및 네 자리 검증",
+          "concepts": [],
+          "end_line": 11,
+          "kind": "function",
+          "line": 1,
+          "name": "four_decimal_strings"
+        },
+        {
+          "cell_id": "backprop-gradient-check",
+          "cell_title": "전체 매개변수 수치 교차 검증",
+          "concepts": [],
+          "end_line": 23,
+          "kind": "function",
+          "line": 7,
+          "name": "loss_from_flat"
+        }
+      ],
+      "tests": [
+        "tests/test_backprop_notebook.py"
+      ]
+    },
     "scripts/run_calculus.py": {
       "concepts": [
         "Calculus_Experiment"
@@ -93,6 +268,56 @@
       ],
       "tests": [
         "tests/test_linear_algebra_experiment.py"
+      ]
+    },
+    "scripts/run_notebooks.py": {
+      "concepts": [
+        "Notebook_Execution"
+      ],
+      "covers": [],
+      "dependencies": [
+        "argparse",
+        "json",
+        "jupyter_client",
+        "jupyter_client.kernelspec",
+        "nbclient",
+        "nbformat",
+        "os",
+        "pathlib",
+        "sys",
+        "tempfile"
+      ],
+      "language": "python",
+      "sha256": "a764fcb4e15d125d84d818603b555b5a61c1c841318803d04bf0eaf7d14142e7",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 29,
+          "kind": "function",
+          "line": 19,
+          "name": "_clear_execution"
+        },
+        {
+          "concepts": [
+            "Notebook_Execution"
+          ],
+          "end_line": 88,
+          "kind": "function",
+          "line": 32,
+          "name": "execute_notebook"
+        },
+        {
+          "concepts": [
+            "Notebook_Execution"
+          ],
+          "end_line": 106,
+          "kind": "function",
+          "line": 91,
+          "name": "main"
+        }
+      ],
+      "tests": [
+        "tests/test_backprop_notebook.py"
       ]
     },
     "scripts/run_optimizer.py": {
@@ -1136,6 +1361,58 @@
       "tests": [
         "tests/test_math_utils.py"
       ]
+    },
+    "tests/test_backprop_notebook.py": {
+      "concepts": [],
+      "covers": [
+        "notebooks/backprop_derivation.ipynb",
+        "scripts/run_notebooks.py"
+      ],
+      "dependencies": [
+        "json",
+        "nbclient.exceptions",
+        "nbformat",
+        "numpy",
+        "os",
+        "pathlib",
+        "scripts.run_notebooks",
+        "sys",
+        "tempfile",
+        "unittest"
+      ],
+      "language": "python",
+      "sha256": "f2379120910db45d4a5bc9628bd563076f20ee904f3c46d61fbe6a1fa7e96bc3",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 85,
+          "kind": "class",
+          "line": 19,
+          "name": "BackpropNotebookTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 40,
+          "kind": "method",
+          "line": 22,
+          "name": "BackpropNotebookTests.test_backprop_fresh_kernel_and_source_preservation"
+        },
+        {
+          "concepts": [],
+          "end_line": 73,
+          "kind": "method",
+          "line": 42,
+          "name": "BackpropNotebookTests.test_runner_clears_stale_state_and_saves_only_on_request"
+        },
+        {
+          "concepts": [],
+          "end_line": 85,
+          "kind": "method",
+          "line": 75,
+          "name": "BackpropNotebookTests.test_failed_cell_never_overwrites_notebook"
+        }
+      ],
+      "tests": []
     },
     "tests/test_cache_manager.py": {
       "concepts": [],
@@ -2600,6 +2877,284 @@
     }
   },
   "reverse": {
+    "BCE_Loss": [
+      {
+        "cell_id": "backprop-forward-derivation",
+        "cell_title": "순전파 손계산",
+        "dependencies": [
+          "json",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/backprop_derivation.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_backprop_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "backprop-forward-numpy",
+        "cell_title": "NumPy 순전파",
+        "dependencies": [
+          "json",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/backprop_derivation.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_backprop_notebook.py"
+        ]
+      }
+    ],
+    "Backpropagation_Derivation": [
+      {
+        "cell_id": "backprop-introduction",
+        "cell_title": "고정 예제와 검증 목표",
+        "dependencies": [
+          "json",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/backprop_derivation.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_backprop_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "backprop-chain-rule",
+        "cell_title": "필수 6개 미분과 편향 기울기",
+        "dependencies": [
+          "json",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/backprop_derivation.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_backprop_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "backprop-backward-numpy",
+        "cell_title": "NumPy 역전파",
+        "dependencies": [
+          "json",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/backprop_derivation.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_backprop_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "backprop-summary",
+        "cell_title": "결론과 범위",
+        "dependencies": [
+          "json",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/backprop_derivation.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_backprop_notebook.py"
+        ]
+      }
+    ],
+    "Backpropagation_Experiment": [
+      {
+        "cell_id": "backprop-export",
+        "cell_title": "측정 결과 저장",
+        "dependencies": [
+          "json",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/backprop_derivation.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_backprop_notebook.py"
+        ]
+      }
+    ],
+    "Backpropagation_Gradient_Check": [
+      {
+        "cell_id": "backprop-gradient-check-plan",
+        "cell_title": "9개 매개변수 중심차분",
+        "dependencies": [
+          "json",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/backprop_derivation.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_backprop_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "backprop-gradient-check",
+        "cell_title": "전체 매개변수 수치 교차 검증",
+        "dependencies": [
+          "json",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/backprop_derivation.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_backprop_notebook.py"
+        ]
+      }
+    ],
+    "Backpropagation_Hand_Reference": [
+      {
+        "cell_id": "backprop-hand-reference",
+        "cell_title": "독립 손계산 기준 상수",
+        "dependencies": [
+          "json",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/backprop_derivation.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_backprop_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "backprop-comparison-policy",
+        "cell_title": "비교 허용오차와 표시 정책",
+        "dependencies": [
+          "json",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/backprop_derivation.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_backprop_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "backprop-compare",
+        "cell_title": "기준 상수 및 네 자리 검증",
+        "dependencies": [
+          "json",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/backprop_derivation.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_backprop_notebook.py"
+        ]
+      }
+    ],
+    "Backpropagation_Shapes": [
+      {
+        "cell_id": "backprop-fixed-shapes",
+        "cell_title": "고정 입력과 shape",
+        "dependencies": [
+          "json",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/backprop_derivation.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_backprop_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "backprop-fixed-input",
+        "cell_title": "고정 입력 생성",
+        "dependencies": [
+          "json",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/backprop_derivation.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_backprop_notebook.py"
+        ]
+      }
+    ],
     "Cache_Key": [
       {
         "dependencies": [
@@ -2700,6 +3255,46 @@
         "symbol": "central_difference",
         "tests": [
           "tests/test_math_utils.py"
+        ]
+      }
+    ],
+    "Chain_Rule": [
+      {
+        "cell_id": "backprop-chain-rule",
+        "cell_title": "필수 6개 미분과 편향 기울기",
+        "dependencies": [
+          "json",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/backprop_derivation.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_backprop_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "backprop-backward-numpy",
+        "cell_title": "NumPy 역전파",
+        "dependencies": [
+          "json",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/backprop_derivation.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_backprop_notebook.py"
         ]
       }
     ],
@@ -2868,6 +3463,46 @@
         "tests": [
           "tests/test_optimizer.py",
           "tests/test_optimizer_experiment.py"
+        ]
+      }
+    ],
+    "Forward_Propagation": [
+      {
+        "cell_id": "backprop-forward-derivation",
+        "cell_title": "순전파 손계산",
+        "dependencies": [
+          "json",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/backprop_derivation.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_backprop_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "backprop-forward-numpy",
+        "cell_title": "NumPy 순전파",
+        "dependencies": [
+          "json",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/backprop_derivation.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_backprop_notebook.py"
         ]
       }
     ],
@@ -3043,6 +3678,48 @@
         "tests": [
           "tests/test_optimizer.py",
           "tests/test_optimizer_experiment.py"
+        ]
+      }
+    ],
+    "Notebook_Execution": [
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "jupyter_client",
+          "jupyter_client.kernelspec",
+          "nbclient",
+          "nbformat",
+          "os",
+          "pathlib",
+          "sys",
+          "tempfile"
+        ],
+        "line": 32,
+        "path": "scripts/run_notebooks.py",
+        "symbol": "execute_notebook",
+        "tests": [
+          "tests/test_backprop_notebook.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "jupyter_client",
+          "jupyter_client.kernelspec",
+          "nbclient",
+          "nbformat",
+          "os",
+          "pathlib",
+          "sys",
+          "tempfile"
+        ],
+        "line": 91,
+        "path": "scripts/run_notebooks.py",
+        "symbol": "main",
+        "tests": [
+          "tests/test_backprop_notebook.py"
         ]
       }
     ],
@@ -3373,6 +4050,25 @@
       }
     ],
     "Reproducible_Seed": [
+      {
+        "cell_id": "backprop-environment",
+        "cell_title": "환경과 재현성",
+        "dependencies": [
+          "json",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/backprop_derivation.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_backprop_notebook.py"
+        ]
+      },
       {
         "dependencies": [
           "numpy"
