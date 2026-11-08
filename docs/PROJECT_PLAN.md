@@ -10,7 +10,7 @@
 | 단계 | 이슈 | 산출물 | 선행 단계 | 현재 상태 |
 |---|---|---|---|---|
 | 0 환경·운영 준비 | [#3](https://github.com/ntt65/A2_1/issues/3) | 환경, AGENTS, 계획, 템플릿, CI | 없음 | 로컬 검증 완료, [PR #11](https://github.com/ntt65/A2_1/pull/11) 검토 대기 |
-| 1 공통 기반 | [#4](https://github.com/ntt65/A2_1/issues/4) | utils, cache, registry | 0 | 구현·로컬 48개 검증 완료(선행 PR #11 기반) |
+| 1 공통 기반 | [#4](https://github.com/ntt65/A2_1/issues/4) | utils, cache, registry | 0 | 구현·로컬 48개 검증 완료, [PR #12](https://github.com/ntt65/A2_1/pull/12) 검토 대기(선행 #11) |
 | 2 선형대수 | [#5](https://github.com/ntt65/A2_1/issues/5) | linear_algebra.py, 검증, PNG | 1 | 계획됨 |
 | 3 미적분 | [#6](https://github.com/ntt65/A2_1/issues/6) | calculus.py, 검증, PNG | 2 | 계획됨 |
 | 4 최적화 | [#7](https://github.com/ntt65/A2_1/issues/7) | optimizer.py, 검증, PNG | 3 | 계획됨 |
@@ -105,5 +105,5 @@ A2_1/
 - [x] 레지스트리 생성/검사·심볼·개념·해시·테스트 연결 검증
 - [x] 통합 테스트·환경·시각 검사·코드 리뷰와 보완
 - [x] README·실측 작업 기록·인덱스·체크리스트 갱신
-- [ ] 커밋·원격 게시·단계별 PR·이슈 기록
+- [x] 커밋·원격 게시·단계별 PR #12·이슈 기록
 - [ ] 선행 PR 병합 확인 후 Step 1 검토·병합

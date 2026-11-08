@@ -2,6 +2,7 @@
 
 작업일: 2026-11-08 (Asia/Seoul). 전체 계획 [#2](https://github.com/ntt65/A2_1/issues/2).
 현재 작업: [#4](https://github.com/ntt65/A2_1/issues/4), 브랜치 `codex/4-shared-utils`.
+검토 요청: [PR #12](https://github.com/ntt65/A2_1/pull/12), 선행 PR #11 기반.
 
 ## 기초계획
 
@@ -77,3 +78,11 @@ Python 3.11.4 / NumPy 2.2.6 / Matplotlib 3.10.3, Windows 환경에서 실행했�
 - `.agent/registry.json`과 `scripts/update_registry.py`를 추가했다. 코드·노트북 변경 후 갱신하고 JSON도 함께 커밋한다.
 - 미션별 선형대수·미적분·최적화 본체와 노트북은 이번에 구현하지 않았다. 다음은 Step 2 이슈 #5다.
 - PR 검토·병합 상태와 선행 PR 의존성은 이슈 #4 및 전체 계획에서 확인한다.
+
+## 원격 게시와 인증 기록
+
+- 구현 로컬 커밋 `69382e1`을 생성하고 Git push를 시작했다. 인증 대기를 즉시 사용자에게 안내했으나 사용자가 인증창이 보이지 않는다고 알려주었다.
+- 대기 중인 push를 중단하고 연결된 GitHub 앱으로 게시했다. 첫 원격 커밋 `10ec5a5486d8bf6d30adfc27224cee3f518a5d67`과 로컬의 tree SHA는 `86f83e34b9ec8282c76d46fdd602510541d412a1`로 같았다.
+- 원래 로컬 이력은 `codex/4-shared-utils-local-preserved`에 보존했다. 작업 브랜치의 upstream을 `origin/codex/4-shared-utils`로 연결하고 앞섬/뒤처짐 0/0과 깨끗한 작업 상태를 확인했다.
+- 새 작업 브랜치는 원격 게시·upstream 연결 전 VS Code에 Publish Branch가 표시될 수 있음을 사용자에게 설명했다.
+- 토큰을 요청하거나 프로젝트 파일에 저장하지 않았다. 원격 CI의 최종 결과·커밋은 이슈 #4에 누적 기록한다.
