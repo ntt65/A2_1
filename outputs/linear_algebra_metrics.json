@@ -1,0 +1,151 @@
+{
+  "seed": 42,
+  "numpy_version": "2.2.6",
+  "dtype": "float64",
+  "transforms": {
+    "rotation": {
+      "determinant": 1.0000000000000002,
+      "area_before": 3.141463462364136,
+      "area_after": 3.1414634623641358,
+      "area_ratio": 0.9999999999999999,
+      "expected_ratio": 1.0000000000000002,
+      "error": 3.330669073875469e-16,
+      "error_kind": "relative",
+      "tolerance": 0.01,
+      "passed": true
+    },
+    "scaling": {
+      "determinant": 1.0,
+      "area_before": 3.141463462364136,
+      "area_after": 3.141463462364136,
+      "area_ratio": 1.0,
+      "expected_ratio": 1.0,
+      "error": 0.0,
+      "error_kind": "relative",
+      "tolerance": 0.01,
+      "passed": true
+    },
+    "shear": {
+      "determinant": 1.0,
+      "area_before": 3.141463462364136,
+      "area_after": 3.1414634623641344,
+      "area_ratio": 0.9999999999999994,
+      "expected_ratio": 1.0,
+      "error": 5.551115123125783e-16,
+      "error_kind": "relative",
+      "tolerance": 0.01,
+      "passed": true
+    },
+    "reflection": {
+      "determinant": -6.0,
+      "area_before": 3.141463462364136,
+      "area_after": 18.84878077418481,
+      "area_ratio": 5.999999999999997,
+      "expected_ratio": 6.0,
+      "error": 4.440892098500626e-16,
+      "error_kind": "relative",
+      "tolerance": 0.01,
+      "passed": true
+    },
+    "singular": {
+      "determinant": 0.0,
+      "area_before": 3.141463462364136,
+      "area_after": 0.0,
+      "area_ratio": 0.0,
+      "expected_ratio": 0.0,
+      "error": 0.0,
+      "error_kind": "absolute",
+      "tolerance": 1e-10,
+      "passed": true
+    }
+  },
+  "power_iteration": {
+    "matrix": [
+      [
+        4.0,
+        1.0
+      ],
+      [
+        1.0,
+        3.0
+      ]
+    ],
+    "initial": [
+      1.0,
+      1.0
+    ],
+    "eigenvalue": 4.618033988749896,
+    "eigenvector": [
+      0.8506508082738572,
+      0.5257311122456358
+    ],
+    "reference_formula": "(7 + sqrt(5)) / 2",
+    "reference": 4.618033988749895,
+    "relative_error": 1.923282552410481e-16,
+    "relative_residual": 6.399563856969149e-11,
+    "iterations": 32,
+    "converged": true,
+    "reason": "residual_tolerance"
+  },
+  "svd": [
+    {
+      "shape": [
+        64,
+        64
+      ],
+      "filename": "svd_64.png",
+      "numerical_rank": 64,
+      "full_rank_relative_error": 2.3605124574215274e-15,
+      "comparisons": [
+        {
+          "k": 10,
+          "relative_error": 0.11607845060286695,
+          "stored_over_original": 0.31494140625
+        },
+        {
+          "k": 50,
+          "relative_error": 0.013222144059052797,
+          "stored_over_original": 1.57470703125
+        },
+        {
+          "k": 64,
+          "relative_error": 2.3605124574215274e-15,
+          "stored_over_original": 2.015625
+        }
+      ]
+    },
+    {
+      "shape": [
+        128,
+        128
+      ],
+      "filename": "svd_128.png",
+      "numerical_rank": 128,
+      "full_rank_relative_error": 1.1042954043230347e-15,
+      "comparisons": [
+        {
+          "k": 10,
+          "relative_error": 0.1275184713562091,
+          "stored_over_original": 0.1568603515625
+        },
+        {
+          "k": 50,
+          "relative_error": 0.05938687046053636,
+          "stored_over_original": 0.7843017578125
+        },
+        {
+          "k": 100,
+          "relative_error": 0.01218300917179587,
+          "stored_over_original": 1.568603515625
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "64x64 main experiment uses valid ranks 10,50,64.",
+    "128x128 supplemental experiment permits required ranks 10,50,100.",
+    "Stored/original compares numeric element counts, not encoded file sizes.",
+    "Error uses unclipped reconstructions; a storage ratio above one is not a saving.",
+    "A small eigenpair residual alone does not prove dominance for arbitrary initial vectors."
+  ]
+}

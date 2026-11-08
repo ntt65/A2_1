@@ -1,5 +1,58 @@
 {
   "forward": {
+    "scripts/run_linear_algebra.py": {
+      "concepts": [
+        "Linear_Algebra_Experiment",
+        "Synthetic_Grayscale"
+      ],
+      "covers": [],
+      "dependencies": [
+        "argparse",
+        "json",
+        "matplotlib",
+        "matplotlib.pyplot",
+        "numpy",
+        "pathlib",
+        "src.linear_algebra",
+        "src.utils.cache_manager",
+        "src.utils.random",
+        "sys"
+      ],
+      "language": "python",
+      "sha256": "fcd5b5ad072a4975361bcc21a5314f1a152995c2851cb2fb3ff3577a192c8506",
+      "symbols": [
+        {
+          "concepts": [
+            "Synthetic_Grayscale"
+          ],
+          "end_line": 47,
+          "kind": "function",
+          "line": 27,
+          "name": "generate_grayscale_image"
+        },
+        {
+          "concepts": [
+            "Linear_Algebra_Experiment"
+          ],
+          "end_line": 135,
+          "kind": "function",
+          "line": 50,
+          "name": "run_experiment"
+        },
+        {
+          "concepts": [
+            "Linear_Algebra_Experiment"
+          ],
+          "end_line": 149,
+          "kind": "function",
+          "line": 138,
+          "name": "main"
+        }
+      ],
+      "tests": [
+        "tests/test_linear_algebra_experiment.py"
+      ]
+    },
     "scripts/update_registry.py": {
       "concepts": [
         "Registry"
@@ -152,6 +205,245 @@
       "sha256": "046df61661ab30f0359c19fec1b48f8566393608f14af69fd76ad5f5cad109d8",
       "symbols": [],
       "tests": []
+    },
+    "src/linear_algebra.py": {
+      "concepts": [
+        "Determinant_Area",
+        "Linear_Transform",
+        "Power_Iteration",
+        "Rotation_Matrix",
+        "SVD_Comparison",
+        "SVD_Compression",
+        "SVD_Decomposition",
+        "SVD_Reconstruction",
+        "Scaling_Matrix",
+        "Shear_Matrix"
+      ],
+      "covers": [],
+      "dependencies": [
+        "dataclasses",
+        "matplotlib.axes",
+        "matplotlib.figure",
+        "matplotlib.pyplot",
+        "numpy",
+        "numpy.typing",
+        "src.utils.cache_manager",
+        "src.utils.math",
+        "src.utils.numerical"
+      ],
+      "language": "python",
+      "sha256": "7cc1b60e9a69039b18eada8620cc9c206f2f691baaaaa0e9ee4d2737e9592f28",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 34,
+          "kind": "function",
+          "line": 29,
+          "name": "_transform_matrix"
+        },
+        {
+          "concepts": [],
+          "end_line": 42,
+          "kind": "function",
+          "line": 37,
+          "name": "_plane_points"
+        },
+        {
+          "concepts": [
+            "Rotation_Matrix"
+          ],
+          "end_line": 49,
+          "kind": "function",
+          "line": 45,
+          "name": "rotation_matrix"
+        },
+        {
+          "concepts": [
+            "Scaling_Matrix"
+          ],
+          "end_line": 54,
+          "kind": "function",
+          "line": 52,
+          "name": "scaling_matrix"
+        },
+        {
+          "concepts": [
+            "Shear_Matrix"
+          ],
+          "end_line": 59,
+          "kind": "function",
+          "line": 57,
+          "name": "shear_matrix"
+        },
+        {
+          "concepts": [
+            "Linear_Transform"
+          ],
+          "end_line": 73,
+          "kind": "function",
+          "line": 62,
+          "name": "unit_circle"
+        },
+        {
+          "concepts": [
+            "Linear_Transform"
+          ],
+          "end_line": 87,
+          "kind": "function",
+          "line": 76,
+          "name": "transform_points"
+        },
+        {
+          "concepts": [
+            "Determinant_Area"
+          ],
+          "end_line": 106,
+          "kind": "function",
+          "line": 90,
+          "name": "polygon_area"
+        },
+        {
+          "concepts": [],
+          "end_line": 133,
+          "kind": "function",
+          "line": 109,
+          "name": "_determinant_2x2"
+        },
+        {
+          "concepts": [
+            "Determinant_Area"
+          ],
+          "end_line": 175,
+          "kind": "function",
+          "line": 136,
+          "name": "determinant_area_check"
+        },
+        {
+          "concepts": [
+            "Linear_Transform"
+          ],
+          "end_line": 220,
+          "kind": "function",
+          "line": 178,
+          "name": "transformation_figure"
+        },
+        {
+          "concepts": [
+            "Power_Iteration"
+          ],
+          "end_line": 241,
+          "kind": "class",
+          "line": 224,
+          "name": "PowerIterationResult"
+        },
+        {
+          "concepts": [],
+          "end_line": 251,
+          "kind": "function",
+          "line": 244,
+          "name": "_power_normalize"
+        },
+        {
+          "concepts": [],
+          "end_line": 261,
+          "kind": "function",
+          "line": 254,
+          "name": "_power_residual_norm"
+        },
+        {
+          "concepts": [],
+          "end_line": 270,
+          "kind": "function",
+          "line": 264,
+          "name": "_power_eigenvalue"
+        },
+        {
+          "concepts": [
+            "Power_Iteration"
+          ],
+          "end_line": 352,
+          "kind": "function",
+          "line": 273,
+          "name": "power_iteration"
+        },
+        {
+          "concepts": [],
+          "end_line": 364,
+          "kind": "function",
+          "line": 355,
+          "name": "_svd_image"
+        },
+        {
+          "concepts": [],
+          "end_line": 373,
+          "kind": "function",
+          "line": 367,
+          "name": "_svd_rank"
+        },
+        {
+          "concepts": [],
+          "end_line": 401,
+          "kind": "function",
+          "line": 376,
+          "name": "_svd_factors"
+        },
+        {
+          "concepts": [
+            "SVD_Decomposition"
+          ],
+          "end_line": 430,
+          "kind": "function",
+          "line": 404,
+          "name": "svd_decompose"
+        },
+        {
+          "concepts": [],
+          "end_line": 422,
+          "kind": "function",
+          "line": 419,
+          "name": "svd_decompose.compute"
+        },
+        {
+          "concepts": [
+            "SVD_Reconstruction"
+          ],
+          "end_line": 449,
+          "kind": "function",
+          "line": 433,
+          "name": "reconstruct_svd"
+        },
+        {
+          "concepts": [
+            "SVD_Compression"
+          ],
+          "end_line": 463,
+          "kind": "function",
+          "line": 452,
+          "name": "compress_image"
+        },
+        {
+          "concepts": [],
+          "end_line": 478,
+          "kind": "function",
+          "line": 466,
+          "name": "_svd_relative_error"
+        },
+        {
+          "concepts": [
+            "SVD_Comparison"
+          ],
+          "end_line": 523,
+          "kind": "function",
+          "line": 481,
+          "name": "svd_comparison_figure"
+        }
+      ],
+      "tests": [
+        "tests/test_linear_algebra_experiment.py",
+        "tests/test_linear_transforms.py",
+        "tests/test_power_iteration.py",
+        "tests/test_svd.py"
+      ]
     },
     "src/utils/__init__.py": {
       "concepts": [],
@@ -700,6 +992,138 @@
       ],
       "tests": []
     },
+    "tests/test_linear_algebra_experiment.py": {
+      "concepts": [],
+      "covers": [
+        "scripts/run_linear_algebra.py",
+        "src/linear_algebra.py"
+      ],
+      "dependencies": [
+        "json",
+        "numpy",
+        "pathlib",
+        "scripts.run_linear_algebra",
+        "src.utils.random",
+        "tempfile",
+        "unittest"
+      ],
+      "language": "python",
+      "sha256": "acbd39897f5e325f827f1fb40c325ce5abc687f4749d88e8591fea8b034e5612",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 47,
+          "kind": "class",
+          "line": 16,
+          "name": "ExperimentTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 31,
+          "kind": "method",
+          "line": 19,
+          "name": "ExperimentTests.test_seeded_image_shape_range_and_detail"
+        },
+        {
+          "concepts": [],
+          "end_line": 47,
+          "kind": "method",
+          "line": 33,
+          "name": "ExperimentTests.test_delivery_command_outputs_and_assertions"
+        }
+      ],
+      "tests": []
+    },
+    "tests/test_linear_transforms.py": {
+      "concepts": [],
+      "covers": [
+        "src/linear_algebra.py"
+      ],
+      "dependencies": [
+        "matplotlib",
+        "matplotlib.pyplot",
+        "numpy",
+        "pathlib",
+        "src.linear_algebra",
+        "tempfile",
+        "unittest"
+      ],
+      "language": "python",
+      "sha256": "d1b4f089e32c9db337322b4e76b7c5e25b6b678cd1bb62a633799c48f723711b",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 108,
+          "kind": "class",
+          "line": 20,
+          "name": "TransformTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 30,
+          "kind": "method",
+          "line": 23,
+          "name": "TransformTests.test_known_matrices_and_column_convention"
+        },
+        {
+          "concepts": [],
+          "end_line": 37,
+          "kind": "method",
+          "line": 32,
+          "name": "TransformTests.test_circle_shape_norm_and_polygon_approximation"
+        },
+        {
+          "concepts": [],
+          "end_line": 45,
+          "kind": "method",
+          "line": 39,
+          "name": "TransformTests.test_polygon_known_area_winding_and_translation"
+        },
+        {
+          "concepts": [],
+          "end_line": 57,
+          "kind": "method",
+          "line": 47,
+          "name": "TransformTests.test_required_area_tolerance_and_reflection"
+        },
+        {
+          "concepts": [],
+          "end_line": 65,
+          "kind": "method",
+          "line": 59,
+          "name": "TransformTests.test_singular_transform_uses_absolute_error"
+        },
+        {
+          "concepts": [],
+          "end_line": 80,
+          "kind": "method",
+          "line": 67,
+          "name": "TransformTests.test_input_shapes_types_and_degenerate_polygon"
+        },
+        {
+          "concepts": [],
+          "end_line": 87,
+          "kind": "method",
+          "line": 82,
+          "name": "TransformTests.test_overflow_is_not_a_silent_geometric_result"
+        },
+        {
+          "concepts": [],
+          "end_line": 94,
+          "kind": "method",
+          "line": 89,
+          "name": "TransformTests.test_underflow_is_not_reported_as_a_singular_success"
+        },
+        {
+          "concepts": [],
+          "end_line": 108,
+          "kind": "method",
+          "line": 96,
+          "name": "TransformTests.test_comparison_figure_and_reference_arrows"
+        }
+      ],
+      "tests": []
+    },
     "tests/test_math_utils.py": {
       "concepts": [],
       "covers": [
@@ -902,6 +1326,123 @@
       ],
       "tests": []
     },
+    "tests/test_power_iteration.py": {
+      "concepts": [],
+      "covers": [
+        "src/linear_algebra.py"
+      ],
+      "dependencies": [
+        "dataclasses",
+        "numpy",
+        "src.linear_algebra",
+        "src.utils.random",
+        "unittest",
+        "unittest.mock"
+      ],
+      "language": "python",
+      "sha256": "02a402009f3b3f4f67878fa52cb948e16b4af5a440b6d94bf2f7bb01625f5a3d",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 164,
+          "kind": "class",
+          "line": 16,
+          "name": "PowerIterationTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 37,
+          "kind": "method",
+          "line": 19,
+          "name": "PowerIterationTests.test_mission_matrix_matches_analytic_value_and_eig"
+        },
+        {
+          "concepts": [],
+          "end_line": 46,
+          "kind": "method",
+          "line": 39,
+          "name": "PowerIterationTests.test_negative_dominant_eigenvalue_preserves_sign"
+        },
+        {
+          "concepts": [],
+          "end_line": 53,
+          "kind": "method",
+          "line": 48,
+          "name": "PowerIterationTests.test_zero_matrix_has_an_explicit_exact_result"
+        },
+        {
+          "concepts": [],
+          "end_line": 62,
+          "kind": "method",
+          "line": 55,
+          "name": "PowerIterationTests.test_nullspace_and_nilpotent_breakdown_are_not_dominance_success"
+        },
+        {
+          "concepts": [],
+          "end_line": 72,
+          "kind": "method",
+          "line": 64,
+          "name": "PowerIterationTests.test_equal_magnitude_and_complex_modes_can_fail_to_converge"
+        },
+        {
+          "concepts": [],
+          "end_line": 79,
+          "kind": "method",
+          "line": 74,
+          "name": "PowerIterationTests.test_budget_and_tolerance_are_observable"
+        },
+        {
+          "concepts": [],
+          "end_line": 85,
+          "kind": "method",
+          "line": 81,
+          "name": "PowerIterationTests.test_subdominant_initial_direction_documents_residual_limit"
+        },
+        {
+          "concepts": [],
+          "end_line": 97,
+          "kind": "method",
+          "line": 87,
+          "name": "PowerIterationTests.test_uniform_scales_and_extreme_initial_vectors_are_supported"
+        },
+        {
+          "concepts": [],
+          "end_line": 105,
+          "kind": "method",
+          "line": 99,
+          "name": "PowerIterationTests.test_unrepresentable_eigenvalues_and_matrix_scaling_fail_explicitly"
+        },
+        {
+          "concepts": [],
+          "end_line": 113,
+          "kind": "method",
+          "line": 107,
+          "name": "PowerIterationTests.test_tiny_residual_is_not_mistaken_for_exact_convergence"
+        },
+        {
+          "concepts": [],
+          "end_line": 133,
+          "kind": "method",
+          "line": 115,
+          "name": "PowerIterationTests.test_invalid_matrix_initial_and_control_inputs_fail"
+        },
+        {
+          "concepts": [],
+          "end_line": 148,
+          "kind": "method",
+          "line": 135,
+          "name": "PowerIterationTests.test_external_seed_reproduces_random_start_without_reseeding"
+        },
+        {
+          "concepts": [],
+          "end_line": 164,
+          "kind": "method",
+          "line": 150,
+          "name": "PowerIterationTests.test_inputs_are_preserved_and_eigensolvers_are_not_used"
+        }
+      ],
+      "tests": []
+    },
     "tests/test_registry.py": {
       "concepts": [],
       "covers": [
@@ -1003,6 +1544,156 @@
           "kind": "method",
           "line": 152,
           "name": "RegistryTests.test_cli_exit_codes"
+        }
+      ],
+      "tests": []
+    },
+    "tests/test_svd.py": {
+      "concepts": [],
+      "covers": [
+        "src/linear_algebra.py"
+      ],
+      "dependencies": [
+        "matplotlib",
+        "matplotlib.pyplot",
+        "numpy",
+        "pathlib",
+        "src.linear_algebra",
+        "src.utils.cache_manager",
+        "src.utils.random",
+        "tempfile",
+        "unittest",
+        "unittest.mock",
+        "warnings"
+      ],
+      "language": "python",
+      "sha256": "7d779bc5e0713b100a5b094ad5a24db76ce8e3632b92a159bb9cacf71c36b05c",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 206,
+          "kind": "class",
+          "line": 23,
+          "name": "SVDTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 28,
+          "kind": "method",
+          "line": 26,
+          "name": "SVDTests.setUp"
+        },
+        {
+          "concepts": [],
+          "end_line": 32,
+          "kind": "method",
+          "line": 30,
+          "name": "SVDTests.tearDown"
+        },
+        {
+          "concepts": [],
+          "end_line": 41,
+          "kind": "method",
+          "line": 34,
+          "name": "SVDTests.test_diagonal_known_truncations"
+        },
+        {
+          "concepts": [],
+          "end_line": 49,
+          "kind": "method",
+          "line": 43,
+          "name": "SVDTests.test_nonsquare_rank_one_and_factor_shapes"
+        },
+        {
+          "concepts": [],
+          "end_line": 60,
+          "kind": "method",
+          "line": 51,
+          "name": "SVDTests.test_full_rank_and_monotone_error"
+        },
+        {
+          "concepts": [],
+          "end_line": 66,
+          "kind": "method",
+          "line": 62,
+          "name": "SVDTests.test_zero_and_single_pixel"
+        },
+        {
+          "concepts": [],
+          "end_line": 75,
+          "kind": "method",
+          "line": 68,
+          "name": "SVDTests.test_invalid_images"
+        },
+        {
+          "concepts": [],
+          "end_line": 86,
+          "kind": "method",
+          "line": 77,
+          "name": "SVDTests.test_invalid_rank_fails_before_decomposition"
+        },
+        {
+          "concepts": [],
+          "end_line": 106,
+          "kind": "method",
+          "line": 88,
+          "name": "SVDTests.test_factor_contract"
+        },
+        {
+          "concepts": [],
+          "end_line": 111,
+          "kind": "method",
+          "line": 108,
+          "name": "SVDTests.test_reconstruction_is_not_clipped"
+        },
+        {
+          "concepts": [],
+          "end_line": 122,
+          "kind": "method",
+          "line": 113,
+          "name": "SVDTests.test_nonrepresentable_result_and_svd_failure"
+        },
+        {
+          "concepts": [],
+          "end_line": 140,
+          "kind": "method",
+          "line": 124,
+          "name": "SVDTests.test_cache_reuses_full_factors_across_ranks"
+        },
+        {
+          "concepts": [],
+          "end_line": 155,
+          "kind": "method",
+          "line": 142,
+          "name": "SVDTests.test_disabled_cache_matches_uncached"
+        },
+        {
+          "concepts": [],
+          "end_line": 169,
+          "kind": "method",
+          "line": 157,
+          "name": "SVDTests.test_comparison_figure_has_shared_scale_and_metrics"
+        },
+        {
+          "concepts": [],
+          "end_line": 180,
+          "kind": "method",
+          "line": 171,
+          "name": "SVDTests.test_zero_figure_and_invalid_figure_ranks"
+        },
+        {
+          "concepts": [],
+          "end_line": 190,
+          "kind": "method",
+          "line": 182,
+          "name": "SVDTests.test_extreme_pixels_render_with_common_scaled_mapping"
+        },
+        {
+          "concepts": [],
+          "end_line": 206,
+          "kind": "method",
+          "line": 192,
+          "name": "SVDTests.test_comparison_titles_remain_inside_figure"
         }
       ],
       "tests": []
@@ -1110,6 +1801,208 @@
         ]
       }
     ],
+    "Determinant_Area": [
+      {
+        "dependencies": [
+          "dataclasses",
+          "matplotlib.axes",
+          "matplotlib.figure",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical"
+        ],
+        "line": 90,
+        "path": "src/linear_algebra.py",
+        "symbol": "polygon_area",
+        "tests": [
+          "tests/test_linear_algebra_experiment.py",
+          "tests/test_linear_transforms.py",
+          "tests/test_power_iteration.py",
+          "tests/test_svd.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "dataclasses",
+          "matplotlib.axes",
+          "matplotlib.figure",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical"
+        ],
+        "line": 136,
+        "path": "src/linear_algebra.py",
+        "symbol": "determinant_area_check",
+        "tests": [
+          "tests/test_linear_algebra_experiment.py",
+          "tests/test_linear_transforms.py",
+          "tests/test_power_iteration.py",
+          "tests/test_svd.py"
+        ]
+      }
+    ],
+    "Linear_Algebra_Experiment": [
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "src.linear_algebra",
+          "src.utils.cache_manager",
+          "src.utils.random",
+          "sys"
+        ],
+        "line": 50,
+        "path": "scripts/run_linear_algebra.py",
+        "symbol": "run_experiment",
+        "tests": [
+          "tests/test_linear_algebra_experiment.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "src.linear_algebra",
+          "src.utils.cache_manager",
+          "src.utils.random",
+          "sys"
+        ],
+        "line": 138,
+        "path": "scripts/run_linear_algebra.py",
+        "symbol": "main",
+        "tests": [
+          "tests/test_linear_algebra_experiment.py"
+        ]
+      }
+    ],
+    "Linear_Transform": [
+      {
+        "dependencies": [
+          "dataclasses",
+          "matplotlib.axes",
+          "matplotlib.figure",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical"
+        ],
+        "line": 62,
+        "path": "src/linear_algebra.py",
+        "symbol": "unit_circle",
+        "tests": [
+          "tests/test_linear_algebra_experiment.py",
+          "tests/test_linear_transforms.py",
+          "tests/test_power_iteration.py",
+          "tests/test_svd.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "dataclasses",
+          "matplotlib.axes",
+          "matplotlib.figure",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical"
+        ],
+        "line": 76,
+        "path": "src/linear_algebra.py",
+        "symbol": "transform_points",
+        "tests": [
+          "tests/test_linear_algebra_experiment.py",
+          "tests/test_linear_transforms.py",
+          "tests/test_power_iteration.py",
+          "tests/test_svd.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "dataclasses",
+          "matplotlib.axes",
+          "matplotlib.figure",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical"
+        ],
+        "line": 178,
+        "path": "src/linear_algebra.py",
+        "symbol": "transformation_figure",
+        "tests": [
+          "tests/test_linear_algebra_experiment.py",
+          "tests/test_linear_transforms.py",
+          "tests/test_power_iteration.py",
+          "tests/test_svd.py"
+        ]
+      }
+    ],
+    "Power_Iteration": [
+      {
+        "dependencies": [
+          "dataclasses",
+          "matplotlib.axes",
+          "matplotlib.figure",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical"
+        ],
+        "line": 224,
+        "path": "src/linear_algebra.py",
+        "symbol": "PowerIterationResult",
+        "tests": [
+          "tests/test_linear_algebra_experiment.py",
+          "tests/test_linear_transforms.py",
+          "tests/test_power_iteration.py",
+          "tests/test_svd.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "dataclasses",
+          "matplotlib.axes",
+          "matplotlib.figure",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical"
+        ],
+        "line": 273,
+        "path": "src/linear_algebra.py",
+        "symbol": "power_iteration",
+        "tests": [
+          "tests/test_linear_algebra_experiment.py",
+          "tests/test_linear_transforms.py",
+          "tests/test_power_iteration.py",
+          "tests/test_svd.py"
+        ]
+      }
+    ],
     "Registry": [
       {
         "dependencies": [
@@ -1188,6 +2081,174 @@
         ]
       }
     ],
+    "Rotation_Matrix": [
+      {
+        "dependencies": [
+          "dataclasses",
+          "matplotlib.axes",
+          "matplotlib.figure",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical"
+        ],
+        "line": 45,
+        "path": "src/linear_algebra.py",
+        "symbol": "rotation_matrix",
+        "tests": [
+          "tests/test_linear_algebra_experiment.py",
+          "tests/test_linear_transforms.py",
+          "tests/test_power_iteration.py",
+          "tests/test_svd.py"
+        ]
+      }
+    ],
+    "SVD_Comparison": [
+      {
+        "dependencies": [
+          "dataclasses",
+          "matplotlib.axes",
+          "matplotlib.figure",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical"
+        ],
+        "line": 481,
+        "path": "src/linear_algebra.py",
+        "symbol": "svd_comparison_figure",
+        "tests": [
+          "tests/test_linear_algebra_experiment.py",
+          "tests/test_linear_transforms.py",
+          "tests/test_power_iteration.py",
+          "tests/test_svd.py"
+        ]
+      }
+    ],
+    "SVD_Compression": [
+      {
+        "dependencies": [
+          "dataclasses",
+          "matplotlib.axes",
+          "matplotlib.figure",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical"
+        ],
+        "line": 452,
+        "path": "src/linear_algebra.py",
+        "symbol": "compress_image",
+        "tests": [
+          "tests/test_linear_algebra_experiment.py",
+          "tests/test_linear_transforms.py",
+          "tests/test_power_iteration.py",
+          "tests/test_svd.py"
+        ]
+      }
+    ],
+    "SVD_Decomposition": [
+      {
+        "dependencies": [
+          "dataclasses",
+          "matplotlib.axes",
+          "matplotlib.figure",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical"
+        ],
+        "line": 404,
+        "path": "src/linear_algebra.py",
+        "symbol": "svd_decompose",
+        "tests": [
+          "tests/test_linear_algebra_experiment.py",
+          "tests/test_linear_transforms.py",
+          "tests/test_power_iteration.py",
+          "tests/test_svd.py"
+        ]
+      }
+    ],
+    "SVD_Reconstruction": [
+      {
+        "dependencies": [
+          "dataclasses",
+          "matplotlib.axes",
+          "matplotlib.figure",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical"
+        ],
+        "line": 433,
+        "path": "src/linear_algebra.py",
+        "symbol": "reconstruct_svd",
+        "tests": [
+          "tests/test_linear_algebra_experiment.py",
+          "tests/test_linear_transforms.py",
+          "tests/test_power_iteration.py",
+          "tests/test_svd.py"
+        ]
+      }
+    ],
+    "Scaling_Matrix": [
+      {
+        "dependencies": [
+          "dataclasses",
+          "matplotlib.axes",
+          "matplotlib.figure",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical"
+        ],
+        "line": 52,
+        "path": "src/linear_algebra.py",
+        "symbol": "scaling_matrix",
+        "tests": [
+          "tests/test_linear_algebra_experiment.py",
+          "tests/test_linear_transforms.py",
+          "tests/test_power_iteration.py",
+          "tests/test_svd.py"
+        ]
+      }
+    ],
+    "Shear_Matrix": [
+      {
+        "dependencies": [
+          "dataclasses",
+          "matplotlib.axes",
+          "matplotlib.figure",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical"
+        ],
+        "line": 57,
+        "path": "src/linear_algebra.py",
+        "symbol": "shear_matrix",
+        "tests": [
+          "tests/test_linear_algebra_experiment.py",
+          "tests/test_linear_transforms.py",
+          "tests/test_power_iteration.py",
+          "tests/test_svd.py"
+        ]
+      }
+    ],
     "Sigmoid": [
       {
         "dependencies": [
@@ -1213,6 +2274,28 @@
         "symbol": "softmax",
         "tests": [
           "tests/test_math_utils.py"
+        ]
+      }
+    ],
+    "Synthetic_Grayscale": [
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "src.linear_algebra",
+          "src.utils.cache_manager",
+          "src.utils.random",
+          "sys"
+        ],
+        "line": 27,
+        "path": "scripts/run_linear_algebra.py",
+        "symbol": "generate_grayscale_image",
+        "tests": [
+          "tests/test_linear_algebra_experiment.py"
         ]
       }
     ]
