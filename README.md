@@ -1,8 +1,10 @@
 # A2_1 — AI가 어떻게 학습하는지 수학으로 직접 풀어보기
 
-선형대수·미적분·역전파·최적화·확률의 수식을 직접 유도하고 NumPy로 구현·검증한 프로젝트입니다. [미션 원문](A2_1_mission.md) 2절의 필수 결과물과 4절의 기능 요구를 대상으로 하며, 코드·실행된 노트북·PNG·측정 JSON을 함께 제공합니다. Adam·Newton·정보 이론 보너스는 필수 범위에 포함하지 않습니다.
+선형대수·미적분·역전파·최적화·확률의 수식을 직접 유도하고 NumPy로 구현·검증한 프로젝트입니다. [미션 원문](A2_1_mission.md) 2절·4절의 필수 요구와 사용자 추가 요청에 따른 5절 Adam·Newton·정보 이론 보너스를 구현하고, 코드·실행된 노트북·PNG·측정 JSON을 함께 제공합니다.
 
-**제출 저장소:** [https://github.com/ntt65/A2_1](https://github.com/ntt65/A2_1). PR #11~#18을 기본 브랜치 `main`에 병합했습니다. 평가·재현은 `main`의 코드와 아래 실행 방법을 기준으로 합니다.
+**최종 제출·평가 주소:** [https://github.com/ntt65/A2_1/tree/main](https://github.com/ntt65/A2_1/tree/main). 기본 미션, 평가 권고 보완, 보너스 세 항목의 코드는 아래 명령으로 재현합니다. 사용자의 main 제출 지시에 따른 순차 병합·최종 main 검사 기록은 [이슈 #27](https://github.com/ntt65/A2_1/issues/27)에서 확인합니다.
+
+**보너스 포함 로컬 검증:** Python 3.11.4/NumPy 2.2.6에서 전체 **186개 테스트(32.927초)**, 환경·레지스트리 검사 및 새 PNG 4개의 시각 검토를 통과했습니다. Adam/Newton의 극소값 반례를 보완했고, 캐시를 끈 재실행의 최적화 PNG 3개·JSON·Markdown이 저장된 산출물과 바이트 단위로 일치했습니다. [보너스 검증 기록](docs/worklogs/issue-27.md)에 명령·환경·수식·실패 보완을 기록했습니다.
 
 **기본 미션 통합 검증:** 2026-11-08 새 Python 3.11.4 가상환경에서 잠금 의존성 설치, `pip check`, 전체 **129개 테스트(20.417초)**, 레지스트리 검사를 통과했습니다. 세 실험과 두 노트북을 재실행해 생성한 **PNG 10개·JSON 5개는 제출 산출물과 바이트 단위로 일치**했고 노트북 원본은 변경되지 않았습니다. [최종 구현 PR #18](https://github.com/ntt65/A2_1/pull/18)까지 병합했으며, 병합 전 최종 커밋의 Windows·Linux 검사도 통과했습니다. 병합 후 기본 브랜치 검사와 제출 마무리 기록은 [이슈 #19](https://github.com/ntt65/A2_1/issues/19)에서 확인할 수 있습니다. 명령·환경·감사 결과는 [최종 재현 기록](docs/worklogs/step-7.md)에 있습니다.
 
@@ -32,7 +34,22 @@
 .\.venv\Scripts\python.exe -m scripts.run_optimizer_sensitivity --no-cache
 ```
 
-Linux에서는 실행 파일을 `.venv/bin/python`으로 바꿉니다. 기본 실험 산출물이 있는 저장소 루트에서 실행합니다. [수치·이미지 증거 보고서](outputs/evaluation_evidence.md)와 [최적화 민감도 보고서](outputs/optimizer_sensitivity.md)에 재현 조건·실패 진단·집계 모집단을 기록합니다. PNG 캔버스 크기는 SVD 입력의 64×64 조건과 구분하고, 여러 초기점의 결과는 동일 입력 반복실행의 평균으로 해석하지 않습니다. 전체 **144개 테스트(24.250초)**와 환경·색인 검사를 통과했으며 [검증 기록](docs/worklogs/issue-25.md)에 결과를 남겼습니다. 보너스 구현은 이 단계 다음에 이어집니다.
+Linux에서는 실행 파일을 `.venv/bin/python`으로 바꿉니다. 기본 실험 산출물이 있는 저장소 루트에서 실행합니다. [수치·이미지 증거 보고서](outputs/evaluation_evidence.md)와 [최적화 민감도 보고서](outputs/optimizer_sensitivity.md)에 재현 조건·실패 진단·집계 모집단을 기록합니다. PNG 캔버스 크기는 SVD 입력의 64×64 조건과 구분하고, 여러 초기점의 결과는 동일 입력 반복실행의 평균으로 해석하지 않습니다. 이 단계에서 **144개 테스트(24.250초)**와 환경·색인 검사를 통과했으며 [검증 기록](docs/worklogs/issue-25.md)에 결과를 남겼습니다.
+
+## 보너스 미션 세 항목
+
+| 요구 | 구현·검증·결과 |
+|---|---|
+| Adam + GD/Momentum 비교 | [편향 보정 Adam](src/adam.py), [200회 비교 보고서](outputs/bonus_optimizer_report.md) |
+| Hessian Newton + GD 비교 | [NewtonMethod](src/newton.py), [Newton/GD 비교 그림](outputs/bonus_newton_ellipse.png) |
+| 엔트로피·KL·Cross-Entropy 직접 구현 | [정보 이론 API](src/information_theory.py), [수치·경계·항등식 보고서](outputs/information_theory.md) |
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.run_bonus_optimizers --no-cache
+.\.venv\Scripts\python.exe -m scripts.run_information_theory
+```
+
+[보너스 수식·API·shape·비교 조건](docs/BONUS.md)과 [작업 기록](docs/worklogs/issue-27.md)에 독립 검증과 한계를 설명합니다. 같은 타원형 조건에서 Adam은 200회 후 반경 `0.1101141`로 .1 기준 미도달이며, 결과를 성공으로 바꾸지 않았습니다. Newton은 이차함수의 동일 기울기 종료 기준에서 **1회**, GD는 **197회**였으며 Hessian 계산 비용은 별도입니다. 정보 이론의 `CE=H+KL` 최대 오차는 **6.661338e-16**이며, 양의 target에 모델 확률 0을 주면 +infinity를 보존합니다.
 
 ## 1. 설치와 재현
 
@@ -72,7 +89,7 @@ python3.11 -m venv .venv
 .venv/bin/python scripts/update_registry.py --check
 ```
 
-가상환경 활성화는 필요하지 않습니다. `python -O`는 assert를 제거하므로 사용하지 않습니다. 실험 세 개와 노트북 두 개가 `outputs/`의 PNG·JSON을 다시 생성합니다. 이슈 #23에서 선형대수 실험에 eig 비교 JSON·Markdown 각 1개가 추가되어 현재 산출물은 PNG 10개·JSON 6개·비교 Markdown 1개입니다. 선형대수·최적화의 `--no-cache`는 캐시 읽기와 쓰기를 모두 생략합니다. 미적분 CLI에는 이 옵션이 없습니다. 외부 데이터 다운로드 없이 seed 42의 합성 grayscale 이미지를 사용합니다.
+가상환경 활성화는 필요하지 않습니다. `python -O`는 assert를 제거하므로 사용하지 않습니다. 기본 실험 세 개와 노트북 두 개가 기본 PNG·JSON과 eig 비교 보고서를 재생성합니다. 위의 평가 보완·보너스 명령까지 실행하면 전체 제출 산출물은 PNG 15개·JSON 10개·보고서 Markdown 5개입니다. 선형대수·최적화의 `--no-cache`는 캐시 읽기와 쓰기를 모두 생략합니다. 미적분 CLI에는 이 옵션이 없습니다. 외부 데이터 다운로드 없이 seed 42의 합성 grayscale 이미지를 사용합니다.
 
 `run_notebooks`에 경로를 생략하면 두 노트북을 각각 **현재 가상환경의 새 커널**에서 처음부터 실행합니다. 기본 실행은 `.ipynb` 원본을 변경하지 않으며, 기존 셀 출력의 성공 여부에 의존하지 않습니다. 재현 명령에는 `--write`를 사용하지 않습니다. 개발자가 실행 결과를 노트북에 다시 저장하려면 `--write` 후 `scripts/update_registry.py --update`로 파일 해시를 갱신해야 합니다.
 

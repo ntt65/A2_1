@@ -444,6 +444,86 @@
         "tests/test_probability_notebook.py"
       ]
     },
+    "scripts/run_bonus_optimizers.py": {
+      "concepts": [
+        "Bonus_Optimizer_Cache",
+        "Bonus_Optimizer_Comparison"
+      ],
+      "covers": [],
+      "dependencies": [
+        "argparse",
+        "json",
+        "matplotlib",
+        "matplotlib.pyplot",
+        "numpy",
+        "pathlib",
+        "scripts.run_optimizer_sensitivity",
+        "src.adam",
+        "src.calculus",
+        "src.newton",
+        "src.optimizer",
+        "src.utils.cache_manager",
+        "src.utils.math",
+        "src.utils.numerical",
+        "src.utils.random"
+      ],
+      "language": "python",
+      "sha256": "1a9df37ccf59546ac094906ebe602e1b898af7ec011f29ffbc57bd159906c2eb",
+      "symbols": [
+        {
+          "concepts": [
+            "Bonus_Optimizer_Cache",
+            "Bonus_Optimizer_Comparison"
+          ],
+          "end_line": 85,
+          "kind": "function",
+          "line": 31,
+          "name": "trajectory"
+        },
+        {
+          "concepts": [],
+          "end_line": 80,
+          "kind": "function",
+          "line": 73,
+          "name": "trajectory.compute"
+        },
+        {
+          "concepts": [],
+          "end_line": 90,
+          "kind": "function",
+          "line": 88,
+          "name": "json_record"
+        },
+        {
+          "concepts": [],
+          "end_line": 124,
+          "kind": "function",
+          "line": 93,
+          "name": "report_markdown"
+        },
+        {
+          "concepts": [
+            "Bonus_Optimizer_Comparison"
+          ],
+          "end_line": 179,
+          "kind": "function",
+          "line": 127,
+          "name": "run_experiment"
+        },
+        {
+          "concepts": [
+            "Bonus_Optimizer_Comparison"
+          ],
+          "end_line": 194,
+          "kind": "function",
+          "line": 182,
+          "name": "main"
+        }
+      ],
+      "tests": [
+        "tests/test_bonus_optimizer_experiment.py"
+      ]
+    },
     "scripts/run_calculus.py": {
       "concepts": [
         "Calculus_Experiment"
@@ -586,6 +666,80 @@
       ],
       "tests": [
         "tests/test_evaluation_evidence.py"
+      ]
+    },
+    "scripts/run_information_theory.py": {
+      "concepts": [
+        "Information_Theory_Experiment",
+        "Information_Theory_Visualization"
+      ],
+      "covers": [],
+      "dependencies": [
+        "argparse",
+        "json",
+        "matplotlib",
+        "matplotlib.pyplot",
+        "numpy",
+        "pathlib",
+        "src.information_theory",
+        "src.utils.random"
+      ],
+      "language": "python",
+      "sha256": "ab0de29f24d2ca367472f4bf0f6bc7abff8c46284939069d46bb9243f616fbef",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 28,
+          "kind": "function",
+          "line": 21,
+          "name": "_json_number"
+        },
+        {
+          "concepts": [
+            "Information_Theory_Experiment"
+          ],
+          "end_line": 73,
+          "kind": "function",
+          "line": 31,
+          "name": "example_report"
+        },
+        {
+          "concepts": [
+            "Information_Theory_Visualization"
+          ],
+          "end_line": 117,
+          "kind": "function",
+          "line": 76,
+          "name": "information_figure"
+        },
+        {
+          "concepts": [],
+          "end_line": 152,
+          "kind": "function",
+          "line": 120,
+          "name": "report_markdown"
+        },
+        {
+          "concepts": [
+            "Information_Theory_Experiment"
+          ],
+          "end_line": 219,
+          "kind": "function",
+          "line": 155,
+          "name": "run_experiment"
+        },
+        {
+          "concepts": [
+            "Information_Theory_Experiment"
+          ],
+          "end_line": 231,
+          "kind": "function",
+          "line": 222,
+          "name": "main"
+        }
+      ],
+      "tests": [
+        "tests/test_information_theory_experiment.py"
       ]
     },
     "scripts/run_linear_algebra.py": {
@@ -1080,6 +1234,95 @@
       "symbols": [],
       "tests": []
     },
+    "src/adam.py": {
+      "concepts": [
+        "Adam_Update",
+        "Optimizer_State_Rollback"
+      ],
+      "covers": [],
+      "dependencies": [
+        "numpy",
+        "numpy.typing",
+        "src.optimizer",
+        "src.utils.numerical"
+      ],
+      "language": "python",
+      "sha256": "c40eca2255ecfe4bfc629fa79c69269195598711884a467cc50919d3d3c56b1f",
+      "symbols": [
+        {
+          "concepts": [
+            "Adam_Update"
+          ],
+          "end_line": 117,
+          "kind": "class",
+          "line": 15,
+          "name": "Adam"
+        },
+        {
+          "concepts": [],
+          "end_line": 53,
+          "kind": "method",
+          "line": 40,
+          "name": "Adam.__init__"
+        },
+        {
+          "concepts": [],
+          "end_line": 58,
+          "kind": "method",
+          "line": 56,
+          "name": "Adam.m"
+        },
+        {
+          "concepts": [],
+          "end_line": 63,
+          "kind": "method",
+          "line": 61,
+          "name": "Adam.v"
+        },
+        {
+          "concepts": [],
+          "end_line": 68,
+          "kind": "method",
+          "line": 66,
+          "name": "Adam.t"
+        },
+        {
+          "concepts": [],
+          "end_line": 74,
+          "kind": "method",
+          "line": 70,
+          "name": "Adam.reset"
+        },
+        {
+          "concepts": [
+            "Optimizer_State_Rollback"
+          ],
+          "end_line": 78,
+          "kind": "method",
+          "line": 76,
+          "name": "Adam._snapshot_state"
+        },
+        {
+          "concepts": [
+            "Optimizer_State_Rollback"
+          ],
+          "end_line": 85,
+          "kind": "method",
+          "line": 80,
+          "name": "Adam._restore_state"
+        },
+        {
+          "concepts": [],
+          "end_line": 117,
+          "kind": "method",
+          "line": 87,
+          "name": "Adam.step"
+        }
+      ],
+      "tests": [
+        "tests/test_adam.py"
+      ]
+    },
     "src/calculus.py": {
       "concepts": [
         "Derivative_Error_Study",
@@ -1185,6 +1428,78 @@
         "tests/test_calculus.py",
         "tests/test_calculus_experiment.py",
         "tests/test_calculus_figures.py"
+      ]
+    },
+    "src/information_theory.py": {
+      "concepts": [
+        "Cross_Entropy",
+        "Entropy",
+        "KL_Divergence",
+        "Probability_Simplex_Validation"
+      ],
+      "covers": [],
+      "dependencies": [
+        "numpy",
+        "numpy.typing",
+        "src.utils.math"
+      ],
+      "language": "python",
+      "sha256": "16ac1275a2bb22142f8ad1eda0960d678a33d466b0c5f583c5f138fb3e257003",
+      "symbols": [
+        {
+          "concepts": [
+            "Probability_Simplex_Validation"
+          ],
+          "end_line": 43,
+          "kind": "function",
+          "line": 21,
+          "name": "_distribution"
+        },
+        {
+          "concepts": [],
+          "end_line": 52,
+          "kind": "function",
+          "line": 46,
+          "name": "_pair"
+        },
+        {
+          "concepts": [],
+          "end_line": 58,
+          "kind": "function",
+          "line": 55,
+          "name": "_sum_classes"
+        },
+        {
+          "concepts": [
+            "Entropy"
+          ],
+          "end_line": 76,
+          "kind": "function",
+          "line": 61,
+          "name": "entropy"
+        },
+        {
+          "concepts": [
+            "Cross_Entropy"
+          ],
+          "end_line": 97,
+          "kind": "function",
+          "line": 79,
+          "name": "cross_entropy"
+        },
+        {
+          "concepts": [
+            "KL_Divergence"
+          ],
+          "end_line": 119,
+          "kind": "function",
+          "line": 100,
+          "name": "kl_divergence"
+        }
+      ],
+      "tests": [
+        "tests/test_information_theory.py",
+        "tests/test_information_theory_experiment.py"
       ]
     },
     "src/linear_algebra.py": {
@@ -1426,6 +1741,67 @@
         "tests/test_svd.py"
       ]
     },
+    "src/newton.py": {
+      "concepts": [
+        "Newton_Method",
+        "Quadratic_Hessian"
+      ],
+      "covers": [],
+      "dependencies": [
+        "collections.abc",
+        "numpy",
+        "numpy.typing",
+        "src.optimizer"
+      ],
+      "language": "python",
+      "sha256": "f977c7398fb29cfdec52b236866ad8e4552b2f586cc49a6c136fd691825d0cee",
+      "symbols": [
+        {
+          "concepts": [
+            "Newton_Method"
+          ],
+          "end_line": 103,
+          "kind": "class",
+          "line": 20,
+          "name": "NewtonMethod"
+        },
+        {
+          "concepts": [],
+          "end_line": 51,
+          "kind": "method",
+          "line": 44,
+          "name": "NewtonMethod.__init__"
+        },
+        {
+          "concepts": [],
+          "end_line": 103,
+          "kind": "method",
+          "line": 53,
+          "name": "NewtonMethod.step"
+        },
+        {
+          "concepts": [
+            "Quadratic_Hessian"
+          ],
+          "end_line": 116,
+          "kind": "function",
+          "line": 106,
+          "name": "circle_hessian"
+        },
+        {
+          "concepts": [
+            "Quadratic_Hessian"
+          ],
+          "end_line": 129,
+          "kind": "function",
+          "line": 119,
+          "name": "elliptic_hessian"
+        }
+      ],
+      "tests": [
+        "tests/test_newton.py"
+      ]
+    },
     "src/optimizer.py": {
       "concepts": [
         "Elliptic_Objective",
@@ -1433,6 +1809,7 @@
         "Momentum_Update",
         "Optimization_Trajectory",
         "Optimizer_Comparison_Visualization",
+        "Optimizer_State_Rollback",
         "Vanilla_GD"
       ],
       "covers": [],
@@ -1448,180 +1825,218 @@
         "src.utils.plotting"
       ],
       "language": "python",
-      "sha256": "afb65b77a5fcef4c0429216cbf597fbd201c959a85a5a0a6a5d570f1ee6f2ff2",
+      "sha256": "2e6278a9e1c07b106ae815c6b7132f8bad21f7cf8fb712ef0740a4a5b0c95bf9",
       "symbols": [
         {
           "concepts": [],
-          "end_line": 23,
+          "end_line": 25,
           "kind": "class",
-          "line": 22,
+          "line": 24,
           "name": "_NonfiniteResult"
         },
         {
           "concepts": [],
-          "end_line": 31,
+          "end_line": 33,
           "kind": "function",
-          "line": 26,
+          "line": 28,
           "name": "_vector"
         },
         {
           "concepts": [],
-          "end_line": 40,
+          "end_line": 42,
           "kind": "function",
-          "line": 34,
+          "line": 36,
           "name": "_step_inputs"
         },
         {
           "concepts": [],
-          "end_line": 47,
+          "end_line": 49,
           "kind": "function",
-          "line": 43,
+          "line": 45,
           "name": "_finite_result"
         },
         {
           "concepts": [
             "Vanilla_GD"
           ],
-          "end_line": 72,
+          "end_line": 81,
           "kind": "class",
-          "line": 50,
+          "line": 52,
           "name": "VanillaGD"
         },
         {
           "concepts": [],
-          "end_line": 62,
+          "end_line": 64,
           "kind": "method",
-          "line": 58,
+          "line": 60,
           "name": "VanillaGD.__init__"
         },
         {
           "concepts": [],
-          "end_line": 65,
+          "end_line": 67,
           "kind": "method",
-          "line": 64,
+          "line": 66,
           "name": "VanillaGD.reset"
         },
         {
-          "concepts": [],
-          "end_line": 72,
+          "concepts": [
+            "Optimizer_State_Rollback"
+          ],
+          "end_line": 71,
           "kind": "method",
-          "line": 67,
+          "line": 69,
+          "name": "VanillaGD._snapshot_state"
+        },
+        {
+          "concepts": [
+            "Optimizer_State_Rollback"
+          ],
+          "end_line": 74,
+          "kind": "method",
+          "line": 73,
+          "name": "VanillaGD._restore_state"
+        },
+        {
+          "concepts": [],
+          "end_line": 81,
+          "kind": "method",
+          "line": 76,
           "name": "VanillaGD.step"
         },
         {
           "concepts": [
             "Momentum_Update"
           ],
-          "end_line": 113,
+          "end_line": 130,
           "kind": "class",
-          "line": 75,
-          "name": "Momentum"
-        },
-        {
-          "concepts": [],
-          "end_line": 90,
-          "kind": "method",
           "line": 84,
-          "name": "Momentum.__init__"
-        },
-        {
-          "concepts": [],
-          "end_line": 95,
-          "kind": "method",
-          "line": 93,
-          "name": "Momentum.velocity"
+          "name": "Momentum"
         },
         {
           "concepts": [],
           "end_line": 99,
           "kind": "method",
-          "line": 97,
-          "name": "Momentum.reset"
+          "line": 93,
+          "name": "Momentum.__init__"
         },
         {
           "concepts": [],
-          "end_line": 113,
+          "end_line": 104,
           "kind": "method",
-          "line": 101,
+          "line": 102,
+          "name": "Momentum.velocity"
+        },
+        {
+          "concepts": [],
+          "end_line": 108,
+          "kind": "method",
+          "line": 106,
+          "name": "Momentum.reset"
+        },
+        {
+          "concepts": [
+            "Optimizer_State_Rollback"
+          ],
+          "end_line": 112,
+          "kind": "method",
+          "line": 110,
+          "name": "Momentum._snapshot_state"
+        },
+        {
+          "concepts": [
+            "Optimizer_State_Rollback"
+          ],
+          "end_line": 116,
+          "kind": "method",
+          "line": 114,
+          "name": "Momentum._restore_state"
+        },
+        {
+          "concepts": [],
+          "end_line": 130,
+          "kind": "method",
+          "line": 118,
           "name": "Momentum.step"
         },
         {
           "concepts": [
             "Optimization_Trajectory"
           ],
-          "end_line": 130,
+          "end_line": 147,
           "kind": "class",
-          "line": 117,
+          "line": 134,
           "name": "OptimizationResult"
         },
         {
           "concepts": [],
-          "end_line": 142,
+          "end_line": 159,
           "kind": "function",
-          "line": 133,
+          "line": 150,
           "name": "_output_array"
         },
         {
           "concepts": [],
-          "end_line": 154,
+          "end_line": 171,
           "kind": "function",
-          "line": 145,
+          "line": 162,
           "name": "_stable_norm"
         },
         {
           "concepts": [],
-          "end_line": 161,
+          "end_line": 178,
           "kind": "function",
-          "line": 157,
+          "line": 174,
           "name": "_evaluate"
         },
         {
           "concepts": [
             "Optimization_Trajectory"
           ],
-          "end_line": 222,
+          "end_line": 243,
           "kind": "function",
-          "line": 164,
+          "line": 181,
           "name": "run_optimization"
         },
         {
           "concepts": [
             "Elliptic_Objective"
           ],
-          "end_line": 232,
+          "end_line": 253,
           "kind": "function",
-          "line": 225,
+          "line": 246,
           "name": "elliptic"
         },
         {
           "concepts": [
             "Elliptic_Objective"
           ],
-          "end_line": 242,
+          "end_line": 263,
           "kind": "function",
-          "line": 235,
+          "line": 256,
           "name": "elliptic_gradient"
         },
         {
           "concepts": [
             "Optimizer_Comparison_Visualization"
           ],
-          "end_line": 289,
+          "end_line": 310,
           "kind": "function",
-          "line": 246,
+          "line": 267,
           "name": "optimizer_comparison_figure"
         },
         {
           "concepts": [
             "Learning_Rate_Stability_Visualization"
           ],
-          "end_line": 326,
+          "end_line": 347,
           "kind": "function",
-          "line": 292,
+          "line": 313,
           "name": "learning_rate_figure"
         }
       ],
       "tests": [
+        "tests/test_adam.py",
+        "tests/test_newton.py",
         "tests/test_optimizer.py",
         "tests/test_optimizer_experiment.py"
       ]
@@ -1901,6 +2316,129 @@
         "tests/test_math_utils.py"
       ]
     },
+    "tests/test_adam.py": {
+      "concepts": [],
+      "covers": [
+        "src/adam.py",
+        "src/optimizer.py"
+      ],
+      "dependencies": [
+        "numpy",
+        "src.adam",
+        "src.optimizer",
+        "unittest"
+      ],
+      "language": "python",
+      "sha256": "1aee5cc5f1593ad7476a4c2f90abaa3da89a7c6363d24cbbc8581903b64002f9",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 142,
+          "kind": "class",
+          "line": 13,
+          "name": "AdamStepTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 36,
+          "kind": "method",
+          "line": 16,
+          "name": "AdamStepTests.test_first_two_steps_match_independent_hand_calculation"
+        },
+        {
+          "concepts": [],
+          "end_line": 46,
+          "kind": "method",
+          "line": 38,
+          "name": "AdamStepTests.test_constant_gradient_bias_correction"
+        },
+        {
+          "concepts": [],
+          "end_line": 57,
+          "kind": "method",
+          "line": 48,
+          "name": "AdamStepTests.test_zero_betas_zero_gradient_and_epsilon_position"
+        },
+        {
+          "concepts": [],
+          "end_line": 75,
+          "kind": "method",
+          "line": 59,
+          "name": "AdamStepTests.test_state_copy_shape_and_reset"
+        },
+        {
+          "concepts": [],
+          "end_line": 96,
+          "kind": "method",
+          "line": 77,
+          "name": "AdamStepTests.test_invalid_hyperparameters_and_inputs"
+        },
+        {
+          "concepts": [],
+          "end_line": 111,
+          "kind": "method",
+          "line": 98,
+          "name": "AdamStepTests.test_overflow_preserves_every_state_component"
+        },
+        {
+          "concepts": [],
+          "end_line": 125,
+          "kind": "method",
+          "line": 113,
+          "name": "AdamStepTests.test_moment_underflow_is_rejected_atomically"
+        },
+        {
+          "concepts": [],
+          "end_line": 142,
+          "kind": "method",
+          "line": 127,
+          "name": "AdamStepTests.test_weighted_and_inexact_subnormal_moments_are_rejected"
+        },
+        {
+          "concepts": [],
+          "end_line": 203,
+          "kind": "class",
+          "line": 145,
+          "name": "AdamRunnerTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 157,
+          "kind": "method",
+          "line": 148,
+          "name": "AdamRunnerTests.test_runner_resets_all_state_and_reproduces"
+        },
+        {
+          "concepts": [],
+          "end_line": 165,
+          "kind": "method",
+          "line": 159,
+          "name": "AdamRunnerTests.test_runner_stops_on_moment_underflow_without_committing"
+        },
+        {
+          "concepts": [],
+          "end_line": 179,
+          "kind": "method",
+          "line": 167,
+          "name": "AdamRunnerTests.test_nonfinite_callback_restores_last_accepted_adam_state"
+        },
+        {
+          "concepts": [],
+          "end_line": 203,
+          "kind": "method",
+          "line": 181,
+          "name": "AdamRunnerTests.test_contract_errors_restore_state_then_propagate"
+        },
+        {
+          "concepts": [],
+          "end_line": 199,
+          "kind": "function",
+          "line": 195,
+          "name": "AdamRunnerTests.test_contract_errors_restore_state_then_propagate.broken_objective"
+        }
+      ],
+      "tests": []
+    },
     "tests/test_backprop_notebook.py": {
       "concepts": [],
       "covers": [
@@ -1949,6 +2487,63 @@
           "kind": "method",
           "line": 79,
           "name": "BackpropNotebookTests.test_failed_cell_never_overwrites_notebook"
+        }
+      ],
+      "tests": []
+    },
+    "tests/test_bonus_optimizer_experiment.py": {
+      "concepts": [],
+      "covers": [
+        "scripts/run_bonus_optimizers.py"
+      ],
+      "dependencies": [
+        "json",
+        "numpy",
+        "pathlib",
+        "scripts.run_bonus_optimizers",
+        "src.optimizer",
+        "src.utils.cache_manager",
+        "tempfile",
+        "unittest",
+        "unittest.mock"
+      ],
+      "language": "python",
+      "sha256": "644b27481effc2e4fcce1b8c6d0403fbb74fae601a0c37a72c75216ce600526b",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 79,
+          "kind": "class",
+          "line": 18,
+          "name": "BonusExperimentTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 28,
+          "kind": "method",
+          "line": 21,
+          "name": "BonusExperimentTests.test_independent_quadratic_and_newton_stop"
+        },
+        {
+          "concepts": [],
+          "end_line": 50,
+          "kind": "method",
+          "line": 30,
+          "name": "BonusExperimentTests.test_cache_reuse_configuration_and_copy"
+        },
+        {
+          "concepts": [],
+          "end_line": 61,
+          "kind": "method",
+          "line": 52,
+          "name": "BonusExperimentTests.test_invalid_configuration"
+        },
+        {
+          "concepts": [],
+          "end_line": 79,
+          "kind": "method",
+          "line": 63,
+          "name": "BonusExperimentTests.test_cli_reports_all_three_bonus_optimizer_comparisons"
         }
       ],
       "tests": []
@@ -2539,6 +3134,146 @@
       ],
       "tests": []
     },
+    "tests/test_information_theory.py": {
+      "concepts": [],
+      "covers": [
+        "src/information_theory.py"
+      ],
+      "dependencies": [
+        "importlib",
+        "numpy",
+        "src.information_theory",
+        "src.utils.random",
+        "unittest"
+      ],
+      "language": "python",
+      "sha256": "bed16708eb86b37cf66752a69a6250788e50fff6a07e549dbcfd490b8d0d8476",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 123,
+          "kind": "class",
+          "line": 15,
+          "name": "InformationTheoryTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 23,
+          "kind": "method",
+          "line": 18,
+          "name": "InformationTheoryTests.test_uniform_and_point_mass_entropy"
+        },
+        {
+          "concepts": [],
+          "end_line": 32,
+          "kind": "method",
+          "line": 25,
+          "name": "InformationTheoryTests.test_rational_reference_values_and_asymmetry"
+        },
+        {
+          "concepts": [],
+          "end_line": 42,
+          "kind": "method",
+          "line": 34,
+          "name": "InformationTheoryTests.test_support_boundaries_avoid_zero_times_infinity"
+        },
+        {
+          "concepts": [],
+          "end_line": 52,
+          "kind": "method",
+          "line": 44,
+          "name": "InformationTheoryTests.test_tiny_positive_reference_stays_finite"
+        },
+        {
+          "concepts": [],
+          "end_line": 67,
+          "kind": "method",
+          "line": 54,
+          "name": "InformationTheoryTests.test_arbitrary_axes_remove_only_class_dimension"
+        },
+        {
+          "concepts": [],
+          "end_line": 76,
+          "kind": "method",
+          "line": 69,
+          "name": "InformationTheoryTests.test_finite_support_identity_and_nonnegativity"
+        },
+        {
+          "concepts": [],
+          "end_line": 99,
+          "kind": "method",
+          "line": 78,
+          "name": "InformationTheoryTests.test_invalid_probabilities_axis_and_shape"
+        },
+        {
+          "concepts": [],
+          "end_line": 107,
+          "kind": "method",
+          "line": 101,
+          "name": "InformationTheoryTests.test_normalization_tolerance_does_not_renormalize"
+        },
+        {
+          "concepts": [],
+          "end_line": 123,
+          "kind": "method",
+          "line": 109,
+          "name": "InformationTheoryTests.test_inputs_and_global_rng_remain_unchanged"
+        }
+      ],
+      "tests": []
+    },
+    "tests/test_information_theory_experiment.py": {
+      "concepts": [],
+      "covers": [
+        "scripts/run_information_theory.py",
+        "src/information_theory.py"
+      ],
+      "dependencies": [
+        "contextlib",
+        "io",
+        "json",
+        "matplotlib.pyplot",
+        "numpy",
+        "pathlib",
+        "scripts.run_information_theory",
+        "struct",
+        "tempfile",
+        "unittest"
+      ],
+      "language": "python",
+      "sha256": "9e8315be7ad53cac09d92176b2d1707fb6dd67b2804cf9724fbfb30f8779b9a9",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 61,
+          "kind": "class",
+          "line": 19,
+          "name": "InformationTheoryExperimentTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 24,
+          "kind": "method",
+          "line": 22,
+          "name": "InformationTheoryExperimentTests.tearDown"
+        },
+        {
+          "concepts": [],
+          "end_line": 37,
+          "kind": "method",
+          "line": 26,
+          "name": "InformationTheoryExperimentTests.test_independent_examples_and_infinity_encoding"
+        },
+        {
+          "concepts": [],
+          "end_line": 61,
+          "kind": "method",
+          "line": 39,
+          "name": "InformationTheoryExperimentTests.test_real_cli_outputs_full_curves_and_true_png_size"
+        }
+      ],
+      "tests": []
+    },
     "tests/test_linear_algebra_experiment.py": {
       "concepts": [],
       "covers": [
@@ -2807,6 +3542,180 @@
           "kind": "method",
           "line": 168,
           "name": "SeedTests.test_invalid_seed"
+        }
+      ],
+      "tests": []
+    },
+    "tests/test_newton.py": {
+      "concepts": [],
+      "covers": [
+        "src/newton.py",
+        "src/optimizer.py"
+      ],
+      "dependencies": [
+        "numpy",
+        "src.calculus",
+        "src.newton",
+        "src.optimizer",
+        "src.utils.numerical",
+        "unittest"
+      ],
+      "language": "python",
+      "sha256": "90eac859911e409242d2c8ae1b023b89b5b6cc631ea54bd8ab231cdc8ed878c1",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 172,
+          "kind": "class",
+          "line": 15,
+          "name": "NewtonStepTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 40,
+          "kind": "method",
+          "line": 18,
+          "name": "NewtonStepTests.test_general_spd_quadratic_reaches_known_shifted_minimizer"
+        },
+        {
+          "concepts": [],
+          "end_line": 27,
+          "kind": "function",
+          "line": 24,
+          "name": "NewtonStepTests.test_general_spd_quadratic_reaches_known_shifted_minimizer.objective"
+        },
+        {
+          "concepts": [],
+          "end_line": 31,
+          "kind": "function",
+          "line": 29,
+          "name": "NewtonStepTests.test_general_spd_quadratic_reaches_known_shifted_minimizer.gradient"
+        },
+        {
+          "concepts": [],
+          "end_line": 53,
+          "kind": "method",
+          "line": 42,
+          "name": "NewtonStepTests.test_fixed_damping_matches_closed_form_path"
+        },
+        {
+          "concepts": [],
+          "end_line": 62,
+          "kind": "method",
+          "line": 55,
+          "name": "NewtonStepTests.test_mission_quadratics_reach_zero_in_one_update"
+        },
+        {
+          "concepts": [],
+          "end_line": 79,
+          "kind": "method",
+          "line": 64,
+          "name": "NewtonStepTests.test_hessian_callback_cannot_mutate_input_or_output"
+        },
+        {
+          "concepts": [],
+          "end_line": 72,
+          "kind": "function",
+          "line": 69,
+          "name": "NewtonStepTests.test_hessian_callback_cannot_mutate_input_or_output.hessian"
+        },
+        {
+          "concepts": [],
+          "end_line": 97,
+          "kind": "method",
+          "line": 81,
+          "name": "NewtonStepTests.test_constructor_and_step_contracts"
+        },
+        {
+          "concepts": [],
+          "end_line": 108,
+          "kind": "method",
+          "line": 99,
+          "name": "NewtonStepTests.test_hessian_type_shape_symmetry_and_curvature"
+        },
+        {
+          "concepts": [],
+          "end_line": 117,
+          "kind": "method",
+          "line": 110,
+          "name": "NewtonStepTests.test_accepted_roundoff_asymmetry_uses_symmetric_part"
+        },
+        {
+          "concepts": [],
+          "end_line": 127,
+          "kind": "method",
+          "line": 119,
+          "name": "NewtonStepTests.test_exact_symmetric_subnormal_hessians_preserve_newton_direction"
+        },
+        {
+          "concepts": [],
+          "end_line": 138,
+          "kind": "method",
+          "line": 129,
+          "name": "NewtonStepTests.test_accepted_asymmetric_subnormal_pairs_have_safe_midpoints"
+        },
+        {
+          "concepts": [],
+          "end_line": 145,
+          "kind": "method",
+          "line": 140,
+          "name": "NewtonStepTests.test_large_finite_symmetric_hessian_does_not_overflow_on_averaging"
+        },
+        {
+          "concepts": [],
+          "end_line": 155,
+          "kind": "method",
+          "line": 147,
+          "name": "NewtonStepTests.test_nonfinite_outputs_and_unrepresentable_updates_raise"
+        },
+        {
+          "concepts": [],
+          "end_line": 163,
+          "kind": "method",
+          "line": 157,
+          "name": "NewtonStepTests.test_runner_rejects_nonfinite_newton_direction"
+        },
+        {
+          "concepts": [],
+          "end_line": 172,
+          "kind": "method",
+          "line": 165,
+          "name": "NewtonStepTests.test_callback_errors_propagate"
+        },
+        {
+          "concepts": [],
+          "end_line": 169,
+          "kind": "function",
+          "line": 167,
+          "name": "NewtonStepTests.test_callback_errors_propagate.hessian"
+        },
+        {
+          "concepts": [],
+          "end_line": 208,
+          "kind": "class",
+          "line": 175,
+          "name": "HessianTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 199,
+          "kind": "method",
+          "line": 178,
+          "name": "HessianTests.test_hessians_match_gradient_central_differences"
+        },
+        {
+          "concepts": [],
+          "end_line": 191,
+          "kind": "function",
+          "line": 187,
+          "name": "HessianTests.test_hessians_match_gradient_central_differences.coordinate_gradient"
+        },
+        {
+          "concepts": [],
+          "end_line": 208,
+          "kind": "method",
+          "line": 201,
+          "name": "HessianTests.test_hessians_validate_points"
         }
       ],
       "tests": []
@@ -3659,6 +4568,22 @@
     }
   },
   "reverse": {
+    "Adam_Update": [
+      {
+        "dependencies": [
+          "numpy",
+          "numpy.typing",
+          "src.optimizer",
+          "src.utils.numerical"
+        ],
+        "line": 15,
+        "path": "src/adam.py",
+        "symbol": "Adam",
+        "tests": [
+          "tests/test_adam.py"
+        ]
+      }
+    ],
     "BCE_Loss": [
       {
         "cell_id": "backprop-forward-derivation",
@@ -4095,6 +5020,110 @@
         ]
       }
     ],
+    "Bonus_Optimizer_Cache": [
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "scripts.run_optimizer_sensitivity",
+          "src.adam",
+          "src.calculus",
+          "src.newton",
+          "src.optimizer",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random"
+        ],
+        "line": 31,
+        "path": "scripts/run_bonus_optimizers.py",
+        "symbol": "trajectory",
+        "tests": [
+          "tests/test_bonus_optimizer_experiment.py"
+        ]
+      }
+    ],
+    "Bonus_Optimizer_Comparison": [
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "scripts.run_optimizer_sensitivity",
+          "src.adam",
+          "src.calculus",
+          "src.newton",
+          "src.optimizer",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random"
+        ],
+        "line": 31,
+        "path": "scripts/run_bonus_optimizers.py",
+        "symbol": "trajectory",
+        "tests": [
+          "tests/test_bonus_optimizer_experiment.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "scripts.run_optimizer_sensitivity",
+          "src.adam",
+          "src.calculus",
+          "src.newton",
+          "src.optimizer",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random"
+        ],
+        "line": 127,
+        "path": "scripts/run_bonus_optimizers.py",
+        "symbol": "run_experiment",
+        "tests": [
+          "tests/test_bonus_optimizer_experiment.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "scripts.run_optimizer_sensitivity",
+          "src.adam",
+          "src.calculus",
+          "src.newton",
+          "src.optimizer",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random"
+        ],
+        "line": 182,
+        "path": "scripts/run_bonus_optimizers.py",
+        "symbol": "main",
+        "tests": [
+          "tests/test_bonus_optimizer_experiment.py"
+        ]
+      }
+    ],
     "Cache_Key": [
       {
         "dependencies": [
@@ -4366,6 +5395,20 @@
         "tests": [
           "tests/test_probability_notebook.py"
         ]
+      },
+      {
+        "dependencies": [
+          "numpy",
+          "numpy.typing",
+          "src.utils.math"
+        ],
+        "line": 79,
+        "path": "src/information_theory.py",
+        "symbol": "cross_entropy",
+        "tests": [
+          "tests/test_information_theory.py",
+          "tests/test_information_theory_experiment.py"
+        ]
       }
     ],
     "Derivative_Error_Study": [
@@ -4469,10 +5512,12 @@
           "src.utils.numerical",
           "src.utils.plotting"
         ],
-        "line": 225,
+        "line": 246,
         "path": "src/optimizer.py",
         "symbol": "elliptic",
         "tests": [
+          "tests/test_adam.py",
+          "tests/test_newton.py",
           "tests/test_optimizer.py",
           "tests/test_optimizer_experiment.py"
         ]
@@ -4489,12 +5534,30 @@
           "src.utils.numerical",
           "src.utils.plotting"
         ],
-        "line": 235,
+        "line": 256,
         "path": "src/optimizer.py",
         "symbol": "elliptic_gradient",
         "tests": [
+          "tests/test_adam.py",
+          "tests/test_newton.py",
           "tests/test_optimizer.py",
           "tests/test_optimizer_experiment.py"
+        ]
+      }
+    ],
+    "Entropy": [
+      {
+        "dependencies": [
+          "numpy",
+          "numpy.typing",
+          "src.utils.math"
+        ],
+        "line": 61,
+        "path": "src/information_theory.py",
+        "symbol": "entropy",
+        "tests": [
+          "tests/test_information_theory.py",
+          "tests/test_information_theory_experiment.py"
         ]
       }
     ],
@@ -4709,6 +5772,98 @@
         ]
       }
     ],
+    "Information_Theory_Experiment": [
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "src.information_theory",
+          "src.utils.random"
+        ],
+        "line": 31,
+        "path": "scripts/run_information_theory.py",
+        "symbol": "example_report",
+        "tests": [
+          "tests/test_information_theory_experiment.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "src.information_theory",
+          "src.utils.random"
+        ],
+        "line": 155,
+        "path": "scripts/run_information_theory.py",
+        "symbol": "run_experiment",
+        "tests": [
+          "tests/test_information_theory_experiment.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "src.information_theory",
+          "src.utils.random"
+        ],
+        "line": 222,
+        "path": "scripts/run_information_theory.py",
+        "symbol": "main",
+        "tests": [
+          "tests/test_information_theory_experiment.py"
+        ]
+      }
+    ],
+    "Information_Theory_Visualization": [
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "src.information_theory",
+          "src.utils.random"
+        ],
+        "line": 76,
+        "path": "scripts/run_information_theory.py",
+        "symbol": "information_figure",
+        "tests": [
+          "tests/test_information_theory_experiment.py"
+        ]
+      }
+    ],
+    "KL_Divergence": [
+      {
+        "dependencies": [
+          "numpy",
+          "numpy.typing",
+          "src.utils.math"
+        ],
+        "line": 100,
+        "path": "src/information_theory.py",
+        "symbol": "kl_divergence",
+        "tests": [
+          "tests/test_information_theory.py",
+          "tests/test_information_theory_experiment.py"
+        ]
+      }
+    ],
     "Learning_Rate_Stability_Visualization": [
       {
         "dependencies": [
@@ -4722,10 +5877,12 @@
           "src.utils.numerical",
           "src.utils.plotting"
         ],
-        "line": 292,
+        "line": 313,
         "path": "src/optimizer.py",
         "symbol": "learning_rate_figure",
         "tests": [
+          "tests/test_adam.py",
+          "tests/test_newton.py",
           "tests/test_optimizer.py",
           "tests/test_optimizer_experiment.py"
         ]
@@ -4904,12 +6061,30 @@
           "src.utils.numerical",
           "src.utils.plotting"
         ],
-        "line": 75,
+        "line": 84,
         "path": "src/optimizer.py",
         "symbol": "Momentum",
         "tests": [
+          "tests/test_adam.py",
+          "tests/test_newton.py",
           "tests/test_optimizer.py",
           "tests/test_optimizer_experiment.py"
+        ]
+      }
+    ],
+    "Newton_Method": [
+      {
+        "dependencies": [
+          "collections.abc",
+          "numpy",
+          "numpy.typing",
+          "src.optimizer"
+        ],
+        "line": 20,
+        "path": "src/newton.py",
+        "symbol": "NewtonMethod",
+        "tests": [
+          "tests/test_newton.py"
         ]
       }
     ],
@@ -5157,10 +6332,12 @@
           "src.utils.numerical",
           "src.utils.plotting"
         ],
-        "line": 117,
+        "line": 134,
         "path": "src/optimizer.py",
         "symbol": "OptimizationResult",
         "tests": [
+          "tests/test_adam.py",
+          "tests/test_newton.py",
           "tests/test_optimizer.py",
           "tests/test_optimizer_experiment.py"
         ]
@@ -5177,10 +6354,12 @@
           "src.utils.numerical",
           "src.utils.plotting"
         ],
-        "line": 164,
+        "line": 181,
         "path": "src/optimizer.py",
         "symbol": "run_optimization",
         "tests": [
+          "tests/test_adam.py",
+          "tests/test_newton.py",
           "tests/test_optimizer.py",
           "tests/test_optimizer_experiment.py"
         ]
@@ -5199,10 +6378,12 @@
           "src.utils.numerical",
           "src.utils.plotting"
         ],
-        "line": 246,
+        "line": 267,
         "path": "src/optimizer.py",
         "symbol": "optimizer_comparison_figure",
         "tests": [
+          "tests/test_adam.py",
+          "tests/test_newton.py",
           "tests/test_optimizer.py",
           "tests/test_optimizer_experiment.py"
         ]
@@ -5368,6 +6549,124 @@
         "symbol": "stability_evidence",
         "tests": [
           "tests/test_optimizer_sensitivity.py"
+        ]
+      }
+    ],
+    "Optimizer_State_Rollback": [
+      {
+        "dependencies": [
+          "numpy",
+          "numpy.typing",
+          "src.optimizer",
+          "src.utils.numerical"
+        ],
+        "line": 76,
+        "path": "src/adam.py",
+        "symbol": "Adam._snapshot_state",
+        "tests": [
+          "tests/test_adam.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "numpy",
+          "numpy.typing",
+          "src.optimizer",
+          "src.utils.numerical"
+        ],
+        "line": 80,
+        "path": "src/adam.py",
+        "symbol": "Adam._restore_state",
+        "tests": [
+          "tests/test_adam.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "collections.abc",
+          "dataclasses",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting"
+        ],
+        "line": 69,
+        "path": "src/optimizer.py",
+        "symbol": "VanillaGD._snapshot_state",
+        "tests": [
+          "tests/test_adam.py",
+          "tests/test_newton.py",
+          "tests/test_optimizer.py",
+          "tests/test_optimizer_experiment.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "collections.abc",
+          "dataclasses",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting"
+        ],
+        "line": 73,
+        "path": "src/optimizer.py",
+        "symbol": "VanillaGD._restore_state",
+        "tests": [
+          "tests/test_adam.py",
+          "tests/test_newton.py",
+          "tests/test_optimizer.py",
+          "tests/test_optimizer_experiment.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "collections.abc",
+          "dataclasses",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting"
+        ],
+        "line": 110,
+        "path": "src/optimizer.py",
+        "symbol": "Momentum._snapshot_state",
+        "tests": [
+          "tests/test_adam.py",
+          "tests/test_newton.py",
+          "tests/test_optimizer.py",
+          "tests/test_optimizer_experiment.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "collections.abc",
+          "dataclasses",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting"
+        ],
+        "line": 114,
+        "path": "src/optimizer.py",
+        "symbol": "Momentum._restore_state",
+        "tests": [
+          "tests/test_adam.py",
+          "tests/test_newton.py",
+          "tests/test_optimizer.py",
+          "tests/test_optimizer_experiment.py"
         ]
       }
     ],
@@ -5607,6 +6906,22 @@
         ]
       }
     ],
+    "Probability_Simplex_Validation": [
+      {
+        "dependencies": [
+          "numpy",
+          "numpy.typing",
+          "src.utils.math"
+        ],
+        "line": 21,
+        "path": "src/information_theory.py",
+        "symbol": "_distribution",
+        "tests": [
+          "tests/test_information_theory.py",
+          "tests/test_information_theory_experiment.py"
+        ]
+      }
+    ],
     "Quadratic_Gradient": [
       {
         "dependencies": [
@@ -5625,6 +6940,36 @@
           "tests/test_calculus.py",
           "tests/test_calculus_experiment.py",
           "tests/test_calculus_figures.py"
+        ]
+      }
+    ],
+    "Quadratic_Hessian": [
+      {
+        "dependencies": [
+          "collections.abc",
+          "numpy",
+          "numpy.typing",
+          "src.optimizer"
+        ],
+        "line": 106,
+        "path": "src/newton.py",
+        "symbol": "circle_hessian",
+        "tests": [
+          "tests/test_newton.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "collections.abc",
+          "numpy",
+          "numpy.typing",
+          "src.optimizer"
+        ],
+        "line": 119,
+        "path": "src/newton.py",
+        "symbol": "elliptic_hessian",
+        "tests": [
+          "tests/test_newton.py"
         ]
       }
     ],
@@ -6045,10 +7390,12 @@
           "src.utils.numerical",
           "src.utils.plotting"
         ],
-        "line": 50,
+        "line": 52,
         "path": "src/optimizer.py",
         "symbol": "VanillaGD",
         "tests": [
+          "tests/test_adam.py",
+          "tests/test_newton.py",
           "tests/test_optimizer.py",
           "tests/test_optimizer_experiment.py"
         ]
