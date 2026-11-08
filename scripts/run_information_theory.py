@@ -1,11 +1,11 @@
-"""Reproduce the information-theory bonus with exact examples and Bernoulli curves."""
+"""독립 기대값과 Bernoulli 곡선으로 정보 이론 보너스를 재현한다."""
 
 import argparse
 import json
 from pathlib import Path
 
 import matplotlib
-matplotlib.use("Agg")
+matplotlib.use("Agg")	# 파일 저장용 비대화형 백엔드를 pyplot보다 먼저 선택한다.
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -19,24 +19,24 @@ __concepts__ = {
 
 
 def _json_number(value: float) -> float | str:
-    """Encode finite scalars normally and +inf as the explained string '+inf'; reject NaN/-inf."""
+    """유한 스칼라는 수치로, +inf는 설명된 문자열 '+inf'로 저장하며 NaN/-inf는 거부한다."""
     value = float(value)
-    if np.isposinf(value):
+    if np.isposinf(value):	# 수학적으로 허용한 양의 무한대만 명시적 문자열로 인코딩한다.
         return "+inf"
-    if not np.isfinite(value):
+    if not np.isfinite(value):	# NaN이나 음의 무한대를 성공한 근거로 저장하지 않는다.
         raise ValueError("only finite values or positive infinity belong in the report")
     return value
 
 
 def example_report() -> list[dict]:
-    """Check independent constants and return scalar example records in nats.
+    """독립 상수를 검증하고 nats 단위의 스칼라 예제 기록을 반환한다.
 
-    Each p/q is a normalized vector (n,), never broadcast or clipped.
-    The rational reference values are fixed independently of implementation;
-    errors use atol=1e-14 (2e-13 for the subnormal example), rtol=0.
-    Boundary infinities are serialized explicitly; assertion failures propagate.
+    각 p/q는 정규화된 벡터 (n,)이며 broadcasting이나 clipping을 적용하지 않는다.
+    유리수 사례의 기준값은 구현과 독립적으로 고정했다. 오차에는 atol=1e-14
+    (subnormal 사례는 2e-13), rtol=0을 사용한다.
+    경계의 무한대는 명시적으로 직렬화하며 assert 실패는 호출자에게 전달한다.
     """
-    cases = [
+    cases = [	# 구현과 독립적으로 정한 입력·정답 상수를 검증 사례로 사용한다.
         ("uniform_four", [.25, .25, .25, .25], [.25, .25, .25, .25],
          (1.3862943611198906, 1.3862943611198906, 0.)),
         ("point_mass", [0., 1.], [0., 1.], (0., 0., 0.)),
@@ -50,20 +50,20 @@ def example_report() -> list[dict]:
     ]
     records = []
     for label, p, q, expected in cases:
-        actual = [entropy(p), cross_entropy(p, q), kl_divergence(p, q)]
-        tolerance = 2e-13 if label == "smallest_positive_q" else 1e-14
+        actual = [entropy(p), cross_entropy(p, q), kl_divergence(p, q)]	# 같은 두 분포로 엔트로피·교차 엔트로피·KL을 실제 계산한다.
+        tolerance = 2e-13 if label == "smallest_positive_q" else 1e-14	# 최소 양의 subnormal 사례에는 별도 명시한 절대 허용치를 적용한다.
         errors = []
         for measured, reference in zip(actual, expected):
             if np.isposinf(reference):
-                assert np.isposinf(measured)
+                assert np.isposinf(measured)	# 무한대 기대값을 임의의 유한 값으로 바꾸지 않는다.
                 errors.append(None)
             else:
                 error = abs(measured - reference)
-                assert error <= tolerance
+                assert error <= tolerance	# 유한 사례의 절대오차를 독립 기준으로 검사한다.
                 errors.append(float(error))
         if all(np.isfinite(value) for value in actual):
-            assert abs(actual[1] - actual[0] - actual[2]) <= 2e-13
-            assert actual[2] >= -1e-14
+            assert abs(actual[1] - actual[0] - actual[2]) <= 2e-13	# 유한한 지지집합 사례에서 CE=H+KL 항등식을 확인한다.
+            assert actual[2] >= -1e-14	# 이 독립 예제 범위에서 KL의 수치 비음수성을 검사한다.
         records.append({"name": label, "p": p, "q": q, "shape": [len(p)],
                         "entropy_nats": _json_number(actual[0]),
                         "cross_entropy_nats": _json_number(actual[1]),
@@ -76,12 +76,12 @@ def example_report() -> list[dict]:
 def information_figure(parameters: np.ndarray, binary_entropy: np.ndarray,
                        model_parameters: np.ndarray, ce: np.ndarray, divergence: np.ndarray,
                        target_parameter: float, target_entropy: float):
-    """Return Figure/Axes(2,) for entropy and finite Bernoulli CE/KL curves in nats.
+    """nats 단위의 엔트로피와 유한한 Bernoulli CE/KL 곡선을 담은 Figure/Axes(2,)를 반환한다.
 
-    Input curves have shape (n,). The caller supplies validated probabilities
-    and measures. Endpoint +inf values are excluded from drawn line segments
-    and explicitly annotated, never clipped or presented as finite. Probability
-    axes are unitless and information axes use natural-log nats. Caller closes.
+    입력 곡선은 shape (n,)이다. 호출자는 검증된 확률과 측정값을 제공한다.
+    경계의 +inf는 그리는 선분에서 제외하고 설명으로 명시하며, 값을 잘라내거나
+    유한한 값으로 표시하지 않는다. 확률 축은 단위가 없고 정보량 축은 자연로그의
+    nats 단위다. 반환한 그림은 호출자가 닫아야 한다.
     """
     figure, axes = plt.subplots(1, 2, figsize=(12.8, 4.9), layout="constrained")
     try:
@@ -92,7 +92,7 @@ def information_figure(parameters: np.ndarray, binary_entropy: np.ndarray,
         axes[0].axhline(np.log(2.), color="#777777", linestyle=":", label="ln(2) nats")
         axes[0].set(xlabel="Outcome-1 probability p (unitless)", ylabel="Entropy (nats)",
                     title="Binary entropy: maximum at p=0.5", xlim=(0, 1), ylim=(-.025, .76))
-        finite = np.isfinite(ce) & np.isfinite(divergence)
+        finite = np.isfinite(ce) & np.isfinite(divergence)	# 무한 경계 두 점을 유한 곡선으로 잘못 이어 그리지 않는다.
         axes[1].plot(model_parameters[finite], ce[finite], color="#2466b0", linewidth=2,
                      label="CE(P,Q)")
         axes[1].plot(model_parameters[finite], divergence[finite], color="#c45100", linewidth=2,
@@ -101,7 +101,7 @@ def information_figure(parameters: np.ndarray, binary_entropy: np.ndarray,
         axes[1].axvline(target_parameter, color="#777777", linestyle=":", label="q=p=0.3")
         axes[1].scatter([target_parameter, target_parameter], [target_entropy, 0.],
                         color=["#2466b0", "#c45100"], zorder=4)
-        axes[1].text(.5, .97, "q=0 or 1: CE and KL are +infinity\nEndpoint infinities are not drawn",
+        axes[1].text(.5, .97, "q=0 or 1: CE and KL are +infinity\nEndpoint infinities are not drawn",	# 그리지 않은 무한대 경계의 의미를 그림 안에 명시한다.
                      transform=axes[1].transAxes, ha="center", va="top", fontsize=9,
                      bbox={"facecolor": "white", "alpha": .8, "edgecolor": "none"})
         axes[1].set(xlabel="Model outcome-1 probability q (unitless)", ylabel="Information (nats)",
@@ -113,13 +113,13 @@ def information_figure(parameters: np.ndarray, binary_entropy: np.ndarray,
         figure.supxlabel("501 grid values; float64; exact zero-probability conventions; no clipping or renormalization", fontsize=9)
         return figure, axes
     except Exception:
-        plt.close(figure)
+        plt.close(figure)	# 사용이 끝난 그림 자원을 해제한다.
         raise
 
 
 def report_markdown(report: dict) -> str:
-    """Format examples, formulas, shapes, support rules and executed checks into Markdown."""
-    lines = ["# Information theory bonus: executed evidence", "",
+    """예제·수식·shape·확률 지지집합 규칙·실행한 검증을 Markdown으로 구성한다."""
+    lines = ["# Information theory bonus: executed evidence", "",	# 기존 보고서 본문·수식·표 문자열을 그대로 구성한다.
              "Reproduce: `python -m scripts.run_information_theory`.", "",
              "NumPy float64; seed 42 set once at the experiment entry; natural logs, units nats.", "",
              "## Formulas and shape contract", "",
@@ -149,42 +149,42 @@ def report_markdown(report: dict) -> str:
               "CE = H + KL follows by separating sum p ln(p) and -sum p ln(q). Gibbs' inequality gives KL>=0 for normalized distributions, with equality when p=q on support.",
               "Thus, for fixed P, minimizing cross-entropy over Q also minimizes KL. KL is not symmetric and is not a distance metric.",
               "The 1e-12 input sum tolerance permits floating-point roundoff, not arbitrary unnormalized weights. No universal continuous-distribution or sample-estimation claims are made.", ""]
-    return "\n".join(lines)
+    return "\n".join(lines)	# 작성한 보고서 행을 줄바꿈으로 연결한다.
 
 
 def run_experiment(output_dir: Path) -> dict:
-    """Write PNG/JSON/Markdown after exact examples and 501-point curve assertions.
+    """독립 예제와 501점 곡선을 assert로 검증한 뒤 PNG/JSON/Markdown을 저장한다.
 
-    Input/output probabilities have shape (501,2); information curves have
-    shape (501,). Model boundary infinities are encoded as '+inf' in JSON.
-    The calculation is inexpensive and intentionally uncached. File and
-    numerical assertion failures propagate; the generated Figure is closed.
+    입력·출력 확률의 shape는 (501,2), 정보량 곡선은 (501,)이다.
+    모델 경계의 무한대는 JSON에서 '+inf'로 표현한다.
+    계산 비용이 작으므로 의도적으로 캐시하지 않는다. 파일 오류와 수치 assert
+    실패는 호출자에게 전달하며 생성한 Figure는 사용 후 닫는다.
     """
-    set_seed(42)
+    set_seed(42)	# 독립 실험의 시작점에서 난수 시드를 한 번 고정한다.
     output_dir = Path(output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
-    examples = example_report()
+    output_dir.mkdir(parents=True, exist_ok=True)	# 산출물을 저장할 디렉터리를 준비한다.
+    examples = example_report()	# 고정 예제 검증이 먼저 통과해야 곡선 실험을 진행한다.
     parameters = np.linspace(0., 1., 501, dtype=np.float64)
-    binary_probabilities = np.column_stack((1. - parameters, parameters))
+    binary_probabilities = np.column_stack((1. - parameters, parameters))	# Bernoulli의 두 클래스 확률을 (501,2)로 구성한다.
     binary_entropy = entropy(binary_probabilities)
     target_parameter = .3
     target = np.array([1. - target_parameter, target_parameter])
-    targets = np.tile(target, (len(parameters), 1))
+    targets = np.tile(target, (len(parameters), 1))	# 브로드캐스팅에 의존하지 않고 목표 분포를 동일 shape로 반복한다.
     model_probabilities = binary_probabilities.copy()
-    ce = cross_entropy(targets, model_probabilities)
-    divergence = kl_divergence(targets, model_probabilities)
+    ce = cross_entropy(targets, model_probabilities)	# 고정 목표 분포와 변화하는 모델 분포의 교차 엔트로피를 구한다.
+    divergence = kl_divergence(targets, model_probabilities)	# 같은 입력으로 KL을 계산한다.
     target_entropy = entropy(target)
     finite = np.isfinite(ce) & np.isfinite(divergence)
-    identity_error = float(np.max(np.abs(ce[finite] - target_entropy - divergence[finite])))
-    symmetry_error = float(np.max(np.abs(binary_entropy - binary_entropy[::-1])))
-    assert binary_entropy.shape == ce.shape == divergence.shape == (501,)
+    identity_error = float(np.max(np.abs(ce[finite] - target_entropy - divergence[finite])))	# 경계 무한대를 제외한 유한 표본에서 항등식 오차를 구한다.
+    symmetry_error = float(np.max(np.abs(binary_entropy - binary_entropy[::-1])))	# Bernoulli 엔트로피의 p와 1-p 대칭성을 검사한다.
+    assert binary_entropy.shape == ce.shape == divergence.shape == (501,)	# 클래스 축을 제거한 정보량 곡선 shape를 확인한다.
     assert identity_error <= 1e-12 and symmetry_error <= 1e-14
     assert np.all(divergence[finite] >= -1e-14)
-    assert np.all(np.isposinf(ce[[0, -1]])) and np.all(np.isposinf(divergence[[0, -1]]))
-    assert abs(float(np.max(binary_entropy)) - .6931471805599453) <= 1e-14
+    assert np.all(np.isposinf(ce[[0, -1]])) and np.all(np.isposinf(divergence[[0, -1]]))	# 양 끝 모델 확률에서 무한대 경계 정책이 유지되어야 한다.
+    assert abs(float(np.max(binary_entropy)) - .6931471805599453) <= 1e-14	# 엔트로피 최대값을 독립 상수 ln(2)와 비교한다.
     assert abs(target_entropy - .6108643020548935) <= 1e-14
     minimum_index = int(np.argmin(divergence))
-    assert abs(parameters[minimum_index] - target_parameter) <= 1e-15
+    assert abs(parameters[minimum_index] - target_parameter) <= 1e-15	# KL 최소 표본이 목표 확률과 일치하는지 검사한다.
     assert abs(divergence[minimum_index]) <= 1e-14
     report = {
         "seed": 42, "dtype": "float64", "numpy_version": np.__version__, "units": "nats",
@@ -210,21 +210,21 @@ def run_experiment(output_dir: Path) -> dict:
     figure, _ = information_figure(parameters, binary_entropy, parameters, ce, divergence,
                                    target_parameter, target_entropy)
     try:
-        figure.savefig(output_dir / "information_theory.png", dpi=140)
+        figure.savefig(output_dir / "information_theory.png", dpi=140)	# 축·범례가 포함된 그림을 지정 출력 경로에 저장한다.
     finally:
-        plt.close(figure)
-    (output_dir / "information_theory.json").write_text(
+        plt.close(figure)	# 사용이 끝난 그림 자원을 해제한다.
+    (output_dir / "information_theory.json").write_text(	# 비유한 수는 지정한 문자열 정책으로만 JSON에 기록한다.
         json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8", newline="\n")
-    (output_dir / "information_theory.md").write_text(report_markdown(report), encoding="utf-8", newline="\n")
+    (output_dir / "information_theory.md").write_text(report_markdown(report), encoding="utf-8", newline="\n")	# 동일 실측 자료로 읽기용 Markdown을 저장한다.
     return report
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Run the information-theory experiment with an optional writable output directory."""
+    """선택한 쓰기 가능 출력 디렉터리에서 정보 이론 실험을 실행한다."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output-dir", type=Path, default=Path("outputs"))
-    arguments = parser.parse_args(argv)
-    report = run_experiment(arguments.output_dir)
+    arguments = parser.parse_args(argv)	# 호출자가 제공한 명령행 인자를 해석한다.
+    report = run_experiment(arguments.output_dir)	# 명령행에서 선택한 출력 경로로 실험을 실행한다.
     print(f"Information theory: {len(report['examples'])} independent examples passed; "
           f"CE=H+KL maximum error={report['curve_checks']['maximum_identity_error']:.6e} nats")
     print(f"Entropy maximum=ln(2), KL minimum at q=0.3; boundary +inf retained. Saved in {arguments.output_dir}")
@@ -232,4 +232,4 @@ def main(argv: list[str] | None = None) -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(main())	# 명령행 실행 결과를 프로세스 종료 코드로 전달한다.

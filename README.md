@@ -28,6 +28,8 @@
 | #14 Softmax | 행 합 .9999999999999999/1, 행·열 합 최대오차1.1102230246251565e-16≤1e-6 | [JSON: softmax](outputs/probability_metrics.json), [확장 축 검증](outputs/evaluation_evidence.md), [공통 구현](src/utils/math.py) |
 | #15 MLE | 고정 분산 Gaussian NLL와 MSE의 같은 최소점(항등식오차4.44e-16); Bernoulli BCE합 .7133498878774649/categorical CE .6931471805599453 및 유도 | [전체 유도6~8절](docs/MATH_DERIVATIONS.md), [노트북](notebooks/probability_loss.ipynb), [JSON](outputs/probability_metrics.json) |
 
+아래 실행 보고서의 `source SHA-256`은 **보고서를 생성한 당시 소스**의 지문입니다. 이후 한글 독스트링·주석을 추가한 현재 파일의 지문과는 다릅니다. 당시 소스는 [보고서 작성 커밋](https://github.com/ntt65/A2_1/tree/828415d)에서 확인할 수 있으며, 한글 문서화 작업에서는 실행 코드·수치·노트북 저장 출력을 보존하고 새 커널 회귀 검증으로 재현성을 확인합니다. 현재 소스의 지문과 심볼 위치는 `.agent/registry.json`에 기록합니다.
+
 <!-- BEGIN VERIFIED MISSION RESULTS -->
 
 ## 기본 미션 실제 실행 결과
@@ -770,6 +772,10 @@ Published 5 verified Markdown reports; original PNG/JSON/notebooks unchanged.
 알고리즘과 수학 계산은 **NumPy만** 사용합니다. Matplotlib·Seaborn은 시각화용이며 PyTorch·TensorFlow·JAX·scikit-learn·SciPy 알고리즘은 사용하지 않습니다. `np.linalg.svd`는 SVD 복원에 사용하고, `np.linalg.eig`는 Power Iteration 비교 검증 코드(테스트와 전용 검증 스크립트)에서만 사용합니다. 파일·JSON·해시·테스트에는 Python 표준 라이브러리를 사용하며 노트북 실행 도구는 개발 의존성입니다.
 
 각 독립 실험·노트북 시작점에서 공통 `set_seed(42)`로 `np.random.seed(42)`를 한 번 설정합니다. import나 수학 함수 호출마다 seed를 초기화하지 않습니다. 공통 함수와 캐시는 [src/utils/](src/utils/)에 있고, 캐시는 Redis 서버 없이 `.cache/`에 저장합니다. [레지스트리](.agent/registry.json)는 파일·심볼·개념·의존성·해시와 노트북 셀 ID를 연결합니다. 상세 사용법은 [공통 기반 문서](docs/UTILITIES.md)에 있습니다.
+
+**코드를 읽는 순서:** 파일 맨 위의 한글 개요에서 역할을 확인하고, 함수·클래스의 한글 독스트링에서 수식·입력/출력 shape·자료형·예외·수치 안정성 조건을 읽습니다. 계산과 검증의 핵심 문장 오른쪽에는 탭 하나 뒤에 한글 주석을 두었습니다. 예를 들어 역전파의 `np.outer(delta1, x)` 주석은 단순히 “외적 계산”이라고 반복하지 않고 은닉 뉴런과 입력 특징의 축을 유지해 `(2,2)` 기울기를 만드는 이유를 설명합니다. 테스트에서는 기대값이 독립적인 이유와 반례·허용오차의 의미를 설명합니다.
+
+함수명·파일명·노트북 셀 ID는 그대로 유지합니다. 주석이나 독스트링을 바꿔 줄 위치가 달라지면 레지스트리의 줄과 파일 해시를 함께 갱신합니다. 그래프의 원래 표기, 실제 출력 문자열과 결과 수치는 재현 비교를 위해 보존합니다. 한글 문서화 전후에는 독스트링을 제외한 실행 코드 구조, 저장된 노트북 출력, 기존 링크와 산출물 해시를 대조합니다. 자세한 검증은 [한글 문서화 작업 기록](docs/worklogs/issue-35.md)에 남깁니다.
 
 ## 단계별 이슈·PR·검증 기록
 

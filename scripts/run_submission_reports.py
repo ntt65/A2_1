@@ -1,4 +1,4 @@
-"""Reexecute the five core experiments and publish readable, checked results."""
+"""기본 실험 다섯 개를 다시 실행하고 검증된 결과를 읽기 쉬운 보고서로 저장한다."""
 
 from __future__ import annotations
 
@@ -49,86 +49,85 @@ __concepts__ = {
 
 def check_reproduction(actual: object, reference: object, location: str = "metrics",
                        approximation_paths: tuple[str, ...] = ()) -> None:
-    """Require matching metric structure and finite values within atol=rtol=1e-12.
+    """지표 구조와 유한 값의 일치를 atol=rtol=1e-12로 요구한다.
 
-    Inputs are JSON-compatible values with identical structures. NumPy labels
-    may differ. Explicit approximation_paths contain only finite-difference
-    measurements already checked against independent analytic values by the
-    fresh experiment and renderer. Their shape/finiteness is still required,
-    but platform-dependent cancellation is not compared to Windows last bits.
-    Other values retain atol=rtol=1e-12; tiny h inputs use atol=0 so changing
-    1e-15 by 50% cannot hide beneath the generic absolute tolerance. Inputs,
-    h and analytic values cannot be skipped. An empty tuple is strict everywhere.
-    Raise ValueError at the first mismatch, never accept NaN/inf as evidence.
+    입력은 같은 구조의 JSON 호환 값이어야 한다. NumPy 버전 표기는 달라도 된다.
+    명시적 approximation_paths에는 새 실험과 렌더러가 독립 해석값으로 이미
+    검증한 유한차분 측정값만 들어간다. 이 값도 shape·유한성은 검사하지만
+    플랫폼별 상쇄 차이를 Windows의 마지막 자릿수와 비교하지 않는다.
+    다른 값은 atol=rtol=1e-12를 유지한다. 매우 작은 h 입력은 atol=0을 사용해
+    1e-15를 50% 바꾼 오류가 일반 절대 허용치에 가려지지 않게 한다.
+    입력·h·해석값은 검사를 생략할 수 없으며 빈 튜플은 전체에 엄격 비교를 적용한다.
+    첫 불일치에서 ValueError를 내고 NaN/inf를 근거로 허용하지 않는다.
     """
     if isinstance(reference, dict):
-        if not isinstance(actual, dict) or actual.keys() != reference.keys():
+        if not isinstance(actual, dict) or actual.keys() != reference.keys():	# 매핑의 필드 구성이 원래 결과와 정확히 같아야 한다.
             raise ValueError(f"{location}: metric keys differ")
         for key in reference:
             if key != "numpy_version":
-                check_reproduction(actual[key], reference[key], f"{location}.{key}", approximation_paths)
+                check_reproduction(actual[key], reference[key], f"{location}.{key}", approximation_paths)	# NumPy 버전 표시 외의 모든 필드를 재귀적으로 검사한다.
     elif isinstance(reference, list):
-        if not isinstance(actual, list) or len(actual) != len(reference):
+        if not isinstance(actual, list) or len(actual) != len(reference):	# 중첩 목록 길이를 비교하여 shape 변화를 검출한다.
             raise ValueError(f"{location}: metric shape differs")
         for index, (left, right) in enumerate(zip(actual, reference)):
             check_reproduction(left, right, f"{location}[{index}]", approximation_paths)
     elif isinstance(reference, bool) or reference is None or isinstance(reference, str):
-        if type(actual) is not type(reference) or actual != reference:
+        if type(actual) is not type(reference) or actual != reference:	# 불리언·None·문자열 메타데이터는 자료형까지 동일해야 한다.
             raise ValueError(f"{location}: metric metadata differs")
     elif isinstance(reference, (int, float)):
         if isinstance(actual, bool) or not isinstance(actual, (int, float)):
             raise ValueError(f"{location}: expected a numeric measurement")
-        if not math.isfinite(actual) or not math.isfinite(reference):
+        if not math.isfinite(actual) or not math.isfinite(reference):	# 비유한 수치가 두 결과에 함께 있어도 성공으로 인정하지 않는다.
             raise ValueError(f"{location}: nonfinite measurement")
-        if any(location == path or location.startswith(path + "[") for path in approximation_paths):
+        if any(location == path or location.startswith(path + "[") for path in approximation_paths):	# 독립 해석 검증을 마친 명시적 유한차분 값만 플랫폼 끝자리 비교에서 제외한다.
             return
-        is_step = location in ("calculus.derivative.h", "backprop.derivative_h") or location.startswith("calculus.step_size_study.h[")
-        if not math.isclose(actual, reference, rel_tol=1e-12, abs_tol=0. if is_step else 1e-12):
+        is_step = location in ("calculus.derivative.h", "backprop.derivative_h") or location.startswith("calculus.step_size_study.h[")	# 매우 작은 h 입력에는 절대 허용치를 적용하지 않는다.
+        if not math.isclose(actual, reference, rel_tol=1e-12, abs_tol=0. if is_step else 1e-12):	# 나머지 수치는 원래 절대·상대 허용치로 비교한다.
             raise ValueError(f"{location}: reproduced value {actual} differs from {reference}")
     else:
         raise ValueError(f"{location}: unsupported metric type")
 
 
 def _rebase_links(text: str, source_dir: Path, destination_dir: Path) -> str:
-    """Rebase Markdown file/image links while preserving URLs, labels and anchors.
+    """URL·표시 문구·앵커를 보존하면서 Markdown 파일·그림 링크의 기준 경로를 바꾼다.
 
-    Paths are directory bases, text is a complete Markdown document. A file
-    URI is used only for an explicitly chosen output on another Windows drive.
-    No file is read or written; malformed Markdown is left to caller review.
+    경로 인자는 기준 디렉터리이며 text는 완전한 Markdown 문서다.
+    Windows의 다른 드라이브를 출력으로 명시한 경우에만 파일 URI를 사용한다.
+    파일을 읽거나 쓰지 않으며 잘못된 Markdown의 검토는 호출자가 담당한다.
     """
     def replace(match: re.Match) -> str:
-        """Return one existing Markdown link with a relative destination path."""
+        """기존 Markdown 링크 하나의 목적지만 상대 경로로 바꾸어 반환한다."""
         href = match.group(2)
-        if "://" in href or href.startswith("#"):
+        if "://" in href or href.startswith("#"):	# 외부 URL과 같은 문서 앵커는 변경하지 않는다.
             return match.group(0)
         path, separator, anchor = href.partition("#")
         target = (source_dir / path).resolve()
         try:
-            relative = Path(os.path.relpath(target, destination_dir)).as_posix()
+            relative = Path(os.path.relpath(target, destination_dir)).as_posix()	# 기존 파일의 실제 위치를 새 문서 기준 상대 경로로 표현한다.
         except ValueError:
-            relative = target.as_uri()
+            relative = target.as_uri()	# 다른 Windows 드라이브는 상대 경로가 불가능하므로 URI를 사용한다.
         return match.group(1) + relative + (separator + anchor if separator else "") + ")"
-    return re.sub(r"(!?\[[^\]]*\]\()([^\s)]+)\)", replace, text)
+    return re.sub(r"(!?\[[^\]]*\]\()([^\s)]+)\)", replace, text)	# 링크 문구와 앵커는 보존하고 목적지 경로만 치환한다.
 
 
 def _check_approximation_accuracy(name: str, report: dict) -> None:
-    """Recheck fixed derivative/gradient evidence with unchanged mission tolerances.
+    """미션 허용치를 바꾸지 않고 고정 미분·gradient 근거를 다시 검사한다.
 
-    Calculus expects scalar derivative 6 and (9,2) gradient 2*points;
-    backprop has nine scalar parameter derivatives, BCE two logit derivatives.
-    Assertions reject bad finite differences independently of baseline storage.
-    The exploratory h sweep is checked against exact finite differences (6
-    and cos(3)*sin(h)/h) with a conservative 8*eps*scale/h rounding budget for
-    these fixed elementary functions. It need not meet 1e-4 at every h. The
-    renderer also verifies finite arrays and recomputed error summaries.
+    미적분은 스칼라 미분값 6과 (9,2) gradient 2*points를 기대한다.
+    역전파는 매개변수 미분 아홉 개, BCE는 logit 미분 두 개를 검사한다.
+    저장 기준과 독립적인 assert로 잘못된 유한차분을 거부한다.
+    탐색용 h 격자는 정확한 유한차분 식 6과 cos(3)*sin(h)/h 및 이 고정
+    초등함수에 보수적인 반올림 예산 8*eps*scale/h로 검사한다.
+    모든 h에서 1e-4를 만족할 필요는 없다. 렌더러도 유한 배열과
+    재계산한 오차 요약을 확인한다.
     """
     if name == "calculus":
-        assert abs(report["derivative"]["numerical"] - 6.) <= 1e-4
-        np.testing.assert_allclose(report["gradient"]["numerical"],
+        assert abs(report["derivative"]["numerical"] - 6.) <= 1e-4	# 고정 미분 입력은 원래 미션 허용치 1e-4로 검사한다.
+        np.testing.assert_allclose(report["gradient"]["numerical"],	# gradient를 독립 해석값 2*points와 비교한다.
                                    2 * np.asarray(report["gradient"]["points"]), atol=1e-8, rtol=0)
         study = report["step_size_study"]
         h = np.asarray(study["h"], dtype=float)
-        assert h.ndim == 1 and np.all(np.isfinite(h)) and np.all(h > 0)
+        assert h.ndim == 1 and np.all(np.isfinite(h)) and np.all(h > 0)	# 간격 배열의 shape·유한성·양수 조건을 확인한다.
         eps = np.finfo(float).eps
         for key, exact, scale in (
             ("quadratic_derivative", np.full(h.shape, 6.), np.maximum(3., (3.+h)**2)),
@@ -136,38 +135,37 @@ def _check_approximation_accuracy(name: str, report: dict) -> None:
         ):
             values = np.asarray(study[key], dtype=float)
             assert values.shape == h.shape and np.all(np.isfinite(values))
-            budget = 8 * eps * scale / h + 8 * eps * np.abs(exact)
-            assert np.all(np.abs(values-exact) <= budget), f"{key}: finite-difference identity violated"
+            budget = 8 * eps * scale / h + 8 * eps * np.abs(exact)	# 이 고정 함수들의 유한차분 상쇄에 대한 반올림 예산을 구한다.
+            assert np.all(np.abs(values-exact) <= budget), f"{key}: finite-difference identity violated"	# h 탐색 실패 표본을 숨기지 않으면서 차분 항등식 자체를 검증한다.
     elif name == "backprop":
-        np.testing.assert_allclose(report["numerical_gradient"], report["analytical_gradient"],
+        np.testing.assert_allclose(report["numerical_gradient"], report["analytical_gradient"],	# 아홉 매개변수의 수치 gradient를 원래 기준으로 검사한다.
                                    atol=1e-6, rtol=0)
     elif name == "probability":
         bce = report["bce"]
-        np.testing.assert_allclose(bce["numerical_sum_gradient"],
+        np.testing.assert_allclose(bce["numerical_sum_gradient"],	# BCE의 두 수치 미분을 해석값과 비교한다.
                                    np.asarray(bce["probabilities"]) - np.asarray(bce["y"]),
                                    atol=1e-8, rtol=0)
 
 
 def updated_readme(original: str, reports: dict[str, str], destination_dir: Path = ROOT) -> str:
-    """Insert/replace only the verified-results block before validation history.
+    """검증 이력 앞의 검증 결과 블록만 삽입하거나 교체한다.
 
-    reports maps the five REPORT_NAMES to canonical outputs-relative Markdown.
-    destination_dir is the README's containing directory for relative links.
-    Existing text outside the block and all earlier PNG links are preserved.
-    Reject missing reports, duplicate/reversed/unpaired markers or an absent
-    initial insertion anchor with ValueError before any file write occurs.
+    reports는 다섯 REPORT_NAMES를 outputs 기준 링크의 Markdown에 대응시킨다.
+    destination_dir는 상대 링크의 기준인 README 소속 디렉터리다.
+    블록 밖의 기존 본문과 이전 PNG 링크는 모두 보존한다.
+    보고서 누락, 중복·역순·짝 없는 구분자, 최초 삽입 앵커 부재는
+    파일 쓰기 전에 ValueError로 거부한다.
     """
-    if set(reports) != set(REPORT_NAMES):
+    if set(reports) != set(REPORT_NAMES):	# 정해진 다섯 보고서가 모두 준비되었는지 확인한다.
         raise ValueError("exactly five core reports are required")
     counts = original.count(BEGIN), original.count(END)
-    if counts not in ((0, 0), (1, 1)):
+    if counts not in ((0, 0), (1, 1)):	# 결과 구분자는 없거나 정확히 한 쌍이어야 한다.
         raise ValueError("README result markers must be absent or form one pair")
     sections = []
     anchors = ("mission-linear", "mission-calculus", "mission-backprop", "mission-optimizer", "mission-probability")
     for filename, anchor_id in zip(REPORT_NAMES, anchors):
-        body = _rebase_links(reports[filename], ROOT / "outputs", destination_dir)
-        # Keep the surrounding README's main section hierarchy intact.
-        body = re.sub(r"^(#{1,4}) ", r"\1## ", body, flags=re.MULTILINE)
+        body = _rebase_links(reports[filename], ROOT / "outputs", destination_dir)	# README 위치에 맞춰 원본 근거 링크를 보정한다.
+        body = re.sub(r"^(#{1,4}) ", r"\1## ", body, flags=re.MULTILINE)	# 주변 README의 상위 절 구조가 유지되도록 제목 수준을 낮춘다.
         sections.append(f'<a id="{anchor_id}"></a>\n\n' + body.strip())
     block = BEGIN + "\n\n## 기본 미션 실제 실행 결과\n\n" + (
         "아래 표·수식·판정은 기존 실험을 새로 실행해 생성했습니다. "
@@ -178,22 +176,22 @@ def updated_readme(original: str, reports: dict[str, str], destination_dir: Path
         start, finish = original.index(BEGIN), original.index(END)
         if finish < start:
             raise ValueError("README result markers are reversed")
-        return original[:start] + block + original[finish + len(END):]
+        return original[:start] + block + original[finish + len(END):]	# 검증 결과 블록 바깥의 기존 본문은 그대로 둔다.
     anchor = "## 검증 현황"
-    if original.count(anchor) != 1:
+    if original.count(anchor) != 1:	# 최초 삽입 위치가 하나로 결정되지 않으면 쓰기를 거부한다.
         raise ValueError("README requires one validation-history insertion anchor")
     position = original.index(anchor)
     return original[:position] + block + "\n\n" + original[position:]
 
 
 def _environment_header(source: Path, raw: Path) -> str:
-    """Describe this execution environment and its source/measurement hashes.
+    """이번 실행 환경과 소스·측정 파일의 해시를 설명한다.
 
-    source is the original script/notebook, raw is the newly executed metric
-    JSON. SHA-256 covers their complete bytes; errors reading either propagate.
-    The header is deterministic within the same interpreter and dependencies.
+    source는 원래 스크립트·노트북이고 raw는 새로 실행한 지표 JSON이다.
+    SHA-256은 전체 파일 바이트를 대상으로 하며 두 파일의 읽기 오류를 전달한다.
+    동일한 인터프리터와 의존성에서 머리말은 결정론적이다.
     """
-    return (
+    return (	# 실제 실행 환경과 파일 전체 바이트의 해시를 머리말로 만든다.
         f"실행 환경: Python {platform.python_version()}, NumPy {np.__version__}, "
         f"Matplotlib {matplotlib.__version__}; float64, 독립 실험 시작 시 seed42.\n\n"
         f"실행 원본: `{source.relative_to(ROOT).as_posix()}`; "
@@ -207,27 +205,26 @@ def _environment_header(source: Path, raw: Path) -> str:
 
 
 def run_reports(output_dir: Path, readme_path: Path | None = None) -> dict[str, str]:
-    """Freshly execute all five core experiments and write five checked reports.
+    """다섯 기본 실험을 새로 실행하고 검증된 보고서 다섯 개를 저장한다.
 
-    PNG/JSON are regenerated only in a temporary directory under ROOT/.cache;
-    existing outputs and notebook source bytes are never overwritten. Numeric
-    report data are compared with ROOT/outputs using check_reproduction after
-    independent math checks; finite differences use their original analytic
-    acceptance criteria rather than platform-specific last-bit equality.
-    Returns filename->canonical Markdown (outputs-relative links). Optional
-    readme_path updates the bounded result block after every experiment passes.
-    Invalid markers, drift, kernel failures and I/O errors propagate; no report
-    or README is published if an experiment/validation step fails.
+    PNG/JSON은 ROOT/.cache 아래 임시 디렉터리에서만 다시 생성하며
+    기존 outputs와 노트북 원본 바이트는 덮어쓰지 않는다.
+    독립 수학 검증 뒤 check_reproduction으로 ROOT/outputs와 수치를 비교한다.
+    유한차분은 플랫폼별 마지막 자릿수 일치 대신 원래 해석 수용 기준을 적용한다.
+    파일명→표준 Markdown 매핑을 반환하며 링크는 outputs 기준이다.
+    선택적 readme_path는 모든 실험이 통과한 뒤 지정된 결과 블록만 갱신한다.
+    잘못된 구분자·수치 변화·커널 실패·입출력 오류는 전달한다.
+    실험·검증 단계가 실패하면 보고서와 README를 저장하지 않는다.
     """
     destination = Path(output_dir).resolve()
     readme = None if readme_path is None else Path(readme_path).resolve()
     original = None if readme is None else readme.read_text(encoding="utf-8")
     if original is not None:
-        updated_readme(original, dict.fromkeys(REPORT_NAMES, "validation placeholder"), readme.parent)
+        updated_readme(original, dict.fromkeys(REPORT_NAMES, "validation placeholder"), readme.parent)	# 비싼 재실행 전에 README 구분자 구조부터 검증한다.
     (ROOT / ".cache").mkdir(exist_ok=True)
-    with tempfile.TemporaryDirectory(prefix="submission-replay-", dir=ROOT / ".cache") as folder:
+    with tempfile.TemporaryDirectory(prefix="submission-replay-", dir=ROOT / ".cache") as folder:	# 기존 산출물에 영향 없이 임시 경로에서 실험을 재실행한다.
         staging = Path(folder)
-        metrics = {
+        metrics = {	# 세 스크립트 실험을 새로 실행해 원시 지표를 수집한다.
             "linear_algebra": run_linear_algebra(staging, use_cache=False),
             "calculus": run_calculus(staging),
             "optimizer": run_optimizer(staging, use_cache=False),
@@ -235,11 +232,11 @@ def run_reports(output_dir: Path, readme_path: Path | None = None) -> dict[str, 
         notebooks = {}
         for name, filename in (("backprop", "backprop_derivation.ipynb"),
                                ("probability", "probability_loss.ipynb")):
-            notebooks[name] = execute_notebook(ROOT / "notebooks" / filename, staging)
+            notebooks[name] = execute_notebook(ROOT / "notebooks" / filename, staging)	# 노트북도 새 커널에서 실행하되 원본 파일은 저장하지 않는다.
             metrics[name] = json.loads((staging / f"{name}_metrics.json").read_text(encoding="utf-8"))
         for name, data in metrics.items():
-            _check_approximation_accuracy(name, data)
-        rendered = (
+            _check_approximation_accuracy(name, data)	# 재현값 비교 전에 독립 수학 기준을 다시 검사한다.
+        rendered = (	# 검증된 원시 지표와 실제 노트북 출력으로 본문을 렌더링한다.
             render_linear_algebra(metrics["linear_algebra"]),
             render_calculus(metrics["calculus"]),
             render_backprop(metrics["backprop"], notebooks["backprop"]),
@@ -248,7 +245,7 @@ def run_reports(output_dir: Path, readme_path: Path | None = None) -> dict[str, 
         )
         for name, data in metrics.items():
             reference = json.loads((ROOT / "outputs" / f"{name}_metrics.json").read_text(encoding="utf-8"))
-            check_reproduction(data, reference, name, FINITE_DIFFERENCE_PATHS)
+            check_reproduction(data, reference, name, FINITE_DIFFERENCE_PATHS)	# 기존 기준 지표와 이번 실행의 구조·값을 대조한다.
         sources = (
             "scripts/run_linear_algebra.py", "scripts/run_calculus.py",
             "notebooks/backprop_derivation.ipynb", "scripts/run_optimizer.py",
@@ -261,26 +258,26 @@ def run_reports(output_dir: Path, readme_path: Path | None = None) -> dict[str, 
             reports[filename] = title + "\n\n" + _environment_header(
                 ROOT / source, staging / f"{key}_metrics.json",
             ) + rest.lstrip("\n") + ("" if body.endswith("\n") else "\n")
-        replacement = None if original is None else updated_readme(original, reports, readme.parent)
+        replacement = None if original is None else updated_readme(original, reports, readme.parent)	# 모든 실험 통과 후 README 교체 본문을 준비한다.
     destination.mkdir(parents=True, exist_ok=True)
     for filename, report in reports.items():
-        text = _rebase_links(report, ROOT / "outputs", destination)
-        (destination / filename).write_text(text, encoding="utf-8", newline="\n")
+        text = _rebase_links(report, ROOT / "outputs", destination)	# 선택한 저장 위치에서 읽을 수 있도록 링크 기준을 맞춘다.
+        (destination / filename).write_text(text, encoding="utf-8", newline="\n")	# 최종 검증을 마친 보고서를 UTF-8로 저장한다.
     if readme is not None:
-        readme.write_text(replacement, encoding="utf-8", newline="\n")
+        readme.write_text(replacement, encoding="utf-8", newline="\n")	# 명시적으로 요청한 README 결과 블록만 갱신한다.
     return reports
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Generate reports, optionally adding their full verified content to README."""
+    """보고서를 생성하며 선택적으로 검증된 전체 내용을 README에 추가한다."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output-dir", type=Path, default=ROOT / "outputs")
     parser.add_argument("--update-readme", action="store_true")
-    arguments = parser.parse_args(argv)
-    reports = run_reports(arguments.output_dir, ROOT / "README.md" if arguments.update_readme else None)
+    arguments = parser.parse_args(argv)	# 호출자가 제공한 명령행 인자를 해석한다.
+    reports = run_reports(arguments.output_dir, ROOT / "README.md" if arguments.update_readme else None)	# 출력 경로와 README 갱신 요청을 실행기에 전달한다.
     print(f"Published {len(reports)} verified Markdown reports; original PNG/JSON/notebooks unchanged.")
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(main())	# 명령행 실행 결과를 프로세스 종료 코드로 전달한다.

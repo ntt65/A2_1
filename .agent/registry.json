@@ -150,13 +150,13 @@
         "sys"
       ],
       "language": "notebook",
-      "sha256": "825291975d55d618f3e8a91f64161f8d676b7b6c82ebe629c9b49ac24d97277d",
+      "sha256": "cf6308a645956c8c1791f0f03a0513d8c1e8b58ea59af0a1afae4c62c337f691",
       "symbols": [
         {
           "cell_id": "backprop-compare",
           "cell_title": "기준 상수 및 네 자리 검증",
           "concepts": [],
-          "end_line": 11,
+          "end_line": 12,
           "kind": "function",
           "line": 1,
           "name": "four_decimal_strings"
@@ -165,7 +165,7 @@
           "cell_id": "backprop-gradient-check",
           "cell_title": "전체 매개변수 수치 교차 검증",
           "concepts": [],
-          "end_line": 23,
+          "end_line": 24,
           "kind": "function",
           "line": 7,
           "name": "loss_from_flat"
@@ -365,7 +365,7 @@
         "sys"
       ],
       "language": "notebook",
-      "sha256": "b31883f9b1e3fed3c71be84e068d03e5db6f3a205ed567533f2c60d9fc968d8e",
+      "sha256": "7e6905573c332f9e0a49519c1a560911b849e0696b699efb0a9558be819d41da",
       "symbols": [
         {
           "cell_id": "normal-density-check",
@@ -380,7 +380,7 @@
           "cell_id": "bernoulli-check",
           "cell_title": "베르누이 질량과 그림",
           "concepts": [],
-          "end_line": 10,
+          "end_line": 11,
           "kind": "function",
           "line": 1,
           "name": "bernoulli_pmf"
@@ -398,7 +398,7 @@
           "cell_id": "bce-functions",
           "cell_title": "확률 및 logit BCE 계산",
           "concepts": [],
-          "end_line": 28,
+          "end_line": 29,
           "kind": "function",
           "line": 16,
           "name": "probability_bce"
@@ -407,9 +407,9 @@
           "cell_id": "bce-functions",
           "cell_title": "확률 및 logit BCE 계산",
           "concepts": [],
-          "end_line": 41,
+          "end_line": 42,
           "kind": "function",
-          "line": 31,
+          "line": 32,
           "name": "binary_logit_loss"
         },
         {
@@ -456,7 +456,7 @@
         "scripts.run_evaluation_evidence"
       ],
       "language": "python",
-      "sha256": "3d6cdc0ea1f1d6ee7102b30d82e2207f9dc3225877d5a294d79b6b9bf4d8c9e4",
+      "sha256": "913b0de659ed0c7814c57d0b5d0879631366187ad7f193b86ff56496e44e1b2c",
       "symbols": [
         {
           "concepts": [],
@@ -505,7 +505,7 @@
             "Linear_Algebra_Experiment",
             "Submission_Reports"
           ],
-          "end_line": 212,
+          "end_line": 211,
           "kind": "function",
           "line": 64,
           "name": "render_linear_algebra"
@@ -515,9 +515,9 @@
             "Calculus_Experiment",
             "Submission_Reports"
           ],
-          "end_line": 322,
+          "end_line": 321,
           "kind": "function",
-          "line": 215,
+          "line": 214,
           "name": "render_calculus"
         }
       ],
@@ -534,80 +534,80 @@
         "numpy"
       ],
       "language": "python",
-      "sha256": "a6aa497c8612c3f1311deabc933beeea1f03c7a181f95e6e4dbefd1e3f6efd44",
+      "sha256": "880b1eff2700631bd3064c01b26e8c8fec5b82976fde054378b9692e5e97278b",
       "symbols": [
         {
           "concepts": [],
-          "end_line": 44,
+          "end_line": 45,
           "kind": "function",
           "line": 32,
           "name": "_array"
         },
         {
           "concepts": [],
-          "end_line": 52,
+          "end_line": 53,
           "kind": "function",
-          "line": 47,
+          "line": 48,
           "name": "_close"
         },
         {
           "concepts": [],
-          "end_line": 64,
+          "end_line": 65,
           "kind": "function",
-          "line": 55,
+          "line": 56,
           "name": "_cell"
         },
         {
           "concepts": [],
-          "end_line": 73,
+          "end_line": 74,
           "kind": "function",
-          "line": 67,
+          "line": 68,
           "name": "_markdown"
         },
         {
           "concepts": [],
-          "end_line": 92,
+          "end_line": 93,
           "kind": "function",
-          "line": 76,
+          "line": 77,
           "name": "_execution"
         },
         {
           "concepts": [],
-          "end_line": 103,
+          "end_line": 104,
           "kind": "function",
-          "line": 95,
+          "line": 96,
           "name": "_format"
         },
         {
           "concepts": [],
-          "end_line": 140,
+          "end_line": 141,
           "kind": "function",
-          "line": 106,
+          "line": 107,
           "name": "_stdout_sections"
         },
         {
           "concepts": [
             "Notebook_Markdown_Reports"
           ],
-          "end_line": 213,
+          "end_line": 214,
           "kind": "function",
-          "line": 143,
+          "line": 144,
           "name": "render_backprop"
         },
         {
           "concepts": [],
-          "end_line": 279,
+          "end_line": 280,
           "kind": "function",
-          "line": 216,
+          "line": 217,
           "name": "_validate_probability"
         },
         {
           "concepts": [
             "Notebook_Markdown_Reports"
           ],
-          "end_line": 346,
+          "end_line": 347,
           "kind": "function",
-          "line": 282,
+          "line": 283,
           "name": "render_probability"
         }
       ],
@@ -624,7 +624,7 @@
         "numpy"
       ],
       "language": "python",
-      "sha256": "c083f9f2a46fa4b71a80f2570996b9cb172b396a740eb0af4ca26976cd1d2ea7",
+      "sha256": "2c8f72ab914c23c5b1ff21ff0c70addfac9920bd2eaa65639a91b1362566eeeb",
       "symbols": [
         {
           "concepts": [],
@@ -635,32 +635,32 @@
         },
         {
           "concepts": [],
-          "end_line": 73,
+          "end_line": 74,
           "kind": "function",
           "line": 24,
           "name": "_validate_run"
         },
         {
           "concepts": [],
-          "end_line": 78,
+          "end_line": 79,
           "kind": "function",
-          "line": 76,
+          "line": 77,
           "name": "_number"
         },
         {
           "concepts": [],
-          "end_line": 83,
+          "end_line": 84,
           "kind": "function",
-          "line": 81,
+          "line": 82,
           "name": "_point"
         },
         {
           "concepts": [
             "Optimizer_Readable_Report"
           ],
-          "end_line": 177,
+          "end_line": 178,
           "kind": "function",
-          "line": 86,
+          "line": 87,
           "name": "render_optimizer"
         }
       ],
@@ -692,7 +692,7 @@
         "src.utils.random"
       ],
       "language": "python",
-      "sha256": "1a9df37ccf59546ac094906ebe602e1b898af7ec011f29ffbc57bd159906c2eb",
+      "sha256": "6a26542a612018d1d8544f03f46149abaa1ed66b4fe6e09a9cc34985741c90fb",
       "symbols": [
         {
           "concepts": [
@@ -765,7 +765,7 @@
         "sys"
       ],
       "language": "python",
-      "sha256": "e63347572c173104fdb76543a5754b925432b38d048732c96d4195234df9250c",
+      "sha256": "71c3bed7c464a8b97a3a8c2901a1932f880d7be342b8e7d97c71de5798d24bf7",
       "symbols": [
         {
           "concepts": [
@@ -815,7 +815,7 @@
         "zlib"
       ],
       "language": "python",
-      "sha256": "60798b0bca811a4e10e4d8df5d043f88f2f414a71629422b779fb1322ab75af5",
+      "sha256": "c86030c9269f5b528573fb12fc05c80a284df89ebdbb33eb36d29c2fbc802697",
       "symbols": [
         {
           "concepts": [
@@ -839,7 +839,7 @@
           "concepts": [
             "Numerical_Diagnostics"
           ],
-          "end_line": 154,
+          "end_line": 155,
           "kind": "function",
           "line": 122,
           "name": "difference_report"
@@ -848,43 +848,43 @@
           "concepts": [
             "Numerical_Diagnostics"
           ],
-          "end_line": 180,
+          "end_line": 182,
           "kind": "function",
-          "line": 157,
+          "line": 158,
           "name": "step_size_summary"
         },
         {
           "concepts": [
             "Numerical_Diagnostics"
           ],
-          "end_line": 206,
+          "end_line": 208,
           "kind": "function",
-          "line": 183,
+          "line": 185,
           "name": "softmax_summary"
         },
         {
           "concepts": [],
-          "end_line": 247,
+          "end_line": 249,
           "kind": "function",
-          "line": 209,
+          "line": 211,
           "name": "failure_diagnostics"
         },
         {
           "concepts": [
             "Evaluation_Evidence"
           ],
-          "end_line": 313,
+          "end_line": 316,
           "kind": "function",
-          "line": 250,
+          "line": 252,
           "name": "run_experiment"
         },
         {
           "concepts": [
             "Evaluation_Evidence"
           ],
-          "end_line": 326,
+          "end_line": 329,
           "kind": "function",
-          "line": 316,
+          "line": 319,
           "name": "main"
         }
       ],
@@ -909,7 +909,7 @@
         "src.utils.random"
       ],
       "language": "python",
-      "sha256": "ab0de29f24d2ca367472f4bf0f6bc7abff8c46284939069d46bb9243f616fbef",
+      "sha256": "5be74ed54e87c1d74685bedee8dd2ead70197386fe505ced8ae8b822d00f31a4",
       "symbols": [
         {
           "concepts": [],
@@ -986,7 +986,7 @@
         "sys"
       ],
       "language": "python",
-      "sha256": "4579ecaafbd471fc0830cc2d989341922e75739db17c999aa702bbc501f11f62",
+      "sha256": "729901696091ec4d57955ea5e1a19dd346bacd9910aa8146cf3a96c899eb30a0",
       "symbols": [
         {
           "concepts": [
@@ -1039,7 +1039,7 @@
         "tempfile"
       ],
       "language": "python",
-      "sha256": "a764fcb4e15d125d84d818603b555b5a61c1c841318803d04bf0eaf7d14142e7",
+      "sha256": "07b1e9413dfe3a28215e277350a071cf668b9f14518ef2dc405f082379096e66",
       "symbols": [
         {
           "concepts": [],
@@ -1092,7 +1092,7 @@
         "sys"
       ],
       "language": "python",
-      "sha256": "4b309b3725f34d7224e1c9a987bdb1324ddc97ae04ff29006d1b15a8e441c311",
+      "sha256": "7bf5643a4286e1fe2c3044db91326c01cb94f3a89a7f9e406e8490789681c06d",
       "symbols": [
         {
           "concepts": [
@@ -1162,7 +1162,7 @@
         "src.utils.random"
       ],
       "language": "python",
-      "sha256": "8f987a84777db7f0eea6680d0bf68baa0d34fcead036f006f9b42dc8a706df0e",
+      "sha256": "3f8f228f573d6d9371311be04b71b3aa6bcf0575533f66ecdc76ab1a96e327e2",
       "symbols": [
         {
           "concepts": [
@@ -1279,72 +1279,72 @@
         "tempfile"
       ],
       "language": "python",
-      "sha256": "d7d0018c3a0ac8492592a3135f7e5779361ca930008ec58613e71bfabc2ab5a8",
+      "sha256": "b0e89970774af8d99869983f48c2c80105ca47a98d20f11afb3d89f66f0baf3a",
       "symbols": [
         {
           "concepts": [
             "Report_Reproduction_Check"
           ],
-          "end_line": 89,
+          "end_line": 88,
           "kind": "function",
           "line": 50,
           "name": "check_reproduction"
         },
         {
           "concepts": [],
-          "end_line": 111,
+          "end_line": 110,
           "kind": "function",
-          "line": 92,
+          "line": 91,
           "name": "_rebase_links"
         },
         {
           "concepts": [],
-          "end_line": 110,
+          "end_line": 109,
           "kind": "function",
-          "line": 99,
+          "line": 98,
           "name": "_rebase_links.replace"
         },
         {
           "concepts": [
             "Report_Reproduction_Check"
           ],
-          "end_line": 148,
+          "end_line": 147,
           "kind": "function",
-          "line": 114,
+          "line": 113,
           "name": "_check_approximation_accuracy"
         },
         {
           "concepts": [
             "Readme_Result_Integration"
           ],
-          "end_line": 186,
+          "end_line": 184,
           "kind": "function",
-          "line": 151,
+          "line": 150,
           "name": "updated_readme"
         },
         {
           "concepts": [],
-          "end_line": 206,
+          "end_line": 204,
           "kind": "function",
-          "line": 189,
+          "line": 187,
           "name": "_environment_header"
         },
         {
           "concepts": [
             "Readable_Experiment_Reports"
           ],
-          "end_line": 271,
+          "end_line": 268,
           "kind": "function",
-          "line": 209,
+          "line": 207,
           "name": "run_reports"
         },
         {
           "concepts": [
             "Readable_Experiment_Reports"
           ],
-          "end_line": 282,
+          "end_line": 279,
           "kind": "function",
-          "line": 274,
+          "line": 271,
           "name": "main"
         }
       ],
@@ -1371,124 +1371,124 @@
         "typing"
       ],
       "language": "python",
-      "sha256": "e727780df505a579d2d3618cbce3f515bad2d4a4ac5790e9ad3e3008c02fdef7",
+      "sha256": "996c5f2c61f38b28d9d8b31dba42eeba78806426a278344bf0a9618eb266b1ad",
       "symbols": [
         {
           "concepts": [],
-          "end_line": 55,
+          "end_line": 56,
           "kind": "function",
-          "line": 36,
+          "line": 37,
           "name": "_scoped_files"
         },
         {
           "concepts": [],
-          "end_line": 64,
+          "end_line": 65,
           "kind": "function",
-          "line": 58,
+          "line": 59,
           "name": "_string_list"
         },
         {
           "concepts": [],
-          "end_line": 83,
+          "end_line": 84,
           "kind": "function",
-          "line": 67,
+          "line": 68,
           "name": "_metadata"
         },
         {
           "concepts": [],
-          "end_line": 117,
+          "end_line": 118,
           "kind": "class",
-          "line": 86,
+          "line": 87,
           "name": "_SymbolVisitor"
         },
         {
           "concepts": [],
-          "end_line": 92,
+          "end_line": 93,
           "kind": "method",
-          "line": 89,
+          "line": 90,
           "name": "_SymbolVisitor.__init__"
         },
         {
           "concepts": [],
-          "end_line": 105,
+          "end_line": 106,
           "kind": "method",
-          "line": 94,
+          "line": 95,
           "name": "_SymbolVisitor._visit_symbol"
         },
         {
           "concepts": [],
-          "end_line": 109,
+          "end_line": 110,
           "kind": "method",
-          "line": 107,
+          "line": 108,
           "name": "_SymbolVisitor.visit_FunctionDef"
         },
         {
           "concepts": [],
-          "end_line": 113,
+          "end_line": 114,
           "kind": "method",
-          "line": 111,
+          "line": 112,
           "name": "_SymbolVisitor.visit_AsyncFunctionDef"
         },
         {
           "concepts": [],
-          "end_line": 117,
+          "end_line": 118,
           "kind": "method",
-          "line": 115,
+          "line": 116,
           "name": "_SymbolVisitor.visit_ClassDef"
         },
         {
           "concepts": [],
-          "end_line": 154,
+          "end_line": 155,
           "kind": "function",
-          "line": 120,
+          "line": 121,
           "name": "_python_entry"
         },
         {
           "concepts": [],
-          "end_line": 164,
+          "end_line": 165,
           "kind": "function",
-          "line": 157,
+          "line": 158,
           "name": "_cell_source"
         },
         {
           "concepts": [],
-          "end_line": 205,
+          "end_line": 206,
           "kind": "function",
-          "line": 167,
+          "line": 168,
           "name": "_notebook_entry"
         },
         {
           "concepts": [
             "Registry"
           ],
-          "end_line": 250,
+          "end_line": 251,
           "kind": "function",
-          "line": 208,
+          "line": 209,
           "name": "build_registry"
         },
         {
           "concepts": [
             "Registry"
           ],
-          "end_line": 273,
+          "end_line": 274,
           "kind": "function",
-          "line": 253,
+          "line": 254,
           "name": "write_registry"
         },
         {
           "concepts": [
             "Registry"
           ],
-          "end_line": 304,
+          "end_line": 305,
           "kind": "function",
-          "line": 276,
+          "line": 277,
           "name": "check_registry"
         },
         {
           "concepts": [],
-          "end_line": 329,
+          "end_line": 330,
           "kind": "function",
-          "line": 307,
+          "line": 308,
           "name": "main"
         }
       ],
@@ -1511,40 +1511,40 @@
         "sys"
       ],
       "language": "python",
-      "sha256": "bf14e6477448e6e7b7fd73d34366128adadbb77221860e5be5bf509ce1031f60",
+      "sha256": "ffcd870ef6f54d27f938534203afe83472ccfb14ea4d2af9257b426280b2562f",
       "symbols": [
         {
           "concepts": [
             "Power_Iteration_Eig_Verification"
           ],
-          "end_line": 86,
+          "end_line": 85,
           "kind": "function",
           "line": 22,
           "name": "verify_mission_eigenpair"
         },
         {
           "concepts": [],
-          "end_line": 100,
+          "end_line": 99,
           "kind": "function",
-          "line": 89,
+          "line": 88,
           "name": "comparison_summary"
         },
         {
           "concepts": [
             "Power_Iteration_Eig_Verification"
           ],
-          "end_line": 134,
+          "end_line": 133,
           "kind": "function",
-          "line": 103,
+          "line": 102,
           "name": "write_report"
         },
         {
           "concepts": [
             "Power_Iteration_Eig_Verification"
           ],
-          "end_line": 147,
+          "end_line": 146,
           "kind": "function",
-          "line": 137,
+          "line": 136,
           "name": "main"
         }
       ],
@@ -1557,7 +1557,7 @@
       "covers": [],
       "dependencies": [],
       "language": "python",
-      "sha256": "046df61661ab30f0359c19fec1b48f8566393608f14af69fd76ad5f5cad109d8",
+      "sha256": "649c8863710c3f8003af0f26715072ee19bf49eceb991f749d7be9655127b865",
       "symbols": [],
       "tests": []
     },
@@ -1574,7 +1574,7 @@
         "src.utils.numerical"
       ],
       "language": "python",
-      "sha256": "c40eca2255ecfe4bfc629fa79c69269195598711884a467cc50919d3d3c56b1f",
+      "sha256": "972b3b86dc4db1b414b6b956bdec13ee5de2c13c584f9de727e6b5a387e28317",
       "symbols": [
         {
           "concepts": [
@@ -1671,7 +1671,7 @@
         "src.utils.plotting"
       ],
       "language": "python",
-      "sha256": "4f25ae2fa246c233ce519854334fbbbe091a8b285ecdbab763c75db74b3d9f48",
+      "sha256": "bde90ed5779187d1088ce6b92cddd8a789f482a860c565c6c916435434055b75",
       "symbols": [
         {
           "concepts": [
@@ -1686,68 +1686,68 @@
           "concepts": [
             "Numerical_Gradient"
           ],
-          "end_line": 72,
+          "end_line": 71,
           "kind": "function",
           "line": 38,
           "name": "numerical_gradient"
         },
         {
           "concepts": [],
-          "end_line": 69,
+          "end_line": 68,
           "kind": "function",
-          "line": 65,
+          "line": 64,
           "name": "numerical_gradient.along_coordinate"
         },
         {
           "concepts": [
             "Quadratic_Surface"
           ],
-          "end_line": 90,
+          "end_line": 89,
           "kind": "function",
-          "line": 75,
+          "line": 74,
           "name": "quadratic"
         },
         {
           "concepts": [
             "Quadratic_Gradient"
           ],
-          "end_line": 109,
+          "end_line": 107,
           "kind": "function",
-          "line": 93,
+          "line": 92,
           "name": "quadratic_gradient"
         },
         {
           "concepts": [],
-          "end_line": 122,
+          "end_line": 120,
           "kind": "function",
-          "line": 114,
+          "line": 112,
           "name": "_gradient_samples"
         },
         {
           "concepts": [
             "Gradient_Visualization"
           ],
-          "end_line": 175,
+          "end_line": 172,
           "kind": "function",
-          "line": 125,
+          "line": 123,
           "name": "gradient_figure"
         },
         {
           "concepts": [
             "Derivative_Error_Study"
           ],
-          "end_line": 200,
+          "end_line": 197,
           "kind": "function",
-          "line": 178,
+          "line": 175,
           "name": "derivative_error_study"
         },
         {
           "concepts": [
             "Derivative_Error_Visualization"
           ],
-          "end_line": 237,
+          "end_line": 233,
           "kind": "function",
-          "line": 203,
+          "line": 200,
           "name": "derivative_error_figure"
         }
       ],
@@ -1771,7 +1771,7 @@
         "src.utils.math"
       ],
       "language": "python",
-      "sha256": "16ac1275a2bb22142f8ad1eda0960d678a33d466b0c5f583c5f138fb3e257003",
+      "sha256": "a85c480fdcfa6b8239639f943aedcc307dd5f4b6d59d4008925d7b746915c74a",
       "symbols": [
         {
           "concepts": [
@@ -1809,7 +1809,7 @@
           "concepts": [
             "Cross_Entropy"
           ],
-          "end_line": 97,
+          "end_line": 98,
           "kind": "function",
           "line": 79,
           "name": "cross_entropy"
@@ -1818,9 +1818,9 @@
           "concepts": [
             "KL_Divergence"
           ],
-          "end_line": 119,
+          "end_line": 121,
           "kind": "function",
-          "line": 100,
+          "line": 101,
           "name": "kl_divergence"
         }
       ],
@@ -1855,7 +1855,7 @@
         "src.utils.numerical"
       ],
       "language": "python",
-      "sha256": "7cc1b60e9a69039b18eada8620cc9c206f2f691baaaaa0e9ee4d2737e9592f28",
+      "sha256": "be684f0c3d04aff201330304bfc276ceff96f06c7ba9d6b5972941ab79649724",
       "symbols": [
         {
           "concepts": [],
@@ -1984,30 +1984,30 @@
           "concepts": [
             "Power_Iteration"
           ],
-          "end_line": 352,
+          "end_line": 351,
           "kind": "function",
           "line": 273,
           "name": "power_iteration"
         },
         {
           "concepts": [],
-          "end_line": 364,
+          "end_line": 363,
           "kind": "function",
-          "line": 355,
+          "line": 354,
           "name": "_svd_image"
         },
         {
           "concepts": [],
-          "end_line": 373,
+          "end_line": 372,
           "kind": "function",
-          "line": 367,
+          "line": 366,
           "name": "_svd_rank"
         },
         {
           "concepts": [],
           "end_line": 401,
           "kind": "function",
-          "line": 376,
+          "line": 375,
           "name": "_svd_factors"
         },
         {
@@ -2081,47 +2081,47 @@
         "src.optimizer"
       ],
       "language": "python",
-      "sha256": "f977c7398fb29cfdec52b236866ad8e4552b2f586cc49a6c136fd691825d0cee",
+      "sha256": "7f426976faef504135f8b59e4556e188fb380087811f005badafbee659015a96",
       "symbols": [
         {
           "concepts": [
             "Newton_Method"
           ],
-          "end_line": 103,
+          "end_line": 102,
           "kind": "class",
           "line": 20,
           "name": "NewtonMethod"
         },
         {
           "concepts": [],
-          "end_line": 51,
+          "end_line": 50,
           "kind": "method",
-          "line": 44,
+          "line": 43,
           "name": "NewtonMethod.__init__"
         },
         {
           "concepts": [],
-          "end_line": 103,
+          "end_line": 102,
           "kind": "method",
-          "line": 53,
+          "line": 52,
           "name": "NewtonMethod.step"
         },
         {
           "concepts": [
             "Quadratic_Hessian"
           ],
-          "end_line": 116,
+          "end_line": 115,
           "kind": "function",
-          "line": 106,
+          "line": 105,
           "name": "circle_hessian"
         },
         {
           "concepts": [
             "Quadratic_Hessian"
           ],
-          "end_line": 129,
+          "end_line": 128,
           "kind": "function",
-          "line": 119,
+          "line": 118,
           "name": "elliptic_hessian"
         }
       ],
@@ -2152,7 +2152,7 @@
         "src.utils.plotting"
       ],
       "language": "python",
-      "sha256": "2e6278a9e1c07b106ae815c6b7132f8bad21f7cf8fb712ef0740a4a5b0c95bf9",
+      "sha256": "1deea70b1e5636b3b0696bf74a4e28a100d40c473db4917414fd904ac3708400",
       "symbols": [
         {
           "concepts": [],
@@ -2319,7 +2319,7 @@
           "concepts": [
             "Optimization_Trajectory"
           ],
-          "end_line": 243,
+          "end_line": 242,
           "kind": "function",
           "line": 181,
           "name": "run_optimization"
@@ -2328,18 +2328,18 @@
           "concepts": [
             "Elliptic_Objective"
           ],
-          "end_line": 253,
+          "end_line": 252,
           "kind": "function",
-          "line": 246,
+          "line": 245,
           "name": "elliptic"
         },
         {
           "concepts": [
             "Elliptic_Objective"
           ],
-          "end_line": 263,
+          "end_line": 262,
           "kind": "function",
-          "line": 256,
+          "line": 255,
           "name": "elliptic_gradient"
         },
         {
@@ -2348,7 +2348,7 @@
           ],
           "end_line": 310,
           "kind": "function",
-          "line": 267,
+          "line": 266,
           "name": "optimizer_comparison_figure"
         },
         {
@@ -2373,7 +2373,7 @@
       "covers": [],
       "dependencies": [],
       "language": "python",
-      "sha256": "7d5d71dadd36c211f2f7deca8ec297de68bacf1d849cb46ba8f9595909a82bdc",
+      "sha256": "bfd7e448306661aded6391b4100fd712fa7c119841cb89f65421221924100c0a",
       "symbols": [],
       "tests": []
     },
@@ -2398,94 +2398,94 @@
         "zipfile"
       ],
       "language": "python",
-      "sha256": "7c115e8e9cd5aafdba512d6ff7c980bb118fae3ad5643cfd879e3e89c29c2c40",
+      "sha256": "6455815eb9beae29004c1fa4442d7a1c8767d47558b4fd286492abcd190fe0c0",
       "symbols": [
         {
           "concepts": [],
-          "end_line": 53,
+          "end_line": 54,
           "kind": "function",
           "line": 24,
           "name": "_pack_value"
         },
         {
           "concepts": [],
-          "end_line": 100,
+          "end_line": 101,
           "kind": "function",
-          "line": 56,
+          "line": 57,
           "name": "_unpack_value"
         },
         {
           "concepts": [],
-          "end_line": 107,
+          "end_line": 108,
           "kind": "function",
-          "line": 103,
+          "line": 104,
           "name": "_json_bytes"
         },
         {
           "concepts": [
             "Cache_Key"
           ],
-          "end_line": 142,
+          "end_line": 143,
           "kind": "function",
-          "line": 110,
+          "line": 111,
           "name": "make_cache_key"
         },
         {
           "concepts": [
             "Cache_Manager"
           ],
-          "end_line": 281,
+          "end_line": 282,
           "kind": "class",
-          "line": 145,
+          "line": 146,
           "name": "CacheManager"
         },
         {
           "concepts": [],
-          "end_line": 181,
+          "end_line": 182,
           "kind": "method",
-          "line": 164,
+          "line": 165,
           "name": "CacheManager.__init__"
         },
         {
           "concepts": [],
-          "end_line": 210,
+          "end_line": 211,
           "kind": "method",
-          "line": 183,
+          "line": 184,
           "name": "CacheManager.get_or_compute"
         },
         {
           "concepts": [],
-          "end_line": 219,
+          "end_line": 220,
           "kind": "method",
-          "line": 212,
+          "line": 213,
           "name": "CacheManager._remember"
         },
         {
           "concepts": [],
-          "end_line": 237,
+          "end_line": 238,
           "kind": "method",
-          "line": 221,
+          "line": 222,
           "name": "CacheManager._read_disk"
         },
         {
           "concepts": [],
-          "end_line": 245,
+          "end_line": 246,
           "kind": "method",
-          "line": 239,
+          "line": 240,
           "name": "CacheManager._entry_paths"
         },
         {
           "concepts": [],
-          "end_line": 271,
+          "end_line": 272,
           "kind": "method",
-          "line": 247,
+          "line": 248,
           "name": "CacheManager._write_disk"
         },
         {
           "concepts": [],
-          "end_line": 281,
+          "end_line": 282,
           "kind": "method",
-          "line": 273,
+          "line": 274,
           "name": "CacheManager.clear"
         }
       ],
@@ -2504,11 +2504,11 @@
         "numpy.typing"
       ],
       "language": "python",
-      "sha256": "fe401b420a3372e02bca4bfd97f369b40a5670944123a9c8ff6362381a24bdc8",
+      "sha256": "56babca86ef878b8f5d6a8949841ac6c327dd90633e2c5f42f36c00875e6f601",
       "symbols": [
         {
           "concepts": [],
-          "end_line": 18,
+          "end_line": 23,
           "kind": "function",
           "line": 9,
           "name": "_as_finite_real_array"
@@ -2517,18 +2517,18 @@
           "concepts": [
             "Sigmoid"
           ],
-          "end_line": 35,
+          "end_line": 41,
           "kind": "function",
-          "line": 21,
+          "line": 26,
           "name": "sigmoid"
         },
         {
           "concepts": [
             "Softmax"
           ],
-          "end_line": 58,
+          "end_line": 64,
           "kind": "function",
-          "line": 38,
+          "line": 44,
           "name": "softmax"
         }
       ],
@@ -2547,11 +2547,11 @@
         "src.utils.math"
       ],
       "language": "python",
-      "sha256": "67f4f044f7ea2147f477222cbec2a623883df84d6f3ebf2f7e3a0f9af4491df5",
+      "sha256": "37b8ca5cb24f580d88d71b48fa1d00f8c4a4d2bff63bad23a71b562d4fa3f804",
       "symbols": [
         {
           "concepts": [],
-          "end_line": 17,
+          "end_line": 21,
           "kind": "function",
           "line": 12,
           "name": "_finite_scalar"
@@ -2560,9 +2560,9 @@
           "concepts": [
             "Central_Difference"
           ],
-          "end_line": 48,
+          "end_line": 52,
           "kind": "function",
-          "line": 20,
+          "line": 24,
           "name": "central_difference"
         }
       ],
@@ -2586,11 +2586,11 @@
         "src.utils.math"
       ],
       "language": "python",
-      "sha256": "9132646d597de568e7e3f19705e09c64b523b6b9ffe63efbdad29c07c4bb21f3",
+      "sha256": "50c663888decf630ff80ae10edc51791458f623fbda3c1f243f3a66da66cf5d6",
       "symbols": [
         {
           "concepts": [],
-          "end_line": 21,
+          "end_line": 25,
           "kind": "function",
           "line": 16,
           "name": "_interval"
@@ -2599,18 +2599,18 @@
           "concepts": [
             "Contour_Grid"
           ],
-          "end_line": 54,
+          "end_line": 58,
           "kind": "function",
-          "line": 24,
+          "line": 28,
           "name": "contour_grid"
         },
         {
           "concepts": [
             "Contour_Plot"
           ],
-          "end_line": 86,
+          "end_line": 90,
           "kind": "function",
-          "line": 57,
+          "line": 61,
           "name": "contour_base"
         }
       ],
@@ -2627,7 +2627,7 @@
         "numpy"
       ],
       "language": "python",
-      "sha256": "4641ae31289162663ea4ed89442021d85bef0b5fba2c84dc355b1fc341606051",
+      "sha256": "15083016dbc9e8d10beb93944b2ca28a520fc2423addfecf0501b86ea77dff53",
       "symbols": [
         {
           "concepts": [
@@ -2656,7 +2656,7 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "1aee5cc5f1593ad7476a4c2f90abaa3da89a7c6363d24cbbc8581903b64002f9",
+      "sha256": "9f5f9001b0c0e6da903856772ea92a2eee68d4dee1f89a8885d8e9819108ac19",
       "symbols": [
         {
           "concepts": [],
@@ -2785,7 +2785,7 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "f44c3e2dfda23766a5a639e527e6aab406cdf9785492d7ac4f818a515f3f353f",
+      "sha256": "61f197a08855ea16abf1175caa513b6eae86ee7ea73fb5116d6cd67fb855d27f",
       "symbols": [
         {
           "concepts": [],
@@ -2835,7 +2835,7 @@
         "unittest.mock"
       ],
       "language": "python",
-      "sha256": "644b27481effc2e4fcce1b8c6d0403fbb74fae601a0c37a72c75216ce600526b",
+      "sha256": "6fb523efb1fd483553abc5196774bf40d37c28e657baa8fc76ab5d0d7f223802",
       "symbols": [
         {
           "concepts": [],
@@ -2893,7 +2893,7 @@
         "zipfile"
       ],
       "language": "python",
-      "sha256": "c0a171325adaa0c9d2e1288729035867608ce1dbb255188eef72df2adf62cb14",
+      "sha256": "5c1856aa41326bd5904f99f5342edc6c25ad55339c01b156b0b16c83c8147199",
       "symbols": [
         {
           "concepts": [],
@@ -3105,7 +3105,7 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "3c8cc6bc0d0c3d48912942e1ce5a11bb444eb18d89d213764c823a7d7d6780d0",
+      "sha256": "f2d14fa9997b9b9ed4be211a5ea2eef0c0f1e8543d3297e9a6f3b10c1ff5d7c3",
       "symbols": [
         {
           "concepts": [],
@@ -3251,7 +3251,7 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "fe8910fbae2dbed611374741a40ec21e4ae9c5ed0fc1ecb90edd62bb6714951c",
+      "sha256": "dc24c98deb5a096616f708bf7b90f13490408cb54680a339b76b7d34dca0c75e",
       "symbols": [
         {
           "concepts": [],
@@ -3284,7 +3284,7 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "5cf424b95742a1134a3e05f4ec86a2923804632e5723f6923157419ec6a26408",
+      "sha256": "ddeeeaf2741d53d9a9af94209cfaa14fe312fe479d6bc63dac1947c3e41f50fc",
       "symbols": [
         {
           "concepts": [],
@@ -3351,7 +3351,7 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "603bbe2f0e7df0d11063a7150370fa2e14cfecb85569b8fbd65c591a7bcc4a17",
+      "sha256": "f1ea1b637af71ec39f3d062184da7d4a4b2bc66b81167a0d81e5f5a9da2e6200",
       "symbols": [
         {
           "concepts": [],
@@ -3400,7 +3400,7 @@
         "zlib"
       ],
       "language": "python",
-      "sha256": "99b586fd542f35d9edf402da5968a9927952ff54568a16e5a04e8582c52df514",
+      "sha256": "b70e8bdba2fd3e5d1e302c76f068f654194944060e49afcc40493f3806577903",
       "symbols": [
         {
           "concepts": [],
@@ -3474,7 +3474,7 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "bed16708eb86b37cf66752a69a6250788e50fff6a07e549dbcfd490b8d0d8476",
+      "sha256": "f84c12af42373bc1f89747a7fff3cdd99cd3a81b62fbb642ceb0a16903da6128",
       "symbols": [
         {
           "concepts": [],
@@ -3568,7 +3568,7 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "9e8315be7ad53cac09d92176b2d1707fb6dd67b2804cf9724fbfb30f8779b9a9",
+      "sha256": "b3e7804673cb40e6208329e475e3d408dfdaf81d3d67bd2eb70a9a3aa7243474",
       "symbols": [
         {
           "concepts": [],
@@ -3617,7 +3617,7 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "bb47b8283517836eee65c5e82ee099f453584d7185f77372bdfc1eb06d8fb889",
+      "sha256": "b69f02072661b8f7d4b9c075dee34ba29db8a7049b87ed5b19a2019a25d274b2",
       "symbols": [
         {
           "concepts": [],
@@ -3658,7 +3658,7 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "4e4411fcf718857caeb7ab3287c7c1b00af9c287132ca24ea9f1ee93e2db9c41",
+      "sha256": "cfc81bfff7bb02ae03b3f6d5fb4e391ebf4f59a2eabc5c1661bd2fa30655886a",
       "symbols": [
         {
           "concepts": [],
@@ -3734,7 +3734,7 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "d1b4f089e32c9db337322b4e76b7c5e25b6b678cd1bb62a633799c48f723711b",
+      "sha256": "0f8c9300b3f88680145cd9b267080847f517070c7967167d562362effccf724c",
       "symbols": [
         {
           "concepts": [],
@@ -3825,7 +3825,7 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "7cb0dec2d3bec9df6fc07c3eb80dc09e4135bfdbc1568b8368bb5a513e764f57",
+      "sha256": "996647c180e8f0cac0a4168864b502ff46be3305c130605cc6ca1800d4d47599",
       "symbols": [
         {
           "concepts": [],
@@ -3964,7 +3964,7 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "90eac859911e409242d2c8ae1b023b89b5b6cc631ea54bd8ab231cdc8ed878c1",
+      "sha256": "4dd26be006d31b31b625b5c3d6d3d2ff2369359a14985c94d4499c4c0147ca0c",
       "symbols": [
         {
           "concepts": [],
@@ -4138,7 +4138,7 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "db71be1c944230e501c160cc489176881071a8b12355de0dff4b5e7ec2259c8c",
+      "sha256": "aa32a2a07f930fd99b2c28878855d815c4d171537bb9bc5b5d648506ecbd83cd",
       "symbols": [
         {
           "concepts": [],
@@ -4225,7 +4225,7 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "6391792f100a5c8360361b1303180946377b0f332167a23c8c18a13258debf54",
+      "sha256": "b4048c080f87b09868b45ce157b7f99b744744e14027a80b9e1a4a9d88d73990",
       "symbols": [
         {
           "concepts": [],
@@ -4412,7 +4412,7 @@
         "unittest.mock"
       ],
       "language": "python",
-      "sha256": "7a7120d96e3264b261dd9b31efe6b074bb12ad42cab00d3122d12ea6757e5cfb",
+      "sha256": "6e3ff042420d3e0fb59cd66f9d656cbfafab2727f95a35db172b94f6155ca0a4",
       "symbols": [
         {
           "concepts": [],
@@ -4473,7 +4473,7 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "676fe785b2577814d00235a8d3a95e0982b607d5d906f36e0762eff548aa5050",
+      "sha256": "2b653623a93408ed2cb643d29afafec2f80ed4ff4a82b3063b47da70a7ae35e0",
       "symbols": [
         {
           "concepts": [],
@@ -4546,7 +4546,7 @@
         "unittest.mock"
       ],
       "language": "python",
-      "sha256": "db94b3ff051d66721ddbc351d82941f8bcfc401f30c877b0bc5af84f0de36fd3",
+      "sha256": "5b9e1d4db42a09cdc2962ad72b3afaa1e5e6e701c16bef9d2caac5c5b8a14243",
       "symbols": [
         {
           "concepts": [],
@@ -4622,7 +4622,7 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "ab2d2dc9c67aab80603b9a3c4fa0f1e318d89b04100e33c2c6a7f2fe3861c2cd",
+      "sha256": "d77daf4af17680158fe5e85d37d643881616bae96e81364d674f0946cd77b4e7",
       "symbols": [
         {
           "concepts": [],
@@ -4683,7 +4683,7 @@
         "unittest.mock"
       ],
       "language": "python",
-      "sha256": "02a402009f3b3f4f67878fa52cb948e16b4af5a440b6d94bf2f7bb01625f5a3d",
+      "sha256": "1c43723ef8f4b42714dda2fbb56b140bb378af9ff329e373581e0c401d9bdf64",
       "symbols": [
         {
           "concepts": [],
@@ -4804,7 +4804,7 @@
         "unittest.mock"
       ],
       "language": "python",
-      "sha256": "119a52f01f7c126ada5d6c1ce5b1160014e4cc13c9e97dc6a41d8e88743b0ded",
+      "sha256": "4e2582d8c164ad71db3e7ded73c4fced3c9b1df69d363496a5c30b5580594099",
       "symbols": [
         {
           "concepts": [],
@@ -4853,7 +4853,7 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "a872cfbe2216a4c4022b2ac77f05d3092407ae91b35896aa18ab34ccd18a3bba",
+      "sha256": "8af1ae784349e2ead0ba9e2ccaa4b289cc55999cc84f10884de4a2775d573cbb",
       "symbols": [
         {
           "concepts": [],
@@ -4888,7 +4888,7 @@
         "unittest"
       ],
       "language": "python",
-      "sha256": "9d7d8e9710cb35467ec93233552f0f7bde6c5729f3825da164c4ed638066dc27",
+      "sha256": "075f32a1b8ffff7525f720bc2c7ce790fe854a941317f71e312d3b41f81d9687",
       "symbols": [
         {
           "concepts": [],
@@ -4994,7 +4994,7 @@
         "unittest.mock"
       ],
       "language": "python",
-      "sha256": "25f4d652e7e493252ca8af41823a2149a63ac967b139f436f0ce2ddcb0ef8d84",
+      "sha256": "2a1d2f4643f9e4693a2600d530316313c15439edaeebc6edff8e98a3b5295361",
       "symbols": [
         {
           "concepts": [],
@@ -5067,7 +5067,7 @@
         "warnings"
       ],
       "language": "python",
-      "sha256": "7d779bc5e0713b100a5b094ad5a24db76ce8e3632b92a159bb9cacf71c36b05c",
+      "sha256": "fdb1f9b60ffa90205ea472304509f6e78a475f107eb77b90138de2c2225a4712",
       "symbols": [
         {
           "concepts": [],
@@ -5772,7 +5772,7 @@
           "typing",
           "zipfile"
         ],
-        "line": 110,
+        "line": 111,
         "path": "src/utils/cache_manager.py",
         "symbol": "make_cache_key",
         "tests": [
@@ -5796,7 +5796,7 @@
           "typing",
           "zipfile"
         ],
-        "line": 145,
+        "line": 146,
         "path": "src/utils/cache_manager.py",
         "symbol": "CacheManager",
         "tests": [
@@ -5810,7 +5810,7 @@
           "numpy",
           "scripts.run_evaluation_evidence"
         ],
-        "line": 215,
+        "line": 214,
         "path": "scripts/report_linear_calculus.py",
         "symbol": "render_calculus",
         "tests": [
@@ -5909,7 +5909,7 @@
           "numpy",
           "src.utils.math"
         ],
-        "line": 20,
+        "line": 24,
         "path": "src/utils/numerical.py",
         "symbol": "central_difference",
         "tests": [
@@ -5968,7 +5968,7 @@
           "numpy.typing",
           "src.utils.math"
         ],
-        "line": 24,
+        "line": 28,
         "path": "src/utils/plotting.py",
         "symbol": "contour_grid",
         "tests": [
@@ -5987,7 +5987,7 @@
           "numpy.typing",
           "src.utils.math"
         ],
-        "line": 57,
+        "line": 61,
         "path": "src/utils/plotting.py",
         "symbol": "contour_base",
         "tests": [
@@ -6066,7 +6066,7 @@
           "src.utils.numerical",
           "src.utils.plotting"
         ],
-        "line": 178,
+        "line": 175,
         "path": "src/calculus.py",
         "symbol": "derivative_error_study",
         "tests": [
@@ -6087,7 +6087,7 @@
           "src.utils.numerical",
           "src.utils.plotting"
         ],
-        "line": 203,
+        "line": 200,
         "path": "src/calculus.py",
         "symbol": "derivative_error_figure",
         "tests": [
@@ -6156,7 +6156,7 @@
           "src.utils.numerical",
           "src.utils.plotting"
         ],
-        "line": 246,
+        "line": 245,
         "path": "src/optimizer.py",
         "symbol": "elliptic",
         "tests": [
@@ -6178,7 +6178,7 @@
           "src.utils.numerical",
           "src.utils.plotting"
         ],
-        "line": 256,
+        "line": 255,
         "path": "src/optimizer.py",
         "symbol": "elliptic_gradient",
         "tests": [
@@ -6224,7 +6224,7 @@
           "sys",
           "zlib"
         ],
-        "line": 250,
+        "line": 252,
         "path": "scripts/run_evaluation_evidence.py",
         "symbol": "run_experiment",
         "tests": [
@@ -6249,7 +6249,7 @@
           "sys",
           "zlib"
         ],
-        "line": 316,
+        "line": 319,
         "path": "scripts/run_evaluation_evidence.py",
         "symbol": "main",
         "tests": [
@@ -6406,7 +6406,7 @@
           "src.utils.numerical",
           "src.utils.plotting"
         ],
-        "line": 125,
+        "line": 123,
         "path": "src/calculus.py",
         "symbol": "gradient_figure",
         "tests": [
@@ -6499,7 +6499,7 @@
           "numpy.typing",
           "src.utils.math"
         ],
-        "line": 100,
+        "line": 101,
         "path": "src/information_theory.py",
         "symbol": "kl_divergence",
         "tests": [
@@ -6839,7 +6839,7 @@
         "dependencies": [
           "numpy"
         ],
-        "line": 143,
+        "line": 144,
         "path": "scripts/report_notebooks.py",
         "symbol": "render_backprop",
         "tests": [
@@ -6850,7 +6850,7 @@
         "dependencies": [
           "numpy"
         ],
-        "line": 282,
+        "line": 283,
         "path": "scripts/report_notebooks.py",
         "symbol": "render_probability",
         "tests": [
@@ -6923,7 +6923,7 @@
           "sys",
           "zlib"
         ],
-        "line": 157,
+        "line": 158,
         "path": "scripts/run_evaluation_evidence.py",
         "symbol": "step_size_summary",
         "tests": [
@@ -6948,7 +6948,7 @@
           "sys",
           "zlib"
         ],
-        "line": 183,
+        "line": 185,
         "path": "scripts/run_evaluation_evidence.py",
         "symbol": "softmax_summary",
         "tests": [
@@ -7058,7 +7058,7 @@
           "src.utils.numerical",
           "src.utils.plotting"
         ],
-        "line": 267,
+        "line": 266,
         "path": "src/optimizer.py",
         "symbol": "optimizer_comparison_figure",
         "tests": [
@@ -7118,7 +7118,7 @@
         "dependencies": [
           "numpy"
         ],
-        "line": 86,
+        "line": 87,
         "path": "scripts/report_optimizer.py",
         "symbol": "render_optimizer",
         "tests": [
@@ -7460,7 +7460,7 @@
           "src.utils.random",
           "sys"
         ],
-        "line": 103,
+        "line": 102,
         "path": "scripts/verify_power_iteration.py",
         "symbol": "write_report",
         "tests": [
@@ -7477,7 +7477,7 @@
           "src.utils.random",
           "sys"
         ],
-        "line": 137,
+        "line": 136,
         "path": "scripts/verify_power_iteration.py",
         "symbol": "main",
         "tests": [
@@ -7626,7 +7626,7 @@
           "src.utils.numerical",
           "src.utils.plotting"
         ],
-        "line": 93,
+        "line": 92,
         "path": "src/calculus.py",
         "symbol": "quadratic_gradient",
         "tests": [
@@ -7644,7 +7644,7 @@
           "numpy.typing",
           "src.optimizer"
         ],
-        "line": 106,
+        "line": 105,
         "path": "src/newton.py",
         "symbol": "circle_hessian",
         "tests": [
@@ -7658,7 +7658,7 @@
           "numpy.typing",
           "src.optimizer"
         ],
-        "line": 119,
+        "line": 118,
         "path": "src/newton.py",
         "symbol": "elliptic_hessian",
         "tests": [
@@ -7677,7 +7677,7 @@
           "src.utils.numerical",
           "src.utils.plotting"
         ],
-        "line": 75,
+        "line": 74,
         "path": "src/calculus.py",
         "symbol": "quadratic",
         "tests": [
@@ -7711,7 +7711,7 @@
           "sys",
           "tempfile"
         ],
-        "line": 209,
+        "line": 207,
         "path": "scripts/run_submission_reports.py",
         "symbol": "run_reports",
         "tests": [
@@ -7741,7 +7741,7 @@
           "sys",
           "tempfile"
         ],
-        "line": 274,
+        "line": 271,
         "path": "scripts/run_submission_reports.py",
         "symbol": "main",
         "tests": [
@@ -7773,7 +7773,7 @@
           "sys",
           "tempfile"
         ],
-        "line": 151,
+        "line": 150,
         "path": "scripts/run_submission_reports.py",
         "symbol": "updated_readme",
         "tests": [
@@ -7796,7 +7796,7 @@
           "tempfile",
           "typing"
         ],
-        "line": 208,
+        "line": 209,
         "path": "scripts/update_registry.py",
         "symbol": "build_registry",
         "tests": [
@@ -7817,7 +7817,7 @@
           "tempfile",
           "typing"
         ],
-        "line": 253,
+        "line": 254,
         "path": "scripts/update_registry.py",
         "symbol": "write_registry",
         "tests": [
@@ -7838,7 +7838,7 @@
           "tempfile",
           "typing"
         ],
-        "line": 276,
+        "line": 277,
         "path": "scripts/update_registry.py",
         "symbol": "check_registry",
         "tests": [
@@ -7900,7 +7900,7 @@
           "sys",
           "tempfile"
         ],
-        "line": 114,
+        "line": 113,
         "path": "scripts/run_submission_reports.py",
         "symbol": "_check_approximation_accuracy",
         "tests": [
@@ -8136,7 +8136,7 @@
           "numpy",
           "numpy.typing"
         ],
-        "line": 21,
+        "line": 26,
         "path": "src/utils/math.py",
         "symbol": "sigmoid",
         "tests": [
@@ -8194,7 +8194,7 @@
           "numpy",
           "numpy.typing"
         ],
-        "line": 38,
+        "line": 44,
         "path": "src/utils/math.py",
         "symbol": "softmax",
         "tests": [
@@ -8220,7 +8220,7 @@
           "numpy",
           "scripts.run_evaluation_evidence"
         ],
-        "line": 215,
+        "line": 214,
         "path": "scripts/report_linear_calculus.py",
         "symbol": "render_calculus",
         "tests": [

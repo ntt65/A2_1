@@ -1,7 +1,7 @@
-"""Render verified notebook measurements as self-contained Markdown reports.
+"""검증된 노트북 측정값을 독립적으로 읽을 수 있는 Markdown 보고서로 만든다.
 
-These pure functions receive an executed notebook and its JSON measurements;
-they do not run kernels, write files, or alter NumPy's random state.
+이 순수 함수들은 실행된 노트북과 JSON 측정값을 입력받는다.
+커널을 실행하거나 파일을 쓰거나 NumPy 난수 상태를 바꾸지 않는다.
 """
 
 import numpy as np
@@ -30,34 +30,35 @@ _PARAMETER_ORDER = ["W1[0,0]", "W1[0,1]", "W1[1,0]", "W1[1,1]",
 
 
 def _array(value, shape: tuple, name: str) -> np.ndarray:
-    """Validate a finite real value of exact shape and return an owned float64 array.
+    """정확한 shape의 유한 실수 값을 검증하고 독립 소유 float64 배열을 반환한다.
 
-    Scalars use shape (). Invalid types raise TypeError; shape/nonfinite
-    values raise AssertionError so inconsistent evidence cannot claim PASS.
+    스칼라는 shape ()를 사용한다. 잘못된 자료형은 TypeError를 발생시킨다.
+    shape 불일치·비유한 값은 AssertionError를 내어 모순된 근거가 PASS를
+    주장하지 못하게 한다.
     """
     values = np.asarray(value)
     if values.dtype.kind not in "iuf":
         raise TypeError(f"{name} must contain real numeric values")
-    assert values.shape == shape, f"{name}: expected shape {shape}, got {values.shape}"
-    values = values.astype(np.float64, copy=True)
+    assert values.shape == shape, f"{name}: expected shape {shape}, got {values.shape}"	# 같은 원소 수라도 다른 shape를 브로드캐스팅 연산으로 허용하지 않는다.
+    values = values.astype(np.float64, copy=True)	# 호출자의 원시 배열과 분리된 float64 복사본을 만든다.
     assert np.all(np.isfinite(values)), f"{name}: nonfinite measurement"
     return values
 
 
 def _close(actual, expected, name: str, atol: float = 1e-14, rtol: float = 0) -> np.ndarray:
-    """Assert finite actual values match independent expected values without broadcasting."""
+    """broadcasting 없이 유한한 실측값과 독립 기대값의 일치를 assert로 검사한다."""
     reference = np.asarray(expected, dtype=np.float64)
     values = _array(actual, reference.shape, name)
-    np.testing.assert_allclose(values, reference, atol=atol, rtol=rtol, err_msg=name)
+    np.testing.assert_allclose(values, reference, atol=atol, rtol=rtol, err_msg=name)	# 독립 기대값에 명시한 절대·상대 허용치를 적용한다.
     return values
 
 
 def _cell(notebook: dict, cell_id: str, cell_type: str) -> dict:
-    """Find one stable notebook cell ID of the required type, raising precise ValueError."""
-    matches = [cell for cell in notebook["cells"] if cell.get("id") == cell_id]
+    """필요한 종류의 안정된 노트북 셀 ID 하나를 찾으며 문제별로 명확한 ValueError를 낸다."""
+    matches = [cell for cell in notebook["cells"] if cell.get("id") == cell_id]	# 줄 위치 대신 안정된 셀 ID로 근거를 찾는다.
     if not matches:
         raise ValueError(f"missing required {cell_type} cell: {cell_id}")
-    if len(matches) != 1:
+    if len(matches) != 1:	# 중복 셀 ID로 다른 근거를 잘못 인용하지 못하게 한다.
         raise ValueError(f"duplicate notebook cell ID: {cell_id}")
     if matches[0].get("cell_type") != cell_type:
         raise ValueError(f"cell {cell_id} must have type {cell_type}")
@@ -65,52 +66,52 @@ def _cell(notebook: dict, cell_id: str, cell_type: str) -> dict:
 
 
 def _markdown(notebook: dict, cell_id: str) -> str:
-    """Return an original Markdown derivation cell unchanged apart from outer whitespace."""
+    """앞뒤 공백만 제거하고 원래 Markdown 유도 셀의 내용을 그대로 반환한다."""
     source = _cell(notebook, cell_id, "markdown")["source"]
-    source = source if isinstance(source, str) else "".join(source)
+    source = source if isinstance(source, str) else "".join(source)	# 문자열 목록 형태의 원문도 문자 변경 없이 결합한다.
     if not source.strip():
         raise ValueError(f"empty required markdown cell: {cell_id}")
     return source.strip()
 
 
 def _execution(report: dict, notebook: dict, code_count: int, output_ids: tuple[str, ...]) -> None:
-    """Require declared float64 seed-42 data and sequential, error-free executed code cells.
+    """선언한 float64·seed 42와 순서대로 오류 없이 실행된 코드 셀을 요구한다.
 
-    Required evidence cells must contain nonempty text stream outputs. This
-    checks submitted execution structure, not a new execution or cryptographic
-    provenance. Missing/malformed cells raise ValueError; false claims assert.
+    필수 근거 셀에는 비어 있지 않은 텍스트 stream 출력이 있어야 한다.
+    제출된 실행 구조를 확인하는 것이며 새 실행이나 암호학적 출처 증명이 아니다.
+    누락되거나 잘못된 셀은 ValueError, 사실과 다른 기록은 assert 실패를 낸다.
     """
-    assert report["seed"] == 42 and report["dtype"] == "float64"
+    assert report["seed"] == 42 and report["dtype"] == "float64"	# 노트북 측정에 선언된 재현 조건을 확인한다.
     assert isinstance(report["numpy_version"], str) and report["numpy_version"]
     assert report["all_assertions_passed"] is True, "notebook assertions did not pass"
     evidence_cells = [_cell(notebook, cell_id, "code") for cell_id in output_ids]
     codes = [cell for cell in notebook["cells"] if cell.get("cell_type") == "code"]
     assert len(codes) == code_count, "unexpected notebook code cell count"
-    assert [cell.get("execution_count") for cell in codes] == list(range(1, code_count + 1)), "notebook is not fully executed in order"
-    assert not any(output.get("output_type") == "error" for cell in codes for output in cell.get("outputs", [])), "notebook contains error output"
+    assert [cell.get("execution_count") for cell in codes] == list(range(1, code_count + 1)), "notebook is not fully executed in order"	# 코드 셀 전체가 1부터 순서대로 실행된 기록이어야 한다.
+    assert not any(output.get("output_type") == "error" for cell in codes for output in cell.get("outputs", [])), "notebook contains error output"	# 오류 출력이 남은 실행을 성공으로 표시하지 않는다.
     for cell_id, cell in zip(output_ids, evidence_cells):
         assert any(output.get("output_type") == "stream" and output.get("text") for output in cell.get("outputs", [])), f"missing executed text output: {cell_id}"
 
 
 def _format(value, decimals: int | None = None) -> str:
-    """Format scalar/array measurements for a single Markdown table cell without mutation."""
+    """입력을 바꾸지 않고 스칼라·배열 측정값을 Markdown 표 한 칸에 표시한다."""
     values = np.asarray(value, dtype=np.float64)
     if decimals is None:
         formatter = {"float_kind": lambda item: f"{item:.12g}"}
     else:
-        formatter = {"float_kind": lambda item: f"{0.0 if round(float(item), decimals) == 0 else item:.{decimals}f}"}
+        formatter = {"float_kind": lambda item: f"{0.0 if round(float(item), decimals) == 0 else item:.{decimals}f}"}	# 음의 영은 표시할 때만 정규화하고 원시 수치는 보존한다.
     return np.array2string(values, separator=", ", max_line_width=10000,
                            formatter=formatter).replace("\n", " ")
 
 
 def _stdout_sections(notebook: dict, cell_ids: tuple[str, ...]) -> list[str]:
-    """Quote selected executed stdout streams verbatim inside safe Markdown fences.
+    """선택한 실제 stdout stream을 안전한 Markdown 코드 울타리 안에 그대로 인용한다.
 
-    Call only after execution and numerical validation. Selected cells must
-    contain stdout stream records, with string or serialized string-list text;
-    stderr, errors, HTML/rich outputs and malformed records raise ValueError.
-    Every selected stream is included in order, without rerunning or mutation.
-    A fence longer than any matching backtick run keeps text literal.
+    실행 구조와 수치 검증을 마친 뒤에만 호출한다. 선택한 셀에는 문자열 또는
+    직렬화된 문자열 목록 형태의 stdout stream이 있어야 한다. stderr, 오류,
+    HTML·서식 출력과 잘못된 기록은 ValueError를 발생시킨다.
+    선택한 모든 stream을 순서대로 포함하며 재실행하거나 입력을 변경하지 않는다.
+    본문의 같은 백틱 연속열보다 긴 울타리를 사용해 텍스트의 문자적 의미를 보존한다.
     """
     lines = ["## 실제 실행 출력", "",
              "아래는 실행된 노트북의 필수 검증 셀에서 저장한 stdout 원문이다. 선택한 셀의 출력은 생략하지 "
@@ -120,7 +121,7 @@ def _stdout_sections(notebook: dict, cell_ids: tuple[str, ...]) -> list[str]:
         cell = _cell(notebook, cell_id, "code")
         chunks = []
         for output in cell.get("outputs", []):
-            if output.get("output_type") != "stream" or output.get("name") != "stdout":
+            if output.get("output_type") != "stream" or output.get("name") != "stdout":	# 실제 stdout 이외의 오류·서식 출력을 근거로 받아들이지 않는다.
                 raise ValueError(f"expected only stdout stream output: {cell_id}")
             raw = output.get("text")
             if isinstance(raw, str):
@@ -129,57 +130,57 @@ def _stdout_sections(notebook: dict, cell_ids: tuple[str, ...]) -> list[str]:
                 chunks.append("".join(raw))
             else:
                 raise ValueError(f"malformed stdout text: {cell_id}")
-        text = "".join(chunks)
+        text = "".join(chunks)	# 모든 stdout 조각을 원래 순서대로 결합한다.
         if not text.strip():
             raise ValueError(f"empty stdout text: {cell_id}")
-        fence = "```"
+        fence = "```"	# 본문의 백틱과 충돌하지 않는 코드 울타리를 준비한다.
         while fence in text:
             fence += "`"
-        body = text if text.endswith("\n") else text + "\n"
+        body = text if text.endswith("\n") else text + "\n"	# 내용을 보존하면서 닫는 울타리 앞의 줄바꿈만 보장한다.
         lines += [f"### `{cell_id}`", "", fence + "text\n" + body + fence, ""]
     return lines
 
 
 def render_backprop(report: dict, notebook: dict) -> str:
-    """Validate the fixed (2->2->1) BCE experiment and render its complete Markdown.
+    """고정 (2->2->1) BCE 실험을 검증하고 전체 Markdown을 렌더링한다.
 
-    report is the fresh backprop_metrics JSON mapping; notebook is the executed
-    dict-compatible NotebookNode with stable IDs. Independent fixed constants,
-    shapes, four-decimal displays, reported errors and nine gradient components
-    are checked before rendering. Missing fields raise KeyError, missing cells
-    raise ValueError, and inconsistent evidence raises AssertionError/TypeError.
-    No inputs, files, execution state or RNG state are modified.
+    report는 새 backprop_metrics JSON 매핑이고 notebook은 안정된 ID가 있는
+    실행된 사전 호환 NotebookNode다. 렌더링 전에 독립 고정 상수, shape,
+    네 자리 표시, 보고된 오차와 gradient 아홉 성분을 검사한다.
+    누락 필드는 KeyError, 누락 셀은 ValueError, 모순된 근거는
+    AssertionError/TypeError를 발생시킨다.
+    입력·파일·실행 상태·난수 상태를 변경하지 않는다.
     """
-    forward_text = _markdown(notebook, "backprop-forward-derivation")
-    backward_text = _markdown(notebook, "backprop-chain-rule")
-    _execution(report, notebook, 8, ("backprop-compare", "backprop-gradient-check"))
+    forward_text = _markdown(notebook, "backprop-forward-derivation")	# 순전파 유도를 원래 셀에서 직접 가져온다.
+    backward_text = _markdown(notebook, "backprop-chain-rule")	# 연쇄 법칙 유도를 원래 셀에서 직접 가져온다.
+    _execution(report, notebook, 8, ("backprop-compare", "backprop-gradient-check"))	# 수치 비교 전에 새 커널 실행 기록의 구조를 검사한다.
     parameters = {"x": [1., 0.], "W1": [[.1, .2], [.3, .4]], "b1": [0., 0.],
                   "W2": [.5, .6], "b2": 0., "y_true": 1.}
     for name, expected in parameters.items():
-        _close(report["parameters"][name], expected, name, atol=0)
+        _close(report["parameters"][name], expected, name, atol=0)	# 실제 입력이 고정 미션 예제와 일치하는지 확인한다.
     actual = {**report["forward"], **report["backward"]}
     assert set(actual) == set(report["hand_reference"]) == set(_BACKPROP_REFERENCE)
     assert set(report["shapes"]) == set(report["hand_absolute_errors"]) == set(actual)
     rows, errors = [], []
     for name, reference in _BACKPROP_REFERENCE.items():
-        hand = _close(report["hand_reference"][name], reference, f"hand {name}", atol=5e-15)
-        value = _close(actual[name], hand, name, atol=5e-5)
+        hand = _close(report["hand_reference"][name], reference, f"hand {name}", atol=5e-15)	# 보고된 손계산 기준 자체를 별도의 독립 상수와 대조한다.
+        value = _close(actual[name], hand, name, atol=5e-5)	# 원시 NumPy 값을 손계산 기준 및 원래 허용치와 비교한다.
         assert report["shapes"][name] == list(value.shape), f"wrong recorded shape: {name}"
-        assert _format(value, 4) == _format(hand, 4), f"four-decimal mismatch: {name}"
+        assert _format(value, 4) == _format(hand, 4), f"four-decimal mismatch: {name}"	# 오차 허용 여부와 별개로 네 자리 표시의 일치도 검사한다.
         error = float(np.max(np.abs(value - hand)))
-        _close(report["hand_absolute_errors"][name], error, f"reported error {name}", atol=0, rtol=1e-12)
+        _close(report["hand_absolute_errors"][name], error, f"reported error {name}", atol=0, rtol=1e-12)	# 저장된 오차가 실측과 기준의 차이를 정확히 반영해야 한다.
         errors.append(error)
         rows.append(f"| `{name}` | `{value.shape}` | `{_format(hand)}` | `{_format(value)}` | `{_format(value, 4)}` | {error:.3e} |")
     _close(report["max_hand_absolute_error"], max(errors), "max hand error", atol=0, rtol=1e-12)
     assert report["four_decimal_match"] is True
-    assert report["parameter_count"] == 9 and report["parameter_order"] == _PARAMETER_ORDER
+    assert report["parameter_count"] == 9 and report["parameter_order"] == _PARAMETER_ORDER	# 전체 아홉 매개변수와 펼친 순서를 검증한다.
     _close(report["derivative_h"], 1e-5, "derivative_h", atol=0)
-    flattened = np.concatenate((np.asarray(actual["dL_dW1"]).ravel(), actual["dL_db1"],
+    flattened = np.concatenate((np.asarray(actual["dL_dW1"]).ravel(), actual["dL_db1"],	# 가중치·편향의 gradient를 명시한 매개변수 순서로 펼친다.
                                 actual["dL_dW2"], [actual["dL_db2"]]))
     analytic = _close(report["analytical_gradient"], flattened, "analytic gradient", atol=0)
-    numeric = _close(report["numerical_gradient"], analytic, "numerical gradient", atol=1e-6)
+    numeric = _close(report["numerical_gradient"], analytic, "numerical gradient", atol=1e-6)	# 역전파와 독립적인 중심차분 gradient를 대조한다.
     gradient_error = float(np.max(np.abs(numeric - analytic)))
-    _close(report["max_numerical_gradient_error"], gradient_error, "max gradient error", atol=0, rtol=1e-12)
+    _close(report["max_numerical_gradient_error"], gradient_error, "max gradient error", atol=0, rtol=1e-12)	# 보고된 최대 오차를 실제 비교 배열에서 재계산한다.
     lines = ["# 역전파: 실행된 손계산·NumPy 비교", "",
              "**미션 연결: #7~#8 — 연쇄 법칙 유도와 손계산 검증.** 이 작은 신경망은 자동 미분 없이 학습의 "
              "한 단계를 끝까지 추적하기 위한 예제다. 순전파는 입력에서 예측과 손실을 만들고, 역전파는 그 경로를 "
@@ -210,49 +211,49 @@ def render_backprop(report: dict, notebook: dict) -> str:
               f"손계산 최대 절대오차 **{max(errors):.16g} ≤ 5e-5**, 중심차분 최대오차 **{gradient_error:.16g} ≤ 1e-6**: **PASS**.",
               "원시 계산은 반올림하지 않는다. 이 결과는 고정 예제에 대한 것이며 임의 입력의 정확도를 보장하지 않는다.", ""]
     lines += _stdout_sections(notebook, ("backprop-compare", "backprop-gradient-check"))
-    return "\n".join(lines)
+    return "\n".join(lines)	# 유도·수치·실제 stdout을 기존 Markdown 형식으로 반환한다.
 
 
 def _validate_probability(report: dict) -> None:
-    """Assert fixed distribution/loss measurements and recorded error fields are consistent.
+    """고정 분포·손실 측정값과 기록된 오차 필드의 일관성을 assert로 확인한다.
 
-    Distribution vectors have explicit shapes; independent constants validate
-    the Gaussian, Bernoulli and categorical examples. Unsupported structures
-    raise KeyError/TypeError; inaccurate or nonfinite evidence raises assertions.
+    분포 벡터에는 명시적인 shape가 있으며 독립 상수로 Gaussian, Bernoulli,
+    categorical 예제를 검증한다. 지원하지 않는 구조는 KeyError/TypeError,
+    부정확하거나 비유한 근거는 assert 실패를 발생시킨다.
     """
     assert len(report["normals"]) == len(report["bernoulli"]) == 2
     for row, mu, variance, peak in zip(report["normals"], (0., 2.), (1., .5),
                                      (0.3989422804014327, 0.5641895835477563)):
         _close(row["mu"], mu, "normal mu", atol=0)
         _close(row["variance"], variance, "normal variance", atol=0)
-        _close(row["sigma"], np.sqrt(variance), "normal sigma", atol=1e-15)
+        _close(row["sigma"], np.sqrt(variance), "normal sigma", atol=1e-15)	# 분산과 표준편차를 혼동하지 않았는지 확인한다.
         _close(row["peak"], peak, "normal peak", atol=1e-15)
-        integral = float(_close(row["integral"], 1., "normal integral", atol=1e-4))
+        integral = float(_close(row["integral"], 1., "normal integral", atol=1e-4))	# 유한 적분 구간의 질량을 원래 허용치로 검사한다.
         _close(row["integral_absolute_error"], abs(integral - 1.), "normal mass error", atol=0, rtol=1e-12)
         assert row["grid_points"] == 10001 and float(_array(row["minimum_pdf"], (), "minimum PDF")) >= 0
     for row, probability in zip(report["bernoulli"], (.3, .7)):
         _close(row["p"], probability, "Bernoulli p", atol=0)
         _close(row["support"], [0., 1.], "Bernoulli support", atol=0)
-        pmf = _close(row["pmf"], [1-probability, probability], "Bernoulli PMF", atol=1e-15)
+        pmf = _close(row["pmf"], [1-probability, probability], "Bernoulli PMF", atol=1e-15)	# 두 지지점의 확률을 Bernoulli 정의로 대조한다.
         mass_error = abs(float(pmf.sum()) - 1.)
         assert mass_error <= 1e-12
         _close(row["mass_error"], mass_error, "Bernoulli mass error", atol=0, rtol=1e-12)
     soft = report["softmax"]
     _close(soft["logits"], [[1000., 1001., 1002.], [-1000., 0., 1000.]], "softmax logits", atol=0)
-    probabilities = _close(soft["probabilities"], [[.09003057317038046, .24472847105479764, .6652409557748218], [0., 0., 1.]], "softmax probabilities", atol=1e-15)
+    probabilities = _close(soft["probabilities"], [[.09003057317038046, .24472847105479764, .6652409557748218], [0., 0., 1.]], "softmax probabilities", atol=1e-15)	# Softmax 확률을 독립 기준 상수와 비교한다.
     assert soft["axis"] == -1
-    row_sums = probabilities.sum(axis=-1)
+    row_sums = probabilities.sum(axis=-1)	# 클래스 축을 따라 원시 확률합을 다시 계산한다.
     _close(soft["row_sums"], row_sums, "softmax row sums", atol=0)
     error = float(np.max(np.abs(row_sums - 1.)))
     assert error <= 1e-6
     _close(soft["max_sum_error"], error, "softmax sum error", atol=0, rtol=1e-12)
     column_error = float(_array(soft["column_sum_error"], (), "softmax column error"))
-    assert 0 <= column_error <= 1e-6
+    assert 0 <= column_error <= 1e-6	# 별도로 실행한 열 축 검증의 오차 기준도 확인한다.
     gaussian = report["gaussian"]
     assert gaussian["n"] == 3
     for name, expected in (("variance", .5), ("sse", 1.5), ("mse", .5),
                            ("nll", 3.21709482877410026), ("independent_reference", 3.21709482877410026)):
-        _close(gaussian[name], expected, "Gaussian " + name, atol=1e-14)
+        _close(gaussian[name], expected, "Gaussian " + name, atol=1e-14)	# Gaussian의 SSE·MSE·NLL을 독립 수치와 대조한다.
     _close(gaussian["mean_nll"], gaussian["nll"]/3, "Gaussian mean NLL", atol=1e-14)
     assert 0 <= float(_array(gaussian["identity_error"], (), "Gaussian identity error")) <= 1e-14
     bce = report["bce"]
@@ -260,39 +261,39 @@ def _validate_probability(report: dict) -> None:
     _close(bce["probabilities"], [.3, .7], "BCE probabilities", atol=0)
     _close(bce["logits"], [-.8472978603872036, .8472978603872034], "BCE logits", atol=1e-15)
     _close(bce["sum_loss"], .71334988787746476, "BCE sum", atol=1e-15)
-    _close(bce["mean_loss"], bce["sum_loss"]/2, "BCE mean", atol=1e-15)
+    _close(bce["mean_loss"], bce["sum_loss"]/2, "BCE mean", atol=1e-15)	# 평균 BCE가 두 표본의 합을 2로 나눈 값인지 확인한다.
     _close(bce["logit_sum_loss"], bce["sum_loss"], "BCE logit loss", atol=1e-15)
     analytic = _close(bce["analytic_sum_gradient"], [.3, -.3], "BCE analytic gradient", atol=1e-15)
-    numeric = _close(bce["numerical_sum_gradient"], analytic, "BCE numerical gradient", atol=1e-8)
+    numeric = _close(bce["numerical_sum_gradient"], analytic, "BCE numerical gradient", atol=1e-8)	# BCE의 수치 gradient를 해석값과 원래 허용치로 비교한다.
     _close(bce["max_gradient_error"], float(np.max(np.abs(numeric-analytic))), "BCE gradient error", atol=0, rtol=1e-12)
     _close(bce["extreme_losses"], [0., 0., 1000., 1000.], "BCE extreme losses", atol=0)
-    _close(bce["positive_tail_at_40"], 4.248354255291589e-18, "BCE positive tail", atol=0, rtol=1e-14)
-    _close(bce["subtractive_formula_at_40"], 0., "BCE subtractive cancellation", atol=0)
+    _close(bce["positive_tail_at_40"], 4.248354255291589e-18, "BCE positive tail", atol=0, rtol=1e-14)	# 큰 양의 logit에서 작지만 양수인 손실 꼬리가 보존되어야 한다.
+    _close(bce["subtractive_formula_at_40"], 0., "BCE subtractive cancellation", atol=0)	# 뺄셈형 식의 상쇄 반례도 사실대로 확인한다.
     assert bce["boundary_policy_verified"] is True
     categorical = report["categorical"]
     _close(categorical["probabilities"], [.2, .3, .5], "categorical probabilities", atol=0)
     assert categorical["target"] == 2
     _close(categorical["probability_ce"], .69314718055994531, "categorical probability CE", atol=1e-15)
-    _close(categorical["logit_ce"], categorical["probability_ce"], "categorical logit CE", atol=1e-15)
-    _close(categorical["extreme_ce"], 2000., "categorical extreme CE", atol=0)
+    _close(categorical["logit_ce"], categorical["probability_ce"], "categorical logit CE", atol=1e-15)	# 확률형과 안정적인 logit형 CE가 같은지 비교한다.
+    _close(categorical["extreme_ce"], 2000., "categorical extreme CE", atol=0)	# 극단 logit의 손실을 무한대로 잘못 바꾸지 않았는지 확인한다.
     assert categorical["boundary_policy_verified"] is True
     assert report["figures"] == ["probability_normal.png", "probability_bernoulli.png"]
 
 
 def render_probability(report: dict, notebook: dict) -> str:
-    """Validate and render distribution measurements and three likelihood derivations.
+    """분포 측정값과 세 가지 우도 유도를 검증하고 렌더링한다.
 
-    report is probability_metrics JSON from the supplied executed notebook.
-    Stable Markdown cells supply Gaussian/Bernoulli/categorical derivations;
-    tables expose actual PDF/PMF/Softmax/loss values and boundary results.
-    Missing cells raise ValueError and inconsistent measurements assert; the
-    function performs no execution, file writes, input mutation or seed change.
+    report는 함께 전달된 실행 노트북의 probability_metrics JSON이다.
+    안정된 Markdown 셀에서 Gaussian/Bernoulli/categorical 유도를 가져오고
+    표에는 실제 PDF/PMF/Softmax/손실 값과 경계 결과를 표시한다.
+    누락 셀은 ValueError, 모순된 측정값은 assert 실패를 발생시킨다.
+    실행·파일 쓰기·입력 변경·seed 변경은 수행하지 않는다.
     """
-    derivations = [_markdown(notebook, cell_id) for cell_id in
+    derivations = [_markdown(notebook, cell_id) for cell_id in	# 세 관측 모형의 유도를 원래 안정된 셀 ID로 가져온다.
                    ("gaussian-mle-derivation", "bernoulli-mle-derivation", "categorical-mle-derivation")]
     _execution(report, notebook, 9, ("normal-density-check", "bernoulli-check", "softmax-check",
                                     "gaussian-mle-check", "bce-check", "categorical-check"))
-    _validate_probability(report)
+    _validate_probability(report)	# 분포·손실 수치가 검증된 뒤에만 보고서를 구성한다.
     soft, gaussian, bce, categorical = (report[name] for name in ("softmax", "gaussian", "bce", "categorical"))
     lines = ["# 확률·손실: 실행된 분포와 MLE 유도", "",
              "**미션 연결: #13~#15 — 확률 분포·Softmax·MLE와 손실.** 손실 함수는 관측이 어떤 확률 모형에서 "
@@ -343,4 +344,4 @@ def render_probability(report: dict, notebook: dict) -> str:
               "분포·합/평균·독립 손실값·수치 gradient·경계 assertion: **PASS**. 이는 명시한 고정 예제의 결과이며 모든 모델의 통계 가정을 보장하지 않는다.", ""]
     lines += _stdout_sections(notebook, ("normal-density-check", "bernoulli-check", "softmax-check",
                                        "gaussian-mle-check", "bce-check", "categorical-check"))
-    return "\n".join(lines)
+    return "\n".join(lines)	# 원본 유도와 실행 출력의 내용을 보존해 보고서를 반환한다.
