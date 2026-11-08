@@ -622,7 +622,7 @@ py -3.11 -m venv .venv
 .\.venv\Scripts\python.exe scripts/update_registry.py --check
 ```
 
-### Linux / macOS
+### macOS(iMac) / Linux
 
 ```sh
 git clone --branch main --single-branch https://github.com/ntt65/A2_1.git
@@ -639,6 +639,26 @@ python3.11 -m venv .venv
 .venv/bin/python -m scripts.run_submission_reports --update-readme
 .venv/bin/python scripts/update_registry.py --check
 ```
+
+### iMac의 VS Code에서 평가 시연하기
+
+평가 시연 환경은 **iMac + VS Code**입니다. 위 macOS 명령으로 iMac에서 `.venv`를 새로 만듭니다. Windows의 `.venv` 폴더를 복사해 사용하지 않습니다. `python3.11 --version`이 실행되는 Python 3.11 환경과 Git, VS Code의 Python·Jupyter 확장을 준비하고 저장소 루트 폴더를 엽니다.
+
+1. VS Code에서 Python 파일을 연 뒤 상태 표시줄의 환경 선택으로 저장소의 `.venv/bin/python`을 선택합니다. 노트북은 별도로 오른쪽 위 **Select Kernel → Python Environments**에서 같은 `.venv`를 선택합니다. 터미널의 Python 선택과 노트북 커널 선택을 각각 확인합니다. [VS Code 환경 선택 안내](https://code.visualstudio.com/docs/python/environments), [노트북 커널 안내](https://code.visualstudio.com/docs/datascience/jupyter-kernel-management)
+2. VS Code 터미널의 작업 폴더를 저장소 루트로 두고 아래 명령을 실행합니다. 실행 파일을 명시했으므로 환경 활성화 여부에 의존하지 않습니다. 첫 줄에서 Python 3.11·NumPy 2.2.6과 실제 실행 경로를 확인합니다.
+
+```sh
+.venv/bin/python -c "import sys,numpy; print(sys.executable); print(sys.version); print(numpy.__version__)"
+.venv/bin/python -m pip check
+.venv/bin/python -m scripts.run_submission_reports --output-dir .cache/imac-demo
+.venv/bin/python -m unittest discover -s tests -v
+.venv/bin/python scripts/update_registry.py --check
+```
+
+3. `.cache/imac-demo/`의 다섯 Markdown을 VS Code 미리보기로 열면 방금 실행한 환경과 측정 결과를 확인할 수 있습니다. 이 명령은 README와 기존 제출 PNG·JSON·노트북을 변경하지 않습니다. 그림은 보존된 `outputs/` 파일을 열어 설명하고, 역전파·확률 노트북에서는 커널을 다시 시작한 뒤 전체 셀을 순서대로 실행해 유도와 출력을 시연합니다. 노트북을 직접 실행하면 기본 `outputs/`가 갱신될 수 있으므로 평가 전 보존 확인은 위 CLI로 먼저 합니다.
+4. 설명 순서는 선형변환·SVD, 중심차분·Gradient, 고정 역전파, GD·Momentum, 분포·MLE, 보너스입니다. 고유값 오차, SVD 세 rank, 13개 네 자리 비교, 반경 .1, 학습률 세 경우와 Softmax 합을 차례로 보여 줍니다. 실행 화면의 끝자리나 소요 시간은 환경에 따라 달라도, 본문에 적힌 원래 수학 기준으로 판단합니다.
+
+자동 검증에는 Windows·Linux와 함께 macOS를 포함합니다. **macOS CI와 사용자 iMac에서의 실제 실행은 별개**이며, 최종 실행 환경·통과 여부는 이슈 #31의 CI 기록과 평가 전 iMac 터미널 출력으로 각각 확인합니다. 위 출력 예시를 iMac에서 측정한 기록으로 간주하지 않습니다.
 
 가상환경 활성화는 필요하지 않습니다. `python -O`는 assert를 제거하므로 사용하지 않습니다. 기본 실험 세 개와 노트북 두 개가 기본 PNG·JSON과 eig 비교 보고서를 재생성합니다. 뒤쪽의 평가 보완·보너스 명령과 이번 보고서 명령까지 실행하면 전체 제출 산출물은 **PNG 15개·JSON 10개·Markdown 보고서 10개**입니다. 선형대수·최적화의 `--no-cache`는 캐시 읽기와 쓰기를 모두 생략합니다. 미적분 CLI에는 이 옵션이 없습니다. 외부 데이터 다운로드 없이 seed 42의 합성 grayscale 이미지를 사용합니다.
 
