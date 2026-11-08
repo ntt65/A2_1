@@ -1,0 +1,155 @@
+{
+  "seed": 42,
+  "dtype": "float64",
+  "numpy_version": "2.2.6",
+  "all_assertions_passed": true,
+  "normals": [
+    {
+      "mu": 0.0,
+      "variance": 1.0,
+      "sigma": 1.0,
+      "grid_points": 10001,
+      "integral": 0.9999999999999989,
+      "integral_absolute_error": 1.1102230246251565e-15,
+      "peak": 0.3989422804014327,
+      "minimum_pdf": 5.052271083536893e-15
+    },
+    {
+      "mu": 2.0,
+      "variance": 0.5,
+      "sigma": 0.7071067811865476,
+      "grid_points": 10001,
+      "integral": 0.999999999999999,
+      "integral_absolute_error": 9.992007221626409e-16,
+      "peak": 0.5641895835477563,
+      "minimum_pdf": 7.144990287123286e-15
+    }
+  ],
+  "bernoulli": [
+    {
+      "p": 0.3,
+      "support": [
+        0,
+        1
+      ],
+      "pmf": [
+        0.7,
+        0.3
+      ],
+      "mass_error": 0.0
+    },
+    {
+      "p": 0.7,
+      "support": [
+        0,
+        1
+      ],
+      "pmf": [
+        0.30000000000000004,
+        0.7
+      ],
+      "mass_error": 0.0
+    }
+  ],
+  "softmax": {
+    "logits": [
+      [
+        1000.0,
+        1001.0,
+        1002.0
+      ],
+      [
+        -1000.0,
+        0.0,
+        1000.0
+      ]
+    ],
+    "probabilities": [
+      [
+        0.09003057317038046,
+        0.24472847105479764,
+        0.6652409557748218
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "axis": -1,
+    "row_sums": [
+      0.9999999999999999,
+      1.0
+    ],
+    "max_sum_error": 1.1102230246251565e-16,
+    "column_sum_error": 1.1102230246251565e-16
+  },
+  "gaussian": {
+    "n": 3,
+    "variance": 0.5,
+    "sse": 1.5,
+    "mse": 0.5,
+    "nll": 3.2170948287741004,
+    "independent_reference": 3.2170948287741004,
+    "identity_error": 4.440892098500626e-16,
+    "mean_nll": 1.0723649429247002
+  },
+  "bce": {
+    "y": [
+      0.0,
+      1.0
+    ],
+    "probabilities": [
+      0.3,
+      0.7
+    ],
+    "sum_loss": 0.7133498878774649,
+    "mean_loss": 0.35667494393873245,
+    "logits": [
+      -0.8472978603872036,
+      0.8472978603872034
+    ],
+    "logit_sum_loss": 0.7133498878774649,
+    "max_gradient_error": 8.626654945942391e-12,
+    "analytic_sum_gradient": [
+      0.3,
+      -0.30000000000000004
+    ],
+    "numerical_sum_gradient": [
+      0.3000000000030756,
+      -0.3000000000086267
+    ],
+    "extreme_losses": [
+      0.0,
+      0.0,
+      1000.0,
+      1000.0
+    ],
+    "positive_tail_at_40": 4.248354255291589e-18,
+    "subtractive_formula_at_40": 0.0,
+    "boundary_policy_verified": true
+  },
+  "categorical": {
+    "probabilities": [
+      0.2,
+      0.3,
+      0.5
+    ],
+    "target": 2,
+    "probability_ce": 0.6931471805599453,
+    "logit_ce": 0.6931471805599453,
+    "extreme_ce": 2000.0,
+    "boundary_policy_verified": true
+  },
+  "figures": [
+    "probability_normal.png",
+    "probability_bernoulli.png"
+  ],
+  "notes": [
+    "Normal second parameter is variance, not standard deviation.",
+    "Natural logarithms; sum and mean losses are distinguished.",
+    "Gaussian NLL and MSE share minimizers only under the stated fixed-variance assumptions.",
+    "Probability boundaries are not clipped; impossible-event losses are positive infinity.",
+    "Only finite measurements are serialized; boundary assertions are recorded as booleans."
+  ]
+}
