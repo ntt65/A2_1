@@ -486,6 +486,108 @@
         "tests/test_calculus_experiment.py"
       ]
     },
+    "scripts/run_evaluation_evidence.py": {
+      "concepts": [
+        "Evaluation_Evidence",
+        "Figure_Metadata",
+        "Numerical_Diagnostics"
+      ],
+      "covers": [],
+      "dependencies": [
+        "argparse",
+        "json",
+        "matplotlib",
+        "matplotlib.pyplot",
+        "numpy",
+        "pathlib",
+        "scripts.run_linear_algebra",
+        "src.calculus",
+        "src.linear_algebra",
+        "src.utils.cache_manager",
+        "src.utils.math",
+        "src.utils.random",
+        "struct",
+        "sys",
+        "zlib"
+      ],
+      "language": "python",
+      "sha256": "60798b0bca811a4e10e4d8df5d043f88f2f414a71629422b779fb1322ab75af5",
+      "symbols": [
+        {
+          "concepts": [
+            "Figure_Metadata"
+          ],
+          "end_line": 88,
+          "kind": "function",
+          "line": 40,
+          "name": "png_metadata"
+        },
+        {
+          "concepts": [
+            "Figure_Metadata"
+          ],
+          "end_line": 119,
+          "kind": "function",
+          "line": 91,
+          "name": "svd_panel_metadata"
+        },
+        {
+          "concepts": [
+            "Numerical_Diagnostics"
+          ],
+          "end_line": 154,
+          "kind": "function",
+          "line": 122,
+          "name": "difference_report"
+        },
+        {
+          "concepts": [
+            "Numerical_Diagnostics"
+          ],
+          "end_line": 180,
+          "kind": "function",
+          "line": 157,
+          "name": "step_size_summary"
+        },
+        {
+          "concepts": [
+            "Numerical_Diagnostics"
+          ],
+          "end_line": 206,
+          "kind": "function",
+          "line": 183,
+          "name": "softmax_summary"
+        },
+        {
+          "concepts": [],
+          "end_line": 247,
+          "kind": "function",
+          "line": 209,
+          "name": "failure_diagnostics"
+        },
+        {
+          "concepts": [
+            "Evaluation_Evidence"
+          ],
+          "end_line": 313,
+          "kind": "function",
+          "line": 250,
+          "name": "run_experiment"
+        },
+        {
+          "concepts": [
+            "Evaluation_Evidence"
+          ],
+          "end_line": 326,
+          "kind": "function",
+          "line": 316,
+          "name": "main"
+        }
+      ],
+      "tests": [
+        "tests/test_evaluation_evidence.py"
+      ]
+    },
     "scripts/run_linear_algebra.py": {
       "concepts": [
         "Linear_Algebra_Experiment",
@@ -658,6 +760,115 @@
       ],
       "tests": [
         "tests/test_optimizer_experiment.py"
+      ]
+    },
+    "scripts/run_optimizer_sensitivity.py": {
+      "concepts": [
+        "Optimizer_Sensitivity",
+        "Optimizer_Stability_Evidence"
+      ],
+      "covers": [],
+      "dependencies": [
+        "argparse",
+        "json",
+        "matplotlib",
+        "matplotlib.pyplot",
+        "numpy",
+        "pathlib",
+        "src.calculus",
+        "src.optimizer",
+        "src.utils.cache_manager",
+        "src.utils.math",
+        "src.utils.numerical",
+        "src.utils.plotting",
+        "src.utils.random"
+      ],
+      "language": "python",
+      "sha256": "8f987a84777db7f0eea6680d0bf68baa0d34fcead036f006f9b42dc8a706df0e",
+      "symbols": [
+        {
+          "concepts": [
+            "Optimizer_Sensitivity"
+          ],
+          "end_line": 50,
+          "kind": "function",
+          "line": 28,
+          "name": "radius_summary"
+        },
+        {
+          "concepts": [
+            "Optimizer_Sensitivity"
+          ],
+          "end_line": 94,
+          "kind": "function",
+          "line": 53,
+          "name": "trajectory"
+        },
+        {
+          "concepts": [],
+          "end_line": 89,
+          "kind": "function",
+          "line": 82,
+          "name": "trajectory.compute"
+        },
+        {
+          "concepts": [
+            "Optimizer_Sensitivity"
+          ],
+          "end_line": 120,
+          "kind": "function",
+          "line": 97,
+          "name": "aggregate"
+        },
+        {
+          "concepts": [
+            "Optimizer_Stability_Evidence"
+          ],
+          "end_line": 152,
+          "kind": "function",
+          "line": 123,
+          "name": "stability_evidence"
+        },
+        {
+          "concepts": [],
+          "end_line": 187,
+          "kind": "function",
+          "line": 155,
+          "name": "sensitivity_figure"
+        },
+        {
+          "concepts": [],
+          "end_line": 192,
+          "kind": "function",
+          "line": 190,
+          "name": "_json_record"
+        },
+        {
+          "concepts": [],
+          "end_line": 238,
+          "kind": "function",
+          "line": 195,
+          "name": "report_markdown"
+        },
+        {
+          "concepts": [
+            "Optimizer_Sensitivity"
+          ],
+          "end_line": 282,
+          "kind": "function",
+          "line": 241,
+          "name": "run_experiment"
+        },
+        {
+          "concepts": [],
+          "end_line": 298,
+          "kind": "function",
+          "line": 285,
+          "name": "main"
+        }
+      ],
+      "tests": [
+        "tests/test_optimizer_sensitivity.py"
       ]
     },
     "scripts/update_registry.py": {
@@ -2251,6 +2462,83 @@
       ],
       "tests": []
     },
+    "tests/test_evaluation_evidence.py": {
+      "concepts": [],
+      "covers": [
+        "scripts/run_evaluation_evidence.py"
+      ],
+      "dependencies": [
+        "json",
+        "numpy",
+        "pathlib",
+        "scripts.run_evaluation_evidence",
+        "struct",
+        "tempfile",
+        "unittest",
+        "zlib"
+      ],
+      "language": "python",
+      "sha256": "99b586fd542f35d9edf402da5968a9927952ff54568a16e5a04e8582c52df514",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 22,
+          "kind": "function",
+          "line": 20,
+          "name": "png_chunk"
+        },
+        {
+          "concepts": [],
+          "end_line": 98,
+          "kind": "class",
+          "line": 25,
+          "name": "EvaluationEvidenceTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 43,
+          "kind": "method",
+          "line": 28,
+          "name": "EvaluationEvidenceTests.test_png_metadata_reads_independent_dimensions_and_units"
+        },
+        {
+          "concepts": [],
+          "end_line": 55,
+          "kind": "method",
+          "line": 45,
+          "name": "EvaluationEvidenceTests.test_diagnostic_signed_difference_shape_and_failure"
+        },
+        {
+          "concepts": [],
+          "end_line": 66,
+          "kind": "method",
+          "line": 57,
+          "name": "EvaluationEvidenceTests.test_h_summary_does_not_bridge_failing_samples"
+        },
+        {
+          "concepts": [],
+          "end_line": 77,
+          "kind": "method",
+          "line": 68,
+          "name": "EvaluationEvidenceTests.test_real_examples_pass_and_both_injections_fail"
+        },
+        {
+          "concepts": [],
+          "end_line": 84,
+          "kind": "method",
+          "line": 79,
+          "name": "EvaluationEvidenceTests.test_softmax_reports_distinct_axes_and_finite_error"
+        },
+        {
+          "concepts": [],
+          "end_line": 98,
+          "kind": "method",
+          "line": 86,
+          "name": "EvaluationEvidenceTests.test_delivery_preserves_originals_and_writes_metadata"
+        }
+      ],
+      "tests": []
+    },
     "tests/test_linear_algebra_experiment.py": {
       "concepts": [],
       "covers": [
@@ -2765,6 +3053,86 @@
           "kind": "method",
           "line": 79,
           "name": "OptimizerExperimentTests.test_cli_outputs_and_stability_cases"
+        }
+      ],
+      "tests": []
+    },
+    "tests/test_optimizer_sensitivity.py": {
+      "concepts": [],
+      "covers": [
+        "scripts/run_optimizer_sensitivity.py"
+      ],
+      "dependencies": [
+        "json",
+        "matplotlib.pyplot",
+        "numpy",
+        "pathlib",
+        "scripts.run_optimizer_sensitivity",
+        "src.optimizer",
+        "src.utils.cache_manager",
+        "struct",
+        "tempfile",
+        "unittest",
+        "unittest.mock"
+      ],
+      "language": "python",
+      "sha256": "db94b3ff051d66721ddbc351d82941f8bcfc401f30c877b0bc5af84f0de36fd3",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 123,
+          "kind": "class",
+          "line": 20,
+          "name": "OptimizerSensitivityTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 25,
+          "kind": "method",
+          "line": 23,
+          "name": "OptimizerSensitivityTests.tearDown"
+        },
+        {
+          "concepts": [],
+          "end_line": 37,
+          "kind": "method",
+          "line": 27,
+          "name": "OptimizerSensitivityTests.test_gd_matches_independent_closed_form"
+        },
+        {
+          "concepts": [],
+          "end_line": 58,
+          "kind": "method",
+          "line": 39,
+          "name": "OptimizerSensitivityTests.test_crossings_reentry_and_missing_population"
+        },
+        {
+          "concepts": [],
+          "end_line": 81,
+          "kind": "method",
+          "line": 60,
+          "name": "OptimizerSensitivityTests.test_cache_equivalence_input_separation_and_copy"
+        },
+        {
+          "concepts": [],
+          "end_line": 90,
+          "kind": "method",
+          "line": 83,
+          "name": "OptimizerSensitivityTests.test_stability_uses_exact_factors"
+        },
+        {
+          "concepts": [],
+          "end_line": 106,
+          "kind": "method",
+          "line": 92,
+          "name": "OptimizerSensitivityTests.test_input_contracts"
+        },
+        {
+          "concepts": [],
+          "end_line": 123,
+          "kind": "method",
+          "line": 108,
+          "name": "OptimizerSensitivityTests.test_cli_delivers_declared_population_and_png_metadata"
         }
       ],
       "tests": []
@@ -4130,6 +4498,110 @@
         ]
       }
     ],
+    "Evaluation_Evidence": [
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "scripts.run_linear_algebra",
+          "src.calculus",
+          "src.linear_algebra",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.random",
+          "struct",
+          "sys",
+          "zlib"
+        ],
+        "line": 250,
+        "path": "scripts/run_evaluation_evidence.py",
+        "symbol": "run_experiment",
+        "tests": [
+          "tests/test_evaluation_evidence.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "scripts.run_linear_algebra",
+          "src.calculus",
+          "src.linear_algebra",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.random",
+          "struct",
+          "sys",
+          "zlib"
+        ],
+        "line": 316,
+        "path": "scripts/run_evaluation_evidence.py",
+        "symbol": "main",
+        "tests": [
+          "tests/test_evaluation_evidence.py"
+        ]
+      }
+    ],
+    "Figure_Metadata": [
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "scripts.run_linear_algebra",
+          "src.calculus",
+          "src.linear_algebra",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.random",
+          "struct",
+          "sys",
+          "zlib"
+        ],
+        "line": 40,
+        "path": "scripts/run_evaluation_evidence.py",
+        "symbol": "png_metadata",
+        "tests": [
+          "tests/test_evaluation_evidence.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "scripts.run_linear_algebra",
+          "src.calculus",
+          "src.linear_algebra",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.random",
+          "struct",
+          "sys",
+          "zlib"
+        ],
+        "line": 91,
+        "path": "scripts/run_evaluation_evidence.py",
+        "symbol": "svd_panel_metadata",
+        "tests": [
+          "tests/test_evaluation_evidence.py"
+        ]
+      }
+    ],
     "Forward_Propagation": [
       {
         "cell_id": "backprop-forward-derivation",
@@ -4552,6 +5024,83 @@
         ]
       }
     ],
+    "Numerical_Diagnostics": [
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "scripts.run_linear_algebra",
+          "src.calculus",
+          "src.linear_algebra",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.random",
+          "struct",
+          "sys",
+          "zlib"
+        ],
+        "line": 122,
+        "path": "scripts/run_evaluation_evidence.py",
+        "symbol": "difference_report",
+        "tests": [
+          "tests/test_evaluation_evidence.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "scripts.run_linear_algebra",
+          "src.calculus",
+          "src.linear_algebra",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.random",
+          "struct",
+          "sys",
+          "zlib"
+        ],
+        "line": 157,
+        "path": "scripts/run_evaluation_evidence.py",
+        "symbol": "step_size_summary",
+        "tests": [
+          "tests/test_evaluation_evidence.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "scripts.run_linear_algebra",
+          "src.calculus",
+          "src.linear_algebra",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.random",
+          "struct",
+          "sys",
+          "zlib"
+        ],
+        "line": 183,
+        "path": "scripts/run_evaluation_evidence.py",
+        "symbol": "softmax_summary",
+        "tests": [
+          "tests/test_evaluation_evidence.py"
+        ]
+      }
+    ],
     "Numerical_Gradient": [
       {
         "cell_id": "bce-check",
@@ -4700,6 +5249,125 @@
         "symbol": "main",
         "tests": [
           "tests/test_optimizer_experiment.py"
+        ]
+      }
+    ],
+    "Optimizer_Sensitivity": [
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "src.calculus",
+          "src.optimizer",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting",
+          "src.utils.random"
+        ],
+        "line": 28,
+        "path": "scripts/run_optimizer_sensitivity.py",
+        "symbol": "radius_summary",
+        "tests": [
+          "tests/test_optimizer_sensitivity.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "src.calculus",
+          "src.optimizer",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting",
+          "src.utils.random"
+        ],
+        "line": 53,
+        "path": "scripts/run_optimizer_sensitivity.py",
+        "symbol": "trajectory",
+        "tests": [
+          "tests/test_optimizer_sensitivity.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "src.calculus",
+          "src.optimizer",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting",
+          "src.utils.random"
+        ],
+        "line": 97,
+        "path": "scripts/run_optimizer_sensitivity.py",
+        "symbol": "aggregate",
+        "tests": [
+          "tests/test_optimizer_sensitivity.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "src.calculus",
+          "src.optimizer",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting",
+          "src.utils.random"
+        ],
+        "line": 241,
+        "path": "scripts/run_optimizer_sensitivity.py",
+        "symbol": "run_experiment",
+        "tests": [
+          "tests/test_optimizer_sensitivity.py"
+        ]
+      }
+    ],
+    "Optimizer_Stability_Evidence": [
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "src.calculus",
+          "src.optimizer",
+          "src.utils.cache_manager",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting",
+          "src.utils.random"
+        ],
+        "line": 123,
+        "path": "scripts/run_optimizer_sensitivity.py",
+        "symbol": "stability_evidence",
+        "tests": [
+          "tests/test_optimizer_sensitivity.py"
         ]
       }
     ],
