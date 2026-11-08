@@ -1,5 +1,47 @@
 {
   "forward": {
+    "scripts/run_calculus.py": {
+      "concepts": [
+        "Calculus_Experiment"
+      ],
+      "covers": [],
+      "dependencies": [
+        "argparse",
+        "json",
+        "matplotlib",
+        "matplotlib.pyplot",
+        "numpy",
+        "pathlib",
+        "src.calculus",
+        "src.utils.random",
+        "sys"
+      ],
+      "language": "python",
+      "sha256": "e63347572c173104fdb76543a5754b925432b38d048732c96d4195234df9250c",
+      "symbols": [
+        {
+          "concepts": [
+            "Calculus_Experiment"
+          ],
+          "end_line": 96,
+          "kind": "function",
+          "line": 22,
+          "name": "run_experiment"
+        },
+        {
+          "concepts": [
+            "Calculus_Experiment"
+          ],
+          "end_line": 109,
+          "kind": "function",
+          "line": 99,
+          "name": "main"
+        }
+      ],
+      "tests": [
+        "tests/test_calculus_experiment.py"
+      ]
+    },
     "scripts/run_linear_algebra.py": {
       "concepts": [
         "Linear_Algebra_Experiment",
@@ -205,6 +247,113 @@
       "sha256": "046df61661ab30f0359c19fec1b48f8566393608f14af69fd76ad5f5cad109d8",
       "symbols": [],
       "tests": []
+    },
+    "src/calculus.py": {
+      "concepts": [
+        "Derivative_Error_Study",
+        "Derivative_Error_Visualization",
+        "Gradient_Visualization",
+        "Numerical_Derivative",
+        "Numerical_Gradient",
+        "Quadratic_Gradient",
+        "Quadratic_Surface"
+      ],
+      "covers": [],
+      "dependencies": [
+        "collections.abc",
+        "matplotlib.pyplot",
+        "numpy",
+        "numpy.typing",
+        "src.utils.math",
+        "src.utils.numerical",
+        "src.utils.plotting"
+      ],
+      "language": "python",
+      "sha256": "4f25ae2fa246c233ce519854334fbbbe091a8b285ecdbab763c75db74b3d9f48",
+      "symbols": [
+        {
+          "concepts": [
+            "Numerical_Derivative"
+          ],
+          "end_line": 35,
+          "kind": "function",
+          "line": 22,
+          "name": "numerical_derivative"
+        },
+        {
+          "concepts": [
+            "Numerical_Gradient"
+          ],
+          "end_line": 72,
+          "kind": "function",
+          "line": 38,
+          "name": "numerical_gradient"
+        },
+        {
+          "concepts": [],
+          "end_line": 69,
+          "kind": "function",
+          "line": 65,
+          "name": "numerical_gradient.along_coordinate"
+        },
+        {
+          "concepts": [
+            "Quadratic_Surface"
+          ],
+          "end_line": 90,
+          "kind": "function",
+          "line": 75,
+          "name": "quadratic"
+        },
+        {
+          "concepts": [
+            "Quadratic_Gradient"
+          ],
+          "end_line": 109,
+          "kind": "function",
+          "line": 93,
+          "name": "quadratic_gradient"
+        },
+        {
+          "concepts": [],
+          "end_line": 122,
+          "kind": "function",
+          "line": 114,
+          "name": "_gradient_samples"
+        },
+        {
+          "concepts": [
+            "Gradient_Visualization"
+          ],
+          "end_line": 175,
+          "kind": "function",
+          "line": 125,
+          "name": "gradient_figure"
+        },
+        {
+          "concepts": [
+            "Derivative_Error_Study"
+          ],
+          "end_line": 200,
+          "kind": "function",
+          "line": 178,
+          "name": "derivative_error_study"
+        },
+        {
+          "concepts": [
+            "Derivative_Error_Visualization"
+          ],
+          "end_line": 237,
+          "kind": "function",
+          "line": 203,
+          "name": "derivative_error_figure"
+        }
+      ],
+      "tests": [
+        "tests/test_calculus.py",
+        "tests/test_calculus_experiment.py",
+        "tests/test_calculus_figures.py"
+      ]
     },
     "src/linear_algebra.py": {
       "concepts": [
@@ -935,6 +1084,243 @@
           "kind": "method",
           "line": 282,
           "name": "CacheManagerTests.test_failed_temporary_cleanup_does_not_break_computation"
+        }
+      ],
+      "tests": []
+    },
+    "tests/test_calculus.py": {
+      "concepts": [],
+      "covers": [
+        "src/calculus.py"
+      ],
+      "dependencies": [
+        "numpy",
+        "src.calculus",
+        "unittest"
+      ],
+      "language": "python",
+      "sha256": "3c8cc6bc0d0c3d48912942e1ce5a11bb444eb18d89d213764c823a7d7d6780d0",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 53,
+          "kind": "class",
+          "line": 17,
+          "name": "DerivativeTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 24,
+          "kind": "method",
+          "line": 20,
+          "name": "DerivativeTests.test_required_quadratic_derivative"
+        },
+        {
+          "concepts": [],
+          "end_line": 30,
+          "kind": "method",
+          "line": 26,
+          "name": "DerivativeTests.test_independent_analytic_references"
+        },
+        {
+          "concepts": [],
+          "end_line": 38,
+          "kind": "method",
+          "line": 32,
+          "name": "DerivativeTests.test_sine_truncation_error"
+        },
+        {
+          "concepts": [],
+          "end_line": 53,
+          "kind": "method",
+          "line": 40,
+          "name": "DerivativeTests.test_scalar_contract_and_invalid_steps"
+        },
+        {
+          "concepts": [],
+          "end_line": 138,
+          "kind": "class",
+          "line": 56,
+          "name": "GradientTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 69,
+          "kind": "method",
+          "line": 59,
+          "name": "GradientTests.test_asymmetric_three_variable_reference"
+        },
+        {
+          "concepts": [],
+          "end_line": 76,
+          "kind": "method",
+          "line": 71,
+          "name": "GradientTests.test_one_coordinate_and_constant"
+        },
+        {
+          "concepts": [],
+          "end_line": 95,
+          "kind": "method",
+          "line": 78,
+          "name": "GradientTests.test_each_objective_sample_is_isolated"
+        },
+        {
+          "concepts": [],
+          "end_line": 89,
+          "kind": "function",
+          "line": 84,
+          "name": "GradientTests.test_each_objective_sample_is_isolated.mutating_objective"
+        },
+        {
+          "concepts": [],
+          "end_line": 111,
+          "kind": "method",
+          "line": 97,
+          "name": "GradientTests.test_point_and_output_contracts"
+        },
+        {
+          "concepts": [],
+          "end_line": 126,
+          "kind": "method",
+          "line": 113,
+          "name": "GradientTests.test_invalid_steps_and_user_exception"
+        },
+        {
+          "concepts": [],
+          "end_line": 123,
+          "kind": "function",
+          "line": 121,
+          "name": "GradientTests.test_invalid_steps_and_user_exception.failing_objective"
+        },
+        {
+          "concepts": [],
+          "end_line": 138,
+          "kind": "method",
+          "line": 128,
+          "name": "GradientTests.test_quadratic_numerical_and_analytic_gradients"
+        },
+        {
+          "concepts": [],
+          "end_line": 183,
+          "kind": "class",
+          "line": 141,
+          "name": "QuadraticTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 154,
+          "kind": "method",
+          "line": 144,
+          "name": "QuadraticTests.test_scalar_and_broadcast_surface"
+        },
+        {
+          "concepts": [],
+          "end_line": 166,
+          "kind": "method",
+          "line": 156,
+          "name": "QuadraticTests.test_gradient_batch_shape_and_input_preservation"
+        },
+        {
+          "concepts": [],
+          "end_line": 183,
+          "kind": "method",
+          "line": 168,
+          "name": "QuadraticTests.test_surface_and_gradient_invalid_inputs"
+        }
+      ],
+      "tests": []
+    },
+    "tests/test_calculus_experiment.py": {
+      "concepts": [],
+      "covers": [
+        "scripts/run_calculus.py",
+        "src/calculus.py"
+      ],
+      "dependencies": [
+        "json",
+        "numpy",
+        "pathlib",
+        "scripts.run_calculus",
+        "tempfile",
+        "unittest"
+      ],
+      "language": "python",
+      "sha256": "fe8910fbae2dbed611374741a40ec21e4ae9c5ed0fc1ecb90edd62bb6714951c",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 37,
+          "kind": "class",
+          "line": 15,
+          "name": "CalculusExperimentTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 37,
+          "kind": "method",
+          "line": 18,
+          "name": "CalculusExperimentTests.test_delivery_command_and_recorded_geometry"
+        }
+      ],
+      "tests": []
+    },
+    "tests/test_calculus_figures.py": {
+      "concepts": [],
+      "covers": [
+        "src/calculus.py"
+      ],
+      "dependencies": [
+        "matplotlib",
+        "matplotlib.pyplot",
+        "matplotlib.quiver",
+        "numpy",
+        "src.calculus",
+        "unittest"
+      ],
+      "language": "python",
+      "sha256": "5cf424b95742a1134a3e05f4ec86a2923804632e5723f6923157419ec6a26408",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 84,
+          "kind": "class",
+          "line": 17,
+          "name": "CalculusFigureTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 22,
+          "kind": "method",
+          "line": 20,
+          "name": "CalculusFigureTests.tearDown"
+        },
+        {
+          "concepts": [],
+          "end_line": 40,
+          "kind": "method",
+          "line": 24,
+          "name": "CalculusFigureTests.test_gradient_arrows_follow_level_normals_and_skip_origin"
+        },
+        {
+          "concepts": [],
+          "end_line": 57,
+          "kind": "method",
+          "line": 42,
+          "name": "CalculusFigureTests.test_step_study_uses_independent_derivatives_and_retains_zero"
+        },
+        {
+          "concepts": [],
+          "end_line": 68,
+          "kind": "method",
+          "line": 59,
+          "name": "CalculusFigureTests.test_error_plot_keeps_raw_zero_data"
+        },
+        {
+          "concepts": [],
+          "end_line": 84,
+          "kind": "method",
+          "line": 70,
+          "name": "CalculusFigureTests.test_titles_legends_and_scale_notes_fit_canvas"
         }
       ],
       "tests": []
@@ -1748,6 +2134,46 @@
         ]
       }
     ],
+    "Calculus_Experiment": [
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "src.calculus",
+          "src.utils.random",
+          "sys"
+        ],
+        "line": 22,
+        "path": "scripts/run_calculus.py",
+        "symbol": "run_experiment",
+        "tests": [
+          "tests/test_calculus_experiment.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "argparse",
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "pathlib",
+          "src.calculus",
+          "src.utils.random",
+          "sys"
+        ],
+        "line": 99,
+        "path": "scripts/run_calculus.py",
+        "symbol": "main",
+        "tests": [
+          "tests/test_calculus_experiment.py"
+        ]
+      }
+    ],
     "Central_Difference": [
       {
         "dependencies": [
@@ -1801,6 +2227,48 @@
         ]
       }
     ],
+    "Derivative_Error_Study": [
+      {
+        "dependencies": [
+          "collections.abc",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting"
+        ],
+        "line": 178,
+        "path": "src/calculus.py",
+        "symbol": "derivative_error_study",
+        "tests": [
+          "tests/test_calculus.py",
+          "tests/test_calculus_experiment.py",
+          "tests/test_calculus_figures.py"
+        ]
+      }
+    ],
+    "Derivative_Error_Visualization": [
+      {
+        "dependencies": [
+          "collections.abc",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting"
+        ],
+        "line": 203,
+        "path": "src/calculus.py",
+        "symbol": "derivative_error_figure",
+        "tests": [
+          "tests/test_calculus.py",
+          "tests/test_calculus_experiment.py",
+          "tests/test_calculus_figures.py"
+        ]
+      }
+    ],
     "Determinant_Area": [
       {
         "dependencies": [
@@ -1844,6 +2312,27 @@
           "tests/test_linear_transforms.py",
           "tests/test_power_iteration.py",
           "tests/test_svd.py"
+        ]
+      }
+    ],
+    "Gradient_Visualization": [
+      {
+        "dependencies": [
+          "collections.abc",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting"
+        ],
+        "line": 125,
+        "path": "src/calculus.py",
+        "symbol": "gradient_figure",
+        "tests": [
+          "tests/test_calculus.py",
+          "tests/test_calculus_experiment.py",
+          "tests/test_calculus_figures.py"
         ]
       }
     ],
@@ -1957,6 +2446,48 @@
         ]
       }
     ],
+    "Numerical_Derivative": [
+      {
+        "dependencies": [
+          "collections.abc",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting"
+        ],
+        "line": 22,
+        "path": "src/calculus.py",
+        "symbol": "numerical_derivative",
+        "tests": [
+          "tests/test_calculus.py",
+          "tests/test_calculus_experiment.py",
+          "tests/test_calculus_figures.py"
+        ]
+      }
+    ],
+    "Numerical_Gradient": [
+      {
+        "dependencies": [
+          "collections.abc",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting"
+        ],
+        "line": 38,
+        "path": "src/calculus.py",
+        "symbol": "numerical_gradient",
+        "tests": [
+          "tests/test_calculus.py",
+          "tests/test_calculus_experiment.py",
+          "tests/test_calculus_figures.py"
+        ]
+      }
+    ],
     "Power_Iteration": [
       {
         "dependencies": [
@@ -2000,6 +2531,48 @@
           "tests/test_linear_transforms.py",
           "tests/test_power_iteration.py",
           "tests/test_svd.py"
+        ]
+      }
+    ],
+    "Quadratic_Gradient": [
+      {
+        "dependencies": [
+          "collections.abc",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting"
+        ],
+        "line": 93,
+        "path": "src/calculus.py",
+        "symbol": "quadratic_gradient",
+        "tests": [
+          "tests/test_calculus.py",
+          "tests/test_calculus_experiment.py",
+          "tests/test_calculus_figures.py"
+        ]
+      }
+    ],
+    "Quadratic_Surface": [
+      {
+        "dependencies": [
+          "collections.abc",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.plotting"
+        ],
+        "line": 75,
+        "path": "src/calculus.py",
+        "symbol": "quadratic",
+        "tests": [
+          "tests/test_calculus.py",
+          "tests/test_calculus_experiment.py",
+          "tests/test_calculus_figures.py"
         ]
       }
     ],
