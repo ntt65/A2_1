@@ -1,7 +1,7 @@
 # A2_1 — AI가 어떻게 학습하는지 수학으로 직접 풀어보기
 
 NumPy로 선형대수·미적분·역전파·최적화·확률을 직접 구현하고 수식과 수치 검증을 연결하는 프로젝트입니다.
-현재는 **Step 5 역전파 구현·검증 완료** 상태입니다. 단계별 보고 후 Step6~7을 순차 진행합니다.
+현재는 **Step 6 확률·손실 구현·검증 완료** 상태입니다. 단계별 보고 후 Step 7 최종 재현·제출 점검을 이어갑니다.
 
 ## 계획과 작업 규칙
 
@@ -47,7 +47,7 @@ python3.11 -m venv .venv
 ## 검증 상태와 산출물
 
 환경 준비의 실행 결과는 [Step 0 작업 기록](docs/worklogs/step-0.md), 공통 기반 검증은 [Step 1 작업 기록](docs/worklogs/step-1.md), 선형대수는 [Step 2 작업 기록](docs/worklogs/step-2.md)에 기록합니다.
-미적분 검증은 [Step 3 작업 기록](docs/worklogs/step-3.md)에 기록합니다. 수학 검증 기준은 [ACCEPTANCE.md](docs/ACCEPTANCE.md)에 정의되어 있습니다. 공통 유틸·레지스트리·선형대수·미적분은 구현했으며 확률/손실 Step6은 미구현·미검증입니다.
+미적분 검증은 [Step 3 작업 기록](docs/worklogs/step-3.md)에 기록합니다. 수학 검증 기준은 [ACCEPTANCE.md](docs/ACCEPTANCE.md)에 정의되어 있습니다. 공통 유틸·레지스트리·선형대수·미적분은 구현했으며 확률/손실 Step 6까지 구현·검증했습니다.
 `src/utils/`와 `.agent/registry.json`을 제공하며, `notebooks/`에 실행된 역전파 노트북을 제공합니다.
 결과 PNG는 `outputs/`, 재계산 가능한 캐시는 `.cache/`에 저장합니다.
 
@@ -59,7 +59,7 @@ python3.11 -m venv .venv
 | 미적분 | Step 3 구현·검증 완료, 로컬 전체 검사 105개 통과 |
 | 최적화 | Step4 구현·검증 완료, 전체125개 테스트 통과 |
 | 역전파 노트북 | Step5 구현·새커널 검증 완료, 전체128개 테스트 통과 |
-| 확률/손실 노트북 | Step6 예정 |
+| 확률/손실 노트북 | Step 6 구현·새 커널 검증 완료, 전체 129개 테스트 통과 |
 | 전체 재현 및 최종 결과 요약 | Step 7 예정 |
 
 기존 [초안 PR #1](https://github.com/ntt65/A2_1/pull/1)은 후속 단계에서 재사용 여부를 검토합니다.
@@ -105,3 +105,9 @@ python3.11 -m venv .venv
 [실행된 노트북](notebooks/backprop_derivation.ipynb)에서 손계산13개 체크포인트와 네자리표시가 일치했습니다. 최대오차 **2.22e-16**,9개 매개변수 중심차분 오차 **7.84e-12 ≤1e-6**입니다.
 `python -m scripts.run_notebooks notebooks/backprop_derivation.ipynb`로 새커널에서 재현합니다.
 [수식·실행 안내](docs/BACKPROP.md) / [작업 기록](docs/worklogs/step-5.md) / [이슈 #8](https://github.com/ntt65/A2_1/issues/8).
+
+## 확률·손실 결과
+
+정규분포 적분 최대오차 **1.11e-15**, Softmax 합 오차 **1.11e-16**, BCE 기울기 오차 **8.63e-12**입니다.
+Gaussian 고정 분산 MLE와 MSE의 관계, Bernoulli BCE 및 categorical CE를 유도하고 경계·큰 logit을 검증했습니다.
+[실행 노트북](notebooks/probability_loss.ipynb) / [수식·그림·실행 안내](docs/PROBABILITY_LOSS.md) / [작업 기록](docs/worklogs/step-6.md).

@@ -14,11 +14,11 @@
 | 2 선형대수 | [#5](https://github.com/ntt65/A2_1/issues/5) | linear_algebra.py, 검증, PNG | 1 | 구현·로컬 87개 검사 완료, [PR #13](https://github.com/ntt65/A2_1/pull/13) 검토 대기(선행 #12) |
 | 3 미적분 | [#6](https://github.com/ntt65/A2_1/issues/6) | calculus.py, 검증, PNG | 2 | 구현·로컬105개 검사 완료, [PR #14](https://github.com/ntt65/A2_1/pull/14) 검토 대기(선행 #13) |
 | 4 최적화 | [#7](https://github.com/ntt65/A2_1/issues/7) | optimizer.py, 검증, PNG | 3 | 구현·125개 검사·CI 완료, [PR #15](https://github.com/ntt65/A2_1/pull/15) 검토 대기 |
-| 5 역전파 | [#8](https://github.com/ntt65/A2_1/issues/8) | backprop_derivation.ipynb | 4 | 구현·128개 검사 완료; PR/CI는 이슈 #8 참조 |
-| 6 확률·손실 | [#9](https://github.com/ntt65/A2_1/issues/9) | probability_loss.ipynb | 5 | 계획됨 |
+| 5 역전파 | [#8](https://github.com/ntt65/A2_1/issues/8) | backprop_derivation.ipynb | 4 | 구현·128개 검사·CI 완료, [PR #16](https://github.com/ntt65/A2_1/pull/16) 검토 대기 |
+| 6 확률·손실 | [#9](https://github.com/ntt65/A2_1/issues/9) | probability_loss.ipynb | 5 | 구현·129개 검사 완료, 원격 게시·CI 진행 중 |
 | 7 통합·제출 | [#10](https://github.com/ntt65/A2_1/issues/10) | 전체 검증, 결과, README | 1~6 | 계획됨 |
 
-후속 이슈는 미리 발행하되 브랜치는 시작할 때 최신 기준 브랜치에서 만든다. 현재 작업 브랜치는 `codex/8-backprop-derivation`이다.
+후속 이슈는 미리 발행하되 브랜치는 시작할 때 최신 기준 브랜치에서 만든다. 현재 작업 브랜치는 `codex/9-probability-loss`이다.
 2026-11-08 사용자 지시에 따라 Step 4~7은 단계별 종료 보고 후 자동으로 다음 이슈를 진행한다. 이슈·브랜치·계획·검증·PR·작업 기록은 계속 단계별로 유지한다.
 중단된 동일 이슈를 재개할 때는 기존 브랜치·PR과 기록을 재사용한다.
 사용자의 순차 진행 지시에 따라 Step 1을 시작했다. 선행 환경 PR #11은 검증 완료·검토 대기이므로,
@@ -151,6 +151,16 @@ A2_1/
 - [x] 전용 브랜치 codex/8-backprop-derivation 및 upstream
 - [x] 수식·shape·손계산표·NumPy·9개 매개변수 중심차분 검증
 - [x] 새 커널 실행 도구·노트북 회귀·전체 검사·독립 리뷰
+- [x] 문서·수용 기준·레지스트리·실측 기록
+- [x] 원격 게시·PR #16·Windows/Linux 보완 CI·이슈 기록
+- [ ] 사용자 검토·병합
+
+## 실행계획: Step 6
+
+- [x] 이슈 #9 계획·원문·D13·독립 수치 기준 확인
+- [x] 전용 브랜치 codex/9-probability-loss 및 upstream
+- [x] 분포·Softmax·NLL/MSE/BCE/CE 유도·독립 검증
+- [x] 새 커널 실행·PNG·전체 검사·독립 리뷰와 보완
 - [x] 문서·수용 기준·레지스트리·실측 기록
 - [ ] 원격 게시·PR·CI·이슈 기록
 - [ ] 사용자 검토·병합

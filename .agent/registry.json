@@ -175,6 +175,275 @@
         "tests/test_backprop_notebook.py"
       ]
     },
+    "notebooks/probability_loss.ipynb": {
+      "cells": [
+        {
+          "cell_type": "markdown",
+          "concepts": [
+            "Probability_Loss"
+          ],
+          "id": "probability-introduction",
+          "title": "확률과 손실의 연결"
+        },
+        {
+          "cell_type": "code",
+          "concepts": [
+            "Reproducible_Seed"
+          ],
+          "id": "probability-environment",
+          "title": "환경과 출력 경로"
+        },
+        {
+          "cell_type": "markdown",
+          "concepts": [
+            "Normal_Distribution"
+          ],
+          "id": "normal-derivation",
+          "title": "정규분포 표기와 질량"
+        },
+        {
+          "cell_type": "code",
+          "concepts": [
+            "Normal_Distribution",
+            "Probability_Mass_Check"
+          ],
+          "id": "normal-density-check",
+          "title": "정규분포 함수와 독립 검증"
+        },
+        {
+          "cell_type": "markdown",
+          "concepts": [],
+          "id": "normal-figure",
+          "title": "정규분포 그림"
+        },
+        {
+          "cell_type": "markdown",
+          "concepts": [
+            "Bernoulli_Distribution"
+          ],
+          "id": "bernoulli-derivation",
+          "title": "베르누이 분포"
+        },
+        {
+          "cell_type": "code",
+          "concepts": [
+            "Bernoulli_Distribution",
+            "Probability_Mass_Check"
+          ],
+          "id": "bernoulli-check",
+          "title": "베르누이 질량과 그림"
+        },
+        {
+          "cell_type": "markdown",
+          "concepts": [],
+          "id": "bernoulli-figure",
+          "title": "베르누이 그림"
+        },
+        {
+          "cell_type": "markdown",
+          "concepts": [
+            "Softmax"
+          ],
+          "id": "softmax-derivation",
+          "title": "Softmax와 축"
+        },
+        {
+          "cell_type": "code",
+          "concepts": [
+            "Softmax"
+          ],
+          "id": "softmax-check",
+          "title": "큰 logit의 Softmax 검증"
+        },
+        {
+          "cell_type": "markdown",
+          "concepts": [
+            "Gaussian_MLE",
+            "MSE_Loss"
+          ],
+          "id": "gaussian-mle-derivation",
+          "title": "Gaussian MLE와 MSE"
+        },
+        {
+          "cell_type": "code",
+          "concepts": [
+            "Gaussian_MLE",
+            "MSE_Loss"
+          ],
+          "id": "gaussian-mle-check",
+          "title": "Gaussian NLL의 독립 수치 예제"
+        },
+        {
+          "cell_type": "markdown",
+          "concepts": [
+            "BCE_Loss",
+            "Bernoulli_MLE"
+          ],
+          "id": "bernoulli-mle-derivation",
+          "title": "Bernoulli MLE와 BCE"
+        },
+        {
+          "cell_type": "code",
+          "concepts": [
+            "BCE_Loss"
+          ],
+          "id": "bce-functions",
+          "title": "확률 및 logit BCE 계산"
+        },
+        {
+          "cell_type": "code",
+          "concepts": [
+            "BCE_Loss",
+            "Bernoulli_MLE",
+            "Numerical_Gradient"
+          ],
+          "id": "bce-check",
+          "title": "BCE와 gradient 독립 검증"
+        },
+        {
+          "cell_type": "markdown",
+          "concepts": [
+            "Categorical_MLE",
+            "Cross_Entropy"
+          ],
+          "id": "categorical-mle-derivation",
+          "title": "Categorical MLE와 Cross-Entropy"
+        },
+        {
+          "cell_type": "code",
+          "concepts": [
+            "Categorical_MLE",
+            "Cross_Entropy"
+          ],
+          "id": "categorical-check",
+          "title": "Categorical CE의 확률·logit 검증"
+        },
+        {
+          "cell_type": "markdown",
+          "concepts": [
+            "Probability_Loss"
+          ],
+          "id": "probability-summary",
+          "title": "검증 요약과 한계"
+        },
+        {
+          "cell_type": "code",
+          "concepts": [
+            "Probability_Loss"
+          ],
+          "id": "probability-export",
+          "title": "측정 JSON 저장"
+        }
+      ],
+      "concepts": [
+        "BCE_Loss",
+        "Bernoulli_Distribution",
+        "Bernoulli_MLE",
+        "Categorical_MLE",
+        "Cross_Entropy",
+        "Gaussian_MLE",
+        "MSE_Loss",
+        "Normal_Distribution",
+        "Numerical_Gradient",
+        "Probability_Loss",
+        "Probability_Mass_Check",
+        "Reproducible_Seed",
+        "Softmax"
+      ],
+      "covers": [],
+      "dependencies": [
+        "json",
+        "matplotlib",
+        "matplotlib.pyplot",
+        "numpy",
+        "os",
+        "pathlib",
+        "src.calculus",
+        "src.utils.math",
+        "src.utils.numerical",
+        "src.utils.random",
+        "sys"
+      ],
+      "language": "notebook",
+      "sha256": "b31883f9b1e3fed3c71be84e068d03e5db6f3a205ed567533f2c60d9fc968d8e",
+      "symbols": [
+        {
+          "cell_id": "normal-density-check",
+          "cell_title": "정규분포 함수와 독립 검증",
+          "concepts": [],
+          "end_line": 20,
+          "kind": "function",
+          "line": 1,
+          "name": "normal_pdf"
+        },
+        {
+          "cell_id": "bernoulli-check",
+          "cell_title": "베르누이 질량과 그림",
+          "concepts": [],
+          "end_line": 10,
+          "kind": "function",
+          "line": 1,
+          "name": "bernoulli_pmf"
+        },
+        {
+          "cell_id": "bce-functions",
+          "cell_title": "확률 및 logit BCE 계산",
+          "concepts": [],
+          "end_line": 13,
+          "kind": "function",
+          "line": 1,
+          "name": "_binary_pair"
+        },
+        {
+          "cell_id": "bce-functions",
+          "cell_title": "확률 및 logit BCE 계산",
+          "concepts": [],
+          "end_line": 28,
+          "kind": "function",
+          "line": 16,
+          "name": "probability_bce"
+        },
+        {
+          "cell_id": "bce-functions",
+          "cell_title": "확률 및 logit BCE 계산",
+          "concepts": [],
+          "end_line": 41,
+          "kind": "function",
+          "line": 31,
+          "name": "binary_logit_loss"
+        },
+        {
+          "cell_id": "categorical-check",
+          "cell_title": "Categorical CE의 확률·logit 검증",
+          "concepts": [],
+          "end_line": 14,
+          "kind": "function",
+          "line": 1,
+          "name": "_class_vector"
+        },
+        {
+          "cell_id": "categorical-check",
+          "cell_title": "Categorical CE의 확률·logit 검증",
+          "concepts": [],
+          "end_line": 28,
+          "kind": "function",
+          "line": 17,
+          "name": "categorical_probability_ce"
+        },
+        {
+          "cell_id": "categorical-check",
+          "cell_title": "Categorical CE의 확률·logit 검증",
+          "concepts": [],
+          "end_line": 44,
+          "kind": "function",
+          "line": 31,
+          "name": "categorical_logit_ce"
+        }
+      ],
+      "tests": [
+        "tests/test_probability_notebook.py"
+      ]
+    },
     "scripts/run_calculus.py": {
       "concepts": [
         "Calculus_Experiment"
@@ -317,7 +586,8 @@
         }
       ],
       "tests": [
-        "tests/test_backprop_notebook.py"
+        "tests/test_backprop_notebook.py",
+        "tests/test_probability_notebook.py"
       ]
     },
     "scripts/run_optimizer.py": {
@@ -2620,6 +2890,41 @@
       ],
       "tests": []
     },
+    "tests/test_probability_notebook.py": {
+      "concepts": [],
+      "covers": [
+        "notebooks/probability_loss.ipynb",
+        "scripts/run_notebooks.py"
+      ],
+      "dependencies": [
+        "json",
+        "numpy",
+        "pathlib",
+        "scripts.run_notebooks",
+        "struct",
+        "tempfile",
+        "unittest"
+      ],
+      "language": "python",
+      "sha256": "a872cfbe2216a4c4022b2ac77f05d3092407ae91b35896aa18ab34ccd18a3bba",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 95,
+          "kind": "class",
+          "line": 16,
+          "name": "ProbabilityNotebookTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 95,
+          "kind": "method",
+          "line": 19,
+          "name": "ProbabilityNotebookTests.test_probability_fresh_kernel_and_independent_targets"
+        }
+      ],
+      "tests": []
+    },
     "tests/test_registry.py": {
       "concepts": [],
       "covers": [
@@ -2915,6 +3220,72 @@
         "tests": [
           "tests/test_backprop_notebook.py"
         ]
+      },
+      {
+        "cell_id": "bernoulli-mle-derivation",
+        "cell_title": "Bernoulli MLE와 BCE",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "bce-functions",
+        "cell_title": "확률 및 logit BCE 계산",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "bce-check",
+        "cell_title": "BCE와 gradient 독립 검증",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
       }
     ],
     "Backpropagation_Derivation": [
@@ -3155,6 +3526,98 @@
         ]
       }
     ],
+    "Bernoulli_Distribution": [
+      {
+        "cell_id": "bernoulli-derivation",
+        "cell_title": "베르누이 분포",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "bernoulli-check",
+        "cell_title": "베르누이 질량과 그림",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      }
+    ],
+    "Bernoulli_MLE": [
+      {
+        "cell_id": "bernoulli-mle-derivation",
+        "cell_title": "Bernoulli MLE와 BCE",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "bce-check",
+        "cell_title": "BCE와 gradient 독립 검증",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      }
+    ],
     "Cache_Key": [
       {
         "dependencies": [
@@ -3240,6 +3703,52 @@
         "symbol": "main",
         "tests": [
           "tests/test_calculus_experiment.py"
+        ]
+      }
+    ],
+    "Categorical_MLE": [
+      {
+        "cell_id": "categorical-mle-derivation",
+        "cell_title": "Categorical MLE와 Cross-Entropy",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "categorical-check",
+        "cell_title": "Categorical CE의 확률·logit 검증",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
         ]
       }
     ],
@@ -3333,6 +3842,52 @@
         "symbol": "contour_base",
         "tests": [
           "tests/test_plotting.py"
+        ]
+      }
+    ],
+    "Cross_Entropy": [
+      {
+        "cell_id": "categorical-mle-derivation",
+        "cell_title": "Categorical MLE와 Cross-Entropy",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "categorical-check",
+        "cell_title": "Categorical CE의 확률·logit 검증",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
         ]
       }
     ],
@@ -3506,6 +4061,52 @@
         ]
       }
     ],
+    "Gaussian_MLE": [
+      {
+        "cell_id": "gaussian-mle-derivation",
+        "cell_title": "Gaussian MLE와 MSE",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "gaussian-mle-check",
+        "cell_title": "Gaussian NLL의 독립 수치 예제",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      }
+    ],
     "Gradient_Visualization": [
       {
         "dependencies": [
@@ -3659,6 +4260,52 @@
         ]
       }
     ],
+    "MSE_Loss": [
+      {
+        "cell_id": "gaussian-mle-derivation",
+        "cell_title": "Gaussian MLE와 MSE",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "gaussian-mle-check",
+        "cell_title": "Gaussian NLL의 독립 수치 예제",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      }
+    ],
     "Momentum_Update": [
       {
         "dependencies": [
@@ -3681,6 +4328,52 @@
         ]
       }
     ],
+    "Normal_Distribution": [
+      {
+        "cell_id": "normal-derivation",
+        "cell_title": "정규분포 표기와 질량",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "normal-density-check",
+        "cell_title": "정규분포 함수와 독립 검증",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      }
+    ],
     "Notebook_Execution": [
       {
         "dependencies": [
@@ -3699,7 +4392,8 @@
         "path": "scripts/run_notebooks.py",
         "symbol": "execute_notebook",
         "tests": [
-          "tests/test_backprop_notebook.py"
+          "tests/test_backprop_notebook.py",
+          "tests/test_probability_notebook.py"
         ]
       },
       {
@@ -3719,7 +4413,8 @@
         "path": "scripts/run_notebooks.py",
         "symbol": "main",
         "tests": [
-          "tests/test_backprop_notebook.py"
+          "tests/test_backprop_notebook.py",
+          "tests/test_probability_notebook.py"
         ]
       }
     ],
@@ -3745,6 +4440,28 @@
       }
     ],
     "Numerical_Gradient": [
+      {
+        "cell_id": "bce-check",
+        "cell_title": "BCE와 gradient 독립 검증",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      },
       {
         "dependencies": [
           "collections.abc",
@@ -3942,6 +4659,120 @@
         ]
       }
     ],
+    "Probability_Loss": [
+      {
+        "cell_id": "probability-introduction",
+        "cell_title": "확률과 손실의 연결",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "probability-summary",
+        "cell_title": "검증 요약과 한계",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "probability-export",
+        "cell_title": "측정 JSON 저장",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      }
+    ],
+    "Probability_Mass_Check": [
+      {
+        "cell_id": "normal-density-check",
+        "cell_title": "정규분포 함수와 독립 검증",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "bernoulli-check",
+        "cell_title": "베르누이 질량과 그림",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      }
+    ],
     "Quadratic_Gradient": [
       {
         "dependencies": [
@@ -4067,6 +4898,28 @@
         "symbol": null,
         "tests": [
           "tests/test_backprop_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "probability-environment",
+        "cell_title": "환경과 출력 경로",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
         ]
       },
       {
@@ -4264,6 +5117,50 @@
       }
     ],
     "Softmax": [
+      {
+        "cell_id": "softmax-derivation",
+        "cell_title": "Softmax와 축",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      },
+      {
+        "cell_id": "softmax-check",
+        "cell_title": "큰 logit의 Softmax 검증",
+        "dependencies": [
+          "json",
+          "matplotlib",
+          "matplotlib.pyplot",
+          "numpy",
+          "os",
+          "pathlib",
+          "src.calculus",
+          "src.utils.math",
+          "src.utils.numerical",
+          "src.utils.random",
+          "sys"
+        ],
+        "path": "notebooks/probability_loss.ipynb",
+        "symbol": null,
+        "tests": [
+          "tests/test_probability_notebook.py"
+        ]
+      },
       {
         "dependencies": [
           "numpy",
