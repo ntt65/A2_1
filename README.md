@@ -2,18 +2,18 @@
 
 선형대수·미적분·역전파·최적화·확률의 수식을 직접 유도하고 NumPy로 구현·검증한 프로젝트입니다. [미션 원문](A2_1_mission.md) 2절의 필수 결과물과 4절의 기능 요구를 대상으로 하며, 코드·실행된 노트북·PNG·측정 JSON을 함께 제공합니다. Adam·Newton·정보 이론 보너스는 필수 범위에 포함하지 않습니다.
 
-**제출할 누적 구현:** [codex/10-integration-delivery 브랜치](https://github.com/ntt65/A2_1/tree/codex/10-integration-delivery). 단계별 변경은 아직 `main`에 병합되지 않았으므로 평가·재현 시 이 브랜치를 사용합니다. 구현 완료와 PR 검토·병합 상태를 구분합니다.
+**제출 저장소:** [https://github.com/ntt65/A2_1](https://github.com/ntt65/A2_1). PR #11~#18을 기본 브랜치 `main`에 병합했습니다. 평가·재현은 `main`의 코드와 아래 실행 방법을 기준으로 합니다.
 
-**최종 검증 상태:** 2026-11-08 새 Python 3.11.4 가상환경에서 잠금 의존성 설치, `pip check`, 전체 **129개 테스트(20.417초)**, 레지스트리 검사를 통과했습니다. 세 실험과 두 노트북을 재실행해 생성한 **PNG 10개·JSON 5개는 제출 산출물과 바이트 단위로 일치**했고 노트북 원본은 변경되지 않았습니다. [최종 PR #18](https://github.com/ntt65/A2_1/pull/18)을 게시했으며 검토·병합은 대기 중입니다. 최신 원격 검사 결과는 [이슈 #10](https://github.com/ntt65/A2_1/issues/10)에 기록합니다. 명령·환경·감사 결과는 [최종 재현 기록](docs/worklogs/step-7.md)에 있습니다.
+**최종 검증 상태:** 2026-11-08 새 Python 3.11.4 가상환경에서 잠금 의존성 설치, `pip check`, 전체 **129개 테스트(20.417초)**, 레지스트리 검사를 통과했습니다. 세 실험과 두 노트북을 재실행해 생성한 **PNG 10개·JSON 5개는 제출 산출물과 바이트 단위로 일치**했고 노트북 원본은 변경되지 않았습니다. [최종 구현 PR #18](https://github.com/ntt65/A2_1/pull/18)까지 병합했으며, 병합 전 최종 커밋의 Windows·Linux 검사도 통과했습니다. 병합 후 기본 브랜치 검사와 제출 마무리 기록은 [이슈 #19](https://github.com/ntt65/A2_1/issues/19)에서 확인할 수 있습니다. 명령·환경·감사 결과는 [최종 재현 기록](docs/worklogs/step-7.md)에 있습니다.
 
 ## 1. 설치와 재현
 
-Python **3.11**과 Git이 필요합니다. 아래 명령은 새 작업 폴더에서 누적 구현을 내려받고, 저장소 루트에서 실행합니다. 전체 의존성은 [requirements-lock.txt](requirements-lock.txt)로 고정했습니다. 구현·시각화 직접 의존성은 [requirements.txt](requirements.txt), 노트북 실행 도구는 [requirements-dev.txt](requirements-dev.txt)에 구분합니다.
+Python **3.11**과 Git이 필요합니다. 아래 명령은 새 작업 폴더에서 기본 브랜치의 완성본을 내려받고, 저장소 루트에서 실행합니다. 전체 의존성은 [requirements-lock.txt](requirements-lock.txt)로 고정했습니다. 구현·시각화 직접 의존성은 [requirements.txt](requirements.txt), 노트북 실행 도구는 [requirements-dev.txt](requirements-dev.txt)에 구분합니다.
 
 ### Windows PowerShell
 
 ```powershell
-git clone --branch codex/10-integration-delivery --single-branch https://github.com/ntt65/A2_1.git
+git clone --branch main --single-branch https://github.com/ntt65/A2_1.git
 cd A2_1
 py -3.11 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements-lock.txt
@@ -30,7 +30,7 @@ py -3.11 -m venv .venv
 ### Linux / macOS
 
 ```sh
-git clone --branch codex/10-integration-delivery --single-branch https://github.com/ntt65/A2_1.git
+git clone --branch main --single-branch https://github.com/ntt65/A2_1.git
 cd A2_1
 python3.11 -m venv .venv
 .venv/bin/python -m pip install -r requirements-lock.txt
@@ -152,7 +152,7 @@ Registry check passed.
 
 ## 6. 단계별 이슈·PR·검증 기록
 
-작업은 **이슈 → 전용 브랜치 → 기초·상세·실행계획 → 구현 → 점검·보완 → 검증 → push·PR → 이슈 기록** 순서로 진행했습니다. 아래 PR은 단계별 누적 브랜치의 변경을 분리해 검토하기 위한 것이며, PR 생성은 `main` 병합을 뜻하지 않습니다. 선행 PR부터 순서대로 검토합니다.
+작업은 **이슈 → 전용 브랜치 → 기초·상세·실행계획 → 구현 → 점검·보완 → 검증 → push·PR → 이슈 기록** 순서로 진행했습니다. 아래 PR #11~#18은 사용자의 병합 지시에 따라 선행 단계부터 순서대로 `main`에 병합했습니다. 각 이슈와 작업 기록에 계획·검증·보완·병합 이력을 남겼습니다. 제출 안내의 최종 정리는 [이슈 #19](https://github.com/ntt65/A2_1/issues/19)에서 추적합니다.
 
 | 단계 | 이슈 | PR | 실행·보완 기록 |
 |---|---|---|---|

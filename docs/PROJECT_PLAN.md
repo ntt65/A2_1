@@ -1,7 +1,7 @@
 # 전체 계획과 체크리스트
 
 기준일: 2026-11-08 (Asia/Seoul). 전체 추적: [#2](https://github.com/ntt65/A2_1/issues/2).
-목적은 AI 학습의 수학을 직접 유도하고 NumPy로 검증하는 것이다. 최종 제출 진입점은 README다.
+목적은 AI 학습의 수학을 직접 유도하고 NumPy로 검증하는 것이다. 최종 제출 진입점은 [main의 README](https://github.com/ntt65/A2_1/tree/main)다.
 
 ## 진행 순서
 
@@ -9,22 +9,20 @@
 
 | 단계 | 이슈 | 산출물 | 선행 단계 | 현재 상태 |
 |---|---|---|---|---|
-| 0 환경·운영 준비 | [#3](https://github.com/ntt65/A2_1/issues/3) | 환경, AGENTS, 계획, 템플릿, CI | 없음 | 로컬 검증 완료, [PR #11](https://github.com/ntt65/A2_1/pull/11) 검토 대기 |
-| 1 공통 기반 | [#4](https://github.com/ntt65/A2_1/issues/4) | utils, cache, registry | 0 | 구현·로컬 48개 검증 완료, [PR #12](https://github.com/ntt65/A2_1/pull/12) 검토 대기(선행 #11) |
-| 2 선형대수 | [#5](https://github.com/ntt65/A2_1/issues/5) | linear_algebra.py, 검증, PNG | 1 | 구현·로컬 87개 검사 완료, [PR #13](https://github.com/ntt65/A2_1/pull/13) 검토 대기(선행 #12) |
-| 3 미적분 | [#6](https://github.com/ntt65/A2_1/issues/6) | calculus.py, 검증, PNG | 2 | 구현·로컬105개 검사 완료, [PR #14](https://github.com/ntt65/A2_1/pull/14) 검토 대기(선행 #13) |
-| 4 최적화 | [#7](https://github.com/ntt65/A2_1/issues/7) | optimizer.py, 검증, PNG | 3 | 구현·125개 검사·CI 완료, [PR #15](https://github.com/ntt65/A2_1/pull/15) 검토 대기 |
-| 5 역전파 | [#8](https://github.com/ntt65/A2_1/issues/8) | backprop_derivation.ipynb | 4 | 구현·128개 검사·CI 완료, [PR #16](https://github.com/ntt65/A2_1/pull/16) 검토 대기 |
-| 6 확률·손실 | [#9](https://github.com/ntt65/A2_1/issues/9) | probability_loss.ipynb | 5 | 구현·129개 검사·CI 완료, [PR #17](https://github.com/ntt65/A2_1/pull/17) 검토 대기 |
-| 7 통합·제출 | [#10](https://github.com/ntt65/A2_1/issues/10) | 전체 검증, 결과, README | 1~6 | 새 환경 129개 검사·산출물 재현·README 완료, [PR #18](https://github.com/ntt65/A2_1/pull/18) 검토 대기(최종 CI는 이슈 #10) |
+| 0 환경·운영 준비 | [#3](https://github.com/ntt65/A2_1/issues/3) | 환경, AGENTS, 계획, 템플릿, CI | 없음 | 로컬 검증 완료, [PR #11](https://github.com/ntt65/A2_1/pull/11) main 병합 완료 |
+| 1 공통 기반 | [#4](https://github.com/ntt65/A2_1/issues/4) | utils, cache, registry | 0 | 구현·로컬 48개 검증 완료, [PR #12](https://github.com/ntt65/A2_1/pull/12) main 병합 완료 |
+| 2 선형대수 | [#5](https://github.com/ntt65/A2_1/issues/5) | linear_algebra.py, 검증, PNG | 1 | 구현·로컬 87개 검사 완료, [PR #13](https://github.com/ntt65/A2_1/pull/13) main 병합 완료 |
+| 3 미적분 | [#6](https://github.com/ntt65/A2_1/issues/6) | calculus.py, 검증, PNG | 2 | 구현·로컬105개 검사 완료, [PR #14](https://github.com/ntt65/A2_1/pull/14) main 병합 완료 |
+| 4 최적화 | [#7](https://github.com/ntt65/A2_1/issues/7) | optimizer.py, 검증, PNG | 3 | 구현·125개 검사·CI 완료, [PR #15](https://github.com/ntt65/A2_1/pull/15) main 병합 완료 |
+| 5 역전파 | [#8](https://github.com/ntt65/A2_1/issues/8) | backprop_derivation.ipynb | 4 | 구현·128개 검사·CI 완료, [PR #16](https://github.com/ntt65/A2_1/pull/16) main 병합 완료 |
+| 6 확률·손실 | [#9](https://github.com/ntt65/A2_1/issues/9) | probability_loss.ipynb | 5 | 구현·129개 검사·CI 완료, [PR #17](https://github.com/ntt65/A2_1/pull/17) main 병합 완료 |
+| 7 통합·제출 | [#10](https://github.com/ntt65/A2_1/issues/10) | 전체 검증, 결과, README | 1~6 | 새 환경 129개 검사·산출물 재현·README 완료, [PR #18](https://github.com/ntt65/A2_1/pull/18) main 병합 완료 |
 
-후속 이슈는 미리 발행하되 브랜치는 시작할 때 최신 기준 브랜치에서 만든다. 현재 작업 브랜치는 `codex/10-integration-delivery`이다.
-2026-11-08 사용자 지시에 따라 Step 4~7은 단계별 종료 보고 후 자동으로 다음 이슈를 진행한다. 이슈·브랜치·계획·검증·PR·작업 기록은 계속 단계별로 유지한다.
+후속 이슈는 미리 발행하되 브랜치는 시작할 때 최신 기준 브랜치에서 만든다. 제출 기준은 `main`이며, 병합 후 제출 안내를 마무리하는 [이슈 #19](https://github.com/ntt65/A2_1/issues/19)의 작업 브랜치는 `codex/19-main-submission`이다.
+2026-11-08 사용자 지시에 따라 Step 4~7은 단계별 종료 보고 후 자동으로 다음 이슈를 진행했다. 이슈·브랜치·계획·검증·PR·작업 기록은 단계별로 유지했다.
 중단된 동일 이슈를 재개할 때는 기존 브랜치·PR과 기록을 재사용한다.
-사용자의 순차 진행 지시에 따라 Step 1을 시작했다. 선행 환경 PR #11은 검증 완료·검토 대기이므로,
-해당 브랜치의 완료된 변경 위에서 Step 1을 구현한다. 단계별 변경을 분리한 PR로 검토하고 #11 병합 후 Step 1의 기준 브랜치를 main으로 전환한다.
-이후 사용자 시작 지시에 따라 검증 완료된 Step 1 위에서 Step 2를 진행했다. 검토 순서는 #11→#12→#13이며 선행 병합 후 각 PR의 기준 브랜치를 main으로 전환한다.
-Step 3은 사용자 시작 지시에 따라 검증 완료된 Step 2 커밋 `112f833` 위에서 진행한다. 단계별 PR의 검토·병합 상태는 각 이슈에서 확인한다.
+사용자의 순차 진행 지시에 따라 Step 1은 당시 검증 완료·검토 대기였던 환경 PR #11의 변경 위에서 구현했다. Step 2는 검증 완료된 Step 1 위에서, Step 3은 Step 2 커밋 `112f833` 위에서 진행했다. 이후 단계도 선행 구현을 포함한 누적 브랜치로 개발하고 단계별 PR로 변경을 분리했다.
+사용자가 평가 제출을 위한 병합을 승인한 뒤 PR #11~18을 순서대로 `main`에 병합했고, 후속 PR의 기준 브랜치도 선행 병합 후 `main`으로 전환했다. 병합 완료 커밋은 [`9d50875781b52e7b56c5911553da80bd6b15bda0`](https://github.com/ntt65/A2_1/commit/9d50875781b52e7b56c5911553da80bd6b15bda0)이며, 해당 트리는 최종 검증한 누적 구현의 트리와 일치한다. 병합 후 `main` 검사와 #19의 최종 CI·종료 상태는 [이슈 #19](https://github.com/ntt65/A2_1/issues/19)에 별도로 기록한다.
 기존 [PR #1](https://github.com/ntt65/A2_1/pull/1)은 닫힌 미병합 초안이다. 검증한 단계별 PR로 대체했으며 최종 제출 브랜치에는 해당 초안을 병합하지 않았다.
 
 ## 기초계획
@@ -48,7 +46,7 @@ Step 3은 사용자 시작 지시에 따라 검증 완료된 Step 2 커밋 `112f
 | 6 | 정규·베르누이 분포, 안정적 softmax 재사용, 가정별 NLL→MSE/BCE/CE 유도 |
 | 7 | 새 환경에서 전체 테스트/노트북 재실행, 시각 검사, 레지스트리 정합성, README 결과표 |
 
-최종 목표 구조(현재 생성 여부와 다름):
+완성된 주요 제출 구조:
 
 ```text
 A2_1/
@@ -58,14 +56,17 @@ A2_1/
 ├── .github/pull_request_template.md
 ├── .github/workflows/ci.yml
 ├── docs/                            # 계획·검증·결정·작업별 기록
+├── scripts/                         # 실험·새 커널 실행·레지스트리 관리
 ├── src/
 │   ├── utils/                       # Step 1
 │   ├── linear_algebra.py            # Step 2
 │   ├── calculus.py                  # Step 3
 │   └── optimizer.py                 # Step 4
-├── tests/                           # 현재 환경 점검, 이후 수학 테스트
-├── notebooks/                       # Step 5~6
-├── outputs/                         # PNG, 실행 시 생성
+├── tests/                           # 환경·수학·캐시·레지스트리·노트북 검증
+├── notebooks/
+│   ├── backprop_derivation.ipynb     # 실행된 역전파 유도·손계산 비교
+│   └── probability_loss.ipynb        # 실행된 분포·MLE·손실 유도
+├── outputs/                         # 제출 PNG 10개·측정 JSON 5개
 ├── requirements.txt
 ├── requirements-dev.txt
 ├── requirements-lock.txt
@@ -84,7 +85,7 @@ A2_1/
 - [x] 검토에서 발견한 문제 보완 및 재검증
 - [x] 커밋·원격 브랜치 게시 및 환경 PR #11 생성(로컬 Git 인증 입력 대기로 연결된 GitHub 앱 사용)
 - [x] 이슈에 결과·실패/보완·커밋·PR 기록
-- [ ] 사용자 검토 및 병합
+- [x] 사용자 승인 후 PR #11 main 병합
 
 ## 전체 구현·검증 체크리스트
 
@@ -98,18 +99,18 @@ A2_1/
 - [x] Step 7 새 환경 전체 검사·산출물 재생성
 - [x] Step 7 최종 README·PR #18 게시
 
-Step 7 최종 커밋의 CI·종료 기록은 이 문서의 커밋 이후에 확정되므로 [이슈 #10](https://github.com/ntt65/A2_1/issues/10)에서 최신 결과를 확인한다.
+Step 7의 검증·CI·종료 기록은 [이슈 #10](https://github.com/ntt65/A2_1/issues/10), 병합 후 제출 안내 정리와 최종 상태는 [이슈 #19](https://github.com/ntt65/A2_1/issues/19)에서 확인한다.
 
 ## 검토·병합 체크리스트
 
-- [ ] Step 0 검토·병합
-- [ ] Step 1 공통 유틸·캐시·레지스트리 검증·병합
-- [ ] Step 2 선형대수 수치·시각 검증·병합
-- [ ] Step 3 수치 미분·Gradient 검증·병합
-- [ ] Step 4 수렴/진동/발산과 Momentum 비교 검증·병합
-- [ ] Step 5 손계산·역전파·노트북 검증·병합
-- [ ] Step 6 분포·MLE·노트북 검증·병합
-- [ ] Step 7 전체 재현·제출 README 검증·병합
+- [x] Step 0 검토·병합
+- [x] Step 1 공통 유틸·캐시·레지스트리 검증·병합
+- [x] Step 2 선형대수 수치·시각 검증·병합
+- [x] Step 3 수치 미분·Gradient 검증·병합
+- [x] Step 4 수렴/진동/발산과 Momentum 비교 검증·병합
+- [x] Step 5 손계산·역전파·노트북 검증·병합
+- [x] Step 6 분포·MLE·노트북 검증·병합
+- [x] Step 7 전체 재현·제출 README 검증·병합
 
 체크는 실제 완료 증거가 있을 때만 바꾼다. PR 생성만으로 검토·병합 완료를 표시하지 않는다.
 
@@ -123,7 +124,7 @@ Step 7 최종 커밋의 CI·종료 기록은 이 문서의 커밋 이후에 확�
 - [x] 통합 테스트·환경·시각 검사·코드 리뷰와 보완
 - [x] README·실측 작업 기록·인덱스·체크리스트 갱신
 - [x] 커밋·원격 게시·단계별 PR #12·이슈 기록
-- [ ] 선행 PR 병합 확인 후 Step 1 검토·병합
+- [x] 선행 PR 병합 확인 후 Step 1 검토·병합
 
 ## 실행계획: Step 2
 
@@ -135,7 +136,7 @@ Step 7 최종 커밋의 CI·종료 기록은 이 문서의 커밋 이후에 확�
 - [x] 전체 87개 테스트·환경·레지스트리 검사
 - [x] API 문서·실측 결과·수용 기준·색인 갱신
 - [x] 원격 커밋·PR #13 게시 및 구현·검증 이슈 기록(최종 CI 결과는 이슈 #5 참조)
-- [ ] 선행 PR 및 Step 2 검토·병합
+- [x] 선행 PR 및 Step 2 검토·병합
 
 ## 실행계획: Step 3
 
@@ -146,7 +147,7 @@ Step 7 최종 커밋의 CI·종료 기록은 이 문서의 커밋 이후에 확�
 - [x] 코드·수학·시각 검토 및 보완·전체 회귀 검증
 - [x] 문서·수용 기준·색인·실측 작업 기록 갱신
 - [x] 원격 게시·PR #14·구현/검증 이슈 기록(최종 CI 결과는 이슈 #6 참조)
-- [ ] 선행 PR 및 Step 3 검토·병합
+- [x] 선행 PR 및 Step 3 검토·병합
 
 ## 실행계획: Step 4
 
@@ -157,7 +158,7 @@ Step 7 최종 커밋의 CI·종료 기록은 이 문서의 커밋 이후에 확�
 - [x] 코드·수학·시각 리뷰와 보완, 전체 회귀 검사
 - [x] 문서·수용 기준·레지스트리 갱신
 - [x] 원격 게시·PR #15·Windows/Linux CI·이슈 기록
-- [ ] 사용자 검토·병합
+- [x] 사용자 승인 후 PR #15 main 병합
 
 ## 실행계획: Step 5
 
@@ -167,7 +168,7 @@ Step 7 최종 커밋의 CI·종료 기록은 이 문서의 커밋 이후에 확�
 - [x] 새 커널 실행 도구·노트북 회귀·전체 검사·독립 리뷰
 - [x] 문서·수용 기준·레지스트리·실측 기록
 - [x] 원격 게시·PR #16·Windows/Linux 보완 CI·이슈 기록
-- [ ] 사용자 검토·병합
+- [x] 사용자 승인 후 PR #16 main 병합
 
 ## 실행계획: Step 6
 
@@ -177,7 +178,7 @@ Step 7 최종 커밋의 CI·종료 기록은 이 문서의 커밋 이후에 확�
 - [x] 새 커널 실행·PNG·전체 검사·독립 리뷰와 보완
 - [x] 문서·수용 기준·레지스트리·실측 기록
 - [x] 원격 게시·PR #17·Windows/Linux CI·이슈 기록
-- [ ] 사용자 검토·병합
+- [x] 사용자 승인 후 PR #17 main 병합
 
 ## 실행계획: Step 7
 
@@ -189,5 +190,13 @@ Step 7 최종 커밋의 CI·종료 기록은 이 문서의 커밋 이후에 확�
 - [x] 최종 문서 링크 감사(20개 문서의 130개 로컬 참조)
 - [x] README 실제 명령·콘솔·결과표·그림·제출 URL 완성
 - [x] 최종 문서·원격 게시·PR #18
-- 최종 커밋 CI·이슈 기록·단계 보고의 실시간 결과: [이슈 #10](https://github.com/ntt65/A2_1/issues/10)
-- [ ] 사용자 검토·병합
+- Step 7 검증·CI·이슈 기록·단계 보고: [이슈 #10](https://github.com/ntt65/A2_1/issues/10)
+- [x] 사용자 승인 후 PR #18 main 병합
+
+## 병합 후 제출 마무리: 이슈 #19
+
+[이슈 #19](https://github.com/ntt65/A2_1/issues/19)에서 `main`의 평가 제출 안내와 작업 기록을 정리한다. 작업 브랜치는 `codex/19-main-submission`이며 기존 수학 구현·검증 수치는 유지한다.
+
+- [x] PR #11~18의 main 병합 완료와 최종 검증 트리 일치 확인
+- [x] README·전체 계획·작업 기록을 main 제출 기준으로 정리
+문서 변경의 PR·최종 CI·병합 결과·제출 완료 보고는 이 문서 커밋 이후에 확정되므로 [이슈 #19](https://github.com/ntt65/A2_1/issues/19)의 최종 상태를 따른다.

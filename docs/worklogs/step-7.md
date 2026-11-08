@@ -76,3 +76,10 @@ Executed probability_loss.ipynb: 9 code cells passed; source unchanged
 [최종 PR #18](https://github.com/ntt65/A2_1/pull/18)을 게시했다. 최종 커밋의 원격 CI·로컬 동기화·종료 보고는 이슈 #10과 전체 추적 #2에서 확인한다. 이 문서 자체의 커밋 이후에 실행되는 검사이므로 최종 결과를 이슈에 누적한다.
 구현 결과 전체는 [최종 누적 브랜치](https://github.com/ntt65/A2_1/tree/codex/10-integration-delivery)에 있다.
 기존 초안 PR #1은 닫힌 미병합 상태이며, 단계별 검증 PR로 대체했다. PR #11부터 순서대로 검토·병합해야 기본 브랜치에 전체 결과가 반영된다.
+
+## 사용자 승인에 따른 main 병합 (2026-11-08)
+
+사용자가 “머지해 평가 받게”, “머지해”라고 지시하여 PR #11~#18을 순차 병합했다. 각 선행 PR 병합 후 다음 PR의 기준을 main으로 변경하고 검증한 head SHA를 지정해 merge commit으로 이력을 보존했다.
+완료된 main 커밋 `9d50875781b52e7b56c5911553da80bd6b15bda0`의 tree는 `53e855259e92ada3bac387b3c3842c6a5384f100`으로, 마지막 검증 완료 제출 커밋의 전체 파일과 동일했다.
+이전 전달 상태의 검토·병합 대기는 당시 기록이다. 현재 필수 구현은 모두 main에 있으며 [평가용 저장소 URL](https://github.com/ntt65/A2_1)을 사용한다.
+README의 설치 명령·제출 주소와 전체 계획의 상태 정리는 별도 [이슈 #19](https://github.com/ntt65/A2_1/issues/19), `codex/19-main-submission` 브랜치에서 수행한다. 문서 정리 PR과 병합 후 main CI·최종 커밋·로컬 동기화 결과는 해당 이슈에 기록한다.
