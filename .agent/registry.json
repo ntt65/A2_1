@@ -1,0 +1,1231 @@
+{
+  "forward": {
+    "scripts/update_registry.py": {
+      "concepts": [
+        "Registry"
+      ],
+      "covers": [],
+      "dependencies": [
+        "__future__",
+        "argparse",
+        "ast",
+        "hashlib",
+        "json",
+        "os",
+        "pathlib",
+        "re",
+        "sys",
+        "tempfile",
+        "typing"
+      ],
+      "language": "python",
+      "sha256": "e727780df505a579d2d3618cbce3f515bad2d4a4ac5790e9ad3e3008c02fdef7",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 55,
+          "kind": "function",
+          "line": 36,
+          "name": "_scoped_files"
+        },
+        {
+          "concepts": [],
+          "end_line": 64,
+          "kind": "function",
+          "line": 58,
+          "name": "_string_list"
+        },
+        {
+          "concepts": [],
+          "end_line": 83,
+          "kind": "function",
+          "line": 67,
+          "name": "_metadata"
+        },
+        {
+          "concepts": [],
+          "end_line": 117,
+          "kind": "class",
+          "line": 86,
+          "name": "_SymbolVisitor"
+        },
+        {
+          "concepts": [],
+          "end_line": 92,
+          "kind": "method",
+          "line": 89,
+          "name": "_SymbolVisitor.__init__"
+        },
+        {
+          "concepts": [],
+          "end_line": 105,
+          "kind": "method",
+          "line": 94,
+          "name": "_SymbolVisitor._visit_symbol"
+        },
+        {
+          "concepts": [],
+          "end_line": 109,
+          "kind": "method",
+          "line": 107,
+          "name": "_SymbolVisitor.visit_FunctionDef"
+        },
+        {
+          "concepts": [],
+          "end_line": 113,
+          "kind": "method",
+          "line": 111,
+          "name": "_SymbolVisitor.visit_AsyncFunctionDef"
+        },
+        {
+          "concepts": [],
+          "end_line": 117,
+          "kind": "method",
+          "line": 115,
+          "name": "_SymbolVisitor.visit_ClassDef"
+        },
+        {
+          "concepts": [],
+          "end_line": 154,
+          "kind": "function",
+          "line": 120,
+          "name": "_python_entry"
+        },
+        {
+          "concepts": [],
+          "end_line": 164,
+          "kind": "function",
+          "line": 157,
+          "name": "_cell_source"
+        },
+        {
+          "concepts": [],
+          "end_line": 205,
+          "kind": "function",
+          "line": 167,
+          "name": "_notebook_entry"
+        },
+        {
+          "concepts": [
+            "Registry"
+          ],
+          "end_line": 250,
+          "kind": "function",
+          "line": 208,
+          "name": "build_registry"
+        },
+        {
+          "concepts": [
+            "Registry"
+          ],
+          "end_line": 273,
+          "kind": "function",
+          "line": 253,
+          "name": "write_registry"
+        },
+        {
+          "concepts": [
+            "Registry"
+          ],
+          "end_line": 304,
+          "kind": "function",
+          "line": 276,
+          "name": "check_registry"
+        },
+        {
+          "concepts": [],
+          "end_line": 329,
+          "kind": "function",
+          "line": 307,
+          "name": "main"
+        }
+      ],
+      "tests": [
+        "tests/test_registry.py"
+      ]
+    },
+    "src/__init__.py": {
+      "concepts": [],
+      "covers": [],
+      "dependencies": [],
+      "language": "python",
+      "sha256": "046df61661ab30f0359c19fec1b48f8566393608f14af69fd76ad5f5cad109d8",
+      "symbols": [],
+      "tests": []
+    },
+    "src/utils/__init__.py": {
+      "concepts": [],
+      "covers": [],
+      "dependencies": [],
+      "language": "python",
+      "sha256": "7d5d71dadd36c211f2f7deca8ec297de68bacf1d849cb46ba8f9595909a82bdc",
+      "symbols": [],
+      "tests": []
+    },
+    "src/utils/cache_manager.py": {
+      "concepts": [
+        "Cache_Key",
+        "Cache_Manager"
+      ],
+      "covers": [],
+      "dependencies": [
+        "collections",
+        "copy",
+        "hashlib",
+        "json",
+        "math",
+        "numpy",
+        "os",
+        "pathlib",
+        "re",
+        "tempfile",
+        "typing",
+        "zipfile"
+      ],
+      "language": "python",
+      "sha256": "7c115e8e9cd5aafdba512d6ff7c980bb118fae3ad5643cfd879e3e89c29c2c40",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 53,
+          "kind": "function",
+          "line": 24,
+          "name": "_pack_value"
+        },
+        {
+          "concepts": [],
+          "end_line": 100,
+          "kind": "function",
+          "line": 56,
+          "name": "_unpack_value"
+        },
+        {
+          "concepts": [],
+          "end_line": 107,
+          "kind": "function",
+          "line": 103,
+          "name": "_json_bytes"
+        },
+        {
+          "concepts": [
+            "Cache_Key"
+          ],
+          "end_line": 142,
+          "kind": "function",
+          "line": 110,
+          "name": "make_cache_key"
+        },
+        {
+          "concepts": [
+            "Cache_Manager"
+          ],
+          "end_line": 281,
+          "kind": "class",
+          "line": 145,
+          "name": "CacheManager"
+        },
+        {
+          "concepts": [],
+          "end_line": 181,
+          "kind": "method",
+          "line": 164,
+          "name": "CacheManager.__init__"
+        },
+        {
+          "concepts": [],
+          "end_line": 210,
+          "kind": "method",
+          "line": 183,
+          "name": "CacheManager.get_or_compute"
+        },
+        {
+          "concepts": [],
+          "end_line": 219,
+          "kind": "method",
+          "line": 212,
+          "name": "CacheManager._remember"
+        },
+        {
+          "concepts": [],
+          "end_line": 237,
+          "kind": "method",
+          "line": 221,
+          "name": "CacheManager._read_disk"
+        },
+        {
+          "concepts": [],
+          "end_line": 245,
+          "kind": "method",
+          "line": 239,
+          "name": "CacheManager._entry_paths"
+        },
+        {
+          "concepts": [],
+          "end_line": 271,
+          "kind": "method",
+          "line": 247,
+          "name": "CacheManager._write_disk"
+        },
+        {
+          "concepts": [],
+          "end_line": 281,
+          "kind": "method",
+          "line": 273,
+          "name": "CacheManager.clear"
+        }
+      ],
+      "tests": [
+        "tests/test_cache_manager.py"
+      ]
+    },
+    "src/utils/math.py": {
+      "concepts": [
+        "Sigmoid",
+        "Softmax"
+      ],
+      "covers": [],
+      "dependencies": [
+        "numpy",
+        "numpy.typing"
+      ],
+      "language": "python",
+      "sha256": "fe401b420a3372e02bca4bfd97f369b40a5670944123a9c8ff6362381a24bdc8",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 18,
+          "kind": "function",
+          "line": 9,
+          "name": "_as_finite_real_array"
+        },
+        {
+          "concepts": [
+            "Sigmoid"
+          ],
+          "end_line": 35,
+          "kind": "function",
+          "line": 21,
+          "name": "sigmoid"
+        },
+        {
+          "concepts": [
+            "Softmax"
+          ],
+          "end_line": 58,
+          "kind": "function",
+          "line": 38,
+          "name": "softmax"
+        }
+      ],
+      "tests": [
+        "tests/test_math_utils.py"
+      ]
+    },
+    "src/utils/numerical.py": {
+      "concepts": [
+        "Central_Difference"
+      ],
+      "covers": [],
+      "dependencies": [
+        "collections.abc",
+        "numpy",
+        "src.utils.math"
+      ],
+      "language": "python",
+      "sha256": "67f4f044f7ea2147f477222cbec2a623883df84d6f3ebf2f7e3a0f9af4491df5",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 17,
+          "kind": "function",
+          "line": 12,
+          "name": "_finite_scalar"
+        },
+        {
+          "concepts": [
+            "Central_Difference"
+          ],
+          "end_line": 48,
+          "kind": "function",
+          "line": 20,
+          "name": "central_difference"
+        }
+      ],
+      "tests": [
+        "tests/test_math_utils.py"
+      ]
+    },
+    "src/utils/plotting.py": {
+      "concepts": [
+        "Contour_Grid",
+        "Contour_Plot"
+      ],
+      "covers": [],
+      "dependencies": [
+        "collections.abc",
+        "matplotlib.axes",
+        "matplotlib.figure",
+        "matplotlib.pyplot",
+        "numpy",
+        "numpy.typing",
+        "src.utils.math"
+      ],
+      "language": "python",
+      "sha256": "9132646d597de568e7e3f19705e09c64b523b6b9ffe63efbdad29c07c4bb21f3",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 21,
+          "kind": "function",
+          "line": 16,
+          "name": "_interval"
+        },
+        {
+          "concepts": [
+            "Contour_Grid"
+          ],
+          "end_line": 54,
+          "kind": "function",
+          "line": 24,
+          "name": "contour_grid"
+        },
+        {
+          "concepts": [
+            "Contour_Plot"
+          ],
+          "end_line": 86,
+          "kind": "function",
+          "line": 57,
+          "name": "contour_base"
+        }
+      ],
+      "tests": [
+        "tests/test_plotting.py"
+      ]
+    },
+    "src/utils/random.py": {
+      "concepts": [
+        "Reproducible_Seed"
+      ],
+      "covers": [],
+      "dependencies": [
+        "numpy"
+      ],
+      "language": "python",
+      "sha256": "4641ae31289162663ea4ed89442021d85bef0b5fba2c84dc355b1fc341606051",
+      "symbols": [
+        {
+          "concepts": [
+            "Reproducible_Seed"
+          ],
+          "end_line": 19,
+          "kind": "function",
+          "line": 8,
+          "name": "set_seed"
+        }
+      ],
+      "tests": [
+        "tests/test_math_utils.py"
+      ]
+    },
+    "tests/test_cache_manager.py": {
+      "concepts": [],
+      "covers": [
+        "src/utils/cache_manager.py"
+      ],
+      "dependencies": [
+        "io",
+        "json",
+        "numpy",
+        "os",
+        "pathlib",
+        "src.utils.cache_manager",
+        "tempfile",
+        "unittest",
+        "unittest.mock",
+        "zipfile"
+      ],
+      "language": "python",
+      "sha256": "c0a171325adaa0c9d2e1288729035867608ce1dbb255188eef72df2adf62cb14",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 68,
+          "kind": "class",
+          "line": 19,
+          "name": "CacheKeyTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 30,
+          "kind": "method",
+          "line": 22,
+          "name": "CacheKeyTests.test_determinism_and_dictionary_order"
+        },
+        {
+          "concepts": [],
+          "end_line": 44,
+          "kind": "method",
+          "line": 32,
+          "name": "CacheKeyTests.test_all_computation_inputs_affect_identity"
+        },
+        {
+          "concepts": [],
+          "end_line": 50,
+          "kind": "method",
+          "line": 46,
+          "name": "CacheKeyTests.test_scalar_and_container_types_are_distinct"
+        },
+        {
+          "concepts": [],
+          "end_line": 68,
+          "kind": "method",
+          "line": 52,
+          "name": "CacheKeyTests.test_invalid_key_inputs_fail"
+        },
+        {
+          "concepts": [],
+          "end_line": 288,
+          "kind": "class",
+          "line": 71,
+          "name": "CacheManagerTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 79,
+          "kind": "method",
+          "line": 74,
+          "name": "CacheManagerTests.setUp"
+        },
+        {
+          "concepts": [],
+          "end_line": 100,
+          "kind": "method",
+          "line": 81,
+          "name": "CacheManagerTests.test_memory_hit_and_mutation_isolation"
+        },
+        {
+          "concepts": [],
+          "end_line": 90,
+          "kind": "function",
+          "line": 87,
+          "name": "CacheManagerTests.test_memory_hit_and_mutation_isolation.compute"
+        },
+        {
+          "concepts": [],
+          "end_line": 118,
+          "kind": "method",
+          "line": 102,
+          "name": "CacheManagerTests.test_disk_restart_preserves_shapes_dtypes_and_json"
+        },
+        {
+          "concepts": [],
+          "end_line": 109,
+          "kind": "function",
+          "line": 107,
+          "name": "CacheManagerTests.test_disk_restart_preserves_shapes_dtypes_and_json.fail"
+        },
+        {
+          "concepts": [],
+          "end_line": 126,
+          "kind": "method",
+          "line": 120,
+          "name": "CacheManagerTests.test_none_is_a_valid_hit"
+        },
+        {
+          "concepts": [],
+          "end_line": 149,
+          "kind": "method",
+          "line": 128,
+          "name": "CacheManagerTests.test_corrupt_or_wrong_version_archive_is_recomputed"
+        },
+        {
+          "concepts": [],
+          "end_line": 144,
+          "kind": "function",
+          "line": 141,
+          "name": "CacheManagerTests.test_corrupt_or_wrong_version_archive_is_recomputed.compute"
+        },
+        {
+          "concepts": [],
+          "end_line": 161,
+          "kind": "method",
+          "line": 151,
+          "name": "CacheManagerTests.test_object_array_archive_is_never_loaded_with_pickle"
+        },
+        {
+          "concepts": [],
+          "end_line": 182,
+          "kind": "method",
+          "line": 163,
+          "name": "CacheManagerTests._assert_raw_member_archive_is_repaired"
+        },
+        {
+          "concepts": [],
+          "end_line": 175,
+          "kind": "function",
+          "line": 172,
+          "name": "CacheManagerTests._assert_raw_member_archive_is_repaired.compute"
+        },
+        {
+          "concepts": [],
+          "end_line": 186,
+          "kind": "method",
+          "line": 184,
+          "name": "CacheManagerTests.test_non_npy_metadata_member_is_recomputed"
+        },
+        {
+          "concepts": [],
+          "end_line": 195,
+          "kind": "method",
+          "line": 188,
+          "name": "CacheManagerTests.test_non_npy_result_member_is_recomputed"
+        },
+        {
+          "concepts": [],
+          "end_line": 210,
+          "kind": "method",
+          "line": 197,
+          "name": "CacheManagerTests.test_disabled_mode_never_reads_or_writes_cache"
+        },
+        {
+          "concepts": [],
+          "end_line": 205,
+          "kind": "function",
+          "line": 202,
+          "name": "CacheManagerTests.test_disabled_mode_never_reads_or_writes_cache.compute"
+        },
+        {
+          "concepts": [],
+          "end_line": 223,
+          "kind": "method",
+          "line": 212,
+          "name": "CacheManagerTests.test_memory_lru_capacity_without_disk"
+        },
+        {
+          "concepts": [],
+          "end_line": 239,
+          "kind": "method",
+          "line": 225,
+          "name": "CacheManagerTests.test_disk_capacity_and_clear_preserve_unrelated_files"
+        },
+        {
+          "concepts": [],
+          "end_line": 251,
+          "kind": "method",
+          "line": 241,
+          "name": "CacheManagerTests.test_atomic_write_failure_keeps_old_file_and_computation_result"
+        },
+        {
+          "concepts": [],
+          "end_line": 267,
+          "kind": "method",
+          "line": 253,
+          "name": "CacheManagerTests.test_invalid_keys_limits_and_results_fail"
+        },
+        {
+          "concepts": [],
+          "end_line": 280,
+          "kind": "method",
+          "line": 269,
+          "name": "CacheManagerTests.test_callback_exceptions_do_not_create_entries"
+        },
+        {
+          "concepts": [],
+          "end_line": 275,
+          "kind": "function",
+          "line": 273,
+          "name": "CacheManagerTests.test_callback_exceptions_do_not_create_entries.fail"
+        },
+        {
+          "concepts": [],
+          "end_line": 288,
+          "kind": "method",
+          "line": 282,
+          "name": "CacheManagerTests.test_failed_temporary_cleanup_does_not_break_computation"
+        }
+      ],
+      "tests": []
+    },
+    "tests/test_environment.py": {
+      "concepts": [],
+      "covers": [],
+      "dependencies": [
+        "importlib",
+        "json",
+        "jupyter_client",
+        "jupyter_client.kernelspec",
+        "matplotlib",
+        "matplotlib.pyplot",
+        "nbclient",
+        "nbformat",
+        "numpy",
+        "pathlib",
+        "seaborn",
+        "sys",
+        "tempfile",
+        "unittest"
+      ],
+      "language": "python",
+      "sha256": "603bbe2f0e7df0d11063a7150370fa2e14cfecb85569b8fbd65c591a7bcc4a17",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 82,
+          "kind": "class",
+          "line": 11,
+          "name": "EnvironmentTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 19,
+          "kind": "method",
+          "line": 14,
+          "name": "EnvironmentTests.test_python_and_required_imports"
+        },
+        {
+          "concepts": [],
+          "end_line": 39,
+          "kind": "method",
+          "line": 21,
+          "name": "EnvironmentTests.test_headless_png_rendering"
+        },
+        {
+          "concepts": [],
+          "end_line": 82,
+          "kind": "method",
+          "line": 41,
+          "name": "EnvironmentTests.test_notebook_execution"
+        }
+      ],
+      "tests": []
+    },
+    "tests/test_math_utils.py": {
+      "concepts": [],
+      "covers": [
+        "src/utils/math.py",
+        "src/utils/numerical.py",
+        "src/utils/random.py"
+      ],
+      "dependencies": [
+        "importlib",
+        "numpy",
+        "src.utils.math",
+        "src.utils.numerical",
+        "src.utils.random",
+        "unittest"
+      ],
+      "language": "python",
+      "sha256": "7cb0dec2d3bec9df6fc07c3eb80dc09e4135bfdbc1568b8368bb5a513e764f57",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 93,
+          "kind": "class",
+          "line": 15,
+          "name": "ActivationTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 29,
+          "kind": "method",
+          "line": 18,
+          "name": "ActivationTests.test_sigmoid_known_probabilities_and_shape"
+        },
+        {
+          "concepts": [],
+          "end_line": 36,
+          "kind": "method",
+          "line": 31,
+          "name": "ActivationTests.test_sigmoid_extremes_without_overflow"
+        },
+        {
+          "concepts": [],
+          "end_line": 45,
+          "kind": "method",
+          "line": 38,
+          "name": "ActivationTests.test_softmax_known_probabilities"
+        },
+        {
+          "concepts": [],
+          "end_line": 59,
+          "kind": "method",
+          "line": 47,
+          "name": "ActivationTests.test_softmax_axes_and_shift_invariance"
+        },
+        {
+          "concepts": [],
+          "end_line": 68,
+          "kind": "method",
+          "line": 61,
+          "name": "ActivationTests.test_softmax_extreme_logits"
+        },
+        {
+          "concepts": [],
+          "end_line": 80,
+          "kind": "method",
+          "line": 70,
+          "name": "ActivationTests.test_activation_input_rejection"
+        },
+        {
+          "concepts": [],
+          "end_line": 93,
+          "kind": "method",
+          "line": 82,
+          "name": "ActivationTests.test_softmax_axis_and_empty_rejection"
+        },
+        {
+          "concepts": [],
+          "end_line": 135,
+          "kind": "class",
+          "line": 96,
+          "name": "NumericalTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 103,
+          "kind": "method",
+          "line": 99,
+          "name": "NumericalTests.test_quadratic_required_accuracy"
+        },
+        {
+          "concepts": [],
+          "end_line": 109,
+          "kind": "method",
+          "line": 105,
+          "name": "NumericalTests.test_other_analytical_derivatives"
+        },
+        {
+          "concepts": [],
+          "end_line": 118,
+          "kind": "method",
+          "line": 111,
+          "name": "NumericalTests.test_invalid_steps_and_sampling_points"
+        },
+        {
+          "concepts": [],
+          "end_line": 135,
+          "kind": "method",
+          "line": 120,
+          "name": "NumericalTests.test_scalar_function_contract"
+        },
+        {
+          "concepts": [],
+          "end_line": 175,
+          "kind": "class",
+          "line": 138,
+          "name": "SeedTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 152,
+          "kind": "method",
+          "line": 141,
+          "name": "SeedTests.test_seed_reproduces_known_numpy_sequence"
+        },
+        {
+          "concepts": [],
+          "end_line": 166,
+          "kind": "method",
+          "line": 154,
+          "name": "SeedTests.test_import_has_no_rng_side_effect"
+        },
+        {
+          "concepts": [],
+          "end_line": 175,
+          "kind": "method",
+          "line": 168,
+          "name": "SeedTests.test_invalid_seed"
+        }
+      ],
+      "tests": []
+    },
+    "tests/test_plotting.py": {
+      "concepts": [],
+      "covers": [
+        "src/utils/plotting.py"
+      ],
+      "dependencies": [
+        "matplotlib",
+        "matplotlib.pyplot",
+        "numpy",
+        "pathlib",
+        "src.utils.plotting",
+        "tempfile",
+        "unittest"
+      ],
+      "language": "python",
+      "sha256": "ab2d2dc9c67aab80603b9a3c4fa0f1e318d89b04100e33c2c6a7f2fe3861c2cd",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 86,
+          "kind": "class",
+          "line": 18,
+          "name": "ContourTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 29,
+          "kind": "method",
+          "line": 21,
+          "name": "ContourTests.test_mesh_orientation_and_values"
+        },
+        {
+          "concepts": [],
+          "end_line": 46,
+          "kind": "method",
+          "line": 31,
+          "name": "ContourTests.test_contour_figure_can_be_saved"
+        },
+        {
+          "concepts": [],
+          "end_line": 63,
+          "kind": "method",
+          "line": 48,
+          "name": "ContourTests.test_invalid_grid_parameters"
+        },
+        {
+          "concepts": [],
+          "end_line": 75,
+          "kind": "method",
+          "line": 65,
+          "name": "ContourTests.test_invalid_function_output"
+        },
+        {
+          "concepts": [],
+          "end_line": 86,
+          "kind": "method",
+          "line": 77,
+          "name": "ContourTests.test_invalid_levels_do_not_leak_figures"
+        }
+      ],
+      "tests": []
+    },
+    "tests/test_registry.py": {
+      "concepts": [],
+      "covers": [
+        "scripts/update_registry.py"
+      ],
+      "dependencies": [
+        "hashlib",
+        "json",
+        "pathlib",
+        "scripts.update_registry",
+        "subprocess",
+        "sys",
+        "tempfile",
+        "unittest"
+      ],
+      "language": "python",
+      "sha256": "9d7d8e9710cb35467ec93233552f0f7bde6c5729f3825da164c4ed638066dc27",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 164,
+          "kind": "class",
+          "line": 17,
+          "name": "RegistryTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 37,
+          "kind": "method",
+          "line": 20,
+          "name": "RegistryTests.setUp"
+        },
+        {
+          "concepts": [],
+          "end_line": 41,
+          "kind": "method",
+          "line": 39,
+          "name": "RegistryTests.tearDown"
+        },
+        {
+          "concepts": [],
+          "end_line": 47,
+          "kind": "method",
+          "line": 43,
+          "name": "RegistryTests.write"
+        },
+        {
+          "concepts": [],
+          "end_line": 63,
+          "kind": "method",
+          "line": 49,
+          "name": "RegistryTests.test_forward_and_reverse_locations"
+        },
+        {
+          "concepts": [],
+          "end_line": 72,
+          "kind": "method",
+          "line": 65,
+          "name": "RegistryTests.test_unannotated_symbols_and_bounded_discovery"
+        },
+        {
+          "concepts": [],
+          "end_line": 82,
+          "kind": "method",
+          "line": 74,
+          "name": "RegistryTests.test_deterministic_update_and_byte_hash"
+        },
+        {
+          "concepts": [],
+          "end_line": 96,
+          "kind": "method",
+          "line": 84,
+          "name": "RegistryTests.test_changed_added_and_deleted_files_are_detected"
+        },
+        {
+          "concepts": [],
+          "end_line": 107,
+          "kind": "method",
+          "line": 98,
+          "name": "RegistryTests.test_missing_corrupt_and_inconsistent_registry"
+        },
+        {
+          "concepts": [],
+          "end_line": 124,
+          "kind": "method",
+          "line": 109,
+          "name": "RegistryTests.test_annotations_must_name_real_symbols_and_targets"
+        },
+        {
+          "concepts": [],
+          "end_line": 150,
+          "kind": "method",
+          "line": 126,
+          "name": "RegistryTests.test_notebook_cells_have_stable_concept_locations"
+        },
+        {
+          "concepts": [],
+          "end_line": 164,
+          "kind": "method",
+          "line": 152,
+          "name": "RegistryTests.test_cli_exit_codes"
+        }
+      ],
+      "tests": []
+    }
+  },
+  "reverse": {
+    "Cache_Key": [
+      {
+        "dependencies": [
+          "collections",
+          "copy",
+          "hashlib",
+          "json",
+          "math",
+          "numpy",
+          "os",
+          "pathlib",
+          "re",
+          "tempfile",
+          "typing",
+          "zipfile"
+        ],
+        "line": 110,
+        "path": "src/utils/cache_manager.py",
+        "symbol": "make_cache_key",
+        "tests": [
+          "tests/test_cache_manager.py"
+        ]
+      }
+    ],
+    "Cache_Manager": [
+      {
+        "dependencies": [
+          "collections",
+          "copy",
+          "hashlib",
+          "json",
+          "math",
+          "numpy",
+          "os",
+          "pathlib",
+          "re",
+          "tempfile",
+          "typing",
+          "zipfile"
+        ],
+        "line": 145,
+        "path": "src/utils/cache_manager.py",
+        "symbol": "CacheManager",
+        "tests": [
+          "tests/test_cache_manager.py"
+        ]
+      }
+    ],
+    "Central_Difference": [
+      {
+        "dependencies": [
+          "collections.abc",
+          "numpy",
+          "src.utils.math"
+        ],
+        "line": 20,
+        "path": "src/utils/numerical.py",
+        "symbol": "central_difference",
+        "tests": [
+          "tests/test_math_utils.py"
+        ]
+      }
+    ],
+    "Contour_Grid": [
+      {
+        "dependencies": [
+          "collections.abc",
+          "matplotlib.axes",
+          "matplotlib.figure",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.math"
+        ],
+        "line": 24,
+        "path": "src/utils/plotting.py",
+        "symbol": "contour_grid",
+        "tests": [
+          "tests/test_plotting.py"
+        ]
+      }
+    ],
+    "Contour_Plot": [
+      {
+        "dependencies": [
+          "collections.abc",
+          "matplotlib.axes",
+          "matplotlib.figure",
+          "matplotlib.pyplot",
+          "numpy",
+          "numpy.typing",
+          "src.utils.math"
+        ],
+        "line": 57,
+        "path": "src/utils/plotting.py",
+        "symbol": "contour_base",
+        "tests": [
+          "tests/test_plotting.py"
+        ]
+      }
+    ],
+    "Registry": [
+      {
+        "dependencies": [
+          "__future__",
+          "argparse",
+          "ast",
+          "hashlib",
+          "json",
+          "os",
+          "pathlib",
+          "re",
+          "sys",
+          "tempfile",
+          "typing"
+        ],
+        "line": 208,
+        "path": "scripts/update_registry.py",
+        "symbol": "build_registry",
+        "tests": [
+          "tests/test_registry.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "__future__",
+          "argparse",
+          "ast",
+          "hashlib",
+          "json",
+          "os",
+          "pathlib",
+          "re",
+          "sys",
+          "tempfile",
+          "typing"
+        ],
+        "line": 253,
+        "path": "scripts/update_registry.py",
+        "symbol": "write_registry",
+        "tests": [
+          "tests/test_registry.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "__future__",
+          "argparse",
+          "ast",
+          "hashlib",
+          "json",
+          "os",
+          "pathlib",
+          "re",
+          "sys",
+          "tempfile",
+          "typing"
+        ],
+        "line": 276,
+        "path": "scripts/update_registry.py",
+        "symbol": "check_registry",
+        "tests": [
+          "tests/test_registry.py"
+        ]
+      }
+    ],
+    "Reproducible_Seed": [
+      {
+        "dependencies": [
+          "numpy"
+        ],
+        "line": 8,
+        "path": "src/utils/random.py",
+        "symbol": "set_seed",
+        "tests": [
+          "tests/test_math_utils.py"
+        ]
+      }
+    ],
+    "Sigmoid": [
+      {
+        "dependencies": [
+          "numpy",
+          "numpy.typing"
+        ],
+        "line": 21,
+        "path": "src/utils/math.py",
+        "symbol": "sigmoid",
+        "tests": [
+          "tests/test_math_utils.py"
+        ]
+      }
+    ],
+    "Softmax": [
+      {
+        "dependencies": [
+          "numpy",
+          "numpy.typing"
+        ],
+        "line": 38,
+        "path": "src/utils/math.py",
+        "symbol": "softmax",
+        "tests": [
+          "tests/test_math_utils.py"
+        ]
+      }
+    ]
+  },
+  "schema_version": 1,
+  "scope": {
+    "notebooks": [
+      "notebooks"
+    ],
+    "python": [
+      "src",
+      "tests",
+      "scripts"
+    ]
+  }
+}
