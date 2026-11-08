@@ -11,17 +11,18 @@
 |---|---|---|---|---|
 | 0 환경·운영 준비 | [#3](https://github.com/ntt65/A2_1/issues/3) | 환경, AGENTS, 계획, 템플릿, CI | 없음 | 로컬 검증 완료, [PR #11](https://github.com/ntt65/A2_1/pull/11) 검토 대기 |
 | 1 공통 기반 | [#4](https://github.com/ntt65/A2_1/issues/4) | utils, cache, registry | 0 | 구현·로컬 48개 검증 완료, [PR #12](https://github.com/ntt65/A2_1/pull/12) 검토 대기(선행 #11) |
-| 2 선형대수 | [#5](https://github.com/ntt65/A2_1/issues/5) | linear_algebra.py, 검증, PNG | 1 | 계획됨 |
+| 2 선형대수 | [#5](https://github.com/ntt65/A2_1/issues/5) | linear_algebra.py, 검증, PNG | 1 | 구현·로컬 87개 검사 완료, [PR #13](https://github.com/ntt65/A2_1/pull/13) 검토 대기(선행 #12) |
 | 3 미적분 | [#6](https://github.com/ntt65/A2_1/issues/6) | calculus.py, 검증, PNG | 2 | 계획됨 |
 | 4 최적화 | [#7](https://github.com/ntt65/A2_1/issues/7) | optimizer.py, 검증, PNG | 3 | 계획됨 |
 | 5 역전파 | [#8](https://github.com/ntt65/A2_1/issues/8) | backprop_derivation.ipynb | 4 | 계획됨 |
 | 6 확률·손실 | [#9](https://github.com/ntt65/A2_1/issues/9) | probability_loss.ipynb | 5 | 계획됨 |
 | 7 통합·제출 | [#10](https://github.com/ntt65/A2_1/issues/10) | 전체 검증, 결과, README | 1~6 | 계획됨 |
 
-후속 이슈는 미리 발행하되 브랜치는 시작할 때 최신 기준 브랜치에서 만든다. 현재 작업 브랜치는 `codex/4-shared-utils`이다.
+후속 이슈는 미리 발행하되 브랜치는 시작할 때 최신 기준 브랜치에서 만든다. 현재 작업 브랜치는 `codex/5-linear-algebra`이다.
 중단된 동일 이슈를 재개할 때는 기존 브랜치·PR과 기록을 재사용한다.
 사용자의 순차 진행 지시에 따라 Step 1을 시작했다. 선행 환경 PR #11은 검증 완료·검토 대기이므로,
 해당 브랜치의 완료된 변경 위에서 Step 1을 구현한다. 단계별 변경을 분리한 PR로 검토하고 #11 병합 후 Step 1의 기준 브랜치를 main으로 전환한다.
+이후 사용자 시작 지시에 따라 검증 완료된 Step 1 위에서 Step 2를 진행했다. 검토 순서는 #11→#12→#13이며 선행 병합 후 각 PR의 기준 브랜치를 main으로 전환한다.
 기존 [PR #1](https://github.com/ntt65/A2_1/pull/1)은 전체 구현 초안이며 후속 작업에서 필요한 내용을 검토한다. 존재만으로 검증·완료로 판정하지 않는다.
 
 ## 기초계획
@@ -107,3 +108,15 @@ A2_1/
 - [x] README·실측 작업 기록·인덱스·체크리스트 갱신
 - [x] 커밋·원격 게시·단계별 PR #12·이슈 기록
 - [ ] 선행 PR 병합 확인 후 Step 1 검토·병합
+
+## 실행계획: Step 2
+
+- [x] 이슈 #5의 기초·상세·실행계획과 선행 상태 확인
+- [x] 원격/로컬 `codex/5-linear-algebra` 브랜치·upstream 생성
+- [x] 변환·면적, Power Iteration, SVD 및 독립 단위 테스트 구현
+- [x] 합성 데이터·재현 스크립트·PNG/JSON 결과 생성
+- [x] 독립 코드·수학·시각 검토와 회귀 보완
+- [x] 전체 87개 테스트·환경·레지스트리 검사
+- [x] API 문서·실측 결과·수용 기준·색인 갱신
+- [x] 원격 커밋·PR #13 게시 및 구현·검증 이슈 기록(최종 CI 결과는 이슈 #5 참조)
+- [ ] 선행 PR 및 Step 2 검토·병합
