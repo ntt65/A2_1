@@ -25,7 +25,7 @@
 4. core math·그림 구현과 독립 리뷰를 분담하고 단일 calculus 모듈에 통합했다.
 5. 실행 스크립트와 산출물 검증을 추가하고 관련18개 테스트를 통과했다.
 6. 전체105개 테스트·pip check·registry 검사, 최종 PNG 시각 검토를 수행했다.
-7. 연결된 GitHub 앱으로 원격 게시·PR 생성 후 최종 CI와 커밋·PR을 이슈 #6에 기록한다.
+7. 연결된 GitHub 앱으로 원격 게시·PR #14를 생성했다. 최종 CI와 문서 후속 커밋을 이슈 #6에 기록한다.
 
 ## 결과
 
@@ -44,6 +44,14 @@ Python3.11.4 / NumPy2.2.6 / Matplotlib3.10.3, float64, seed42(난수 소비 없�
 | PNG | 같은 축 배율·바깥쪽 gradient·수직 접선·방향 없는 원점·symlog 영 오차 표시 확인 |
 
 재현 명령·수식·전체 표는 [미적분 문서](../CALCULUS.md), 원시 값은 [측정 JSON](../../outputs/calculus_metrics.json)에 있다.
+
+## 게시 기록
+
+- 구현 커밋 [`9d14f88`](https://github.com/ntt65/A2_1/commit/9d14f8810c3f5e548d6997265c79ea327a4bcc15).
+- [PR #14](https://github.com/ntt65/A2_1/pull/14), base `codex/5-linear-algebra`. 검토 순서는 #11→#12→#13→#14다.
+- 최초 tree `65d57a4862265bf78e90bb041e36d49990fa6571`은 검증한 로컬 스테이징 파일 전체와 동일했다. PNG blob SHA·소스 레지스트리 해시도 대조했다.
+- 원격 브랜치를 먼저 만들고 upstream을 연결했으며, 게시한 커밋으로 로컬을 동기화했다. 추가 인증이나 토큰은 필요하지 않았다.
+- 최종 문서 커밋 및 Windows/Linux CI 결과는 이슈 #6에서 추적한다. 사용자 검토·병합은 대기 상태다.
 
 ## 검토·보완·제한
 

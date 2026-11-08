@@ -12,7 +12,7 @@
 | 0 환경·운영 준비 | [#3](https://github.com/ntt65/A2_1/issues/3) | 환경, AGENTS, 계획, 템플릿, CI | 없음 | 로컬 검증 완료, [PR #11](https://github.com/ntt65/A2_1/pull/11) 검토 대기 |
 | 1 공통 기반 | [#4](https://github.com/ntt65/A2_1/issues/4) | utils, cache, registry | 0 | 구현·로컬 48개 검증 완료, [PR #12](https://github.com/ntt65/A2_1/pull/12) 검토 대기(선행 #11) |
 | 2 선형대수 | [#5](https://github.com/ntt65/A2_1/issues/5) | linear_algebra.py, 검증, PNG | 1 | 구현·로컬 87개 검사 완료, [PR #13](https://github.com/ntt65/A2_1/pull/13) 검토 대기(선행 #12) |
-| 3 미적분 | [#6](https://github.com/ntt65/A2_1/issues/6) | calculus.py, 검증, PNG | 2 | 구현·로컬105개 검사 완료(선행 PR #13) |
+| 3 미적분 | [#6](https://github.com/ntt65/A2_1/issues/6) | calculus.py, 검증, PNG | 2 | 구현·로컬105개 검사 완료, [PR #14](https://github.com/ntt65/A2_1/pull/14) 검토 대기(선행 #13) |
 | 4 최적화 | [#7](https://github.com/ntt65/A2_1/issues/7) | optimizer.py, 검증, PNG | 3 | 계획됨 |
 | 5 역전파 | [#8](https://github.com/ntt65/A2_1/issues/8) | backprop_derivation.ipynb | 4 | 계획됨 |
 | 6 확률·손실 | [#9](https://github.com/ntt65/A2_1/issues/9) | probability_loss.ipynb | 5 | 계획됨 |
@@ -130,5 +130,5 @@ A2_1/
 - [x] gradient/접선 그림·h별 오차 그림과 PNG/JSON 재현 명령 작성
 - [x] 코드·수학·시각 검토 및 보완·전체 회귀 검증
 - [x] 문서·수용 기준·색인·실측 작업 기록 갱신
-- [ ] 원격 게시·PR·최종 CI·이슈 기록
+- [x] 원격 게시·PR #14·구현/검증 이슈 기록(최종 CI 결과는 이슈 #6 참조)
 - [ ] 선행 PR 및 Step 3 검토·병합
