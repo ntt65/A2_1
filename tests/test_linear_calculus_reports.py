@@ -1,4 +1,4 @@
-"""Independent content and dishonest-PASS regression checks for report renderers."""
+"""보고서 렌더러의 내용을 독립 기준으로 확인하고 부정확한 PASS 표시를 검출한다."""
 
 from copy import deepcopy
 import json
@@ -14,30 +14,30 @@ __covers__ = ["scripts/report_linear_calculus.py"]
 
 
 class LinearCalculusReportTests(unittest.TestCase):
-    """Check saved measurements against independent constants without rerunning experiments."""
+    """실험을 재실행하지 않고 저장된 측정값을 독립 상수와 비교한다."""
 
     @classmethod
     def setUpClass(cls):
-        """Read the two delivered JSON dictionaries and seed once at this test entry."""
+        """제출한 JSON 사전 두 개를 읽고 이 테스트 시작점에서 시드를 한 번 설정한다."""
         set_seed(42)
         output = Path(__file__).resolve().parents[1] / "outputs"
         cls.linear = json.loads((output / "linear_algebra_metrics.json").read_text(encoding="utf-8"))
         cls.calculus = json.loads((output / "calculus_metrics.json").read_text(encoding="utf-8"))
 
     def test_linear_contains_measured_inputs_and_all_svd_ranks(self):
-        """Known determinants, eigenvalue and storage counts must appear with all three figures linked."""
+        """알려진 행렬식·고유값·저장량과 세 그림 링크 및 모든 SVD 랭크가 보고서에 있는지 확인한다."""
         report = render_linear_algebra(self.linear)
         np.testing.assert_allclose(
             [row["determinant"] for row in self.linear["transforms"].values()],
             [1, 1, 1, -6, 0], atol=1e-14, rtol=0,
-        )
+        )	# 저장된 행렬식 다섯 개를 독립 상수 1·1·1·-6·0과 비교한다.
         np.testing.assert_allclose(self.linear["power_iteration"]["eigenvalue"],
-                                   4.618033988749895, atol=1e-14, rtol=0)
+                                   4.618033988749895, atol=1e-14, rtol=0)	# 고유값의 독립 닫힌형 수치와 비교한다.
         np.testing.assert_allclose(
             [row["relative_error"] for row in self.linear["svd"][1]["comparisons"]],
             [.1275184713562091, .05938687046053636, .01218300917179587],
             atol=1e-14, rtol=0,
-        )
+        )	# 128×128 영상의 세 랭크 오차가 알려진 실측 상수와 일치하는지 확인한다.
         for text in ("[[1,1],[0,1]]", "[[-2,0],[0,3]]", "4.618033988749896",
                      "0.31494140625", "1.568603515625", "64×64", "128×128",
                      "linear_transforms.png", "svd_64.png", "svd_128.png",
@@ -54,12 +54,12 @@ class LinearCalculusReportTests(unittest.TestCase):
             self.assertRegex(report, r"!\[[^\]]+\]\(" + filename.replace(".", r"\.") + r"\)")
 
     def test_calculus_distinguishes_fixed_check_from_sample_sweep(self):
-        """Independent x² constants show one fixed PASS and 46/61 passing sampled h values."""
+        """x²의 독립 상수로 고정 PASS 한 건과 h 표본 61개 중 46개 통과를 구별한다."""
         report = render_calculus(self.calculus)
         study = self.calculus["step_size_study"]
         np.testing.assert_allclose(self.calculus["derivative"]["numerical"],
                                    6.000000000039306, atol=1e-14, rtol=0)
-        self.assertEqual(sum(error <= 1e-4 for error in study["quadratic_error"]), 46)
+        self.assertEqual(sum(error <= 1e-4 for error in study["quadratic_error"]), 46)	# 고정 미분 검증과 달리 h 표본 스윕은 61개 중 46개 통과임을 확인한다.
         np.testing.assert_allclose(max(study["quadratic_error"]),
                                    .6709294817992486, atol=1e-14, rtol=0)
         for text in ("46/61", "15/61", "0.6709294817992486", "(9,2)",
@@ -71,15 +71,15 @@ class LinearCalculusReportTests(unittest.TestCase):
         self.assertLessEqual(len(report.splitlines()), 55)
 
     def test_consistent_failing_measurements_render_fail(self):
-        """Stale true flags cannot turn actual area, eigenpair, SVD or derivative failures into PASS."""
+        """오래된 참 플래그가 실제 넓이·고유쌍·SVD·도함수 실패를 PASS로 바꾸지 못하는지 확인한다."""
         report = deepcopy(self.linear)
         scaling = report["transforms"]["scaling"]
         scaling.update(area_after=2 * scaling["area_before"], area_ratio=2.0, error=1.0)
         text = render_linear_algebra(report)
-        self.assertIn("| FAIL |", next(line for line in text.splitlines() if line.startswith("| scaling |")))
+        self.assertIn("| FAIL |", next(line for line in text.splitlines() if line.startswith("| scaling |")))	# 저장된 참 플래그가 있어도 실제 넓이비 실패는 FAIL로 출력한다.
         report = deepcopy(self.linear)
         eigenpair = report["power_iteration"]
-        # For v=(1,0), lambda=4: A v-lambda v=(0,1), ||A||F=sqrt(27).
+        # v=(1,0), lambda=4이면 A v-lambda v=(0,1)이고 ||A||F=sqrt(27)이다.
         relative = (4.618033988749895 - 4.) / 4.618033988749895
         residual = 1. / np.sqrt(27.)
         eigenpair.update(eigenvalue=4., eigenvector=[1., 0.], relative_error=relative,
@@ -88,28 +88,28 @@ class LinearCalculusReportTests(unittest.TestCase):
                                                 independent_relative_residual=residual)
         text = render_linear_algebra(report)
         self.assertIn("≤ 0.05: FAIL", text)
-        self.assertIn("≤ 1e-6: FAIL", text)
+        self.assertIn("≤ 1e-6: FAIL", text)	# 잘못된 고유쌍의 잔차 실패도 본문에 드러내야 한다.
         report = deepcopy(self.linear)
         report["svd"][0]["full_rank_relative_error"] = .01
         report["svd"][0]["comparisons"][-1]["relative_error"] = .01
         self.assertIn("완전 rank 오차=0.01 ≤ 1e-10: FAIL", render_linear_algebra(report))
         report = deepcopy(self.calculus)
         report["derivative"].update(numerical=7.0, absolute_error=1.0)
-        self.assertIn("| 고정 중심차분 | 7 | 6 | 1 | 0.0001 | FAIL |", render_calculus(report))
+        self.assertIn("| 고정 중심차분 | 7 | 6 | 1 | 0.0001 | FAIL |", render_calculus(report))	# 해석값 6과 다른 수치 도함수 7을 성공으로 표시하지 않는다.
 
     def test_changed_h_error_splits_the_passing_sample_groups(self):
-        """One injected interior failure changes both counts and prevents bridging the sample gap."""
+        """내부 표본 하나의 실패를 주입하면 통과 개수와 구간이 바뀌어 간격을 건너뛰지 않는지 확인한다."""
         report = deepcopy(self.calculus)
         study = report["step_size_study"]
         study["quadratic_derivative"][30] = 6.01
         study["quadratic_error"][30] = abs(6.01 - 6.)
         text = render_calculus(report)
-        self.assertIn("PASS 45/61, FAIL 16/61", text)
+        self.assertIn("PASS 45/61, FAIL 16/61", text)	# 실패 표본 하나를 추가하면 통과·실패 수가 45/61·16/61로 바뀐다.
         self.assertIn("(15표본);", text)
         self.assertIn("(30표본)", text)
 
     def test_inconsistent_or_nonfinite_evidence_is_rejected(self):
-        """Tampered summaries, tolerances, identities and shapes fail instead of publishing stale PASS."""
+        """변조한 요약·허용오차·항등식·형상을 거부하여 오래된 PASS를 게시하지 않는지 확인한다."""
         cases = []
         for field, value in (("error", .2), ("tolerance", 1.0), ("determinant", 2.0)):
             report = deepcopy(self.linear)
@@ -137,13 +137,13 @@ class LinearCalculusReportTests(unittest.TestCase):
                 renderer(report)
 
     def test_rendering_preserves_inputs_rng_and_is_deterministic(self):
-        """Pure rendering must neither mutate its dictionaries nor consume/reset global RNG."""
+        """순수 렌더링이 입력 사전을 바꾸거나 전역 난수를 소비·초기화하지 않고 결정적인지 확인한다."""
         for renderer, report in ((render_linear_algebra, self.linear), (render_calculus, self.calculus)):
             before = deepcopy(report)
             state = np.random.get_state()
             self.assertEqual(renderer(report), renderer(report))
-            self.assertEqual(report, before)
+            self.assertEqual(report, before)	# 순수 렌더링이 측정 사전을 수정하지 않는다.
             after = np.random.get_state()
             self.assertEqual(state[0], after[0])
-            np.testing.assert_array_equal(state[1], after[1])
+            np.testing.assert_array_equal(state[1], after[1])	# 보고서 작성이 전역 난수 상태 배열을 소비하거나 초기화하지 않는다.
             self.assertEqual(state[2:], after[2:])

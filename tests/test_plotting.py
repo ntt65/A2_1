@@ -1,4 +1,4 @@
-"""Checks for reusable contour grids and headless plot construction."""
+"""재사용 가능한 등고선 격자와 화면 없는 그림 생성을 검증한다."""
 
 from pathlib import Path
 import tempfile
@@ -16,37 +16,37 @@ __covers__ = ["src/utils/plotting.py"]
 
 
 class ContourTests(unittest.TestCase):
-    """Validate geometry, function contracts, figure ownership, and PNG export."""
+    """기하학적 배치, 함수 조건, 그림 소유권과 PNG 출력을 확인한다."""
 
     def test_mesh_orientation_and_values(self):
-        """A known affine function checks xy indexing independently of the grid implementation."""
+        """알려진 일차함수로 구현과 독립적으로 xy 인덱싱 방향과 격자값을 확인한다."""
         x_grid, y_grid, values = contour_grid(lambda x, y: x + 2 * y, (-2, 2), (-1, 1), 3)
-        np.testing.assert_array_equal(x_grid, [[-2, 0, 2]] * 3)
+        np.testing.assert_array_equal(x_grid, [[-2, 0, 2]] * 3)	# x가 열 방향으로 증가하는 xy 격자 관례를 확인한다.
         np.testing.assert_array_equal(y_grid, [[-1] * 3, [0] * 3, [1] * 3])
-        np.testing.assert_array_equal(values, [[-4, -2, 0], [-2, 0, 2], [0, 2, 4]])
+        np.testing.assert_array_equal(values, [[-4, -2, 0], [-2, 0, 2], [0, 2, 4]])	# 알려진 일차함수를 격자 각 좌표에 직접 대입한 표와 비교한다.
         for array in (x_grid, y_grid, values):
             assert array.shape == (3, 3)
             assert array.dtype == np.float64
 
     def test_contour_figure_can_be_saved(self):
-        """The reusable base labels both axes and exports an actual PNG without showing a window."""
+        """재사용 가능한 기본 그림이 두 축 이름을 표시하고 창 없이 실제 PNG로 저장되는지 확인한다."""
         figure, axes = contour_base(lambda x, y: x + y, points=9, levels=5, title="Grid check")
         try:
             assert axes.figure is figure
             assert axes.get_xlabel() == "x"
             assert axes.get_ylabel() == "y"
             assert axes.get_title() == "Grid check"
-            assert axes.get_aspect() == 1.0
+            assert axes.get_aspect() == 1.0	# x와 y의 길이를 같은 축척으로 표시한다.
             with tempfile.TemporaryDirectory() as directory:
                 target = Path(directory) / "contours.png"
                 figure.savefig(target)
-                assert target.read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
+                assert target.read_bytes().startswith(b"\x89PNG\r\n\x1a\n")	# 화면을 띄우지 않아도 실제 PNG 바이트가 생성되는지 확인한다.
                 assert target.stat().st_size > 100
         finally:
             plt.close(figure)
 
     def test_invalid_grid_parameters(self):
-        """Invalid ranges or point counts fail before allocating a mesh or figure."""
+        """잘못된 구간이나 점 개수를 격자·그림 할당 전에 거부하는지 확인한다."""
         for bounds in ((1, 1), (2, 1), (0, np.inf), (0,), (0, 1, 2)):
             with self.subTest(bounds=bounds):
                 with self.assertRaises(ValueError):
@@ -63,7 +63,7 @@ class ContourTests(unittest.TestCase):
             contour_grid(lambda x, y: x, x_range=(-1e308, 1e308))
 
     def test_invalid_function_output(self):
-        """The grid function must provide finite real values with the exact grid shape."""
+        """격자 함수가 정확한 격자 형상의 유한 실수 값을 제공해야 하는지 확인한다."""
         for function in (
             lambda x, y: 1.0,
             lambda x, y: x[0],
@@ -75,7 +75,7 @@ class ContourTests(unittest.TestCase):
             contour_grid(lambda x, y: x.astype(complex), points=3)
 
     def test_invalid_levels_do_not_leak_figures(self):
-        """Reject invalid contour levels without creating a figure requiring cleanup."""
+        """잘못된 등고선 수준을 거부할 때 정리가 필요한 그림을 남기지 않는지 확인한다."""
         before = plt.get_fignums()
         for levels in (0, -1):
             with self.assertRaises(ValueError):
@@ -83,7 +83,7 @@ class ContourTests(unittest.TestCase):
         for levels in (True, 2.5):
             with self.assertRaises(TypeError):
                 contour_base(lambda x, y: x, levels=levels)
-        assert plt.get_fignums() == before
+        assert plt.get_fignums() == before	# 잘못된 등고선 수준을 거부할 때 Figure가 누출되지 않는다.
 
 
 if __name__ == "__main__":

@@ -1,1 +1,1 @@
-"""Reusable numerical, plotting, reproducibility, and cache utilities."""
+"""수치 계산, 시각화, 난수 재현성과 캐시에 사용하는 공통 도구를 제공한다."""

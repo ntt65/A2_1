@@ -1,4 +1,4 @@
-"""Smoke checks for the shared Python, plotting, and notebook environment."""
+"""공통 Python·그림·노트북 실행 환경의 기본 동작을 검증한다."""
 
 import importlib
 import json
@@ -9,17 +9,17 @@ import unittest
 
 
 class EnvironmentTests(unittest.TestCase):
-    """Verify that the environment can run the project's required workflows."""
+    """프로젝트에 필요한 실행 흐름을 현재 환경에서 수행할 수 있는지 확인한다."""
 
     def test_python_and_required_imports(self):
-        """Use the project's Python minor version and import every direct dependency."""
-        assert sys.version_info[:2] == (3, 11), sys.version
+        """프로젝트의 Python 부버전과 모든 직접 의존성의 가져오기를 확인한다."""
+        assert sys.version_info[:2] == (3, 11), sys.version	# 잠금 환경의 Python 부버전 3.11을 정확히 확인한다.
         for name in ("numpy", "matplotlib", "seaborn", "nbformat", "nbclient", "ipykernel"):
             with self.subTest(module=name):
-                assert importlib.import_module(name) is not None
+                assert importlib.import_module(name) is not None	# 직접 의존성 각각을 실제로 가져와 설치 상태를 확인한다.
 
     def test_headless_png_rendering(self):
-        """Render an actual PNG without requiring a graphical desktop."""
+        """그래픽 데스크톱 없이 실제 PNG를 렌더하는지 확인한다."""
         import matplotlib
 
         matplotlib.use("Agg", force=True)
@@ -35,11 +35,11 @@ class EnvironmentTests(unittest.TestCase):
                 figure.savefig(output)
             finally:
                 plt.close(figure)
-            assert output.read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
+            assert output.read_bytes().startswith(b"\x89PNG\r\n\x1a\n")	# 파일명만이 아니라 렌더된 PNG 시그니처를 확인한다.
             assert output.stat().st_size > 100
 
     def test_notebook_execution(self):
-        """Execute a notebook using this interpreter without installing a user kernel."""
+        """사용자 커널을 설치하지 않고 현재 인터프리터로 노트북을 실행하는지 확인한다."""
         from jupyter_client import AsyncKernelManager
         from jupyter_client.kernelspec import KernelSpecManager
         from nbclient import NotebookClient
@@ -79,7 +79,7 @@ class EnvironmentTests(unittest.TestCase):
             assert any(
                 item.output_type == "stream" and "A2_1 notebook execution OK" in item.text
                 for item in output
-            ), output
+            ), output	# 현재 인터프리터를 사용하는 실제 노트북 실행의 표준출력을 확인한다.
 
 
 if __name__ == "__main__":

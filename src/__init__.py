@@ -1,1 +1,1 @@
-"""NumPy implementations and shared utilities for the A2_1 math mission."""
+"""A2_1 수학 미션의 NumPy 구현과 공통 유틸리티를 제공한다."""

@@ -1,4 +1,4 @@
-"""Render existing linear-algebra/calculus JSON evidence without running experiments."""
+"""실험을 다시 실행하지 않고 기존 선형대수·미적분 JSON 근거를 보고서로 렌더링한다."""
 
 import numpy as np
 
@@ -12,46 +12,46 @@ __concepts__ = {
 
 
 def _array(value, name: str, shape=None) -> np.ndarray:
-    """Read finite real evidence as float64; reject bool/complex or an unexpected shape."""
+    """유한 실수 근거를 float64로 읽으며 bool/complex와 예상과 다른 shape는 거부한다."""
     result = np.asarray(value)
-    if result.dtype.kind not in "iuf" or (shape is not None and result.shape != shape):
+    if result.dtype.kind not in "iuf" or (shape is not None and result.shape != shape):	# 실수 자료형과 명시한 shape를 먼저 확인한다.
         raise ValueError(f"{name}: require real values with shape {shape}")
-    result = result.astype(np.float64)
-    if not np.all(np.isfinite(result)):
+    result = result.astype(np.float64)	# 근거 비교에 공통 float64를 사용한다.
+    if not np.all(np.isfinite(result)):	# 비유한 값을 성공 근거로 받아들이지 않는다.
         raise ValueError(f"{name}: evidence must be finite")
     return result
 
 
 def _scalar(value, name: str, nonnegative: bool = False) -> float:
-    """Read a finite scalar measurement, optionally nonnegative; invalid evidence raises ValueError."""
-    result = float(_array(value, name, ()))
+    """필요하면 비음수 조건도 적용하여 유한 스칼라 측정값을 읽고 잘못된 근거에는 ValueError를 낸다."""
+    result = float(_array(value, name, ()))	# shape () 검증을 거쳐 실제 스칼라만 읽는다.
     if nonnegative and result < 0:
         raise ValueError(f"{name}: require a nonnegative measurement")
     return result
 
 
 def _agree(actual, expected, name: str, atol: float = 1e-14) -> None:
-    """Reject inconsistent summary/known-input values using equal shapes and explicit tolerances."""
+    """같은 shape와 명시적 허용치로 요약값·알려진 입력값의 불일치를 거부한다."""
     reference = _array(expected, name)
-    observed = _array(actual, name, reference.shape)
-    if not np.allclose(observed, reference, atol=atol, rtol=1e-12):
+    observed = _array(actual, name, reference.shape)	# 기대값과 정확히 같은 shape를 요구해 브로드캐스팅 비교를 막는다.
+    if not np.allclose(observed, reference, atol=atol, rtol=1e-12):	# 요약값과 원래 입력에서 도출한 값의 일관성을 검사한다.
         raise ValueError(f"{name}: evidence is inconsistent with its inputs")
 
 
 def _fmt(value: float) -> str:
-    """Preserve a float's round-trip digits, displaying whole-number measurements without .0."""
+    """float를 다시 읽어도 같은 값이 되도록 자릿수를 보존하며 정수인 측정값의 .0만 생략한다."""
     number = float(value)
-    return str(int(number)) if number.is_integer() else repr(number)
+    return str(int(number)) if number.is_integer() else repr(number)	# 값을 보존하면서 보고서 표시만 구성한다.
 
 
 def _verdict(passed: bool) -> str:
-    """Return a verdict from the checked numerical condition, never from a stored PASS label."""
-    return "PASS" if passed else "FAIL"
+    """저장된 PASS 표기가 아니라 실제로 검사한 수치 조건에서 판정을 만든다."""
+    return "PASS" if passed else "FAIL"	# 호출 시 계산한 조건으로 PASS/FAIL을 결정한다.
 
 
 def _header(report: dict, title: str, stem: str) -> list[str]:
-    """Build the fixed seed/dtype and reproduction header; reject unsupported experiment metadata."""
-    if isinstance(report["seed"], bool) or report["seed"] != 42 or report["dtype"] != "float64":
+    """고정 seed/dtype과 재현 안내 머리말을 만들고 지원하지 않는 실험 메타데이터는 거부한다."""
+    if isinstance(report["seed"], bool) or report["seed"] != 42 or report["dtype"] != "float64":	# 보고서가 지정된 재현 조건에 대응하는지 확인한다.
         raise ValueError("these reports require the seed-42 float64 experiment")
     return [
         f"# {title}", "",
@@ -62,13 +62,12 @@ def _header(report: dict, title: str, stem: str) -> list[str]:
 
 
 def render_linear_algebra(report: dict) -> str:
-    """Render the default run_linear_algebra dictionary as Markdown, with no I/O or RNG use.
+    """입출력이나 난수 사용 없이 기본 run_linear_algebra 사전을 Markdown으로 렌더링한다.
 
-    The report contains five transform cases, a (2,2) eigenproblem, and SVD
-    evidence for (64,64)/(128,128). Measurements are checked against fixed
-    inputs and acceptance thresholds; failed measurements produce FAIL.
-    Missing fields raise KeyError; malformed/inconsistent evidence raises
-    ValueError. No eig/SVD/area experiment is rerun and the dictionary is unchanged.
+    보고서는 변환 다섯 사례, (2,2) 고유값 문제, (64,64)/(128,128)의 SVD 근거를
+    포함한다. 측정값을 고정 입력과 수용 기준에 대조하며 실패한 측정은 FAIL로
+    표시한다. 누락 필드는 KeyError, 잘못되거나 모순된 근거는 ValueError를 낸다.
+    eig/SVD/면적 실험을 다시 실행하지 않으며 입력 사전을 변경하지 않는다.
     """
     lines = _header(report, "선형대수 실행 결과", "linear_algebra")
     lines += [
@@ -88,7 +87,7 @@ def render_linear_algebra(report: dict) -> str:
         ("shear", "[[1,1],[0,1]]", 1), ("reflection", "[[-2,0],[0,3]]", -6),
         ("singular", "[[2,0],[0,0]]", 0),
     )
-    if set(transforms) != {case[0] for case in cases}:
+    if set(transforms) != {case[0] for case in cases}:	# 기본 다섯 변환 사례의 누락이나 추가를 거부한다.
         raise ValueError("the five fixed transform cases are required")
     for name, matrix, known_determinant in cases:
         data = transforms[name]
@@ -99,16 +98,16 @@ def render_linear_algebra(report: dict) -> str:
         error = _scalar(data["error"], "area error", True)
         if before == 0:
             raise ValueError("source polygon area must be positive")
-        _agree(determinant, known_determinant, "fixed transform determinant")
+        _agree(determinant, known_determinant, "fixed transform determinant")	# 고정 행렬의 독립 행렬식과 실측을 비교한다.
         _agree(data["expected_ratio"], abs(determinant), "expected area ratio")
-        _agree(ratio, after / before, "area ratio")
-        expected_error = abs(ratio - abs(determinant))
+        _agree(ratio, after / before, "area ratio")	# 원시 면적에서 계산한 비율과 저장 요약을 대조한다.
+        expected_error = abs(ratio - abs(determinant))	# 먼저 면적비의 절대 차이를 계산한다.
         if known_determinant != 0:
-            expected_error /= abs(determinant)
+            expected_error /= abs(determinant)	# 비특이 행렬에만 상대오차 분모를 적용한다.
         _agree(error, expected_error, "area error")
         kind = "relative" if known_determinant else "absolute"
         tolerance = .01 if known_determinant else 1e-10
-        _agree(data["tolerance"], tolerance, "area tolerance", atol=0)
+        _agree(data["tolerance"], tolerance, "area tolerance", atol=0)	# 검증된 수용 기준의 허용치가 변경되지 않았는지 확인한다.
         if data["error_kind"] != kind:
             raise ValueError("area error_kind does not match singular/non-singular case")
         lines.append(f"| {name} | `{matrix}` | {_fmt(determinant)} | {_fmt(before)} → {_fmt(after)} "
@@ -132,24 +131,24 @@ def render_linear_algebra(report: dict) -> str:
         "초기 영벡터는 정규화할 수 없어 거부한다. Av=0이면 길이로 나누지 않고 영 곱 종료를 보고한다.", ""]
     eigenpair = report["power_iteration"]
     comparison = eigenpair["numpy_eig_comparison"]
-    _agree(eigenpair["matrix"], [[4, 1], [1, 3]], "eigenproblem matrix", atol=0)
+    _agree(eigenpair["matrix"], [[4, 1], [1, 3]], "eigenproblem matrix", atol=0)	# 저장된 행렬이 고정 고유값 문제와 같은지 확인한다.
     _agree(eigenpair["initial"], [1, 1], "initial eigenvector", atol=0)
     eigenvalue = _scalar(eigenpair["eigenvalue"], "eigenvalue")
     reference = _scalar(comparison["numpy_eigenvalue"], "numpy eigenvalue")
-    independent = (7 + np.sqrt(5.0)) / 2
+    independent = (7 + np.sqrt(5.0)) / 2	# 반복 구현이나 eig 결과와 독립적인 해석 기준을 사용한다.
     _agree(reference, independent, "independent eigenvalue")
     _agree(eigenpair["reference"], independent, "analytic eigenvalue")
     relative = abs(eigenvalue - reference) / abs(reference)
-    _agree(comparison["relative_eigenvalue_error"], relative, "eig relative error")
+    _agree(comparison["relative_eigenvalue_error"], relative, "eig relative error")	# 보고된 고유값 오차가 원시 두 값의 차이와 일치해야 한다.
     _agree(eigenpair["relative_error"], abs(eigenvalue - independent) / independent,
            "analytic relative error")
     residual = _scalar(eigenpair["relative_residual"], "residual", True)
-    vector = _array(eigenpair["eigenvector"], "eigenvector", (2,))
-    _agree(np.linalg.norm(vector), 1., "normalized eigenvector")
+    vector = _array(eigenpair["eigenvector"], "eigenvector", (2,))	# 요약 잔차만 믿지 않고 실제 고유벡터를 검증한다.
+    _agree(np.linalg.norm(vector), 1., "normalized eigenvector")	# 반복 결과 벡터의 단위 길이를 확인한다.
     matrix = _array(eigenpair["matrix"], "eigenproblem matrix", (2, 2))
-    observed_residual = np.linalg.norm(matrix @ vector - eigenvalue * vector) / (
+    observed_residual = np.linalg.norm(matrix @ vector - eigenvalue * vector) / (	# 원시 고유쌍으로 상대 잔차를 다시 계산한다.
         np.linalg.norm(matrix, ord="fro") * np.linalg.norm(vector))
-    _agree(residual, observed_residual, "eigenpair residual")
+    _agree(residual, observed_residual, "eigenpair residual")	# 저장된 잔차가 실제 고유쌍과 모순되면 거부한다.
     _agree(comparison["independent_relative_residual"], residual, "independent residual")
     _agree(comparison["relative_eigenvalue_tolerance"], .05, "eig tolerance", atol=0)
     _agree(comparison["relative_residual_tolerance"], 1e-6, "residual tolerance", atol=0)
@@ -175,7 +174,7 @@ def render_linear_algebra(report: dict) -> str:
         "|---|---:|---:|---:|",
     ]
     images = report["svd"]
-    if len(images) != 2:
+    if len(images) != 2:	# 64와 128 입력을 혼합하거나 누락하지 못하게 한다.
         raise ValueError("both the 64 and 128 SVD experiments are required")
     full_rows = []
     for image, size, ranks in zip(images, (64, 128), ((10, 50, 64), (10, 50, 100))):
@@ -184,18 +183,18 @@ def render_linear_algebra(report: dict) -> str:
             raise ValueError("SVD filename does not match its shape")
         _agree(image["numerical_rank"], size, "SVD numerical rank", atol=0)
         rows = image["comparisons"]
-        if [row["k"] for row in rows] != list(ranks):
+        if [row["k"] for row in rows] != list(ranks):	# 각 입력 크기에서 선언한 유효 rank만 허용한다.
             raise ValueError("SVD comparisons do not contain the fixed valid ranks")
         errors = []
         for row in rows:
             error = _scalar(row["relative_error"], "SVD error", True)
             ratio = _scalar(row["stored_over_original"], "SVD storage ratio", True)
-            _agree(ratio, row["k"] * (2 * size + 1) / size**2, "SVD storage ratio", atol=0)
+            _agree(ratio, row["k"] * (2 * size + 1) / size**2, "SVD storage ratio", atol=0)	# 저장 비율을 수치 인자의 원소 수 식으로 대조한다.
             errors.append(error)
             lines.append(f"| {size}×{size} | {row['k']} | {_fmt(error)} | {_fmt(ratio)} |")
         full_error = _scalar(image["full_rank_relative_error"], "full rank error", True)
         if ranks[-1] == size:
-            _agree(full_error, errors[-1], "full-rank comparison error")
+            _agree(full_error, errors[-1], "full-rank comparison error")	# 전체 rank 행과 별도 완전 복원 검사값이 같아야 한다.
         full_rows.append(f"{size}×{size}: 완전 rank 오차={_fmt(full_error)} ≤ 1e-10: "
                          f"{_verdict(full_error <= 1e-10)}; k 증가 시 오차 비증가(atol=1e-12): "
                          f"{_verdict(bool(np.all(np.diff(errors) <= 1e-12)))}.")
@@ -209,16 +208,16 @@ def render_linear_algebra(report: dict) -> str:
               "그림 사이의 차이를 rank 효과 하나로 설명하지 않는다.", "",
               "![64×64 합성 이미지의 원본과 rank 10·50·64 복원](svd_64.png)", "",
               "![128×128 합성 이미지의 원본과 rank 10·50·100 복원](svd_128.png)"]
-    return "\n".join(lines) + "\n"
+    return "\n".join(lines) + "\n"	# 검증 후 기존 보고서 문자열을 줄바꿈으로 연결한다.
 
 
 def render_calculus(report: dict) -> str:
-    """Render the default run_calculus dictionary as Markdown, with no I/O or experiment rerun.
+    """입출력이나 실험 재실행 없이 기본 run_calculus 사전을 Markdown으로 렌더링한다.
 
-    Requires the fixed x=3/h=1e-5 case, (9,2) gradient evidence and a finite
-    ordered h grid. Derived error summaries are checked against saved arrays;
-    bad measurements display FAIL, while inconsistent/malformed dictionaries
-    raise ValueError (missing fields raise KeyError). Inputs and RNG are unchanged.
+    고정 x=3/h=1e-5 사례, (9,2) gradient 근거와 유한한 순서 있는 h 격자가 필요하다.
+    저장된 배열과 오차 요약을 대조한다. 기준을 벗어난 측정은 FAIL로 표시하지만
+    잘못되거나 모순된 사전은 ValueError, 누락 필드는 KeyError를 발생시킨다.
+    입력과 난수 상태는 변경하지 않는다.
     """
     lines = _header(report, "미적분 실행 결과", "calculus")
     lines += [
@@ -230,11 +229,11 @@ def render_calculus(report: dict) -> str:
     derivative = report["derivative"]
     if derivative["function"] != "x**2":
         raise ValueError("the fixed derivative function must be x**2")
-    _agree([derivative["x"], derivative["h"], derivative["analytic"], derivative["tolerance"]],
+    _agree([derivative["x"], derivative["h"], derivative["analytic"], derivative["tolerance"]],	# 고정 입력·해석 미분·허용치가 원래 조건과 일치하는지 확인한다.
            [3, 1e-5, 6, 1e-4], "fixed derivative conditions", atol=0)
     numerical = _scalar(derivative["numerical"], "numerical derivative")
     error = abs(numerical - 6)
-    _agree(derivative["absolute_error"], error, "derivative error")
+    _agree(derivative["absolute_error"], error, "derivative error")	# 보고된 오차를 원시 수치 미분값으로 교차 검증한다.
     lines += [
         "## 중심차분과 h 탐색", "",
         "f(x)=x², x=3, h=1e-5; (f(x+h)−f(x−h))/(2h), 해석값 f′(3)=6.", "",
@@ -248,8 +247,8 @@ def render_calculus(report: dict) -> str:
         raise ValueError("h grid must be a nonempty vector")
     quadratic_values = _array(study["quadratic_derivative"], "quadratic derivatives", steps.shape)
     errors = _array(study["quadratic_error"], "quadratic errors", steps.shape)
-    _agree(errors, np.abs(quadratic_values - 6), "sampled quadratic errors")
-    summary = step_size_summary(steps, errors, tolerance=1e-4)
+    _agree(errors, np.abs(quadratic_values - 6), "sampled quadratic errors")	# h별 원시 미분값에서 오차 배열을 재계산한다.
+    summary = step_size_summary(steps, errors, tolerance=1e-4)	# 연속 구간을 보장하지 않는 표본 요약 함수를 재사용한다.
     count, passing = summary["sample_count"], summary["passing_count"]
     groups = "; ".join(
         f"{_fmt(group['first_h'])}~{_fmt(group['last_h'])} ({group['sample_count']}표본)"
@@ -258,7 +257,7 @@ def render_calculus(report: dict) -> str:
     minima = ", ".join(_fmt(value) for value in summary["minimizing_sampled_h"])
     sine_values = _array(study["sine_derivative"], "sine derivatives", steps.shape)
     sine_errors = _array(study["sine_error"], "sine errors", steps.shape)
-    _agree(sine_errors, np.abs(sine_values - np.cos(3.0)), "sampled sine errors")
+    _agree(sine_errors, np.abs(sine_values - np.cos(3.0)), "sampled sine errors")	# sine의 독립 해석 미분 cos(3)과 오차를 비교한다.
     sine_summary = step_size_summary(steps, sine_errors, tolerance=1e-4)
     lines += [
         f"x² 탐색: h={_fmt(steps[0])}~{_fmt(steps[-1])}, {count}개 표본. 절대오차 ≤ 1e-4: "
@@ -285,21 +284,21 @@ def render_calculus(report: dict) -> str:
     analytic = _array(gradient["analytic"], "analytic gradients", (9, 2))
     numeric = _array(gradient["numerical"], "numerical gradients", (9, 2))
     tangents = _array(gradient["nonzero_tangents"], "tangents", (8, 2))
-    _agree(analytic, 2 * points, "analytic gradient", atol=0)
+    _agree(analytic, 2 * points, "analytic gradient", atol=0)	# 수치 함수와 독립적인 2*points 식으로 해석 gradient를 확인한다.
     _agree(points[-1], [0, 0], "origin", atol=0)
     _agree(np.linalg.norm(points[:-1], axis=1), np.full(8, 2.), "radius-two sample points")
     _agree(tangents, np.column_stack((-points[:-1, 1], points[:-1, 0])), "tangents", atol=0)
-    gradient_error = float(np.max(np.abs(numeric - analytic)))
+    gradient_error = float(np.max(np.abs(numeric - analytic)))	# 전체 성분의 최대 수치 미분 오차를 다시 구한다.
     _agree(gradient["maximum_absolute_error"], gradient_error, "maximum gradient error")
     _agree(gradient["tolerance"], 1e-8, "gradient tolerance", atol=0)
-    dots = np.sum(analytic[:-1] * tangents, axis=1) / (
+    dots = np.sum(analytic[:-1] * tangents, axis=1) / (	# 원점을 제외한 gradient와 접선의 정규화 내적을 계산한다.
         np.linalg.norm(analytic[:-1], axis=1) * np.linalg.norm(tangents, axis=1))
     _agree(gradient["normalized_dot_products"], dots, "normalized dot products")
     orthogonality = _scalar(gradient["maximum_normalized_dot"], "maximum normalized dot", True)
-    _agree(orthogonality, np.max(np.abs(dots)), "maximum normalized dot")
+    _agree(orthogonality, np.max(np.abs(dots)), "maximum normalized dot")	# 저장된 최대 내적과 원시 내적 배열을 대조한다.
     _agree(gradient["orthogonality_tolerance"], 1e-12, "orthogonality tolerance", atol=0)
     _agree(gradient["origin_gradient"], analytic[-1], "origin gradient", atol=0)
-    if gradient["origin_direction"] is not None:
+    if gradient["origin_direction"] is not None:	# 영벡터인 원점에 임의 방향을 부여한 기록은 거부한다.
         raise ValueError("the origin must not be assigned a gradient direction")
     origin_ok = bool(np.all(numeric[-1] == 0))
     lines += [
@@ -319,4 +318,4 @@ def render_calculus(report: dict) -> str:
         "눈으로 본 수직 관계를 수치로 확인한다.", "",
         "![원형 등고선에 수직인 기울기와 접선 방향 및 원점의 영기울기](gradient_geometry.png)",
     ]
-    return "\n".join(lines) + "\n"
+    return "\n".join(lines) + "\n"	# 검증을 마친 수치와 원래 설명으로 Markdown을 반환한다.

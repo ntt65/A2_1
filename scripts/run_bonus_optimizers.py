@@ -1,11 +1,11 @@
-"""Reproduce the mission's Adam and Newton comparisons with declared budgets."""
+"""명시한 갱신 예산으로 미션의 Adam·Newton 비교를 재현한다."""
 
 import argparse
 import json
 from pathlib import Path
 
 import matplotlib
-matplotlib.use("Agg")
+matplotlib.use("Agg")	# 파일 저장용 비대화형 백엔드를 pyplot보다 먼저 선택한다.
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -31,48 +31,48 @@ __concepts__ = {
 def trajectory(objective_name: str, method: str, lr: float, steps: int = 200,
                initial=(5.0, 5.0), gradient_tolerance=None,
                cache: CacheManager | None = None) -> dict:
-    """Compute/cache a declared quadratic path(k+1,2) and loss/norm histories.
+    """지정한 이차함수의 path(k+1,2)와 손실·norm 이력을 계산하거나 캐시에서 읽는다.
 
-    Names are circle/ellipse and GD/Momentum/Adam/Newton. All inputs become
-    float64; initial is exactly (2,), steps a nonnegative integer, and optional
-    tolerance a finite nonnegative scalar. Method hyperparameters are fixed
-    and recorded. Cache identity includes all numerical inputs, dtype/shape,
-    versions, seed and stopping policy. Invalid inputs propagate exceptions.
-    No RNG is consumed and cached returns own their arrays.
+    목적함수 이름은 circle/ellipse, 방법은 GD/Momentum/Adam/Newton이다.
+    모든 입력은 float64로 변환한다. initial은 정확히 (2,), steps는 음이 아닌
+    정수이며 선택적 tolerance는 유한한 음이 아닌 스칼라다. 방법별 하이퍼파라미터는
+    고정하고 기록한다. 캐시 식별에는 전체 수치 입력, dtype/shape, 버전, seed와
+    종료 정책을 포함한다. 잘못된 입력의 예외는 호출자에게 전달한다.
+    난수를 소비하지 않으며 캐시 반환 배열은 독립적인 소유권을 갖는다.
     """
     if objective_name not in ("circle", "ellipse"):
         raise ValueError("objective_name must be circle or ellipse")
     if method not in ("GD", "Momentum", "Adam", "Newton"):
         raise ValueError("method must be GD, Momentum, Adam or Newton")
-    point = _as_finite_real_array(initial, "initial").copy()
-    if point.shape != (2,):
+    point = _as_finite_real_array(initial, "initial").copy()	# 호출자의 초기 배열을 변경하지 않도록 복사한다.
+    if point.shape != (2,):	# 이 실험은 정확히 이차원 초기점만 허용한다.
         raise ValueError("initial must have shape (2,)")
     if isinstance(steps, (bool, np.bool_)) or not isinstance(steps, (int, np.integer)):
         raise TypeError("steps must be an integer")
     if steps < 0:
         raise ValueError("steps must be nonnegative")
-    tolerance = None if gradient_tolerance is None else _finite_scalar(gradient_tolerance, "gradient_tolerance")
+    tolerance = None if gradient_tolerance is None else _finite_scalar(gradient_tolerance, "gradient_tolerance")	# 조기 종료 허용치가 있으면 유한 스칼라로 검증한다.
     if tolerance is not None and tolerance < 0:
         raise ValueError("gradient_tolerance must be nonnegative")
-    hessian = circle_hessian if objective_name == "circle" else elliptic_hessian
+    hessian = circle_hessian if objective_name == "circle" else elliptic_hessian	# 목적함수에 맞는 Hessian 함수를 선택한다.
     if method == "GD":
         optimizer, settings = VanillaGD(lr), {}
     elif method == "Momentum":
         optimizer, settings = Momentum(lr, beta=0.9), {"beta": 0.9}
     elif method == "Adam":
         settings = {"beta1": 0.9, "beta2": 0.999, "epsilon": 1e-8}
-        optimizer = Adam(lr=lr, **settings)
+        optimizer = Adam(lr=lr, **settings)	# 고정된 모멘트 계수와 epsilon으로 Adam 상태를 시작한다.
     else:
-        optimizer, settings = NewtonMethod(hessian, lr=lr), {"hessian_policy": "symmetric_positive_definite"}
+        optimizer, settings = NewtonMethod(hessian, lr=lr), {"hessian_policy": "symmetric_positive_definite"}	# 유한·대칭·양의 정부호 Hessian 계약을 가진 Newton을 생성한다.
     objective = (lambda p: quadratic(p[0], p[1])) if objective_name == "circle" else elliptic
     gradient = quadratic_gradient if objective_name == "circle" else elliptic_gradient
-    parameters = {"objective": objective_name, "method": method, "lr": optimizer.lr,
+    parameters = {"objective": objective_name, "method": method, "lr": optimizer.lr,	# 캐시와 결과에 동일한 실행 설정을 기록한다.
                   "settings": settings, "steps_budget": int(steps),
                   "gradient_tolerance": tolerance, "seed": 42, "numpy_version": np.__version__}
 
     def compute() -> dict:
-        """Run a fresh optimizer and return finite histories plus radius statistics."""
-        result = run_optimization(objective, gradient, point, optimizer, steps=int(steps),
+        """새 최적화 상태로 실행하여 유한한 이력과 반경 통계를 반환한다."""
+        result = run_optimization(objective, gradient, point, optimizer, steps=int(steps),	# 선택한 종료 기준으로 공통 최적화 실행기를 호출한다.
                                   gradient_tolerance=tolerance)
         return {**parameters, "initial": point.copy(), "path": result.path,
                 "losses": result.losses, "gradient_norms": result.gradient_norms,
@@ -81,18 +81,18 @@ def trajectory(objective_name: str, method: str, lr: float, steps: int = 200,
 
     if cache is None:
         return compute()
-    key = make_cache_key("bonus_optimizer", "adam-corrected-newton-spd-v1", point, parameters)
+    key = make_cache_key("bonus_optimizer", "adam-corrected-newton-spd-v1", point, parameters)	# 입력 좌표 전체와 계산 버전·설정으로 캐시를 구분한다.
     return cache.get_or_compute(key, compute)
 
 
 def json_record(record: dict) -> dict:
-    """Convert the flat record's NumPy arrays to lists without altering scalar metadata."""
-    return {key: value.tolist() if isinstance(value, np.ndarray) else value for key, value in record.items()}
+    """평탄한 기록의 NumPy 배열을 목록으로 바꾸되 스칼라 메타데이터는 보존한다."""
+    return {key: value.tolist() if isinstance(value, np.ndarray) else value for key, value in record.items()}	# 원시 기록의 배열만 JSON 목록으로 변환한다.
 
 
 def report_markdown(report: dict) -> str:
-    """Format measured speed/accuracy and distinguish update counts from total work."""
-    lines = ["# Adam and Newton: executed comparison", "",
+    """실측 속도·정확도를 표시하고 갱신 횟수와 전체 계산 비용을 구분한다."""
+    lines = ["# Adam and Newton: executed comparison", "",	# 실측 보고서의 기존 Markdown 본문과 표 구조를 구성한다.
              "Reproduce: `python -m scripts.run_bonus_optimizers --no-cache`.", "",
              "float64; seed 42; start=(5,5). Adam: beta1=.9, beta2=.999, epsilon=1e-8; "
              "Momentum: beta=.9. Same rate within each three-method comparison; 200 updates.", "",
@@ -121,71 +121,71 @@ def report_markdown(report: dict) -> str:
               "Fixed damping does not guarantee global convergence on arbitrary nonlinear objectives.", ""]
     for figure in report["figures"]:
         lines += [f"![{figure['filename']}]({figure['filename']})", ""]
-    return "\n".join(lines)
+    return "\n".join(lines)	# 본문 문자열을 변경하지 않고 줄바꿈으로 결합한다.
 
 
 def run_experiment(output_dir: Path, use_cache: bool = True) -> dict:
-    """Generate three PNGs plus JSON/Markdown after independent quadratic checks.
+    """독립적인 이차함수 검증 뒤 PNG 세 개와 JSON/Markdown을 생성한다.
 
-    The execution boundary seeds once. Existing artifacts are not rewritten.
-    Paths are (201,2) in fixed-budget comparisons; early-stop Newton/GD paths
-    contain accepted updates plus their initial point. Failed assertions or
-    filesystem errors propagate and each Figure is closed after saving.
+    실험 시작점에서 seed를 한 번 설정하며 기존 기본 산출물을 덮어쓰지 않는다.
+    고정 예산 비교의 경로는 (201,2)이고, 조기 종료하는 Newton/GD 경로는
+    수락한 갱신 수에 초기점 하나를 더한 길이다. assert 실패와 파일 시스템
+    오류는 전달하며 각 Figure는 저장 후 닫는다.
     """
-    set_seed(42)
+    set_seed(42)	# 독립 실험의 시작점에서 난수 시드를 한 번 고정한다.
     output_dir = Path(output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents=True, exist_ok=True)	# 산출물을 저장할 디렉터리를 준비한다.
     cache = CacheManager(".cache/bonus_optimizers", enabled=use_cache)
     comparisons, figures = {}, []
     for name, rate in (("circle", 0.1), ("ellipse", 0.05)):
-        runs = {method: trajectory(name, method, rate, cache=cache) for method in ("GD", "Momentum", "Adam")}
+        runs = {method: trajectory(name, method, rate, cache=cache) for method in ("GD", "Momentum", "Adam")}	# 원형·타원형 각각 같은 조건에서 세 방법을 실행한다.
         for record in runs.values():
-            assert record["path"].shape == (201, 2) and record["iterations"] == 200
+            assert record["path"].shape == (201, 2) and record["iterations"] == 200	# 200회 갱신과 초기점을 포함한 (201,2) 경로를 확인한다.
             assert record["status"] == "budget_exhausted"
             assert np.all(np.isfinite(record["path"]))
-        factors = np.array([1-2*rate, 1-2*rate if name == "circle" else 1-20*rate])
-        expected = np.full((201, 2), 5.0) * factors[None, :]**np.arange(201)[:, None]
-        np.testing.assert_allclose(runs["GD"]["path"], expected, atol=1e-14, rtol=1e-12)
+        factors = np.array([1-2*rate, 1-2*rate if name == "circle" else 1-20*rate])	# 각 좌표의 GD 갱신 배율을 독립 식으로 구한다.
+        expected = np.full((201, 2), 5.0) * factors[None, :]**np.arange(201)[:, None]	# 전체 201개 좌표에 대한 닫힌 해를 구성한다.
+        np.testing.assert_allclose(runs["GD"]["path"], expected, atol=1e-14, rtol=1e-12)	# 실제 GD 경로 전체를 독립 기대값과 비교한다.
         surface = quadratic if name == "circle" else (lambda x, y: x*x + 10*y*y)
         figure, _ = optimizer_comparison_figure(
             runs, surface, f"{name.title()}: GD / Momentum / Adam, lr={rate}, start=(5,5), 200 updates")
         filename = f"bonus_adam_{name}.png"
         try:
-            figure.savefig(output_dir / filename, dpi=140)
+            figure.savefig(output_dir / filename, dpi=140)	# 축·범례가 포함된 그림을 지정 출력 경로에 저장한다.
         finally:
-            plt.close(figure)
+            plt.close(figure)	# 저장 성공 여부와 관계없이 그림 자원을 해제한다.
         figures.append({"filename": filename, "dpi": 140})
         comparisons[name] = {method: json_record(run) for method, run in runs.items()}
-    newton = {method: trajectory("ellipse", method, rate, gradient_tolerance=1e-8, cache=cache)
+    newton = {method: trajectory("ellipse", method, rate, gradient_tolerance=1e-8, cache=cache)	# 두 방법에 같은 gradient 종료 허용치를 적용한다.
               for method, rate in (("GD", 0.05), ("Newton", 1.0))}
-    np.testing.assert_allclose(newton["Newton"]["path"][-1], [0, 0], atol=1e-12, rtol=0)
-    assert newton["Newton"]["iterations"] == 1
-    assert all(record["status"] == "gradient_tolerance" for record in newton.values())
+    np.testing.assert_allclose(newton["Newton"]["path"][-1], [0, 0], atol=1e-12, rtol=0)	# 순수 Newton이 이 이차함수의 원점에 도달했는지 검사한다.
+    assert newton["Newton"]["iterations"] == 1	# 원점 도달에 수락된 갱신이 한 번인지 확인한다.
+    assert all(record["status"] == "gradient_tolerance" for record in newton.values())	# GD와 Newton 모두 동일한 gradient 기준으로 종료해야 한다.
     figure, _ = optimizer_comparison_figure(
         newton, lambda x, y: x*x+10*y*y,
         "Ellipse: GD lr=.05 / Newton lr=1; start=(5,5); max 200; gradient tolerance 1e-8")
     try:
-        figure.savefig(output_dir / "bonus_newton_ellipse.png", dpi=140)
+        figure.savefig(output_dir / "bonus_newton_ellipse.png", dpi=140)	# 축·범례가 포함된 그림을 지정 출력 경로에 저장한다.
     finally:
-        plt.close(figure)
+        plt.close(figure)	# 저장 성공 여부와 관계없이 그림 자원을 해제한다.
     figures.append({"filename": "bonus_newton_ellipse.png", "dpi": 140})
     report = {"seed": 42, "dtype": "float64", "numpy_version": np.__version__,
               "adam_comparisons": comparisons,
               "newton_comparison": {method: json_record(run) for method, run in newton.items()},
               "figures": figures, "all_assertions_passed": True}
-    (output_dir / "bonus_optimizer_metrics.json").write_text(
+    (output_dir / "bonus_optimizer_metrics.json").write_text(	# 모든 수치 검증 뒤 보너스 결과를 JSON으로 저장한다.
         json.dumps(report, indent=2, ensure_ascii=False, allow_nan=False)+"\n", encoding="utf-8", newline="\n")
-    (output_dir / "bonus_optimizer_report.md").write_text(report_markdown(report), encoding="utf-8", newline="\n")
+    (output_dir / "bonus_optimizer_report.md").write_text(report_markdown(report), encoding="utf-8", newline="\n")	# 같은 실측 기록으로 읽기용 Markdown을 저장한다.
     return report
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Run the declared optimizer experiments; successful checks return zero."""
+    """지정한 최적화 실험을 실행하며 검증이 성공하면 종료 코드 0을 반환한다."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output-dir", type=Path, default=Path("outputs"))
     parser.add_argument("--no-cache", action="store_true")
-    args = parser.parse_args(argv)
-    report = run_experiment(args.output_dir, not args.no_cache)
+    args = parser.parse_args(argv)	# 호출자가 제공한 명령행 인자를 해석한다.
+    report = run_experiment(args.output_dir, not args.no_cache)	# 명령행 옵션에 따라 보너스 실험을 실행한다.
     for name, methods in report["adam_comparisons"].items():
         print(name+": "+"; ".join(f"{method} radius={r['final_radius']:.6e}, stay={r['remaining_inside_radius_0_1_through_budget']}"
                                   for method, r in methods.items()))
@@ -195,4 +195,4 @@ def main(argv: list[str] | None = None) -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(main())	# 명령행 실행 결과를 프로세스 종료 코드로 전달한다.
