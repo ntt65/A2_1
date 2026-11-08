@@ -444,6 +444,230 @@
         "tests/test_probability_notebook.py"
       ]
     },
+    "scripts/report_linear_calculus.py": {
+      "concepts": [
+        "Calculus_Experiment",
+        "Linear_Algebra_Experiment",
+        "Submission_Reports"
+      ],
+      "covers": [],
+      "dependencies": [
+        "numpy",
+        "scripts.run_evaluation_evidence"
+      ],
+      "language": "python",
+      "sha256": "3d6cdc0ea1f1d6ee7102b30d82e2207f9dc3225877d5a294d79b6b9bf4d8c9e4",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 22,
+          "kind": "function",
+          "line": 14,
+          "name": "_array"
+        },
+        {
+          "concepts": [],
+          "end_line": 30,
+          "kind": "function",
+          "line": 25,
+          "name": "_scalar"
+        },
+        {
+          "concepts": [],
+          "end_line": 38,
+          "kind": "function",
+          "line": 33,
+          "name": "_agree"
+        },
+        {
+          "concepts": [],
+          "end_line": 44,
+          "kind": "function",
+          "line": 41,
+          "name": "_fmt"
+        },
+        {
+          "concepts": [],
+          "end_line": 49,
+          "kind": "function",
+          "line": 47,
+          "name": "_verdict"
+        },
+        {
+          "concepts": [],
+          "end_line": 61,
+          "kind": "function",
+          "line": 52,
+          "name": "_header"
+        },
+        {
+          "concepts": [
+            "Linear_Algebra_Experiment",
+            "Submission_Reports"
+          ],
+          "end_line": 212,
+          "kind": "function",
+          "line": 64,
+          "name": "render_linear_algebra"
+        },
+        {
+          "concepts": [
+            "Calculus_Experiment",
+            "Submission_Reports"
+          ],
+          "end_line": 322,
+          "kind": "function",
+          "line": 215,
+          "name": "render_calculus"
+        }
+      ],
+      "tests": [
+        "tests/test_linear_calculus_reports.py"
+      ]
+    },
+    "scripts/report_notebooks.py": {
+      "concepts": [
+        "Notebook_Markdown_Reports"
+      ],
+      "covers": [],
+      "dependencies": [
+        "numpy"
+      ],
+      "language": "python",
+      "sha256": "a6aa497c8612c3f1311deabc933beeea1f03c7a181f95e6e4dbefd1e3f6efd44",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 44,
+          "kind": "function",
+          "line": 32,
+          "name": "_array"
+        },
+        {
+          "concepts": [],
+          "end_line": 52,
+          "kind": "function",
+          "line": 47,
+          "name": "_close"
+        },
+        {
+          "concepts": [],
+          "end_line": 64,
+          "kind": "function",
+          "line": 55,
+          "name": "_cell"
+        },
+        {
+          "concepts": [],
+          "end_line": 73,
+          "kind": "function",
+          "line": 67,
+          "name": "_markdown"
+        },
+        {
+          "concepts": [],
+          "end_line": 92,
+          "kind": "function",
+          "line": 76,
+          "name": "_execution"
+        },
+        {
+          "concepts": [],
+          "end_line": 103,
+          "kind": "function",
+          "line": 95,
+          "name": "_format"
+        },
+        {
+          "concepts": [],
+          "end_line": 140,
+          "kind": "function",
+          "line": 106,
+          "name": "_stdout_sections"
+        },
+        {
+          "concepts": [
+            "Notebook_Markdown_Reports"
+          ],
+          "end_line": 213,
+          "kind": "function",
+          "line": 143,
+          "name": "render_backprop"
+        },
+        {
+          "concepts": [],
+          "end_line": 279,
+          "kind": "function",
+          "line": 216,
+          "name": "_validate_probability"
+        },
+        {
+          "concepts": [
+            "Notebook_Markdown_Reports"
+          ],
+          "end_line": 346,
+          "kind": "function",
+          "line": 282,
+          "name": "render_probability"
+        }
+      ],
+      "tests": [
+        "tests/test_notebook_reports.py"
+      ]
+    },
+    "scripts/report_optimizer.py": {
+      "concepts": [
+        "Optimizer_Readable_Report"
+      ],
+      "covers": [],
+      "dependencies": [
+        "numpy"
+      ],
+      "language": "python",
+      "sha256": "c083f9f2a46fa4b71a80f2570996b9cb172b396a740eb0af4ca26976cd1d2ea7",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 21,
+          "kind": "function",
+          "line": 8,
+          "name": "_array"
+        },
+        {
+          "concepts": [],
+          "end_line": 73,
+          "kind": "function",
+          "line": 24,
+          "name": "_validate_run"
+        },
+        {
+          "concepts": [],
+          "end_line": 78,
+          "kind": "function",
+          "line": 76,
+          "name": "_number"
+        },
+        {
+          "concepts": [],
+          "end_line": 83,
+          "kind": "function",
+          "line": 81,
+          "name": "_point"
+        },
+        {
+          "concepts": [
+            "Optimizer_Readable_Report"
+          ],
+          "end_line": 177,
+          "kind": "function",
+          "line": 86,
+          "name": "render_optimizer"
+        }
+      ],
+      "tests": [
+        "tests/test_optimizer_report.py"
+      ]
+    },
     "scripts/run_bonus_optimizers.py": {
       "concepts": [
         "Bonus_Optimizer_Cache",
@@ -1023,6 +1247,100 @@
       ],
       "tests": [
         "tests/test_optimizer_sensitivity.py"
+      ]
+    },
+    "scripts/run_submission_reports.py": {
+      "concepts": [
+        "Readable_Experiment_Reports",
+        "Readme_Result_Integration",
+        "Report_Reproduction_Check"
+      ],
+      "covers": [],
+      "dependencies": [
+        "__future__",
+        "argparse",
+        "hashlib",
+        "json",
+        "math",
+        "matplotlib",
+        "numpy",
+        "os",
+        "pathlib",
+        "platform",
+        "re",
+        "scripts.report_linear_calculus",
+        "scripts.report_notebooks",
+        "scripts.report_optimizer",
+        "scripts.run_calculus",
+        "scripts.run_linear_algebra",
+        "scripts.run_notebooks",
+        "scripts.run_optimizer",
+        "sys",
+        "tempfile"
+      ],
+      "language": "python",
+      "sha256": "80e4576b787029305b348decbf2ff8bc21dc610095487d11308a62d42c8065b0",
+      "symbols": [
+        {
+          "concepts": [
+            "Report_Reproduction_Check"
+          ],
+          "end_line": 73,
+          "kind": "function",
+          "line": 42,
+          "name": "check_reproduction"
+        },
+        {
+          "concepts": [],
+          "end_line": 95,
+          "kind": "function",
+          "line": 76,
+          "name": "_rebase_links"
+        },
+        {
+          "concepts": [],
+          "end_line": 94,
+          "kind": "function",
+          "line": 83,
+          "name": "_rebase_links.replace"
+        },
+        {
+          "concepts": [
+            "Readme_Result_Integration"
+          ],
+          "end_line": 133,
+          "kind": "function",
+          "line": 98,
+          "name": "updated_readme"
+        },
+        {
+          "concepts": [],
+          "end_line": 152,
+          "kind": "function",
+          "line": 136,
+          "name": "_environment_header"
+        },
+        {
+          "concepts": [
+            "Readable_Experiment_Reports"
+          ],
+          "end_line": 213,
+          "kind": "function",
+          "line": 155,
+          "name": "run_reports"
+        },
+        {
+          "concepts": [
+            "Readable_Experiment_Reports"
+          ],
+          "end_line": 224,
+          "kind": "function",
+          "line": 216,
+          "name": "main"
+        }
+      ],
+      "tests": [
+        "tests/test_submission_reports.py"
       ]
     },
     "scripts/update_registry.py": {
@@ -3316,6 +3634,82 @@
       ],
       "tests": []
     },
+    "tests/test_linear_calculus_reports.py": {
+      "concepts": [],
+      "covers": [
+        "scripts/report_linear_calculus.py"
+      ],
+      "dependencies": [
+        "copy",
+        "json",
+        "numpy",
+        "pathlib",
+        "scripts.report_linear_calculus",
+        "src.utils.random",
+        "unittest"
+      ],
+      "language": "python",
+      "sha256": "4e4411fcf718857caeb7ab3287c7c1b00af9c287132ca24ea9f1ee93e2db9c41",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 149,
+          "kind": "class",
+          "line": 16,
+          "name": "LinearCalculusReportTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 25,
+          "kind": "method",
+          "line": 20,
+          "name": "LinearCalculusReportTests.setUpClass"
+        },
+        {
+          "concepts": [],
+          "end_line": 54,
+          "kind": "method",
+          "line": 27,
+          "name": "LinearCalculusReportTests.test_linear_contains_measured_inputs_and_all_svd_ranks"
+        },
+        {
+          "concepts": [],
+          "end_line": 71,
+          "kind": "method",
+          "line": 56,
+          "name": "LinearCalculusReportTests.test_calculus_distinguishes_fixed_check_from_sample_sweep"
+        },
+        {
+          "concepts": [],
+          "end_line": 98,
+          "kind": "method",
+          "line": 73,
+          "name": "LinearCalculusReportTests.test_consistent_failing_measurements_render_fail"
+        },
+        {
+          "concepts": [],
+          "end_line": 109,
+          "kind": "method",
+          "line": 100,
+          "name": "LinearCalculusReportTests.test_changed_h_error_splits_the_passing_sample_groups"
+        },
+        {
+          "concepts": [],
+          "end_line": 137,
+          "kind": "method",
+          "line": 111,
+          "name": "LinearCalculusReportTests.test_inconsistent_or_nonfinite_evidence_is_rejected"
+        },
+        {
+          "concepts": [],
+          "end_line": 149,
+          "kind": "method",
+          "line": 139,
+          "name": "LinearCalculusReportTests.test_rendering_preserves_inputs_rng_and_is_deterministic"
+        }
+      ],
+      "tests": []
+    },
     "tests/test_linear_transforms.py": {
       "concepts": [],
       "covers": [
@@ -3720,6 +4114,96 @@
       ],
       "tests": []
     },
+    "tests/test_notebook_reports.py": {
+      "concepts": [],
+      "covers": [
+        "scripts/report_notebooks.py"
+      ],
+      "dependencies": [
+        "copy",
+        "json",
+        "nbformat",
+        "numpy",
+        "pathlib",
+        "scripts.report_notebooks",
+        "unittest"
+      ],
+      "language": "python",
+      "sha256": "db71be1c944230e501c160cc489176881071a8b12355de0dff4b5e7ec2259c8c",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 22,
+          "kind": "function",
+          "line": 17,
+          "name": "fixtures"
+        },
+        {
+          "concepts": [],
+          "end_line": 169,
+          "kind": "class",
+          "line": 25,
+          "name": "NotebookReportTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 45,
+          "kind": "method",
+          "line": 28,
+          "name": "NotebookReportTests.test_backprop_contains_fixed_values_all_shapes_and_derivations"
+        },
+        {
+          "concepts": [],
+          "end_line": 65,
+          "kind": "method",
+          "line": 47,
+          "name": "NotebookReportTests.test_probability_contains_distributions_likelihoods_and_boundaries"
+        },
+        {
+          "concepts": [],
+          "end_line": 82,
+          "kind": "method",
+          "line": 67,
+          "name": "NotebookReportTests.test_backprop_injected_mismatch_cannot_reuse_true_flags"
+        },
+        {
+          "concepts": [],
+          "end_line": 103,
+          "kind": "method",
+          "line": 84,
+          "name": "NotebookReportTests.test_probability_injected_mismatch_cannot_claim_pass"
+        },
+        {
+          "concepts": [],
+          "end_line": 121,
+          "kind": "method",
+          "line": 105,
+          "name": "NotebookReportTests.test_missing_or_wrong_derivation_cells_raise_precise_errors"
+        },
+        {
+          "concepts": [],
+          "end_line": 149,
+          "kind": "method",
+          "line": 123,
+          "name": "NotebookReportTests.test_unexecuted_or_error_outputs_are_rejected"
+        },
+        {
+          "concepts": [],
+          "end_line": 162,
+          "kind": "method",
+          "line": 151,
+          "name": "NotebookReportTests.test_renderers_preserve_inputs_and_random_state"
+        },
+        {
+          "concepts": [],
+          "end_line": 169,
+          "kind": "method",
+          "line": 164,
+          "name": "NotebookReportTests.test_plain_json_notebook_sources_are_supported"
+        }
+      ],
+      "tests": []
+    },
     "tests/test_optimizer.py": {
       "concepts": [],
       "covers": [
@@ -3962,6 +4446,74 @@
           "kind": "method",
           "line": 79,
           "name": "OptimizerExperimentTests.test_cli_outputs_and_stability_cases"
+        }
+      ],
+      "tests": []
+    },
+    "tests/test_optimizer_report.py": {
+      "concepts": [],
+      "covers": [
+        "scripts/report_optimizer.py"
+      ],
+      "dependencies": [
+        "copy",
+        "json",
+        "numpy",
+        "pathlib",
+        "scripts.report_optimizer",
+        "unittest"
+      ],
+      "language": "python",
+      "sha256": "676fe785b2577814d00235a8d3a95e0982b607d5d906f36e0762eff548aa5050",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 42,
+          "kind": "function",
+          "line": 15,
+          "name": "_run_fixture"
+        },
+        {
+          "concepts": [],
+          "end_line": 50,
+          "kind": "function",
+          "line": 45,
+          "name": "_fixture"
+        },
+        {
+          "concepts": [],
+          "end_line": 141,
+          "kind": "class",
+          "line": 53,
+          "name": "OptimizerReportTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 86,
+          "kind": "method",
+          "line": 56,
+          "name": "OptimizerReportTests.test_independent_fixture_reports_all_conditions_and_checkpoints"
+        },
+        {
+          "concepts": [],
+          "end_line": 98,
+          "kind": "method",
+          "line": 88,
+          "name": "OptimizerReportTests.test_real_committed_measurements_render_without_mutation"
+        },
+        {
+          "concepts": [],
+          "end_line": 109,
+          "kind": "method",
+          "line": 100,
+          "name": "OptimizerReportTests.test_injected_summary_errors_are_rejected"
+        },
+        {
+          "concepts": [],
+          "end_line": 141,
+          "kind": "method",
+          "line": 111,
+          "name": "OptimizerReportTests.test_inconsistent_history_nonfinite_and_missing_data_are_rejected"
         }
       ],
       "tests": []
@@ -4412,6 +4964,67 @@
           "kind": "method",
           "line": 152,
           "name": "RegistryTests.test_cli_exit_codes"
+        }
+      ],
+      "tests": []
+    },
+    "tests/test_submission_reports.py": {
+      "concepts": [],
+      "covers": [
+        "scripts/run_submission_reports.py"
+      ],
+      "dependencies": [
+        "hashlib",
+        "pathlib",
+        "scripts.run_submission_reports",
+        "tempfile",
+        "unittest",
+        "unittest.mock"
+      ],
+      "language": "python",
+      "sha256": "bda2b5e32fc9e072116c8753f034008dd97e98b8ec53fc569b8584d04a1feea5",
+      "symbols": [
+        {
+          "concepts": [],
+          "end_line": 96,
+          "kind": "class",
+          "line": 16,
+          "name": "SubmissionReportTests"
+        },
+        {
+          "concepts": [],
+          "end_line": 33,
+          "kind": "method",
+          "line": 19,
+          "name": "SubmissionReportTests.test_reproduction_rejects_drift_shape_metadata_and_nonfinite"
+        },
+        {
+          "concepts": [],
+          "end_line": 45,
+          "kind": "method",
+          "line": 35,
+          "name": "SubmissionReportTests.test_readme_block_is_idempotent_and_keeps_images"
+        },
+        {
+          "concepts": [],
+          "end_line": 59,
+          "kind": "method",
+          "line": 47,
+          "name": "SubmissionReportTests.test_malformed_readme_fails_before_execution"
+        },
+        {
+          "concepts": [],
+          "end_line": 73,
+          "kind": "method",
+          "line": 61,
+          "name": "SubmissionReportTests.test_failed_experiment_publishes_no_reports"
+        },
+        {
+          "concepts": [],
+          "end_line": 96,
+          "kind": "method",
+          "line": 75,
+          "name": "SubmissionReportTests.test_fresh_execution_publishes_evidence_and_preserves_sources"
         }
       ],
       "tests": []
@@ -5175,6 +5788,18 @@
     "Calculus_Experiment": [
       {
         "dependencies": [
+          "numpy",
+          "scripts.run_evaluation_evidence"
+        ],
+        "line": 215,
+        "path": "scripts/report_linear_calculus.py",
+        "symbol": "render_calculus",
+        "tests": [
+          "tests/test_linear_calculus_reports.py"
+        ]
+      },
+      {
+        "dependencies": [
           "argparse",
           "json",
           "matplotlib",
@@ -5891,6 +6516,18 @@
     "Linear_Algebra_Experiment": [
       {
         "dependencies": [
+          "numpy",
+          "scripts.run_evaluation_evidence"
+        ],
+        "line": 64,
+        "path": "scripts/report_linear_calculus.py",
+        "symbol": "render_linear_algebra",
+        "tests": [
+          "tests/test_linear_calculus_reports.py"
+        ]
+      },
+      {
+        "dependencies": [
           "argparse",
           "json",
           "matplotlib",
@@ -6178,6 +6815,30 @@
         ]
       }
     ],
+    "Notebook_Markdown_Reports": [
+      {
+        "dependencies": [
+          "numpy"
+        ],
+        "line": 143,
+        "path": "scripts/report_notebooks.py",
+        "symbol": "render_backprop",
+        "tests": [
+          "tests/test_notebook_reports.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "numpy"
+        ],
+        "line": 282,
+        "path": "scripts/report_notebooks.py",
+        "symbol": "render_probability",
+        "tests": [
+          "tests/test_notebook_reports.py"
+        ]
+      }
+    ],
     "Numerical_Derivative": [
       {
         "dependencies": [
@@ -6430,6 +7091,19 @@
         "symbol": "main",
         "tests": [
           "tests/test_optimizer_experiment.py"
+        ]
+      }
+    ],
+    "Optimizer_Readable_Report": [
+      {
+        "dependencies": [
+          "numpy"
+        ],
+        "line": 86,
+        "path": "scripts/report_optimizer.py",
+        "symbol": "render_optimizer",
+        "tests": [
+          "tests/test_optimizer_report.py"
         ]
       }
     ],
@@ -6994,6 +7668,100 @@
         ]
       }
     ],
+    "Readable_Experiment_Reports": [
+      {
+        "dependencies": [
+          "__future__",
+          "argparse",
+          "hashlib",
+          "json",
+          "math",
+          "matplotlib",
+          "numpy",
+          "os",
+          "pathlib",
+          "platform",
+          "re",
+          "scripts.report_linear_calculus",
+          "scripts.report_notebooks",
+          "scripts.report_optimizer",
+          "scripts.run_calculus",
+          "scripts.run_linear_algebra",
+          "scripts.run_notebooks",
+          "scripts.run_optimizer",
+          "sys",
+          "tempfile"
+        ],
+        "line": 155,
+        "path": "scripts/run_submission_reports.py",
+        "symbol": "run_reports",
+        "tests": [
+          "tests/test_submission_reports.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "__future__",
+          "argparse",
+          "hashlib",
+          "json",
+          "math",
+          "matplotlib",
+          "numpy",
+          "os",
+          "pathlib",
+          "platform",
+          "re",
+          "scripts.report_linear_calculus",
+          "scripts.report_notebooks",
+          "scripts.report_optimizer",
+          "scripts.run_calculus",
+          "scripts.run_linear_algebra",
+          "scripts.run_notebooks",
+          "scripts.run_optimizer",
+          "sys",
+          "tempfile"
+        ],
+        "line": 216,
+        "path": "scripts/run_submission_reports.py",
+        "symbol": "main",
+        "tests": [
+          "tests/test_submission_reports.py"
+        ]
+      }
+    ],
+    "Readme_Result_Integration": [
+      {
+        "dependencies": [
+          "__future__",
+          "argparse",
+          "hashlib",
+          "json",
+          "math",
+          "matplotlib",
+          "numpy",
+          "os",
+          "pathlib",
+          "platform",
+          "re",
+          "scripts.report_linear_calculus",
+          "scripts.report_notebooks",
+          "scripts.report_optimizer",
+          "scripts.run_calculus",
+          "scripts.run_linear_algebra",
+          "scripts.run_notebooks",
+          "scripts.run_optimizer",
+          "sys",
+          "tempfile"
+        ],
+        "line": 98,
+        "path": "scripts/run_submission_reports.py",
+        "symbol": "updated_readme",
+        "tests": [
+          "tests/test_submission_reports.py"
+        ]
+      }
+    ],
     "Registry": [
       {
         "dependencies": [
@@ -7056,6 +7824,38 @@
         "symbol": "check_registry",
         "tests": [
           "tests/test_registry.py"
+        ]
+      }
+    ],
+    "Report_Reproduction_Check": [
+      {
+        "dependencies": [
+          "__future__",
+          "argparse",
+          "hashlib",
+          "json",
+          "math",
+          "matplotlib",
+          "numpy",
+          "os",
+          "pathlib",
+          "platform",
+          "re",
+          "scripts.report_linear_calculus",
+          "scripts.report_notebooks",
+          "scripts.report_optimizer",
+          "scripts.run_calculus",
+          "scripts.run_linear_algebra",
+          "scripts.run_notebooks",
+          "scripts.run_optimizer",
+          "sys",
+          "tempfile"
+        ],
+        "line": 42,
+        "path": "scripts/run_submission_reports.py",
+        "symbol": "check_reproduction",
+        "tests": [
+          "tests/test_submission_reports.py"
         ]
       }
     ],
@@ -7350,6 +8150,32 @@
         "symbol": "softmax",
         "tests": [
           "tests/test_math_utils.py"
+        ]
+      }
+    ],
+    "Submission_Reports": [
+      {
+        "dependencies": [
+          "numpy",
+          "scripts.run_evaluation_evidence"
+        ],
+        "line": 64,
+        "path": "scripts/report_linear_calculus.py",
+        "symbol": "render_linear_algebra",
+        "tests": [
+          "tests/test_linear_calculus_reports.py"
+        ]
+      },
+      {
+        "dependencies": [
+          "numpy",
+          "scripts.run_evaluation_evidence"
+        ],
+        "line": 215,
+        "path": "scripts/report_linear_calculus.py",
+        "symbol": "render_calculus",
+        "tests": [
+          "tests/test_linear_calculus_reports.py"
         ]
       }
     ],
