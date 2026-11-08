@@ -7,7 +7,8 @@ import unittest
 from unittest.mock import patch
 
 from scripts.run_submission_reports import (
-    BEGIN, END, REPORT_NAMES, ROOT, check_reproduction, run_reports, updated_readme,
+    BEGIN, END, FINITE_DIFFERENCE_PATHS, REPORT_NAMES, ROOT,
+    _check_approximation_accuracy, check_reproduction, run_reports, updated_readme,
 )
 
 __covers__ = ["scripts/run_submission_reports.py"]
@@ -43,6 +44,49 @@ class SubmissionReportTests(unittest.TestCase):
         self.assertIn("![old](outputs/linear_transforms.png)", updated)
         self.assertIn("![plot](outputs/svd_128.png)", updated)
         self.assertIn("[code](src/linear_algebra.py)", updated)
+
+    def test_platform_difference_keeps_analytic_tolerance_and_inputs_strict(self):
+        """The observed Linux/Windows difference meets the unchanged analytic criterion."""
+        import copy
+        import json
+        from scripts.report_linear_calculus import render_calculus
+        reference = json.loads((ROOT / "outputs/calculus_metrics.json").read_text(encoding="utf-8"))
+        actual = copy.deepcopy(reference)
+        actual["gradient"]["numerical"][1][0] = 2.8284271247347443
+        actual["gradient"]["maximum_absolute_error"] = max(
+            abs(left-right) for a, b in zip(actual["gradient"]["numerical"], actual["gradient"]["analytic"])
+            for left, right in zip(a, b))
+        self.assertLessEqual(actual["gradient"]["maximum_absolute_error"], 1e-8)
+        _check_approximation_accuracy("calculus", actual)
+        render_calculus(actual)
+        check_reproduction(actual, reference, "calculus", FINITE_DIFFERENCE_PATHS)
+        for key, value in (("h", 1e-3), ("tolerance", 1.)):
+            invalid = copy.deepcopy(actual)
+            invalid["derivative"][key] = value
+            with self.assertRaises(ValueError):
+                check_reproduction(invalid, reference, "calculus", FINITE_DIFFERENCE_PATHS)
+        for value in (float("nan"), [2.8]):
+            invalid = copy.deepcopy(actual)
+            invalid["gradient"]["numerical"][1][0] = value
+            with self.assertRaises(ValueError):
+                check_reproduction(invalid, reference, "calculus", FINITE_DIFFERENCE_PATHS)
+        invalid = copy.deepcopy(actual)
+        invalid["gradient"]["numerical"][1][0] += 1e-6
+        with self.assertRaises(AssertionError):
+            _check_approximation_accuracy("calculus", invalid)
+        invalid = copy.deepcopy(actual)
+        invalid["gradient"]["maximum_absolute_error"] = 0.
+        with self.assertRaises(ValueError):
+            render_calculus(invalid)
+        invalid = copy.deepcopy(actual)
+        invalid["gradient"]["analytic"][1][0] += 1e-6
+        with self.assertRaises(ValueError):
+            check_reproduction(invalid, reference, "calculus", FINITE_DIFFERENCE_PATHS)
+        for key in ("quadratic_derivative", "sine_derivative"):
+            invalid = copy.deepcopy(actual)
+            invalid["step_size_study"][key][40] += .001
+            with self.assertRaisesRegex(AssertionError, "finite-difference identity"):
+                _check_approximation_accuracy("calculus", invalid)
 
     def test_malformed_readme_fails_before_execution(self):
         """An ambiguous insertion point cannot trigger executions or writes."""
@@ -88,7 +132,7 @@ class SubmissionReportTests(unittest.TestCase):
             for report in reports.values():
                 self.assertIn("source SHA-256", report)
                 self.assertIn("이번 실행 JSON SHA-256", report)
-            for required in ("128×128", "6.000000000039", "공통 네 자리 표시", "Momentum", "Gaussian"):
+            for required in ("128×128", "고정 중심차분", "공통 네 자리 표시", "Momentum", "Gaussian"):
                 self.assertTrue(required.lower() in text.lower(), f"missing evidence: {required}")
             self.assertLess(text.index(BEGIN), text.index("## 보너스"))
             self.assertIn("../../../outputs/", (root / "reports" / REPORT_NAMES[0]).read_text(encoding="utf-8"))

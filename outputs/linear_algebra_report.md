@@ -4,7 +4,7 @@
 
 실행 원본: `scripts/run_linear_algebra.py`; source SHA-256 `4579ecaafbd471fc0830cc2d989341922e75739db17c999aa702bbc501f11f62`.
 
-이번 실행 JSON SHA-256 `79d61a1361ab4d3e1142f3bffea7575980f63948fb7ef94f9f4836187ab76d42`. 기존 제출 JSON과 구조·값 재현 비교 통과(atol=rtol=1e-12). 각 실험의 수학 수용 기준 검증도 별도로 실행했습니다. PNG와 노트북 원본은 수정하지 않았습니다.
+이번 실행 JSON SHA-256 `79d61a1361ab4d3e1142f3bffea7575980f63948fb7ef94f9f4836187ab76d42`. 기존 제출 JSON과 구조·입력·직접 계산값 재현 비교 통과(atol=rtol=1e-12). 중심차분의 플랫폼별 반올림 차이는 저장값의 끝자리 일치 대신 기존 해석값·오차 기준으로 검증했습니다. 각 실험의 수학 수용 기준은 변경하지 않았습니다. PNG와 노트북 원본은 수정하지 않았습니다.
 
 원본: [linear_algebra_metrics.json](linear_algebra_metrics.json); seed=42, dtype=float64.
 전체 재현: `python -m scripts.run_submission_reports`.

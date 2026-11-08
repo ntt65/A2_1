@@ -4,7 +4,7 @@
 
 실행 원본: `scripts/run_calculus.py`; source SHA-256 `e63347572c173104fdb76543a5754b925432b38d048732c96d4195234df9250c`.
 
-이번 실행 JSON SHA-256 `3c1da3ca1abe047c8bc2b39c3776cfe91829e4c4fd680382fa4ed354761d2fa2`. 기존 제출 JSON과 구조·값 재현 비교 통과(atol=rtol=1e-12). 각 실험의 수학 수용 기준 검증도 별도로 실행했습니다. PNG와 노트북 원본은 수정하지 않았습니다.
+이번 실행 JSON SHA-256 `3c1da3ca1abe047c8bc2b39c3776cfe91829e4c4fd680382fa4ed354761d2fa2`. 기존 제출 JSON과 구조·입력·직접 계산값 재현 비교 통과(atol=rtol=1e-12). 중심차분의 플랫폼별 반올림 차이는 저장값의 끝자리 일치 대신 기존 해석값·오차 기준으로 검증했습니다. 각 실험의 수학 수용 기준은 변경하지 않았습니다. PNG와 노트북 원본은 수정하지 않았습니다.
 
 원본: [calculus_metrics.json](calculus_metrics.json); seed=42, dtype=float64.
 전체 재현: `python -m scripts.run_submission_reports`.

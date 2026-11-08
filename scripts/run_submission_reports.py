@@ -32,20 +32,32 @@ REPORT_NAMES = (
     "linear_algebra_report.md", "calculus_report.md", "backprop_report.md",
     "optimizer_report.md", "probability_report.md",
 )
+FINITE_DIFFERENCE_PATHS = (
+    "calculus.derivative.numerical", "calculus.derivative.absolute_error",
+    "calculus.gradient.numerical", "calculus.gradient.maximum_absolute_error",
+    "calculus.step_size_study.quadratic_derivative", "calculus.step_size_study.quadratic_error",
+    "calculus.step_size_study.sine_derivative", "calculus.step_size_study.sine_error",
+    "backprop.numerical_gradient", "backprop.max_numerical_gradient_error",
+    "probability.bce.numerical_sum_gradient", "probability.bce.max_gradient_error",
+)
 __concepts__ = {
     "Readable_Experiment_Reports": ["run_reports", "main"],
-    "Report_Reproduction_Check": ["check_reproduction"],
+    "Report_Reproduction_Check": ["check_reproduction", "_check_approximation_accuracy"],
     "Readme_Result_Integration": ["updated_readme"],
 }
 
 
-def check_reproduction(actual: object, reference: object, location: str = "metrics") -> None:
+def check_reproduction(actual: object, reference: object, location: str = "metrics",
+                       approximation_paths: tuple[str, ...] = ()) -> None:
     """Require matching metric structure and finite values within atol=rtol=1e-12.
 
-    Inputs are JSON-compatible nested dict/list/scalar values with identical
-    shapes. NumPy version labels may differ and are reported separately.
-    Mathematical acceptance assertions already run inside each experiment;
-    this check additionally detects drift from the submitted measurements.
+    Inputs are JSON-compatible values with identical structures. NumPy labels
+    may differ. Explicit approximation_paths contain only finite-difference
+    measurements already checked against independent analytic values by the
+    fresh experiment and renderer. Their shape/finiteness is still required,
+    but platform-dependent cancellation is not compared to Windows last bits.
+    Every other value retains atol=rtol=1e-12; inputs, h and analytic values
+    cannot be skipped. An empty tuple requests strict comparison everywhere.
     Raise ValueError at the first mismatch, never accept NaN/inf as evidence.
     """
     if isinstance(reference, dict):
@@ -53,12 +65,12 @@ def check_reproduction(actual: object, reference: object, location: str = "metri
             raise ValueError(f"{location}: metric keys differ")
         for key in reference:
             if key != "numpy_version":
-                check_reproduction(actual[key], reference[key], f"{location}.{key}")
+                check_reproduction(actual[key], reference[key], f"{location}.{key}", approximation_paths)
     elif isinstance(reference, list):
         if not isinstance(actual, list) or len(actual) != len(reference):
             raise ValueError(f"{location}: metric shape differs")
         for index, (left, right) in enumerate(zip(actual, reference)):
-            check_reproduction(left, right, f"{location}[{index}]")
+            check_reproduction(left, right, f"{location}[{index}]", approximation_paths)
     elif isinstance(reference, bool) or reference is None or isinstance(reference, str):
         if type(actual) is not type(reference) or actual != reference:
             raise ValueError(f"{location}: metric metadata differs")
@@ -67,6 +79,8 @@ def check_reproduction(actual: object, reference: object, location: str = "metri
             raise ValueError(f"{location}: expected a numeric measurement")
         if not math.isfinite(actual) or not math.isfinite(reference):
             raise ValueError(f"{location}: nonfinite measurement")
+        if any(location == path or location.startswith(path + "[") for path in approximation_paths):
+            return
         if not math.isclose(actual, reference, rel_tol=1e-12, abs_tol=1e-12):
             raise ValueError(f"{location}: reproduced value {actual} differs from {reference}")
     else:
@@ -93,6 +107,43 @@ def _rebase_links(text: str, source_dir: Path, destination_dir: Path) -> str:
             relative = target.as_uri()
         return match.group(1) + relative + (separator + anchor if separator else "") + ")"
     return re.sub(r"(!?\[[^\]]*\]\()([^\s)]+)\)", replace, text)
+
+
+def _check_approximation_accuracy(name: str, report: dict) -> None:
+    """Recheck fixed derivative/gradient evidence with unchanged mission tolerances.
+
+    Calculus expects scalar derivative 6 and (9,2) gradient 2*points;
+    backprop has nine scalar parameter derivatives, BCE two logit derivatives.
+    Assertions reject bad finite differences independently of baseline storage.
+    The exploratory h sweep is checked against exact finite differences (6
+    and cos(3)*sin(h)/h) with a conservative 8*eps*scale/h rounding budget for
+    these fixed elementary functions. It need not meet 1e-4 at every h. The
+    renderer also verifies finite arrays and recomputed error summaries.
+    """
+    if name == "calculus":
+        assert abs(report["derivative"]["numerical"] - 6.) <= 1e-4
+        np.testing.assert_allclose(report["gradient"]["numerical"],
+                                   2 * np.asarray(report["gradient"]["points"]), atol=1e-8, rtol=0)
+        study = report["step_size_study"]
+        h = np.asarray(study["h"], dtype=float)
+        assert h.ndim == 1 and np.all(np.isfinite(h)) and np.all(h > 0)
+        eps = np.finfo(float).eps
+        for key, exact, scale in (
+            ("quadratic_derivative", np.full(h.shape, 6.), np.maximum(3., (3.+h)**2)),
+            ("sine_derivative", np.cos(3.) * np.sin(h)/h, np.full(h.shape, 3.)),
+        ):
+            values = np.asarray(study[key], dtype=float)
+            assert values.shape == h.shape and np.all(np.isfinite(values))
+            budget = 8 * eps * scale / h + 8 * eps * np.abs(exact)
+            assert np.all(np.abs(values-exact) <= budget), f"{key}: finite-difference identity violated"
+    elif name == "backprop":
+        np.testing.assert_allclose(report["numerical_gradient"], report["analytical_gradient"],
+                                   atol=1e-6, rtol=0)
+    elif name == "probability":
+        bce = report["bce"]
+        np.testing.assert_allclose(bce["numerical_sum_gradient"],
+                                   np.asarray(bce["probabilities"]) - np.asarray(bce["y"]),
+                                   atol=1e-8, rtol=0)
 
 
 def updated_readme(original: str, reports: dict[str, str], destination_dir: Path = ROOT) -> str:
@@ -146,8 +197,9 @@ def _environment_header(source: Path, raw: Path) -> str:
         f"실행 원본: `{source.relative_to(ROOT).as_posix()}`; "
         f"source SHA-256 `{hashlib.sha256(source.read_bytes()).hexdigest()}`.\n\n"
         f"이번 실행 JSON SHA-256 `{hashlib.sha256(raw.read_bytes()).hexdigest()}`. "
-        "기존 제출 JSON과 구조·값 재현 비교 통과(atol=rtol=1e-12). "
-        "각 실험의 수학 수용 기준 검증도 별도로 실행했습니다. "
+        "기존 제출 JSON과 구조·입력·직접 계산값 재현 비교 통과(atol=rtol=1e-12). "
+        "중심차분의 플랫폼별 반올림 차이는 저장값의 끝자리 일치 대신 기존 해석값·오차 기준으로 검증했습니다. "
+        "각 실험의 수학 수용 기준은 변경하지 않았습니다. "
         "PNG와 노트북 원본은 수정하지 않았습니다.\n\n"
     )
 
@@ -157,7 +209,9 @@ def run_reports(output_dir: Path, readme_path: Path | None = None) -> dict[str, 
 
     PNG/JSON are regenerated only in a temporary directory under ROOT/.cache;
     existing outputs and notebook source bytes are never overwritten. Numeric
-    report data are compared with ROOT/outputs using check_reproduction.
+    report data are compared with ROOT/outputs using check_reproduction after
+    independent math checks; finite differences use their original analytic
+    acceptance criteria rather than platform-specific last-bit equality.
     Returns filename->canonical Markdown (outputs-relative links). Optional
     readme_path updates the bounded result block after every experiment passes.
     Invalid markers, drift, kernel failures and I/O errors propagate; no report
@@ -182,8 +236,7 @@ def run_reports(output_dir: Path, readme_path: Path | None = None) -> dict[str, 
             notebooks[name] = execute_notebook(ROOT / "notebooks" / filename, staging)
             metrics[name] = json.loads((staging / f"{name}_metrics.json").read_text(encoding="utf-8"))
         for name, data in metrics.items():
-            reference = json.loads((ROOT / "outputs" / f"{name}_metrics.json").read_text(encoding="utf-8"))
-            check_reproduction(data, reference, name)
+            _check_approximation_accuracy(name, data)
         rendered = (
             render_linear_algebra(metrics["linear_algebra"]),
             render_calculus(metrics["calculus"]),
@@ -191,6 +244,9 @@ def run_reports(output_dir: Path, readme_path: Path | None = None) -> dict[str, 
             render_optimizer(metrics["optimizer"]),
             render_probability(metrics["probability"], notebooks["probability"]),
         )
+        for name, data in metrics.items():
+            reference = json.loads((ROOT / "outputs" / f"{name}_metrics.json").read_text(encoding="utf-8"))
+            check_reproduction(data, reference, name, FINITE_DIFFERENCE_PATHS)
         sources = (
             "scripts/run_linear_algebra.py", "scripts/run_calculus.py",
             "notebooks/backprop_derivation.ipynb", "scripts/run_optimizer.py",
